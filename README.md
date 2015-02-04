@@ -15,10 +15,11 @@ The project wraps most of the CZMQ api and components in easy to use php compone
 ----------------
 
 ## Build
-Install the required libraries, clone this repo and do a standard make/make install.
+Install the required libraries, clone this repo and do a standard make/make install. The installer puts czmq.ini config file in ```/etc/php5/mods-available```, modify your php.ini to include "extension=czmq.so" or make a symbolic link in ```/etc/php5/cli/conf.d/20-czmq.ini``` or ```/etc/php5/apache2/conf.d/20-czmq.ini``` for default loading in cli and in apache.
+Otherwise use docker! There is a docker config for building the test enviroment.
 
-###Requirements
-To build php-czmq you need to install these libraries:
+### Required Libraries
+
 ```
 # libsodium
 git clone --branch 1.0.2 https://github.com/jedisct1/libsodium.git ./libsodium
@@ -60,3 +61,8 @@ sudo make install
 sudo ldconfig
 cd ..
 ```
+
+----------------
+## Usage
+
+still to come... Take a look at the php tests and at [CZMQ manual](http://czmq.zeromq.org/manual:_start) 
