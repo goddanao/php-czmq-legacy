@@ -1,0 +1,10 @@
+vendor/*
+doc/*
+bin/*
+backup/*
+*~
+*.so
+src/*.o
+composer
+composer.phar
+composer.lock

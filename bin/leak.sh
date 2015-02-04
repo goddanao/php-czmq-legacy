@@ -1,0 +1,3 @@
+#!/bin/sh
+valgrind --gen-suppressions=all --tool=memcheck --leak-check=full --show-leak-kinds=definite --track-origins=yes --suppressions=./valgrind.supp --log-file=czmq.log php -dextension=czmq.so $(which phpunit)
+# valgrind --gen-suppressions=all --tool=memcheck --leak-check=full --show-leak-kinds=definite,possible --track-origins=yes --suppressions=./src/valgrind.supp --suppressions=./src/czmq.supp --log-file=czmq.log php -dextension=czmq.so $(which phpunit)
