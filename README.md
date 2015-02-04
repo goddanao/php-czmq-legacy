@@ -6,18 +6,18 @@ Experimental php binding for [CZMQ](http://czmq.zeromq.org) built with [PHP-CPP]
 
 ##Motivation
 
-The official ZeroMq php binding doesn't cover the CZMQ Api 3, Zyre and others interesting projects/patterns from the ZeromMq community and i whish to implement my first php extension using [PHP-CPP](http://www.php-cpp.com/).
+The official ZeroMq php binding doesn't cover the CZMQ Api 3, Zyre and others interesting projects/patterns from the ZeroMq community and i whish to implement my first php extension using [PHP-CPP](http://www.php-cpp.com/).
 
 ##Status
 
-The project wraps most of the CZMQ api and components in easy to use php components.
+The project wraps most of the CZMQ api and components in easy to use php components. It's in a early stage, please use it only for testing.
+
+----------------
 
 ## Build
-
 Install the required libraries, clone this repo and do a standard make/make install.
 
 ###Requirements
-----------------
 To build php-czmq you need to install these libraries:
 ```
 # libsodium
