@@ -4,9 +4,11 @@ MAINTAINER Andrea Nanni (goddanao) <goddanao@gmail.com>
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git build-essential libtool autoconf automake pkg-config unzip libkrb5-dev php5 php5-dev
-RUN cd /tmp && git clone --branch 1.0.2 https://github.com/jedisct1/libsodium.git ./libsodium && cd ./libsodium && ./autogen.sh && ./configure && make check && make install && ldconfig
-RUN cd /tmp && git clone --branch v4.1.0 git://github.com/zeromq/zeromq4-1.git ./libzmq && cd ./libzmq && ./autogen.sh && ./configure && make && make install && ldconfig
-RUN cd /tmp && git clone --branch v3.0.0 git://github.com/zeromq/czmq.git ./czmq && cd ./czmq && ./autogen.sh && ./configure && make check && make install && ldconfig
+RUN cd /tmp && git clone git://github.com/jedisct1/libsodium.git ./libsodium && cd ./libsodium && ./autogen.sh && ./configure && make check && make install && ldconfig
+RUN cd /tmp && git clone git://github.com/zeromq/libzmq.git ./libzmq && cd ./libzmq && ./autogen.sh && ./configure && make && make install && ldconfig
+RUN cd /tmp && git clone git://github.com/zeromq/czmq.git ./czmq && cd ./czmq && ./autogen.sh && ./configure && make check && make install && ldconfig
+RUN cd /tmp && git clone git://github.com/zeromq/zyre.git ./zyre && cd ./zyre && ./autogen.sh && ./configure && make check && make install && ldconfig
+RUN cd /tmp && git clone git://github.com/malamute/malamute-core.git ./malamute-core && cd ./malamute-core && ./autogen.sh && ./configure && make check && make install && ldconfig
 RUN cd /tmp && git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git ./phpcpp && cd ./phpcpp && make && make install && ldconfig
 RUN cd /tmp && wget https://phar.phpunit.de/phpunit.phar && chmod +x phpunit.phar && mv phpunit.phar /usr/bin/phpunit
 RUN rm /tmp/* -rf

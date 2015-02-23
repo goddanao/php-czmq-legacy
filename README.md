@@ -13,48 +13,28 @@ The project wraps most of the CZMQ api in easy to use php components. It's in a 
 Install the required libraries, clone this repo and do a standard make/make install. The installer puts czmq.ini config file in ```/etc/php5/mods-available```, modify your php.ini to include "extension=czmq.so" or make a symbolic link in ```/etc/php5/cli/conf.d/20-czmq.ini``` or ```/etc/php5/apache2/conf.d/20-czmq.ini``` for default loading in cli and in apache.
 Otherwise use docker! There is a docker config for building the test enviroment.
 
-### Required Libraries
+### Install Required Libraries
 ```
-# libsodium
-git clone --branch 1.0.2 https://github.com/jedisct1/libsodium.git ./libsodium
-cd ./libsodium
-./autogen.sh
-./configure
-make check
-sudo make install
-sudo ldconfig
-cd ..
-
-# libzmq
-git clone --branch v4.1.0 git://github.com/zeromq/zeromq4-1.git ./libzmq
-cd ./libzmq
-./autogen.sh
-./configure
-make check
-sudo make install
-sudo ldconfig
-cd ..
-
-# czmq
-git clone --branch v3.0.0 git://github.com/zeromq/czmq.git ./czmq
-cd ./czmq
-./autogen.sh
-./configure
-make check
-sudo make install
-sudo ldconfig
-cd ..
-
-# phpcpp
-git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git ./phpcpp
-cd ./phpcpp
-./autogen.sh
-./configure
-make check
+git clone git://github.com/jedisct1/libsodium.git
+git clone git://github.com/zeromq/libzmq.git
+git clone git://github.com/zeromq/czmq.git
+git clone git://github.com/zeromq/zyre.git
+git clone git://github.com/malamute/malamute-core.git
+for project in libsodium libzmq czmq zyre malamute-core; do
+    cd $project
+    ./autogen.sh
+    ./configure && make check
+    sudo make install
+    sudo ldconfig
+    cd ..
+done
+git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git
+cd PHP-CPP
+make
 sudo make install
 sudo ldconfig
 cd ..
 ```
 
 ## Usage
-still to come... Take a look at the php tests and at [CZMQ manual](http://czmq.zeromq.org/manual:_start) 
+still to come... Take a look at the php tests and at [CZMQ manual](http://czmq.zeromq.org/manual:_start)
