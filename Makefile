@@ -5,15 +5,15 @@ EXTENSION 			=	${NAME}.so
 INI 				=	${NAME}.ini
 COMPILER			=	g++
 LINKER				=	g++
-COMPILER_FLAGS		=	-w -c -O2 -std=c++11 -fpic -o
+COMPILER_FLAGS		=	-w -c -O2 -g -std=c++11 -fpic -o
 LINKER_FLAGS		=	-shared
-LINKER_DEPENDENCIES	=	-lphpcpp -lczmq
+LINKER_DEPENDENCIES	=	-lphpcpp -lzmq -lczmq -lzyre -lmlm
 
 RM					=	rm -f
 CP					=	cp -f
 MKDIR				=	mkdir -p
 
-SOURCES				=	$(wildcard src/*.cpp)
+SOURCES				=	$(wildcard src/*.cpp) $(wildcard src/**/*.cpp)
 OBJECTS				=	$(SOURCES:%.cpp=%.o)
 
 all:					${OBJECTS} ${EXTENSION}

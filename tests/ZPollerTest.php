@@ -14,7 +14,7 @@ class ZPollerTest extends \PHPUnit_Framework_TestCase {
         $this->rep->bind($endpoint);
         $this->req = new ZSocket('req');
         $this->req->connect($endpoint);
-
+        usleep(100);
 
         $this->poller = new ZPoller();
     }

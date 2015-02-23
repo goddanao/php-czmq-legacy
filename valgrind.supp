@@ -12,3 +12,9 @@
    fun:send
    ...
 }
+{
+   <use_unset_8>
+   Memcheck:Value8
+   fun:_zval_ptr_dtor
+   ...
+}
