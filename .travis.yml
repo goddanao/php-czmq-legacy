@@ -23,6 +23,9 @@ before_script:
 
 script: ./.travis/ci_build.sh
 
+after_success:
+  - echo "extension=czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
 notifications:
   email:
     recipients: goddanao@gmail.com

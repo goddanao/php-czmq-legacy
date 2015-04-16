@@ -1,6 +1,6 @@
 #include "../../include/czmq/zmsg.h"
 
-#define __STDC_FORMAT_MACROS
+#define __STDC_LIMIT_MACROS 1
 #include <inttypes.h>
 
 void ZMsg::__construct(Php::Parameters &param) {
