@@ -16,8 +16,8 @@ before_install:
 install:
   # g++4.8.1
   - if [ "$CXX" == "g++" ]; then sudo apt-get install -qq g++-4.8; fi
-  - if [ "$CXX" == "g++" ]; then export CXX="g++-4.8"; fi
   - if [ "$CXX" == "g++" ]; then export CXXFLAGS="-w -c -O2 -g -std=c++11 -fpic -o"; fi
+  - if [ "$CXX" == "g++" ]; then export CXX="g++-4.8"; fi
 
 # need to install the dependencies
 before_script:
