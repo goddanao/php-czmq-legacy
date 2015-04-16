@@ -27,7 +27,6 @@ ${OBJECTS}:
 
 install:		
 						${CP} ${EXTENSION} ${EXTENSION_DIR}
-						${CP} ${INI} ${INI_DIR}
 				
 clean:
 						${RM} ${EXTENSION} ${OBJECTS}

@@ -9,18 +9,20 @@ void ZGossip::set_verbose(Php::Parameters &param) {
 }
 
 Php::Value ZGossip::bind(Php::Parameters &param) {
-    Php::Value result = nullptr;
+    Php::Value result;
     zstr_sendx (zgossip_handle(), "BIND", param[0].stringValue().c_str(), NULL);
     zstr_sendx (zgossip_handle(), "PORT", NULL);
     char *command, *port_str;
     zstr_recvx (zgossip_handle(), &command, &port_str, NULL);
-    if (streq (command, "PORT"))
-        result = port_str;
+    if (streq (command, "PORT") && port_str != NULL) {
+        std::string port(port_str);
+        result = port;
+    }
     if(command)
         free(command);
     if(port_str)
         free(port_str);
-    return result;
+    return result.isNull() ? nullptr : result;
 }
 
 void ZGossip::connect(Php::Parameters &param) {
