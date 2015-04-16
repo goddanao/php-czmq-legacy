@@ -40,14 +40,14 @@ void ZReactor::remove(Php::Parameters &param) {
     _remove(dynamic_cast<ZHandle *> (param[0].implementation()));
 }
 
-void ZReactor::_remove(ZHandle *remove) {
+void ZReactor::_remove(ZHandle *to_remove) {
     if (_dispatching){
-        _objectsRemoveLater.push_back(remove);
+        _objectsRemoveLater.push_back(to_remove);
         return;
     }
-    _poller.call("remove", _objects[remove]);
-    _objects.erase(remove);
-    _callbacks.erase(remove);
+    _poller.call("remove", _objects[to_remove]);
+    _objects.erase(to_remove);
+    _callbacks.erase(to_remove);
 }
 
 void ZReactor::check_for(Php::Parameters &param) {

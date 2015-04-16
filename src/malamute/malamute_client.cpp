@@ -2,6 +2,10 @@
 #include "../../include/czmq/zmsg.h"
 
 void MalamuteClient::__construct(Php::Parameters &param) {
+    mlm_client_t *client = mlm_client_new();
+	if(!client)
+	    throw Php::Exception("Internal Error: Can't create MalamuteClient.");
+	set_handle(client, true, "malamute_client");
 	_endpoint = (param.size() > 0) ? param[0].stringValue() : "";
 	_address  = (param.size() > 1) ? param[1].stringValue() : "";
 	_timeout  = (param.size() > 2) ? param[2].numericValue() : 0;
@@ -13,12 +17,8 @@ Php::Value MalamuteClient::connect(Php::Parameters &param) {
 	std::string _ep = (param.size() > 0) ? param[0].stringValue() : _endpoint;
 	std::string _ad = (param.size() > 1) ? param[1].stringValue() : _address;
 	int _to = (param.size() > 2) ? param[2].numericValue() : _timeout;
-	mlm_client_t *client = mlm_client_new(_ep.c_str(), _to, _ad.c_str());
-	if(!client)
-		return false;
-	set_handle(client, true, "malamute_client");
-	_connected = true;
-	return true;
+	int rc = mlm_client_connect(mlm_client_handle(), _ep.c_str(), _to, _ad.c_str());
+	return (rc == 0);
 }
 
 void MalamuteClient::set_verbose(Php::Parameters &param) {

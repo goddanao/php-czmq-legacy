@@ -70,20 +70,22 @@ void ZPoller::start(Php::Parameters &param) {
 
 	_stopped = false;
 
+    bool _socket_callable = (param.size() > 0 && param[0].isCallable());
+    bool _idle_callable = idle_callback.isCallable();
+
 	while(!_stopped) {
 		void *socket = zpoller_wait(zpoller_handle(), 1000);
 		if(zpoller_terminated(zpoller_handle()))
 			break;
 		else
 		if(zpoller_expired(zpoller_handle())) {
-			if(idle_callback.isCallable()) {
+			if(_idle_callable)
         		idle_callback(this);
-			}
         }
         else
-		if(socket != NULL && (param.size() > 0 && param[0].isCallable())) {
-			param[0](pollers[socket], this);
-		}
+		if(socket)
+			if(_socket_callable)
+			    param[0](pollers[socket], this);
 	}
 
 }

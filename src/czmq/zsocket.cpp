@@ -10,7 +10,7 @@ void ZSocket::__construct(Php::Parameters &param) {
 	if(socket)
 		set_handle(socket, true, "zsock");
 	else
-		throw Php::Exception("Can't create socket");
+		throw Php::Exception("Internal Error: Can't create socket.");
 }
 
 void ZSocket::set_verbose (Php::Parameters &param) {
@@ -45,7 +45,7 @@ zsock_t *ZSocket::new_socket(const char* name, const char* endpoint) {
 	else
 		throw Php::Exception("Can't create socket");
 
-	zsock_t *sock = zsock_new_ (type, NULL, 0);
+	zsock_t *sock = zsock_new (type);
 	if (sock && endpoint != NULL) {
 		// zsys_info("Connecting socket %s -> %s", name, endpoint);
 		if (zsock_attach (sock, endpoint, true)) {

@@ -97,7 +97,8 @@ Php::Value ZHandle::recv_picture(Php::Parameters &param) {
 
 Php::Value ZHandle::send_string(Php::Parameters &param) {
 	Php::Object self(this);
-	return self.call("send_picture", "S", param[0].stringValue());
+	std::string value = param[0].stringValue();
+	return self.call("send_picture", "S", value);
 }
 
 Php::Value ZHandle::recv_string(Php::Parameters &param) {

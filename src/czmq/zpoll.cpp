@@ -26,7 +26,6 @@ void ZPoll::add(Php::Parameters &param) {
 
     // default ZMQ_POLL_IN
     short event = (param.size()>1) ? (short) param[1].numericValue() : ZMQ_POLLIN;
-    std::string classname = Php::call("get_class", param[0]);
     ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
 
     void *socket = NULL;
@@ -52,7 +51,6 @@ Php::Value ZPoll::has(Php::Parameters &param) {
     if(param.size() == 0 || !param[0].isObject())
         throw Php::Exception("ZPoller has require a ZActor, ZSocker or ZHandle");
 
-    std::string classname = Php::call("get_class", param[0]);
     ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
 
     void *socket = NULL;
@@ -74,7 +72,6 @@ void ZPoll::remove(Php::Parameters &param) {
     if(param.size() == 0 || !param[0].isObject())
         throw Php::Exception("ZPoller remove require a ZActor, ZSocker or ZHandle");
 
-    std::string classname = Php::call("get_class", param[0]);
     ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
 
     void *socket = NULL;
@@ -112,7 +109,6 @@ void ZPoll::check_for(Php::Parameters &param) {
         throw Php::Exception("ZPoller check_for require a ZActor, ZSocker or ZHandle and event type");
 
     short event = param[1];
-    std::string classname = Php::call("get_class", param[0]);
     ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
 
     void *socket = NULL;
@@ -136,7 +132,6 @@ Php::Value ZPoll::events(Php::Parameters &param) {
     if(param.size() == 0 || !param[0].isObject())
         throw Php::Exception("ZPoller events require a ZActor, ZSocker or ZHandle");
 
-    std::string classname = Php::call("get_class", param[0]);
     ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
 
     void *socket = NULL;

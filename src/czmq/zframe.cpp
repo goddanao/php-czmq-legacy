@@ -5,13 +5,10 @@ void ZFrame::__construct(Php::Parameters &param) {
 }
 
 Php::Value ZFrame::__toString() {
-	Php::Value buffer;
-	int _buffer_size = zframe_size(zframe_handle());
-	buffer.reserve(_buffer_size);
-	const char *_buffer_to = buffer.rawValue();
-	byte *_buffer_from = zframe_data(zframe_handle());
-	memcpy((void *) _buffer_to, _buffer_from, _buffer_size);
-	return buffer;
+    char *frame = zframe_strdup (zframe_handle());
+	Php::Value buffer = frame;
+	free(frame);
+	return buffer.stringValue();
 }
 
 void ZFrame::dump() {

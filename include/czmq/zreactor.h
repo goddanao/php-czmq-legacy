@@ -18,7 +18,7 @@ private:
 
     void flush_remove_later();
 
-    void _remove(ZHandle *remove);
+    void _remove(ZHandle *to_remove);
 
 public:
 

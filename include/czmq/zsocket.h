@@ -43,6 +43,22 @@ public:
     static Php::Value xrep(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("xrep", param[0].stringValue().c_str()), true)); }
     static Php::Value stream(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("stream",  param[0].stringValue().c_str()), true)); }
 
+/*
+    static Php::Value pub(Php::Parameters &param) { return new_socket_php("pub", (Php::Parameters **) param); }
+    static Php::Value sub(Php::Parameters &param) { return new_socket_php("sub", (Php::Parameters **) param); }
+    static Php::Value rep(Php::Parameters &param) { return new_socket_php("rep", (Php::Parameters **) param); }
+    static Php::Value req(Php::Parameters &param) { return new_socket_php("req", (Php::Parameters **) param); }
+    static Php::Value dealer(Php::Parameters &param) { return new_socket_php("dealer", (Php::Parameters **) param); }
+    static Php::Value router(Php::Parameters &param) { return new_socket_php("router", (Php::Parameters **) param); }
+    static Php::Value push(Php::Parameters &param) { return new_socket_php("push", (Php::Parameters **) param); }
+    static Php::Value pull(Php::Parameters &param) { return new_socket_php("pull", (Php::Parameters **) param); }
+    static Php::Value xpub(Php::Parameters &param) { return new_socket_php("xpub", (Php::Parameters **) param); }
+    static Php::Value xsub(Php::Parameters &param) { return new_socket_php("xsub", (Php::Parameters **) param); }
+    static Php::Value xreq(Php::Parameters &param) { return new_socket_php("xreq", (Php::Parameters **) param); }
+    static Php::Value xrep(Php::Parameters &param) { return new_socket_php("xrep", (Php::Parameters **) param); }
+    static Php::Value stream(Php::Parameters &param) { return new_socket_php("stream", (Php::Parameters **) param); }
+*/
+
 //    static Php::Value __callStatic(const char *name, Php::Parameters &params)
 //    {
 //         Php::out << "example static call" << std::flush;
