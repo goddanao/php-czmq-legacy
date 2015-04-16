@@ -10,13 +10,13 @@ env:
 
 before_install:
   # g++4.8.1
-  # - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+  - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
 
 install:
   # g++4.8.1
-  # - if [ "$CXX" == "g++" ]; then sudo apt-get install -qq g++-4.8; fi
-  # - if [ "$CXX" == "g++" ]; then export CXX="g++-4.8"; fi
-  # - if [ "$CXX" == "g++-4.8" ]; then export CXXFLAGS="-w -c -O2 -g -std=c++11 -fpic -o"; fi
+  - if [ "$CXX" == "g++" ]; then sudo apt-get install -qq g++-4.8; fi
+  - if [ "$CXX" == "g++" ]; then export CXX="g++-4.8"; fi
+  # - if [ "$CXX" == "g++" ]; then export CXXFLAGS="-w -c -O2 -g -std=c++11 -fpic -o"; fi
 
 # need to install the dependencies
 before_script:
