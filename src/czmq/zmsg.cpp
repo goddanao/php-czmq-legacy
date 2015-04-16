@@ -1,8 +1,5 @@
 #include "../../include/czmq/zmsg.h"
 
-#define __STDC_LIMIT_MACROS 1
-#include <inttypes.h>
-
 void ZMsg::__construct(Php::Parameters &param) {
 	set_handle(zmsg_new(), true, "zmsg");
 }
@@ -81,17 +78,17 @@ void ZMsg::append_picture(Php::Parameters &param){
 		if (*picture == 'i')
 			zmsg_addstrf (msg, "%d", (int) param[picture_idx++]);
 		else
-		if (*picture == '1')
-			zmsg_addstrf (msg, "%" PRIu8, (uint8_t) (int) param[picture_idx++]);
+		if (*picture == '1') // PRIu8
+			zmsg_addstrf (msg, "%u" , (uint8_t) (int) param[picture_idx++]);
 		else
-		if (*picture == '2')
-			zmsg_addstrf (msg, "%" PRIu16, (uint16_t) (int) param[picture_idx++]);
+		if (*picture == '2') // PRIu16
+			zmsg_addstrf (msg, "%u" , (uint16_t) (int) param[picture_idx++]);
 		else
-		if (*picture == '4')
-			zmsg_addstrf (msg, "%" PRIu32, (uint32_t) (int) param[picture_idx++]);
+		if (*picture == '4') // PRIu32
+			zmsg_addstrf (msg, "%lu" , (uint32_t) (int) param[picture_idx++]);
 		else
-		if (*picture == '8')
-			zmsg_addstrf (msg, "%" PRIu64, (uint64_t) (long) param[picture_idx++]);
+		if (*picture == '8') // PRIu64
+			zmsg_addstrf (msg, "%lu" , (uint64_t) (long) param[picture_idx++]);
 		else
 		if (*picture == 'u')    //  Deprecated, use 4 or 8 instead
 			zmsg_addstrf (msg, "%ud", (uint) (long) param[picture_idx++]);
@@ -189,17 +186,17 @@ void ZMsg::prepend_picture(Php::Parameters &param) {
 		if (*picture == 'i')
 			zmsg_pushstrf (msg, "%d", (int) param[picture_idx--]);
 		else
-		if (*picture == '1')
-			zmsg_pushstrf (msg, "%" PRIu8, (uint8_t) (int) param[picture_idx--]);
+		if (*picture == '1') // PRIu8
+			zmsg_pushstrf (msg, "%u" , (uint8_t) (int) param[picture_idx--]);
 		else
-		if (*picture == '2')
-			zmsg_pushstrf (msg, "%" PRIu16, (uint16_t) (int) param[picture_idx--]);
+		if (*picture == '2') // PRIu16
+			zmsg_pushstrf (msg, "%u" , (uint16_t) (int) param[picture_idx--]);
 		else
-		if (*picture == '4')
-			zmsg_pushstrf (msg, "%" PRIu32, (uint32_t) (int) param[picture_idx--]);
+		if (*picture == '4') // PRIu32
+			zmsg_pushstrf (msg, "%lu" , (uint32_t) (int) param[picture_idx--]);
 		else
-		if (*picture == '8')
-			zmsg_pushstrf (msg, "%" PRIu64, (uint64_t) (long) param[picture_idx--]);
+		if (*picture == '8') // PRIu64
+			zmsg_pushstrf (msg, "%lu" , (uint64_t) (long) param[picture_idx--]);
 		else
 		if (*picture == 'u')    //  Deprecated, use 4 or 8 instead
 			zmsg_pushstrf (msg, "%ud", (uint) (long) param[picture_idx--]);
