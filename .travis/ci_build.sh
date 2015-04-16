@@ -35,4 +35,4 @@ git clone git://github.com/zeromq/${MALAMUTE_REPO}.git &&
 (make -j4 VERBOSE=1 && sudo make install) || exit 1
 
 # TEST
-(sudo ln -s czmq.so ~/.phpenv/versions/$(phpenv version-name)/lib/php/extensions/no-debug-zts-20131226/czmq.so && echo "extension=czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini && phpunit) || exit 1
+(cp czmq.so ~/.phpenv/versions/$(phpenv version-name)/lib/php/extensions/no-debug-zts-20131226/czmq.so && echo "extension=czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini && phpunit) || exit 1
