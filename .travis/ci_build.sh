@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# PHP CPP
+git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
+( cd PHP-CPP; make -j4 && sudo make install && sudo ldconfig ) || exit 1
+
 # Build, check, and install libsodium if WITH_LIBSODIUM is set
 if [ -n "$WITH_LIBSODIUM" ]; then
     git clone git://github.com/jedisct1/libsodium.git &&
