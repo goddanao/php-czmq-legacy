@@ -2,11 +2,11 @@
 language: php
 
 php:
-  - 5.4
-  - 5.5
+#  - 5.4
+#  - 5.5
   - 5.6
-  - hhvm
-  - nightly
+#  - hhvm
+#  - nightly
 
 env:
   - ZMQ_REPO=libzmq    WITH_LIBSODIUM=1 CZMQ_REPO=czmq ZYRE_REPO=zyre MALAMUTE_REPO=malamute-core
@@ -26,9 +26,6 @@ before_script:
   - sudo apt-get install uuid-dev php5-dev
 
 script: ./.travis/ci_build.sh
-
-after_success:
-  - echo "extension=czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 notifications:
   email:
