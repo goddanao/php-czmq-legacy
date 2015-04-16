@@ -1,4 +1,6 @@
 #include "../../include/czmq/zmsg.h"
+
+#define __STDC_FORMAT_MACROS
 #include <inttypes.h>
 
 void ZMsg::__construct(Php::Parameters &param) {
