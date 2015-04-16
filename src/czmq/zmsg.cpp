@@ -1,4 +1,5 @@
 #include "../../include/czmq/zmsg.h"
+#include <inttypes.h>
 
 void ZMsg::__construct(Php::Parameters &param) {
 	set_handle(zmsg_new(), true, "zmsg");
