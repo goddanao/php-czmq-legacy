@@ -1,0 +1,21 @@
+
+language: cpp
+
+compiler:
+  - gcc
+
+env:
+- ZMQ_REPO=zeromq4-x WITH_LIBSODIUM=1 CZMQ_REPO=czmq ZYRE_REPO=zyre MALAMUTE_REPO=malamute-core
+- ZMQ_REPO=libzmq    WITH_LIBSODIUM=1 CZMQ_REPO=czmq ZYRE_REPO=zyre MALAMUTE_REPO=malamute-core
+
+# need to install the dependencies
+before_script:
+  - sudo apt-get update -qq
+
+script: ./.travis/ci_build.sh
+
+notifications:
+  email:
+    recipients: goddanao@gmail.com
+    on_success: change
+    on_failure: always
