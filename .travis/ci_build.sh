@@ -20,7 +20,7 @@ git clone git://github.com/zeromq/${CZMQ_REPO}.git &&
 # Build, check, and install the version of ZYRE given by ZYRE_REPO
 git clone git://github.com/zeromq/${ZYRE_REPO}.git &&
 ( cd ${ZYRE_REPO}; ./autogen.sh && ./configure &&
-    make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
+    make -j4 check CFLAGS="-w" && make -j4 CFLAGS="-w" &&  sudo make install && sudo ldconfig && cd ..) || exit 1
 
 # Build, check, and install the version of MALAMUTE given by MALAMUTE_REPO
 git clone git://github.com/zeromq/${MALAMUTE_REPO}.git &&
