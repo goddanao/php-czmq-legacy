@@ -78,14 +78,13 @@ void ZPoller::start(Php::Parameters &param) {
 		if(zpoller_terminated(zpoller_handle()))
 			break;
 		else
-		if(zpoller_expired(zpoller_handle())) {
-			if(_idle_callable)
-        		idle_callback(this);
+		if(zpoller_expired(zpoller_handle()) && _idle_callable) {
+        	idle_callback(this);
         }
         else
-		if(socket)
-			if(_socket_callable)
-			    param[0](pollers[socket], this);
+		if(socket && _socket_callable) {
+		    param[0](pollers[socket], this);
+        }
 	}
 
 }
