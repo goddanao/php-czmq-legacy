@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-# Build, check, and install libsodium if WITH_LIBSODIUM is set
-if [ -n "$WITH_LIBSODIUM" ]; then
-    git clone git://github.com/jedisct1/libsodium.git &&
-    ( cd libsodium; ./autogen.sh && ./configure &&
-        make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
-fi
+# Build, check, and install the version of Libsodium given by LIBSODIUM_REPO
+git clone git://github.com/jedisct1/${LIBSODIUM_REPO}.git &&
+( cd ${LIBSODIUM_REPO}; ./autogen.sh && ./configure &&
+    make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
 
 # Build, check, and install the version of ZeroMQ given by ZMQ_REPO
 git clone git://github.com/zeromq/${ZMQ_REPO}.git &&
@@ -34,5 +32,8 @@ git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
 # Build and install PHP-CZMQ
 (make -j4 VERBOSE=1 && sudo make install) || exit 1
 
+# Install the extension
+(cp czmq.so ~/.phpenv/versions/$(phpenv version-name)/lib/php/extensions/no-debug-zts-20131226/ && echo "extension=czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini) || exit 1
+
 # Run PhpUnit tests
-(cp czmq.so ~/.phpenv/versions/$(phpenv version-name)/lib/php/extensions/no-debug-zts-20131226/ && echo "extension=czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini && phpunit) || exit 1
+cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini

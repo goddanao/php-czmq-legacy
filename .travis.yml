@@ -3,13 +3,13 @@ language: php
 
 php:
 #  - 5.4
-  - 5.5
-#  - 5.6
+#  - 5.5
+  - 5.6
 #  - hhvm
 #  - nightly
 
 env:
-  - ZMQ_REPO=libzmq    WITH_LIBSODIUM=1 CZMQ_REPO=czmq ZYRE_REPO=zyre MALAMUTE_REPO=malamute-core
+  - ZMQ_REPO=libzmq LIBSODIUM_REPO=libsodium CZMQ_REPO=czmq ZYRE_REPO=zyre MALAMUTE_REPO=malamute-core
 # - ZMQ_REPO=zeromq4-x WITH_LIBSODIUM=1 CZMQ_REPO=czmq ZYRE_REPO=zyre MALAMUTE_REPO=malamute-core
 
 before_install:
@@ -20,7 +20,7 @@ install:
   - sudo apt-get install -qq g++-4.8 uuid-dev build-essential autoconf php5-dev
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 
-script: ./.travis/ci_build.sh
+script: ./build.sh
 
 notifications:
   email:
