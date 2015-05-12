@@ -33,7 +33,7 @@ git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
 (make -j4 VERBOSE=1 && sudo make install) || exit 1
 
 # Install the extension
-(cp czmq.so ~/.phpenv/versions/$(phpenv version-name)/lib/php/extensions/no-debug-zts-20131226/ && echo "extension=czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini) || exit 1
+(cp czmq.so (ls -d ~/.phpenv/versions/$(phpenv version-name)/lib/php/extensions/no-debug-zts-* | head -1) && echo "extension=czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini) || exit 1
 
 # Run PhpUnit tests
 cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
