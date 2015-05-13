@@ -32,10 +32,7 @@ git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
 # Build and install PHP-CZMQ
 (make -j4 VERBOSE=1 && sudo make install) || exit 1
 
-echo "eccomi..."
-echo `ls -d ~/.phpenv/versions/$(phpenv version-name)/lib/php/extensions/no-debug-zts-* | head -1`
-
-# Install the extension
+# Install the extension in the current phpenv
 (cp czmq.so `ls -d ~/.phpenv/versions/$(phpenv version-name)/lib/php/extensions/no-debug-zts-* | head -1` && echo "extension=czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini) || exit 1
 
 # Run PhpUnit tests
