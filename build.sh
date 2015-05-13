@@ -35,7 +35,7 @@ git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
 # Install the extension in the current phpenv
 (cp czmq.so `ls -d ~/.phpenv/versions/$(phpenv version-name)/lib/php/extensions/no-debug-zts-* | head -1` && echo "extension=czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini) || exit 1
 
-ifconfig
-
 # Run PhpUnit tests
-phpunit
+# phpunit
+USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 valgrind --gen-suppressions=all --tool=memcheck --leak-check=full --track-origins=yes --show-leak-kinds=definite --log-file=./czmq.log php $(which phpunit)
+cat ./czmq.log
