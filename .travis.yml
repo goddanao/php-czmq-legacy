@@ -16,9 +16,8 @@ before_install:
 install:
   - sudo apt-get install -qq g++-4.8 uuid-dev build-essential autoconf php5-dev valgrind gdb
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
-  - ./build.sh
 
-script: USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 gdb phpunit
+script: ./build.sh
 
 notifications:
   email:
