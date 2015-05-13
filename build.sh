@@ -37,5 +37,5 @@ git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
 
 # Run PhpUnit tests
 # phpunit
-USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 valgrind --log-file=./czmq.log php $(which phpunit)
+USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 valgrind --log-file=./czmq.log phpunit
 cat ./czmq.log

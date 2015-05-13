@@ -18,7 +18,7 @@ install:
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
   - ./build.sh
 
-script: USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 gdb php $(which phpunit)
+script: USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 gdb phpunit
 
 notifications:
   email:
