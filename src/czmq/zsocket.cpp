@@ -46,11 +46,16 @@ zsock_t *ZSocket::new_socket(const char* name, const char* endpoint) {
 		throw Php::Exception("Can't create socket");
 
 	zsock_t *sock = zsock_new (type);
-	if (sock && endpoint != NULL) {
-		// zsys_info("Connecting socket %s -> %s", name, endpoint);
-		if (zsock_attach (sock, endpoint, true)) {
-			zsock_destroy (&sock);
-			sock = NULL;
+	if (sock != NULL) {
+
+		zsock_set_ipv6(sock, false);
+
+		if(endpoint != NULL) {
+			// zsys_info("Connecting socket %s -> %s", name, endpoint);
+			if (zsock_attach (sock, endpoint, true)) {
+				zsock_destroy (&sock);
+				sock = NULL;
+			}
 		}
 	}
 	return sock;
