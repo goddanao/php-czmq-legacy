@@ -2,7 +2,6 @@
 
 class MajordomoTest extends \PHPUnit_Framework_TestCase {
 
-
     private function forkWorker($broker_endpoint, $i) {
         $pid = pcntl_fork();
         if($pid !== 0) return $pid;
