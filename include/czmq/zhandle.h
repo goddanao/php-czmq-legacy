@@ -8,7 +8,6 @@
 class ZHandle : public Php::Base {
 protected:
     void *_handle      = nullptr;
-    int  _fd           = -1;
     bool _owned        = false;
     std::string _type  = "unknown";
 public:

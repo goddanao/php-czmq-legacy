@@ -1,7 +1,8 @@
 #pragma once
 
-#include "czmq/zsys.h"
 #include "czmq/zhandle.h"
+#include "czmq/zcontext.h"
+#include "czmq/zsys.h"
 #include "czmq/zhash.h"
 #include "czmq/zchunk.h"
 #include "czmq/zframe.h"
@@ -16,21 +17,24 @@
 #include "czmq/zactor.h"
 #include "czmq/zauth.h"
 #include "czmq/zgossip.h"
-//#include "czmq/zudp.h"
+#include "czmq/zudp.h"
 
 void php_czmq_register(Php::Extension *extension) {
 
-    // ZSys
-    Php::Class<ZSys> zsys = ZSys::php_register();
-    extension->add(std::move(zsys));
+    // ZHandle
+    Php::Class<ZHandle> zhandle("ZHandle");
 
     // ZContext
     Php::Class<ZContext> zcontext = ZContext::php_register();
     extension->add(std::move(zcontext));
 
+    // ZSys
+    Php::Class<ZSys> zsys = ZSys::php_register();
+    extension->add(std::move(zsys));
+
     // ZUdp
-//    Php::Class<ZUdp> zudp = ZUdp::php_register();
-//    extension->add(std::move(zudp));
+    Php::Class<ZUdp> zudp = ZUdp::php_register();
+    extension->add(std::move(zudp));
 
     // ZHash
     Php::Class<ZHash> zhash = ZHash::php_register();
@@ -64,8 +68,6 @@ void php_czmq_register(Php::Extension *extension) {
     Php::Class<ZCert> zcert = ZCert::php_register();
     extension->add(std::move(zcert));
 
-    // ZHandle
-    Php::Class<ZHandle> zhandle("ZHandle");
 
     // ZSocket
     Php::Class<ZSocket> zsocket = ZSocket::php_register();

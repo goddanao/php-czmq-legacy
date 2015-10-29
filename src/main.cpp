@@ -1,4 +1,8 @@
 #include <phpcpp.h>
+#include <czmq.h>
+#include <zyre.h>
+#include <malamute.h>
+
 #include "../include/czmq.h"
 #include "../include/zyre.h"
 #include "../include/malamute.h"
