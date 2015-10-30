@@ -26,6 +26,7 @@ git clone git://github.com/zeromq/${MALAMUTE_REPO}.git &&
     make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
 
 # Build and install PHP-CPP
+# git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
 git clone -b 'v1.5' --single-branch --depth 1 git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
 ( cd PHP-CPP; make -j4 && sudo make install && sudo ldconfig && cd ..) || exit 1
 
@@ -42,4 +43,4 @@ git clone -b 'v1.5' --single-branch --depth 1 git://github.com/CopernicaMarketin
 
 # USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 gdb php ~/.phpenv/versions/$(phpenv version-name)/bin/phpunit
 
-phpunit
+ZSYS_IPV6=0 phpunit

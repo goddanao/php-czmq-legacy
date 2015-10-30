@@ -1,8 +1,12 @@
 language: php
 
 php:
+#  - 5.4
+#  - 5.5
   - 5.6
-  - 5.6-zts
+
+env:
+  - ZMQ_REPO=libzmq LIBSODIUM_REPO=libsodium CZMQ_REPO=czmq ZYRE_REPO=zyre MALAMUTE_REPO=malamute
 
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
@@ -10,8 +14,14 @@ before_install:
   - composer self-update
 
 install:
-  - sudo apt-get install -qq g++-4.8 uuid-dev build-essential autoconf php5-dev
+#  - sudo apt-get install -qq --force-yes -y g++-4.8 uuid-dev build-essential autoconf php5-dev valgrind gdb
+  - sudo apt-get install -qq g++-4.8 uuid-dev build-essential autoconf php5-dev valgrind gdb
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 
-script:
-  - git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git && ( cd PHP-CPP; make -j4 && sudo make install && sudo ldconfig && cd ..)
+script: ./build.sh
+
+notifications:
+  email:
+    recipients: goddanao@gmail.com
+    on_success: change
+    on_failure: always
