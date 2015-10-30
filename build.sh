@@ -12,7 +12,7 @@ git clone git://github.com/zeromq/${ZMQ_REPO}.git &&
 
 # Build, check, and install the version of CZMQ given by CZMQ_REPO
 git clone git://github.com/zeromq/${CZMQ_REPO}.git &&
-( cd ${CZMQ_REPO}; ./autogen.sh && ./configure &&
+( cd ${CZMQ_REPO}; ./autogen.sh && ./configure && php ../fixup.php &&
     make -j4 check && make -j4 && sudo make install && sudo ldconfig && cd ..) || exit 1
 
 # Build, check, and install the version of ZYRE given by ZYRE_REPO
@@ -25,8 +25,7 @@ git clone git://github.com/zeromq/${MALAMUTE_REPO}.git &&
 ( cd ${MALAMUTE_REPO}; ./autogen.sh && ./configure &&
     make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
 
-# Build and install PHP-CPP
-# git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
+# Build and install PHP-CPP (-b 'v1.5' --single-branch --depth 1)
 git clone -b 'v1.5' --single-branch --depth 1 git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
 ( cd PHP-CPP; make -j4 && sudo make install && sudo ldconfig && cd ..) || exit 1
 
@@ -43,4 +42,4 @@ git clone -b 'v1.5' --single-branch --depth 1 git://github.com/CopernicaMarketin
 
 # USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 gdb php ~/.phpenv/versions/$(phpenv version-name)/bin/phpunit
 
-ZSYS_IPV6=0 phpunit
+phpunit
