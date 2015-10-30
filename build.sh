@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo $LD_LIBRARY_PATH
+
 # Build, check, and install the version of Libsodium given by LIBSODIUM_REPO
 git clone git://github.com/jedisct1/${LIBSODIUM_REPO}.git &&
 ( cd ${LIBSODIUM_REPO}; ./autogen.sh && ./configure &&
