@@ -58,6 +58,4 @@ ls -la /usr/local/lib
 
 # USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 gdb php ~/.phpenv/versions/$(phpenv version-name)/bin/phpunit
 
-
-
 phpunit
