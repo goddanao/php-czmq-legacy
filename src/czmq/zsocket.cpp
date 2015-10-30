@@ -48,7 +48,8 @@ zsock_t *ZSocket::new_socket(const char* name, const char* endpoint) {
 	zsock_t *sock = zsock_new (type);
 	if (sock != NULL) {
 
-		zsock_set_ipv6(sock, false);
+		zsock_set_ipv4only(sock, 1);
+		zsock_set_ipv6(sock, 0);
 
 		if(endpoint != NULL) {
 			// zsys_info("Connecting socket %s -> %s", name, endpoint);
