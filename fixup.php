@@ -6,7 +6,7 @@ $file .= (file_exists($file . "/backup") ? "/vendor" : "");
 $file .= "/czmq/src/zsock_option.c";
 
 $src = file_get_contents($file);
-$src = preg_replace('/(void[\s\r\n]+zsock_set_ipv6.*?{).*?(})/sim', '\1\2', $src);
+$src = preg_replace('%(#include "../include/czmq.h")%sim', "\$1\r\n#undef ZMQ_IPV6\r\n", $src);
 unlink($file);
 file_put_contents($file, $src);
 
