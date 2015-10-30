@@ -1,4 +1,4 @@
-NAME				=	czmq
+NAME				=	php-czmq
 INI_DIR				=	/etc/php5/mods-available
 EXTENSION_DIR		=	$(shell php-config --extension-dir)
 INSTALL_PREFIX      =   /usr/local
@@ -20,7 +20,7 @@ OBJECTS				=	$(SOURCES:%.cpp=%.o)
 all:					${OBJECTS} ${EXTENSION}
 
 ${EXTENSION}:			${OBJECTS}
-						${LINKER} ${LINKER_FLAGS} `${PHP_CONFIG} --ldflags` -o $@ ${OBJECTS} ${LINKER_DEPENDENCIES}
+						${LINKER} ${LINKER_FLAGS} $(shell php-config --ldflags) -o $@ ${OBJECTS} ${LINKER_DEPENDENCIES}
 
 ${OBJECTS}:
 						${COMPILER} ${COMPILER_FLAGS} $@ ${@:%.o=%.cpp}

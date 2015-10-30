@@ -49,8 +49,7 @@ ls -la /usr/local/lib
 ls -la /usr/local/lib
 
 # Install the extension in the current phpenv
-# php-config --extension-dir
-(echo "extension=czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini) || exit 1
+(cp php-czmq.so `ls -d ~/.phpenv/versions/$(phpenv version-name)/lib/php/extensions/no-debug-zts-* | head -1` && echo "extension=php-czmq.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini) || exit 1
 
 # Run PhpUnit tests
 # USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 valgrind --log-file=./czmq.log php ~/.phpenv/versions/$(phpenv version-name)/bin/phpunit
@@ -59,4 +58,7 @@ ls -la /usr/local/lib
 
 # USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 gdb php ~/.phpenv/versions/$(phpenv version-name)/bin/phpunit
 
+php-config --extension-dir
+phpenv version-name
+php-config --phpapi
 phpunit
