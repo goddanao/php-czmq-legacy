@@ -12,7 +12,7 @@ git clone git://github.com/zeromq/${ZMQ_REPO}.git &&
 
 # Build, check, and install the version of CZMQ given by CZMQ_REPO
 git clone git://github.com/zeromq/${CZMQ_REPO}.git &&
-( cd ${CZMQ_REPO}; ./autogen.sh && ./configure &&
+( cd ${CZMQ_REPO}; ./autogen.sh && ./configure && php ../fixup.php &&
     make -j4 check && make -j4 && sudo make install && sudo ldconfig && cd ..) || exit 1
 
 # Build, check, and install the version of ZYRE given by ZYRE_REPO
