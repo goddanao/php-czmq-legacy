@@ -20,7 +20,7 @@ OBJECTS				=	$(SOURCES:%.cpp=%.o)
 all:					${OBJECTS} ${EXTENSION}
 
 ${EXTENSION}:			${OBJECTS}
-						${LINKER} ${LINKER_FLAGS} $(shell php-config --ldflags) -o $@ ${OBJECTS} ${LINKER_DEPENDENCIES}
+						${LINKER} ${LINKER_FLAGS} -L/usr/local/lib -o $@ ${OBJECTS} ${LINKER_DEPENDENCIES}
 
 ${OBJECTS}:
 						${COMPILER} ${COMPILER_FLAGS} $@ ${@:%.o=%.cpp}
