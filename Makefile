@@ -1,6 +1,7 @@
 NAME				=	php-czmq
 INI_DIR				=	/etc/php5/mods-available
 EXTENSION_DIR		=	$(shell php-config --extension-dir)
+CLIB_PATH           =   $(shell cat /etc/ld.so.conf.d/libc.conf | grep /usr)
 EXTENSION 			=	${NAME}.so
 INI 				=	${NAME}.ini
 COMPILER			=	g++
@@ -19,7 +20,7 @@ OBJECTS				=	$(SOURCES:%.cpp=%.o)
 all:					${OBJECTS} ${EXTENSION}
 
 ${EXTENSION}:			${OBJECTS}
-						${LINKER} ${LINKER_FLAGS} -o $@ ${OBJECTS} ${LINKER_DEPENDENCIES}
+						${LINKER} ${LINKER_FLAGS} -L${CLIB_PATH} -o $@ ${OBJECTS} ${LINKER_DEPENDENCIES}
 
 ${OBJECTS}:
 						${COMPILER} ${COMPILER_FLAGS} $@ ${@:%.o=%.cpp}

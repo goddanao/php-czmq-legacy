@@ -9,8 +9,6 @@ env:
   - LD_LIBRARY_PATH=/usr/local/lib ZMQ_REPO=libzmq LIBSODIUM_REPO=libsodium CZMQ_REPO=czmq ZYRE_REPO=zyre MALAMUTE_REPO=malamute
 
 before_install:
-  - cat /etc/ld.so.conf.d/libc.conf
-  - cat /etc/ld.so.conf.d/libc.confdd
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
   - composer self-update
