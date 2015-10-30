@@ -1,13 +1,14 @@
 NAME				=	czmq
 INI_DIR				=	/etc/php5/mods-available
 EXTENSION_DIR		=	$(shell php-config --extension-dir)
+INSTALL_PREFIX      =   /usr/local
 EXTENSION 			=	${NAME}.so
 INI 				=	${NAME}.ini
 COMPILER			=	g++
 LINKER				=	g++
 COMPILER_FLAGS		=	-w -c -O2 -g -std=c++11 -fpic -o
 LINKER_FLAGS		=	-shared
-LINKER_DEPENDENCIES	=	-lphpcpp -llibzmq -lczmq -lzyre -lmlm
+LINKER_DEPENDENCIES	=	-lphpcpp -lzmq -lczmq -lzyre -lmlm
 
 RM					=	rm -f
 CP					=	cp -f
@@ -19,7 +20,7 @@ OBJECTS				=	$(SOURCES:%.cpp=%.o)
 all:					${OBJECTS} ${EXTENSION}
 
 ${EXTENSION}:			${OBJECTS}
-						${LINKER} ${LINKER_FLAGS} -o $@ ${OBJECTS} ${LINKER_DEPENDENCIES}
+						${LINKER} ${LINKER_FLAGS} `${PHP_CONFIG} --ldflags` -o $@ ${OBJECTS} ${LINKER_DEPENDENCIES}
 
 ${OBJECTS}:
 						${COMPILER} ${COMPILER_FLAGS} $@ ${@:%.o=%.cpp}
