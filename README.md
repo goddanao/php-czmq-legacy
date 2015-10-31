@@ -1,4 +1,4 @@
-PHP-CZMQ
+PHP-CZMQ [![Build Status](https://travis-ci.org/goddanao/php-czmq.svg)](https://travis-ci.org/goddanao/php-czmq)
 ================
 Experimental php binding for [CZMQ](http://czmq.zeromq.org), [ZYRE](https://github.com/zeromq/zyre), [Malamute](https://github.com/Malamute/malamute-core) and [Majordomo Pattern](http://rfc.zeromq.org/spec:7) built with [PHP-CPP](http://www.php-cpp.com/).
 **DISCLAIMER:** It's my first (early stage) approach to c++, this project need to be considered highly experimental thus open to your suggestions/improvements. Please be patient! ;-)
@@ -20,8 +20,8 @@ git clone git://github.com/jedisct1/libsodium.git
 git clone git://github.com/zeromq/libzmq.git
 git clone git://github.com/zeromq/czmq.git
 git clone git://github.com/zeromq/zyre.git
-git clone git://github.com/malamute/malamute-core.git
-for project in libsodium libzmq czmq zyre malamute-core; do
+git clone git://github.com/malamute/malamute.git
+for project in libsodium libzmq czmq zyre malamute; do
     cd $project
     ./autogen.sh
     ./configure && make check
