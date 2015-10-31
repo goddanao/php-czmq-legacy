@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common.h"
 #include "malamute/malamute_broker.h"
 #include "malamute/malamute_client.h"
 
