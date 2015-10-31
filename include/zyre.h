@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common.h"
 #include "zyre/zyre.h"
 
 void php_zyre_register(Php::Extension *extension) {
