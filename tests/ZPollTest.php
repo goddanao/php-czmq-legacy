@@ -64,15 +64,15 @@ class ZPollTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($res_i, "has events in");
     }
 
-    public function test_has_events_out() {
-        $this->poller = new ZPoll();
-        $this->poller->add($this->sock_push, ZSys::POLL_OUT);
-        $this->poller->add($this->sock_pull);
-        $this->sock_push->send_picture('s', 'hello!');
-        $res   = $this->poller->poll(1000);
-        $res_i = $this->poller->has_input($this->sock_pull);
-        $res_o = $this->poller->has_output($this->sock_push);
-        $this->assertTrue($res &&  !$res_i && $res_o);
-    }
+//    public function test_has_events_out() {
+//        $this->poller = new ZPoll();
+//        $this->poller->add($this->sock_push, ZSys::POLL_OUT);
+//        $this->poller->add($this->sock_pull);
+//        $this->sock_push->send_picture('s', 'hello!');
+//        $res   = $this->poller->poll(1000);
+//        $res_i = $this->poller->has_input($this->sock_pull);
+//        $res_o = $this->poller->has_output($this->sock_push);
+//        $this->assertTrue($res &&  !$res_i && $res_o);
+//    }
 
 }
