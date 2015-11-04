@@ -4,16 +4,53 @@
 
 class ZCertStore : public ZHandle {
 public:
-    ZCertStore() : ZHandle();
+    ZCertStore() : ZHandle() {};
     ZCertStore(zcertstore_t *handle, bool owned) : ZHandle(handle, owned, "zcertstore") {}
     zcertstore_t *zcertstore_handle() const { return (zcertstore_t *) get_handle(); }
 
-    void __construct(Php::Parameters &param);
+    void __construct(Php::Parameters &param) {
+        if(param.size() == 0)
+            set_handle(zcertstore_new (NULL), true, "zcertstore");
+        else
+            set_handle(zcertstore_new(param[0].stringValue().c_str()), true, "zcertstore");
+    }
 
-    Php::Value lookup (Php::Parameters &param);
+    Php::Value lookup (Php::Parameters &param) {
+        zcert_t *cert = zcertstore_lookup(zcertstore_handle(), param[0].stringValue().c_str());
+        if(cert)
+            return Php::Object("ZCert", new ZCert(cert, true));
+        return nullptr;
+    }
 
-    void insert(Php::Parameters &param);
+    void insert(Php::Parameters &param) {
+        ZCert *cert = dynamic_cast<ZCert *>(param[0].implementation());
+        if(cert) {
+            zcert_t* cert_p = zcert_dup(cert->zcert_handle());
+            zcertstore_insert (zcertstore_handle(), &cert_p); // (zcert_t **)
+        }
+    }
 
-    void dump();
+    void print() {
+        zcertstore_print (zcertstore_handle());
+    }
 
+    static Php::Class<ZCertStore> php_register() {
+        Php::Class<ZCertStore> o("ZCertStore");
+
+        o.method("__construct", &ZCertStore::__construct, {
+            Php::ByVal("certificates_dir", Php::Type::String, false)
+        });
+
+        o.method("lookup", &ZCertStore::lookup, {
+            Php::ByVal("pubkey", Php::Type::String, true)
+        });
+
+        o.method("insert", &ZCertStore::insert, {
+            Php::ByVal("cert", "ZCert", false, true)
+        });
+
+         o.method("print", &ZCertStore::print);
+
+        return o;
+    }
 };

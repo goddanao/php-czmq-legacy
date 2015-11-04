@@ -12,6 +12,7 @@
 #include "czmq/zpoller.h"
 #include "czmq/zpoll.h"
 #include "czmq/zcert.h"
+#include "czmq/zcertstore.h"
 #include "czmq/zbeacon.h"
 #include "czmq/zreactor.h"
 #include "czmq/zactor.h"
@@ -67,6 +68,10 @@ void php_czmq_register(Php::Extension *extension) {
     // ZCert
     Php::Class<ZCert> zcert = ZCert::php_register();
     extension->add(std::move(zcert));
+
+    // ZCertStore
+    Php::Class<ZCertStore> zcertstore = ZCertStore::php_register();
+    extension->add(std::move(zcertstore));
 
 
     // ZSocket
