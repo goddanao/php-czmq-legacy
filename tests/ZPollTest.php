@@ -15,7 +15,7 @@ class ZPollTest extends \PHPUnit_Framework_TestCase {
         $this->sock_push = new ZSocket(ZSys::SOCKET_PUSH, '>' . $endpoint);
         $this->rep = ZSocket::rep('@' . $endpoint);
         $this->req = ZSocket::req('>' .$endpoint);
-        usleep(5000); // avoid slow joiner syndrome
+        usleep(50000); // avoid slow joiner syndrome
     }
 
     public function test_create() {
