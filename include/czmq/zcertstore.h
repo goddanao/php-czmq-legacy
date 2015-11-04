@@ -17,8 +17,9 @@ public:
 
     Php::Value lookup (Php::Parameters &param) {
         zcert_t *cert = zcertstore_lookup(zcertstore_handle(), param[0].stringValue().c_str());
-        if(cert)
-            return Php::Object("ZCert", new ZCert(cert, true));
+        if(cert) {
+            return Php::Object("ZCert", new ZCert(zcert_dup(cert), true));
+        }
         return nullptr;
     }
 

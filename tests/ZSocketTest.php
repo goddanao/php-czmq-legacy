@@ -90,6 +90,13 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull(ZSocket::stream("ipc:///tmp/test"));
     }
 
+    public function test_get_options()
+    {
+        $options = $this->req->get_options();
+        $this->assertArrayHasKey("last_endpoint", $options);
+
+    }
+
     public function test_send_recv_string() {
         $this->req->send_string("hello");
         $result = $this->rep->recv_string();

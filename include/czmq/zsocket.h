@@ -171,6 +171,60 @@ public:
         zsock_flush(zsock_handle());
     }
 
+    Php::Value get_options() {
+        Php::Value result;
+
+        #if (ZMQ_VERSION_MAJOR == 4)
+            result["tos"] = get_tos();
+            result["zap_domain"] = get_zap_domain();
+            result["mechanism"] = get_mechanism();
+            result["plain_server"] = get_plain_server();
+            result["plain_username"] = get_plain_username();
+            result["plain_password"] = get_plain_password();
+            result["curve_server"] = get_curve_server();
+            result["curve_publickey"] = get_curve_publickey();
+            result["curve_secretkey"] = get_curve_secretkey();
+            result["curve_serverkey"] = get_curve_serverkey();
+            result["gssapi_server"] = get_gssapi_server();
+            result["gssapi_plaintext"] = get_gssapi_plaintext();
+            result["gssapi_principal"] = get_gssapi_principal();
+            result["gssapi_service_principal"] = get_gssapi_service_principal();
+            result["ipv6"] = get_ipv6();
+            result["immediate"] = get_immediate();
+        #endif
+
+            result["ipv4only"] = get_ipv4only();
+            result["type"] = get_type();
+            result["sndhwm"] = get_sndhwm();
+            result["rcvhwm"] = get_rcvhwm();
+            result["affinity"] = get_affinity();
+            result["identity"] = get_identity();
+            result["rate"] = get_rate();
+            result["recovery_ivl"] = get_recovery_ivl();
+            result["sndbuf"] = get_sndbuf();
+            result["rcvbuf"] = get_rcvbuf();
+            result["linger"] = get_linger();
+            result["reconnect_ivl"] = get_reconnect_ivl();
+            result["reconnect_ivl_max"] = get_reconnect_ivl_max();
+            result["backlog"] = get_backlog();
+            result["maxmsgsize"] = get_maxmsgsize();
+            result["multicast_hops"] = get_multicast_hops();
+            result["rcvtimeo"] = get_rcvtimeo();
+            result["sndtimeo"] = get_sndtimeo();
+            result["tcp_keepalive"] = get_tcp_keepalive();
+            result["tcp_keepalive_idle"] = get_tcp_keepalive_idle();
+            result["tcp_keepalive_cnt"] = get_tcp_keepalive_cnt();
+            result["tcp_keepalive_intvl"] = get_tcp_keepalive_intvl();
+            result["tcp_accept_filter"] = get_tcp_accept_filter();
+            result["rcvmore"] = get_rcvmore();
+            result["fd"] = get_fd();
+            result["events"] = get_events();
+            result["last_endpoint"] = get_last_endpoint();
+
+
+        return result;
+    }
+
 
     // Get Socket Options
 
@@ -547,7 +601,11 @@ public:
     	o.method("stream", &ZSocket::stream);
 
 
+
     	// Options
+
+        o.method("get_options", &ZSocket::get_options);
+
 #if (ZMQ_VERSION_MAJOR == 4)
 
     	o.method("get_tos", &ZSocket::get_tos);
