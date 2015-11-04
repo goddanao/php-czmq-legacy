@@ -18,7 +18,6 @@ public:
     void *get_handle() const { return _handle; }
 
     virtual void *get_socket() const {
-        // zsys_info("ZHandle::get_socket");
         if(_type == "socket")
             return _handle;
         if(_type == "zsock")

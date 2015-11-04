@@ -1,8 +1,6 @@
 #pragma once
 
 #include "zactor.h"
-#include "zutils.h"
-
 
 class ZProxy : public ZActor {
 private:
@@ -11,19 +9,54 @@ public:
     ZProxy() : ZActor() {}
     zactor_t *zproxy_handle() const { return (zactor_t *) get_handle(); }
 
-    void __construct(Php::Parameters &param);
 
-    void set_verbose(Php::Parameters &param);
+    void __construct(Php::Parameters &param) {
+        set_handle(zactor_new(zproxy, NULL), true, "zactor");
+    }
 
-    void pause();
+    void pause() {
+        zstr_sendx (zproxy_handle(), "PAUSE", NULL);
+        zsock_wait (zproxy_handle());
+    }
 
-    void resume();
+    void resume() {
+        zstr_sendx (zproxy_handle(), "RESUME", NULL);
+        zsock_wait (zproxy_handle());
+    }
 
-    void set_frontend(Php::Parameters &param);
+    void set_verbose(Php::Parameters &param) {
+        _verbose = param.size() > 0 ? param[0].boolValue() : true;
+        if(!_verbose)
+            return;
+        zstr_sendx (zproxy_handle(), "VERBOSE", NULL);
+        zsock_wait (zproxy_handle());
+    }
 
-    void set_backend(Php::Parameters &param);
+    void set_frontend(Php::Parameters &param) {
+        if(param.size() < 2)
+            return;
+        std::string socket_type = toUpper(param[0].stringValue());
+        std::string socket_endpoints = param[1];
+        zstr_sendx(zproxy_handle(), "FRONTEND", socket_type.c_str(), socket_endpoints.c_str(), NULL);
+        zsock_wait(zproxy_handle());
+    }
 
-    void set_capture(Php::Parameters &param);
+    void set_backend(Php::Parameters &param) {
+        if(param.size() < 2)
+            return;
+        std::string socket_type = toUpper(param[0]);
+        std::string socket_endpoints = param[1];
+        zstr_sendx(zproxy_handle(), "BACKEND", socket_type.c_str(), socket_endpoints.c_str(), NULL);
+        zsock_wait(zproxy_handle());
+    }
+
+    void set_capture(Php::Parameters &param) {
+        if(param.size() < 1)
+            return;
+        std::string socket_endpoints = param[0];
+        zstr_sendx(zproxy_handle(), "CAPTURE", socket_endpoints.c_str(), NULL);
+        zsock_wait(zproxy_handle());
+    }
 
     static Php::Class<ZProxy> php_register() {
         Php::Class<ZProxy> o("ZProxy");

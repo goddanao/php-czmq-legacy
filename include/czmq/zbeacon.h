@@ -7,19 +7,57 @@ public:
     ZBeacon() : ZActor() {}
     zactor_t *zbeacon_handle() const { return (zactor_t *) get_handle(); }
 
-    void __construct(Php::Parameters &param);
 
-    Php::Value set_port(Php::Parameters &param);
+    void __construct(Php::Parameters &param) {
+        set_handle(zactor_new(zbeacon, NULL), true, "zactor");
+    }
 
-    void subscribe(Php::Parameters &param);
+    Php::Value set_port(Php::Parameters &param) {
+        int port_number = param[0].numericValue();
+        zsock_send (zbeacon_handle(), "si", "CONFIGURE", port_number);
+        char *port =  zstr_recv (zbeacon_handle());
+        Php::Value result = port;
+        free(port);
+        return result;
+    }
 
-    void unsubscribe(Php::Parameters &param);
+    void subscribe(Php::Parameters &param) {
+        std::string filter = param[0].stringValue();
+        zsock_send (zbeacon_handle(), "sb", "SUBSCRIBE", filter.c_str(), filter.size());
+    }
 
-    void publish(Php::Parameters &param);
+    void unsubscribe(Php::Parameters &param) {
+        zstr_sendx (zbeacon_handle(), "UNSUBSCRIBE", NULL);
+    }
 
-    void silence();
+    void publish(Php::Parameters &param) {
+        int interval  = (param.size() > 1) ? (int) param[1] : 1000;
+        std::string data = param[0];
+        zsock_send (zbeacon_handle(), "sbi", "PUBLISH", data.c_str(), data.size(), interval);
+    }
 
-    Php::Value recv(Php::Parameters &param);
+    void silence() {
+        zstr_sendx (zbeacon_handle(), "SILENCE", NULL);
+    }
+
+    Php::Value recv(Php::Parameters &param) {
+
+        int rcvtimeout = param.size() > 0 ? param[0].numericValue() : 500;
+
+        void *zbsocket = get_socket();
+
+        if(!zbsocket)
+            throw Php::Exception("ZBeacon error while accessing zmq socket handle for zactor.");
+
+        zsock_set_rcvtimeo(zbsocket, rcvtimeout);
+
+        zmsg_t *msg = zmsg_recv(zbsocket);
+        if(msg)
+            return Php::Object("ZMsg", new ZMsg(msg, true));
+
+        return nullptr;
+    }
+
 
     static Php::Class<ZBeacon> php_register() {
         Php::Class<ZBeacon> o("ZBeacon");

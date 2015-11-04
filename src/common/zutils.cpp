@@ -1,4 +1,4 @@
-#include "../../include/czmq/zutils.h"
+#include <locale>
 
 std::string toUpper(const std::string& s)
 {
