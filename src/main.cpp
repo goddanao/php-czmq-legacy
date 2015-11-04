@@ -12,12 +12,12 @@ extern "C" {
     
     PHPCPP_EXPORT void *get_module()
     {
-        static Php::Extension extension("czmq", "0.2");
+        static Php::Extension extension("php-czmq", "0.2");
 
         // Initialize zmq global context and defaults
         extension.onStartup([]() {
-            zsys_init ();
-            zsys_set_logsystem (true); //  Send logging to system facility as well as stdout
+            zsys_init ();               //  Earliest initialization
+            zsys_set_logsystem (true);  //  Send logging to system facility as well as stdout
             zsys_set_pipehwm (0);
             zsys_set_sndhwm (0);
             zsys_set_rcvhwm (0);

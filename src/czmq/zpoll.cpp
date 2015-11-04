@@ -1,5 +1,5 @@
 #include "../../include/czmq/zpoll.h"
-#include "../../include/czmq/zhandle.h"
+#include "../../include/common.h"
 
 void ZPoll::reindex(size_t const index) {
     if ( nullptr != _items[index].socket )

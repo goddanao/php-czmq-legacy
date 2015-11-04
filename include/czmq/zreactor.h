@@ -4,7 +4,7 @@
 #include <iostream>
 #include <czmq.h>
 #include "zpoll.h"
-#include "zhandle.h"
+#include "../common.h"
 
 class ZReactor : public Php::Base {
 private:

@@ -4,7 +4,7 @@
 #include <phpcpp.h>
 #include <iostream>
 #include <czmq.h>
-#include "zhandle.h"
+#include "../common.h"
 
 class ZHash  : public ZHandle {
 public:

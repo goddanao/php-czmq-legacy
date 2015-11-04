@@ -1,6 +1,8 @@
 #pragma once
 
+#include "../common.h"
 #include "zactor.h"
+
 
 class ZGossip : public ZActor {
 private:

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../czmq/zhandle.h"
+#include "../common.h"
 
 class MalamuteClient   : public ZHandle {
  private:
@@ -80,11 +80,11 @@ class MalamuteClient   : public ZHandle {
         });
 
         // From ZHandle
-        o.method("recv_picture", &MalamuteClient::recv_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o.method("recv_string", &MalamuteClient::recv_string);
-        o.method("recv", &MalamuteClient::recv);
+//        o.method("recv_picture", &MalamuteClient::recv_picture, {
+//            Php::ByVal("picture", Php::Type::String, true)
+//        });
+//        o.method("recv_string", &MalamuteClient::recv_string);
+//        o.method("recv", &MalamuteClient::recv);
 
 
         return o;

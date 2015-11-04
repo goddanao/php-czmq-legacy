@@ -1,6 +1,6 @@
 #pragma once
 
-#include "zhandle.h"
+#include "../common.h"
 #include "zsocket.h"
 
 class ZCert : public ZHandle {
@@ -8,7 +8,7 @@ private:
     bool _verbose;
 public:
     ZCert() : ZHandle() {}
-    ZCert(zcert_t *handle, bool owned) : ZHandle(handle, owned, "zcert") {}
+    ZCert(zcert_t *handle, bool owned) :ZHandle(handle, owned, "zcert") {}
     zcert_t *zcert_handle() const { return (zcert_t *) get_handle(); }
 
     void __construct(Php::Parameters &param);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../czmq/zhandle.h"
+#include "../common.h"
 #include <zyre.h>
 
 class Zyre : public ZHandle {

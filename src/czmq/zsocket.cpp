@@ -1,4 +1,49 @@
+#include <phpcpp.h>
 #include "../../include/czmq/zsocket.h"
+#include "../../include/czmq/zmsg.h"
+
+Php::Value ZSocket::send_picture(Php::Parameters &param) {
+    zmsg_t *msg = zmsg_new();
+    ZMsg z(msg, false);
+    z.append_picture(param);
+    return (zmsg_send (&msg, get_socket()) == 0);
+}
+
+Php::Value ZSocket::recv_picture(Php::Parameters &param) {
+    zmsg_t *msg = zmsg_recv (get_socket());
+    if(!msg)
+        return nullptr;
+    ZMsg z(msg, true);
+    return z.pop_picture(param);
+}
+
+Php::Value ZSocket::send_string(Php::Parameters &param) {
+	zmsg_t *msg = zmsg_new();
+    ZMsg z(msg, false);
+    z.append_string(param);
+	return (zmsg_send (&msg, get_socket()) == 0);
+}
+
+Php::Value ZSocket::recv_string(Php::Parameters &param) {
+    zmsg_t *msg = zmsg_recv (get_socket());
+    if(!msg)
+        return nullptr;
+    ZMsg z(msg, true);
+    return z.pop_string();
+}
+
+Php::Value ZSocket::send(Php::Parameters &param) {
+    ZMsg *zmsg = dynamic_cast<ZMsg *>(param[0].implementation());
+    zmsg_t *czmsg = zmsg_dup(zmsg->zmsg_handle());
+    return zmsg_send(&czmsg, get_socket());
+}
+
+Php::Value ZSocket::recv(Php::Parameters &param) {
+    zmsg_t *msg = zmsg_recv (get_socket());
+    if(!msg)
+        return nullptr;
+    return Php::Object("ZMsg", new ZMsg(msg, true));
+}
 
 void ZSocket::__construct(Php::Parameters &param) {
 	void *socket;
@@ -101,50 +146,6 @@ Php::Value ZSocket::wait() {
 void ZSocket::flush() {
 	zsock_flush(zsock_handle());
 }
-
-/*
-Php::Value ZSocket::send_picture(Php::Parameters &param) {
-	zmsg_t *msg = zmsg_new();
-	ZMsg z(msg, false);
-	z.append_picture(param);
-	return (zmsg_send (&msg, zsock_handle()) == 0);
-}
-
-Php::Value ZSocket::recv_picture(Php::Parameters &param) {
-	zmsg_t *msg = zmsg_recv (zsock_handle());
-	if(!msg)
-		return nullptr;
-	ZMsg z(msg, true);
-	return z.pop_picture(param);
-}
-
-Php::Value ZSocket::send_string(Php::Parameters &param) {
-	Php::Object self(this);
-	return self.call("send_picture", "S", param[0].stringValue());
-}
-
-Php::Value ZSocket::recv_string(Php::Parameters &param) {
-	Php::Object self(this);
-	Php::Value result = self.call("recv_picture", "S");
-	if(result.isArray())
-	 	return result[0];
-	return nullptr;
-}
-
-Php::Value ZSocket::send(Php::Parameters &param) {
-	Php::Object self(this);
-	return self.call("send_picture", "m", param[0]);
-}
-
-Php::Value ZSocket::recv(Php::Parameters &param) {
-	Php::Object self(this);
-	Php::Value result = self.call("recv_picture", "m");
-	if(result.isArray())
-	 	return result[0];
-	return nullptr;
-}
-
-*/
 
 // Options
 

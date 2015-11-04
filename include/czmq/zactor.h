@@ -1,16 +1,29 @@
 #pragma once
 
-#include "zhandle.h"
+#include "../common.h"
 
-class ZActor  : public ZHandle {
+class ZActor  : public ZHandle  {
 private:
     bool _verbose = false;
+
 public:
     ZActor() : ZHandle() {}
     ZActor(zactor_t *handle, bool owned) : ZHandle(handle, owned, "zactor") {}
     zactor_t *zactor_handle() const { return (zactor_t *) get_handle(); }
 
     void set_verbose (Php::Parameters &param);
+
+    Php::Value send_picture(Php::Parameters &param);
+
+    Php::Value recv_picture(Php::Parameters &param);
+
+    Php::Value send_string(Php::Parameters &param);
+
+    Php::Value recv_string(Php::Parameters &param);
+
+    Php::Value send(Php::Parameters &param);
+
+    Php::Value recv(Php::Parameters &param);
 
     static Php::Class<ZActor> php_register() {
         Php::Class<ZActor> o("ZActor");

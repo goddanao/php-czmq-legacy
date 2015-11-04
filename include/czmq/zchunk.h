@@ -1,6 +1,6 @@
 #pragma once
 
-#include "zhandle.h"
+#include "../common.h"
 
 class ZChunk  : public ZHandle {
 public:

@@ -1,4 +1,6 @@
-#include "zhandle.h"
+#pragma once
+
+#include "../common.h"
 #include "zframe.h"
 #include "zmsg.h"
 

@@ -10,13 +10,15 @@ private:
 
     static zsock_t *new_socket(const char* name, const char* endpoint);
 
-    inline static Php::Value new_socket_php(std::string type, Php::Parameters &param) {
+    static Php::Value new_socket_php(std::string type, Php::Parameters &param) {
         const char *endpoint = (param.size() > 0) ? param[0].stringValue().c_str() : NULL;
     	zsock_t *socket = new_socket(type.c_str(), endpoint);
     	if(socket)
     		return Php::Object("ZSocket", new ZSocket(socket, true));
     	return nullptr;
     }
+
+
 
 public:
     ZSocket() : ZHandle() {}
@@ -184,6 +186,23 @@ public:
     void set_tcp_keepalive_cnt(Php::Parameters &param);
     void set_tcp_keepalive_intvl(Php::Parameters &param);
     void set_tcp_accept_filter(Php::Parameters &param);
+
+
+    Php::Value send_picture(Php::Parameters &param);
+
+    Php::Value recv_picture(Php::Parameters &param);
+
+    Php::Value send_string(Php::Parameters &param);
+
+    Php::Value recv_string(Php::Parameters &param);
+
+    Php::Value send(Php::Parameters &param);
+
+    Php::Value recv(Php::Parameters &param);
+
+
+
+
 
     static Php::Class<ZSocket> php_register() {
 

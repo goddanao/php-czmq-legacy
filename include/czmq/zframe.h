@@ -1,6 +1,6 @@
 #pragma once
 
-#include "zhandle.h"
+#include "../common.h"
 
 class ZFrame  : public ZHandle {
 public:
