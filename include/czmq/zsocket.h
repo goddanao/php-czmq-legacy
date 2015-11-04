@@ -33,10 +33,6 @@ private:
 
        zsock_t *sock = zsock_new (type);
        if (sock != NULL) {
-
-           zsock_set_ipv4only(sock, 1);
-           zsock_set_ipv6(sock, 0);
-
            if(endpoint != NULL) {
                // zsys_info("Connecting socket %s -> %s", name, endpoint);
                if (zsock_attach (sock, endpoint, true)) {
@@ -599,8 +595,6 @@ public:
     	o.method("xreq", &ZSocket::xreq);
     	o.method("xrep", &ZSocket::xrep);
     	o.method("stream", &ZSocket::stream);
-
-
 
     	// Options
 
