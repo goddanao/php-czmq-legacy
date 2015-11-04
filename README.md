@@ -36,6 +36,5 @@ sudo make install
 sudo ldconfig
 cd ..
 ```
-
 ## Usage
 still to come... Take a look at the php tests and at [CZMQ manual](http://czmq.zeromq.org/manual:_start)
