@@ -11,8 +11,6 @@ env:
 #  - ZSYS_INTERFACE=venet0 ZMQ_REPO=zeromq3-x LIBSODIUM_REPO=libsodium CZMQ_REPO=czmq CZMQ_BRANCH="-b 'v2.2.0'" ZYRE_REPO=zyre MALAMUTE_REPO=malamute
 
 before_install:
-  - sudo ifconfig venet0 -broadcast
-  - ifconfig
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo add-apt-repository -y ppa:git-core/ppa
   - sudo apt-get update -qq
