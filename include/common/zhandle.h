@@ -8,13 +8,17 @@
 class ZHandle : public Php::Base {
 protected:
     void *_handle      = nullptr;
+    SOCKET _socket     = 0;
     bool _owned        = false;
     std::string _type  = "unknown";
 public:
     ZHandle() : Php::Base() {}
     ZHandle(void *handle, bool owned, std::string type) : Php::Base() , _handle(handle), _owned(owned), _type(type) {}
+    ZHandle(SOCKET socket, bool owned, std::string type) : Php::Base() , _socket(socket), _owned(owned), _type(type) {}
 
     void set_handle(void *handle, bool owned, std::string type) { _handle = handle; _owned = owned; _type  = type; }
+    void set_handle(SOCKET socket, bool owned, std::string type) { _socket = socket; _owned = owned; _type  = type; }
+
     void *get_handle() const { return _handle; }
 
     virtual void *get_socket() const {
@@ -67,9 +71,7 @@ public:
             zloop_destroy((zloop_t **) &_handle);
         else
         if(_type == "zudp") {
-            SOCKET *socket = (SOCKET *) _handle;
-            SOCKET s = *socket;
-            zsys_udp_close( s );
+            zsys_udp_close( _socket );
         }
         else
         if(_type == "zyre")
@@ -82,7 +84,9 @@ public:
             mlm_client_destroy ((mlm_client_t **) &_handle);
         else
             ;
+
         _handle = nullptr;
+        _socket = INVALID_SOCKET;
     }
 
 };
