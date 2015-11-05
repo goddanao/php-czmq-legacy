@@ -13,10 +13,11 @@ public:
     }
 
     Php::Value __toString() {
-        char *frame = zframe_strdup (zframe_handle());
-    	Php::Value buffer = frame;
-    	free(frame);
-    	return buffer.stringValue();
+        Php::Value result;
+        char *framestr = zframe_strdup (zframe_handle());
+        result = framestr;
+        free(framestr);
+    	return result;
     }
 
     void dump() {
