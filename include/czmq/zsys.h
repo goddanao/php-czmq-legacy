@@ -31,6 +31,38 @@ public:
         return result;
     }
 
+    static std::string getMACAddress(const char * _iface) {
+        unsigned char MAC[6];
+        int fd = socket(AF_INET, SOCK_DGRAM, 0);
+        struct ifreq ifr;
+        ifr.ifr_addr.sa_family = AF_INET;
+        strncpy(ifr.ifr_name , _iface , IFNAMSIZ-1);
+        ioctl(fd, SIOCGIFHWADDR, &ifr);
+        for(unsigned int i=0;i<6;i++)
+            MAC[i] = ifr.ifr_hwaddr.sa_data[i];
+        ioctl(fd, SIOCGIFMTU, &ifr);
+        close(fd);
+
+        const char* format = "%.2x:%.2x:%.2x:%.2x:%.2x:%.2x";
+        size_t size = snprintf( nullptr, 0, format, MAC[0],MAC[1],MAC[2],MAC[3],MAC[4],MAC[5]) + 1; // Extra space for '\0'
+        std::unique_ptr<char[]> buf( new char[ size ] );
+        snprintf( buf.get(), size, format, MAC[0],MAC[1],MAC[2],MAC[3],MAC[4],MAC[5]);
+        return std::string( buf.get(), buf.get() + size - 1 ); // We don't want the '\0' inside
+    }
+
+    static bool getCanBroadcast(const char * _iface) {
+        int fd = socket(AF_INET, SOCK_DGRAM, 0);
+        struct ifreq ifr;
+        ifr.ifr_addr.sa_family = AF_INET;
+        strncpy(ifr.ifr_name , _iface , IFNAMSIZ-1);
+        if (ioctl(fd, SIOCGIFFLAGS, &ifr) < 0) {
+            close(fd);
+            throw Php::Exception("Zsys error while accessing socket flags.");
+        }
+        close(fd);
+        return (ifr.ifr_flags & IFF_BROADCAST);
+    }
+
     static Php::Value list_interfaces() {
         Php::Value result;
 
@@ -46,6 +78,8 @@ public:
             res["address"] = ziflist_address (iflist);
             res["netmask"] = ziflist_netmask (iflist);
             res["broadcast"] = ziflist_broadcast (iflist);
+            res["can_broadcast"] = getCanBroadcast(name);
+            res["mac"] = getMACAddress(name);
             result[idx++] = res;
             name = ziflist_next (iflist);
         }
