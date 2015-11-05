@@ -2,6 +2,11 @@
 
 class ZyreTest extends \PHPUnit_Framework_TestCase {
 
+    protected function setUp() {
+        if (getenv("TRAVIS"))
+            $this->markTestSkipped("No broadcast interface usable in TRAVIS-CI");
+    }
+
     public function test_create() {
         $zyre = new Zyre();
         $this->assertNotNull($zyre);
