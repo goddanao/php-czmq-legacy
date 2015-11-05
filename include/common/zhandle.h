@@ -83,7 +83,6 @@ public:
         else
             ;
         _handle = nullptr;
-
     }
 
 };
