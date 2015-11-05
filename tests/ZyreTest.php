@@ -62,7 +62,7 @@ class ZyreTest extends \PHPUnit_Framework_TestCase {
         ## JOIN A COMMON GROUP (GLOBAL) and wait 100 ms to broadcast changes
         $n1->join("GLOBAL");
         $n2->join("GLOBAL");
-        usleep(100);
+        usleep(5000);
 
         ## NODE2 AND NODE1 BECOME VISIBLE EACH OTHER
         $this->assertTrue(count($n1->get_peers()) == 1 && count($n2->get_peers()) == 1);
@@ -70,7 +70,7 @@ class ZyreTest extends \PHPUnit_Framework_TestCase {
         ## JOIN OWN PRIVATE GROUP and wait 100 ms to broadcast changes
         $n1->join("PRIVATE-NODE1");
         $n2->join("PRIVATE-NODE2");
-        usleep(100);
+        usleep(5000);
 
         ## NODE1, NODE2 BOTH HAVE 2 GROUPS (1 in common and 1 private)
         $this->assertTrue(count($n2->get_groups()) == 2 && count($n1->get_groups()) == 2);

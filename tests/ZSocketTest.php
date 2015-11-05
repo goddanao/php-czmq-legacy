@@ -28,6 +28,8 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
         $req_pair = new ZSocket(ZSys::SOCKET_PAIR);
         $req_pair->connect($endpoint);
 
+        usleep(50000);
+
         $this->rep = $rep;
         $this->req = $req;
         $this->rep_pair = $rep_pair;

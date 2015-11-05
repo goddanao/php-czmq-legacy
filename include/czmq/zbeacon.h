@@ -32,7 +32,7 @@ public:
 
     void publish(Php::Parameters &param) {
         int interval  = (param.size() > 1) ? (int) param[1] : 1000;
-        std::string data = param[0];
+        std::string data = param[0].stringValue();
         zsock_send (zbeacon_handle(), "sbi", "PUBLISH", data.c_str(), data.size(), interval);
     }
 

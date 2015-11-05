@@ -1,5 +1,6 @@
 #include "../../include/czmq/zsocket.h"
 
+#if (ZMQ_VERSION_MAJOR == 4)
 
 Php::Value ZSocket::get_tos() {
     return zsock_tos(zsock_handle());
@@ -89,14 +90,14 @@ Php::Value ZSocket::get_immediate() {
     return zsock_immediate(zsock_handle());
 }
 
+#endif
+
 Php::Value ZSocket::get_ipv4only() {
     return zsock_ipv4only(zsock_handle());
 }
 
 Php::Value ZSocket::get_type() {
-    int type = zsock_type(zsock_handle());
-    return type;
-
+    return zsock_type(zsock_handle());
 }
 
 Php::Value ZSocket::get_sndhwm() {
@@ -210,6 +211,8 @@ Php::Value ZSocket::get_last_endpoint() {
 
 // Set Socket Options
 
+#if (ZMQ_VERSION_MAJOR == 4)
+
 void ZSocket::set_tos(Php::Parameters &param) {
     zsock_set_tos(zsock_handle(), param[0].numericValue());
 }
@@ -305,6 +308,8 @@ void ZSocket::set_ipv6(Php::Parameters &param) {
 void ZSocket::set_immediate(Php::Parameters &param) {
     zsock_set_immediate(zsock_handle(), param[0].numericValue());
 }
+
+#endif
 
 void ZSocket::set_router_raw(Php::Parameters &param) {
     zsock_set_router_raw(zsock_handle(), param[0].numericValue());
