@@ -10,7 +10,6 @@ env:
   - ZSYS_INTERFACE=venet0 ZMQ_REPO=zeromq4-x LIBSODIUM_REPO=libsodium CZMQ_REPO=czmq ZYRE_REPO=zyre MALAMUTE_REPO=malamute
   - ZSYS_INTERFACE=venet0 ZMQ_REPO=zeromq3-x LIBSODIUM_REPO=libsodium CZMQ_REPO=czmq ZYRE_REPO=zyre MALAMUTE_REPO=malamute
 
-https://github.com/zeromq/
 before_install:
   - sudo ifconfig venet0 -broadcast
   - ifconfig
