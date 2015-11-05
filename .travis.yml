@@ -24,8 +24,8 @@ install:
 
 script: ./build.sh
 
-notifications:
-  email:
-    recipients: goddanao@gmail.com
-    on_success: change
-    on_failure: always
+#notifications:
+#  email:
+#    recipients: goddanao@gmail.com
+#    on_success: change
+#    on_failure: always
