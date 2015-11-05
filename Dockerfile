@@ -15,6 +15,6 @@ RUN rm /tmp/* -rf
 RUN cd ~ && git clone https://github.com/goddanao/php-czmq.git ./php-czmq && cd ./php-czmq && make && make install && ldconfig
 RUN cp ~/php-czmq/czmq.ini /etc/php5/cli/conf.d/020-czmq.ini
 RUN cp ~/php-czmq/czmq.ini /etc/php5/apache2/conf.d/020-czmq.ini
-RUN cd ~/php-czmq && php /usr/bin/phpunit
+RUN cd ~/php-czmq && composer update && php /usr/bin/phpunit
 
 

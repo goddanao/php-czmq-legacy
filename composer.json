@@ -1,0 +1,17 @@
+{
+    "name": "goddanao/php-czmq",
+    "description": "",
+    "keywords": [""],
+    "authors": [{
+        "name": "Andrea Nanni",
+        "email": "goddanao@gmail.com"
+    }],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "kriswallsmith/spork": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

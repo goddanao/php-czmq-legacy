@@ -108,24 +108,37 @@ public:
 		if(param.size() == 0)
 			throw Php::Exception("MajordomoClient call need service name and params..");
 
-		std::string service = param[0];
+		zmsg_t *zmsg = nullptr;
 
-		if(param.size() > 1)
-			std::string params = param[1];
+		if(param.size() > 1) {
+		    if(param[1].isString()) {
+		        zmsg = zmsg_new ();
+                zmsg_pushstr (zmsg, param[1].stringValue().c_str());
+		    } else {
+                ZMsg *zzmsg = dynamic_cast<ZMsg *>(param[1].implementation());
+                if(zzmsg) {
+                    zmsg = zmsg_dup(zzmsg->zmsg_handle());
+                } else {
+                    ZFrame *frame = dynamic_cast<ZFrame *>(param[1].implementation());
+                    if(frame) {
+                        zmsg = zmsg_new ();
+                        zmsg_pushmem (zmsg, zframe_data(frame->zframe_handle()), zframe_size(frame->zframe_handle()));
+                    }
+                }
+            }
+		}
+
 
 		// Qua devo confezionare la richiesta
+        if(zmsg) {
+		    send ((char *) param[0].stringValue().c_str(), &zmsg);
+		    zmsg_t *reply = recv (NULL, NULL);
+            if(reply)
+                return Php::Object("Zmsg", new ZMsg(reply, true));
 
-		zmsg_t *request = zmsg_new ();
-		zmsg_pushstr (request, "Hello world");
-		send ((char*) service.c_str(), &request);
-		zmsg_t *reply = recv (NULL, NULL);
+        }
 
-		if(reply) {
-			Php::Object result("Zmsg", new ZMsg(reply, true));
-			return result;
-		} else {
-			return nullptr;
-		}
+        return nullptr;
 	}
 
 	void call_async(Php::Parameters &param){

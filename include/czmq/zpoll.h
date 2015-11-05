@@ -30,9 +30,6 @@ private:
 
 public:
 
-
-
-
     void set_verbose(Php::Parameters &param) {
         _verbose = param.size()>0 ? (bool) param[0] : true;
     }

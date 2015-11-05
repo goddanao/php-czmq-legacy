@@ -9,7 +9,6 @@ public:
     ZProxy() : ZActor() {}
     zactor_t *zproxy_handle() const { return (zactor_t *) get_handle(); }
 
-
     void __construct(Php::Parameters &param) {
         set_handle(zactor_new(zproxy, NULL), true, "zactor");
     }

@@ -26,7 +26,7 @@ public:
 		if(param.size() == 0)
 			throw Php::Exception("Majordomo Broker can't bind endpoint.");
 		zstr_sendx (zmdpbroker_handle(), "BIND", param[0].stringValue().c_str(), NULL);
-		// zsock_wait (broker);
+		zsock_wait (zmdpbroker_handle());
 		return true;
 	}
 
