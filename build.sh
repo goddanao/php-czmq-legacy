@@ -11,7 +11,7 @@ git clone git://github.com/zeromq/${ZMQ_REPO}.git &&
     make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
 
 # Build, check, and install the version of CZMQ given by CZMQ_REPO
-git clone git://github.com/zeromq/${CZMQ_REPO}.git &&
+git clone ${CZMQ_BRANCH} git://github.com/zeromq/${CZMQ_REPO}.git &&
 ( cd ${CZMQ_REPO}; ./autogen.sh && ./configure &&
     make -j4 check && make -j4 && sudo make install && sudo ldconfig && cd ..) || exit 1
 
@@ -26,7 +26,7 @@ git clone git://github.com/zeromq/${MALAMUTE_REPO}.git &&
     make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
 
 # Build and install PHP-CPP (-b 'v1.5' --single-branch --depth 1)
-git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
+git clone ${PHPCPP_BRANCH} git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
 ( cd PHP-CPP; make -j4 && sudo make install && sudo ldconfig && cd ..) || exit 1
 
 # Build and install PHP-CZMQ
