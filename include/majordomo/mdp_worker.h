@@ -209,7 +209,7 @@ public:
     }
 
     static Php::Class<MajordomoWorker> php_register() {
-        Php::Class<MajordomoWorker> o("Worker");
+        Php::Class<MajordomoWorker> o("MajordomoWorker");
         o.method("__construct", &MajordomoWorker::__construct);
         o.method("run", &MajordomoWorker::run, {
             Php::ByVal("name", Php::Type::String),

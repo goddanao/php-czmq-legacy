@@ -2,9 +2,9 @@
 
 #include "zactor.h"
 
-class ZAuth  : public ZActor {
+class ZAuth  : public ZActor, public Php::Base  {
 public:
-    ZAuth() : ZActor() {}
+    ZAuth() : ZActor(), Php::Base() {}
     zactor_t *zauth_handle() const { return (zactor_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {

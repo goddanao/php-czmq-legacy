@@ -4,13 +4,13 @@
 #include "zframe.h"
 #include "zmsg.h"
 
-class ZUdp : public ZHandle {
+class ZUdp : public ZHandle, public Php::Base {
 private:
     bool _verbose = false;
     inaddr_t broadcast;         //  Our broadcast address
 public:
-    ZUdp() : ZHandle() {}
-    ZUdp(SOCKET handle, bool owned) : ZHandle(handle, owned, "zudp") {}
+    ZUdp() : ZHandle(), Php::Base() {}
+    ZUdp(SOCKET handle, bool owned) : ZHandle(handle, owned, "zudp"), Php::Base() {}
     SOCKET  zudp_handle() const { return _socket; }
 
     void set_verbose (Php::Parameters &param) {
@@ -20,7 +20,7 @@ public:
     void __construct(Php::Parameters &param) {
         std::string interface = (param.size() > 0) ? param[0].stringValue() : "";
         const char* iface = interface.c_str();
-        int port_nbr = (param.size() > 1) ? param[1].numericValue() : 6599;
+        int port_nbr = (param.size() > 1) ? param[1].numericValue() : 5670;
         bool routable = (param.size() > 2) ? param[2].boolValue() : false;
 
         SOCKET socket = zsys_udp_new(routable);
@@ -33,7 +33,7 @@ public:
         in_addr_t send_to = 0;
 
         if (streq (iface, "*")) {
-            zsys_info("binding .... * ");
+            // zsys_info("binding .... * ");
             //  Wildcard means bind to INADDR_ANY and send to INADDR_BROADCAST
             bind_to = INADDR_ANY;
             send_to = INADDR_BROADCAST;

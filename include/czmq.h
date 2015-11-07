@@ -3,8 +3,6 @@
 #include "common.h"
 #include "czmq/zcontext.h"
 #include "czmq/zsys.h"
-#include "czmq/zhash.h"
-#include "czmq/zchunk.h"
 #include "czmq/zframe.h"
 #include "czmq/zmsg.h"
 #include "czmq/zsocket.h"
@@ -22,9 +20,6 @@
 
 void php_czmq_register(Php::Extension *extension) {
 
-    // ZHandle
-    Php::Class<ZHandle> zhandle("ZHandle");
-
     // ZContext
     Php::Class<ZContext> zcontext = ZContext::php_register();
     extension->add(std::move(zcontext));
@@ -37,10 +32,6 @@ void php_czmq_register(Php::Extension *extension) {
     Php::Class<ZUdp> zudp = ZUdp::php_register();
     extension->add(std::move(zudp));
 
-    // ZHash
-    Php::Class<ZHash> zhash = ZHash::php_register();
-    extension->add(std::move(zhash));
-
     // ZMsg
     Php::Class<ZMsg> zmsg = ZMsg::php_register();
     extension->add(std::move(zmsg));
@@ -48,10 +39,6 @@ void php_czmq_register(Php::Extension *extension) {
     // ZFrame
     Php::Class<ZFrame> zframe = ZFrame::php_register();
     extension->add(std::move(zframe));
-
-    // ZChunk
-    Php::Class<ZChunk> zchunk = ZChunk::php_register();
-    extension->add(std::move(zchunk));
 
     // ZPoll (Read/Write - LIBZMQ Based)
     Php::Class<ZPoll> zpoll = ZPoll::php_register();
@@ -74,32 +61,30 @@ void php_czmq_register(Php::Extension *extension) {
     extension->add(std::move(zcertstore));
 
 
+    // IZSocket
+    Php::Interface izsocket("IZSocket");
+
     // ZSocket
     Php::Class<ZSocket> zsocket = ZSocket::php_register();
-    zsocket.extends(zhandle);
-
-    // ZActor
-    Php::Class<ZActor> zactor = ZActor::php_register();
-    zactor.extends(zhandle);
+    zsocket.implements(izsocket);
 
     // ZProxy
     Php::Class<ZProxy> zproxy = ZProxy::php_register();
-    zproxy.extends(zactor);
+    zproxy.implements(izsocket);
 
     // ZBeacon
     Php::Class<ZBeacon> zbeacon = ZBeacon::php_register();
-    zbeacon.extends(zactor);
+    zbeacon.implements(izsocket);
 
     // ZAuth
     Php::Class<ZAuth> zauth = ZAuth::php_register();
-    zauth.extends(zactor);
+    zauth.implements(izsocket);
 
     // ZGossip
     Php::Class<ZGossip> zgossip = ZGossip::php_register();
-    zgossip.extends(zactor);
+    zgossip.implements(izsocket);
 
-    extension->add(std::move(zhandle));
-    extension->add(std::move(zactor));
+    extension->add(std::move(izsocket));
     extension->add(std::move(zsocket));
     extension->add(std::move(zproxy));
     extension->add(std::move(zbeacon));

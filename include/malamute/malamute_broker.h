@@ -2,14 +2,14 @@
 
 #include "../czmq/zactor.h"
 
-class MalamuteBroker : public ZActor {
+class MalamuteBroker : public ZActor, public Php::Base {
     bool verbose = false;
     bool stopped = false;
     zactor_t *broker = NULL;
     Php::Value on_idle_callback;
     Php::Value on_tick_callback;
 public:
-    MalamuteBroker() : ZActor() {}
+    MalamuteBroker() : ZActor(), Php::Base() {}
     zactor_t *mlm_broker_handle() const { return (zactor_t *) get_handle(); }
 
 
@@ -163,7 +163,7 @@ public:
 	}
 
     static Php::Class<MalamuteBroker> php_register() {
-        Php::Class<MalamuteBroker> o("Broker");
+        Php::Class<MalamuteBroker> o("MalamuteBroker");
         o.method("__construct", &MalamuteBroker::__construct);
         o.method("set_verbose", &MalamuteBroker::set_verbose);
         o.method("load_config", &MalamuteBroker::load_config);

@@ -2,10 +2,10 @@
 
 #include "../common.h"
 
-class ZCertStore : public ZHandle {
+class ZCertStore : public ZHandle, public Php::Base  {
 public:
-    ZCertStore() : ZHandle() {};
-    ZCertStore(zcertstore_t *handle, bool owned) : ZHandle(handle, owned, "zcertstore") {}
+    ZCertStore() : ZHandle(), Php::Base() {};
+    ZCertStore(zcertstore_t *handle, bool owned) : ZHandle(handle, owned, "zcertstore"), Php::Base() {}
     zcertstore_t *zcertstore_handle() const { return (zcertstore_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
@@ -31,7 +31,7 @@ public:
         }
     }
 
-    void print() {
+    void dump() {
         zcertstore_print (zcertstore_handle());
     }
 
@@ -50,7 +50,7 @@ public:
             Php::ByVal("cert", "ZCert", false, true)
         });
 
-         o.method("print", &ZCertStore::print);
+         o.method("dump", &ZCertStore::dump);
 
         return o;
     }

@@ -4,11 +4,11 @@
 #include "zactor.h"
 
 
-class ZGossip : public ZActor {
+class ZGossip : public ZActor, public Php::Base {
 private:
     bool _stopped = false;
 public:
-    ZGossip() : ZActor() {}
+    ZGossip() : ZActor(), Php::Base() {}
     zactor_t *zgossip_handle() const { return (zactor_t *) get_handle(); }
 
 

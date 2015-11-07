@@ -122,10 +122,7 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
 
     public function test_send_recv_picture_multi()
     {
-        $chunk = new ZChunk();
-        $frame = new ZFrame();
         $msg = new ZMsg();
-        $hash  = new ZHash();
 
         $success = [
             '1' => pow(2, 8) - 1,                           // 1 = 8 bit unsigned
@@ -138,9 +135,6 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
             'S' => str_pad('-', 256, '-'),                  // S = long string (> 255 chars),
             'b' => pack("nvc*", 0x1234, 0x5678, 65, 66),    // b = byte buffer
             'z' => null,                                    // z = NULL
-            'c' => $chunk,                                  // ZChunk
-            'f' => $frame,                                  // ZFrame
-            'h' => $hash,                                   // ZHash
             'm' => $msg,                                    // ZMsg (collect frames not in picture, till the end of recieved message)
         ];
 

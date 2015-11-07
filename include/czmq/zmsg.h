@@ -1,13 +1,11 @@
 #pragma once
 
-#include "zhash.h"
-#include "zchunk.h"
 #include "zframe.h"
 
-class ZMsg  : public ZHandle {
+class ZMsg  : public ZHandle, public Php::Base {
 public:
-    ZMsg() : ZHandle() {}
-    ZMsg(zmsg_t *handle, bool owned) : ZHandle(handle, owned, "zmsg") {}
+    ZMsg() : ZHandle(), Php::Base() {}
+    ZMsg(zmsg_t *handle, bool owned) : ZHandle(handle, owned, "zmsg"), Php::Base() {}
     zmsg_t *zmsg_handle() const { return (zmsg_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
@@ -130,14 +128,14 @@ public:
     //			}
     //		}
     //		else
-            if (*picture == 'c') {
-                ZChunk *zchunk = dynamic_cast<ZChunk *>(param[picture_idx++].implementation());
-                if(zchunk != NULL)
-                    zmsg_addmem (msg, zchunk_data (zchunk->zchunk_handle()), zchunk_size (zchunk->zchunk_handle()));
-                else
-                    throw Php::Exception("ZMsg picture: 'c' param not mapped on ZChunk.");
-            }
-            else
+//            if (*picture == 'c') {
+//                ZChunk *zchunk = dynamic_cast<ZChunk *>(param[picture_idx++].implementation());
+//                if(zchunk != NULL)
+//                    zmsg_addmem (msg, zchunk_data (zchunk->zchunk_handle()), zchunk_size (zchunk->zchunk_handle()));
+//                else
+//                    throw Php::Exception("ZMsg picture: 'c' param not mapped on ZChunk.");
+//            }
+//            else
             if (*picture == 'f') {
                 ZFrame *zframe = dynamic_cast<ZFrame *>(param[picture_idx++].implementation());
                 if(zframe != NULL)
@@ -146,16 +144,16 @@ public:
                     throw Php::Exception("ZMsg picture: 'f' param not mapped on ZFrame.");
             }
             else
-            if (*picture == 'h') {
-                ZHash *zhash = dynamic_cast<ZHash *>(param[picture_idx++].implementation());
-                if(zhash != NULL) {
-                    zframe_t *frame = zhash_pack (zhash->zhash_handle());
-                    zmsg_append (msg, &frame);
-                }
-                else
-                    throw Php::Exception("ZMsg picture: 'h' param not mapped on ZHash.");
-            }
-            else
+//            if (*picture == 'h') {
+//                ZHash *zhash = dynamic_cast<ZHash *>(param[picture_idx++].implementation());
+//                if(zhash != NULL) {
+//                    zframe_t *frame = zhash_pack (zhash->zhash_handle());
+//                    zmsg_append (msg, &frame);
+//                }
+//                else
+//                    throw Php::Exception("ZMsg picture: 'h' param not mapped on ZHash.");
+//            }
+//            else
             if (*picture == 'm') {
                 ZMsg *zmsg = dynamic_cast<ZMsg *>(param[picture_idx++].implementation());
                 if(zmsg != NULL) {
@@ -238,14 +236,14 @@ public:
     //			}
     //		}
     //		else
-            if (*picture == 'c') {
-                ZChunk *zchunk = dynamic_cast<ZChunk *>(param[picture_idx--].implementation());
-                if(zchunk != NULL)
-                    zmsg_pushmem (msg, zchunk_data (zchunk->zchunk_handle()), zchunk_size (zchunk->zchunk_handle()));
-                else
-                    throw Php::Exception("ZMsg picture: 'c' param not mapped on ZChunk.");
-            }
-            else
+//            if (*picture == 'c') {
+//                ZChunk *zchunk = dynamic_cast<ZChunk *>(param[picture_idx--].implementation());
+//                if(zchunk != NULL)
+//                    zmsg_pushmem (msg, zchunk_data (zchunk->zchunk_handle()), zchunk_size (zchunk->zchunk_handle()));
+//                else
+//                    throw Php::Exception("ZMsg picture: 'c' param not mapped on ZChunk.");
+//            }
+//            else
             if (*picture == 'f') {
                 ZFrame *zframe = dynamic_cast<ZFrame *>(param[picture_idx--].implementation());
                 if(zframe != NULL)
@@ -254,16 +252,16 @@ public:
                     throw Php::Exception("ZMsg picture: 'f' param not mapped on ZFrame.");
             }
             else
-            if (*picture == 'h') {
-                ZHash *zhash = dynamic_cast<ZHash *>(param[picture_idx--].implementation());
-                if(zhash != NULL) {
-                    zframe_t *frame = zhash_pack (zhash->zhash_handle());
-                    zmsg_prepend (msg, &frame);
-                }
-                else
-                    throw Php::Exception("ZMsg picture: 'h' param not mapped on ZHash.");
-            }
-            else
+//            if (*picture == 'h') {
+//                ZHash *zhash = dynamic_cast<ZHash *>(param[picture_idx--].implementation());
+//                if(zhash != NULL) {
+//                    zframe_t *frame = zhash_pack (zhash->zhash_handle());
+//                    zmsg_prepend (msg, &frame);
+//                }
+//                else
+//                    throw Php::Exception("ZMsg picture: 'h' param not mapped on ZHash.");
+//            }
+//            else
             if (*picture == 'm') {
                 ZMsg *zmsg = dynamic_cast<ZMsg *>(param[picture_idx--].implementation());
                 if(zmsg != NULL) {
@@ -373,20 +371,20 @@ public:
                     result[idx++] = nullptr;
             }
             else
-            if (*picture == 'c') {
-                zframe_t *frame = zmsg_pop (msg);
-                if(frame) {
-                    zchunk_t *chunk = zchunk_new(zframe_data (frame), zframe_size(frame));
-                    if(chunk)
-                        result[idx++] = Php::Object("ZChunk", new ZChunk(chunk,true));
-                    else
-                        result[idx++] = nullptr;
-                    zframe_destroy (&frame);
-                }
-                else
-                    result[idx++] = nullptr;
-            }
-            else
+//            if (*picture == 'c') {
+//                zframe_t *frame = zmsg_pop (msg);
+//                if(frame) {
+//                    zchunk_t *chunk = zchunk_new(zframe_data (frame), zframe_size(frame));
+//                    if(chunk)
+//                        result[idx++] = Php::Object("ZChunk", new ZChunk(chunk,true));
+//                    else
+//                        result[idx++] = nullptr;
+//                    zframe_destroy (&frame);
+//                }
+//                else
+//                    result[idx++] = nullptr;
+//            }
+//            else
     //		if (*picture == 'p') {
     //			if(streq(sock_type,"PAIR")) {
     //				void *pointer = NULL;
@@ -415,20 +413,20 @@ public:
     //			}
     //		}
     //		else
-            if (*picture == 'h') {
-                zframe_t *frame = zmsg_pop (msg);
-                if(frame) {
-                    zhash_t *unpacked = zhash_unpack (frame);
-                    if(unpacked)
-                        result[idx++] = Php::Object("ZHash", new ZHash(unpacked, true));
-                    else
-                        result[idx++] = nullptr;
-                    zframe_destroy (&frame);
-                }
-                else
-                    result[idx++] = nullptr;
-            }
-            else
+//            if (*picture == 'h') {
+//                zframe_t *frame = zmsg_pop (msg);
+//                if(frame) {
+//                    zhash_t *unpacked = zhash_unpack (frame);
+//                    if(unpacked)
+//                        result[idx++] = Php::Object("ZHash", new ZHash(unpacked, true));
+//                    else
+//                        result[idx++] = nullptr;
+//                    zframe_destroy (&frame);
+//                }
+//                else
+//                    result[idx++] = nullptr;
+//            }
+//            else
             if (*picture == 'm') {
                 zmsg_t *zmsg_p = zmsg_new ();
                 zframe_t *frame;

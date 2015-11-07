@@ -3,12 +3,12 @@
 #include "../common.h"
 #include "zsocket.h"
 
-class ZCert : public ZHandle {
+class ZCert : public ZHandle, public Php::Base  {
 private:
     bool _verbose;
 public:
-    ZCert() : ZHandle() {}
-    ZCert(zcert_t *handle, bool owned) :ZHandle(handle, owned, "zcert") {}
+    ZCert() : ZHandle(), Php::Base() {}
+    ZCert(zcert_t *handle, bool owned) : ZHandle(handle, owned, "zcert"), Php::Base() {}
     zcert_t *zcert_handle() const { return (zcert_t *) get_handle(); }
 
 
@@ -133,7 +133,7 @@ public:
         });
 
         o.method("apply", &ZCert::apply, {
-            Php::ByRef("zhandle", "ZHandle", false, true)
+            Php::ByRef("zhandle", "IZSocket", false, true)
         });
 
         o.method("dump", &ZCert::dump);

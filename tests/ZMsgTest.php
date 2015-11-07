@@ -28,10 +28,6 @@ class ZMsgTest extends \PHPUnit_Framework_TestCase {
         $msg = new ZMsg();
         $msg->append_string("Frame0");
 
-        $chunk = new ZChunk();
-        $frame = new ZFrame();
-        $hash  = new ZHash();
-
         $success = [
             '1' => pow(2, 8) - 1,                           // 1 = 8 bit unsigned
             '2' => pow(2, 15) - 1,                          // 2 = 16 bit signed
@@ -43,9 +39,6 @@ class ZMsgTest extends \PHPUnit_Framework_TestCase {
             'S' => str_pad('-', 256, '-'),                  // S = long string (> 255 chars),
             'b' => pack("nvc*", 0x1234, 0x5678, 65, 66),    // b = byte buffer
             'z' => null,                                    // z = NULL
-            'c' => $chunk,                                  // ZChunk
-            'f' => $frame,                                  // ZFrame
-            'h' => $hash,                                   // ZHash
             // 'm' prende tutti i frame fino alla fine del messaggio e quindi non puo' essere usato in questo test )
             // 'm' => new ZMsg(),                           // ZMsg (collect frames not in picture, till the end of recieved message)
         ];

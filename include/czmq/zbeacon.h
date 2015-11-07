@@ -2,9 +2,9 @@
 
 #include "zactor.h"
 
-class ZBeacon : public ZActor {
+class ZBeacon : public ZActor, public Php::Base {
 public:
-    ZBeacon() : ZActor() {}
+    ZBeacon() : ZActor(), Php::Base() {}
     zactor_t *zbeacon_handle() const { return (zactor_t *) get_handle(); }
 
 

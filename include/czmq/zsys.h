@@ -17,11 +17,16 @@ public:
         return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
     }
 
-//    static Php::Value libzyre_version() {
-//        int major, minor, patch;
-//        zyre_version (&major, &minor, &patch);
-//        return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
-//    }
+    static Php::Value libzyre_version() {
+        int major, minor, patch;
+        zyre_version (&major, &minor, &patch);
+        return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
+    }
+
+    static Php::Value libmlm_version() {
+        int major = MALAMUTE_VERSION_MAJOR, minor = MALAMUTE_VERSION_MINOR, patch = MALAMUTE_VERSION_PATCH;
+        return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
+    }
 
     static Php::Value hostname() {
         Php::Value result;
@@ -141,37 +146,42 @@ public:
         o.method("Context", &ZSys::context);
         o.method("is_interrupted", &ZContext::is_interrupted);
 
-        o.method("set_io_threads", &ZSys::set_io_threads);
-        o.method("set_ipv6", &ZSys::set_ipv6);
+        o.method("set_io_threads", &ZSys::set_io_threads, {
+            Php::ByVal("threads", Php::Type::Numeric, true)
+        });
+        o.method("set_ipv6", &ZSys::set_ipv6, {
+            Php::ByVal("enable", Php::Type::Bool, true)
+        });
 
-        o.method("set_default_linger", &ZSys::set_default_linger);
-        o.method("set_default_sndhwm", &ZSys::set_default_sndhwm);
-        o.method("set_default_rcvhwm", &ZSys::set_default_rcvhwm);
-        o.method("set_pipehwm", &ZSys::set_pipehwm);
+        o.method("set_default_linger", &ZSys::set_default_linger, { Php::ByVal("linger", Php::Type::Numeric, true) });
+        o.method("set_default_sndhwm", &ZSys::set_default_sndhwm, { Php::ByVal("sndhwm", Php::Type::Numeric, true) });
+        o.method("set_default_rcvhwm", &ZSys::set_default_rcvhwm, { Php::ByVal("rcvhwm", Php::Type::Numeric, true) });
+        o.method("set_pipehwm", &ZSys::set_pipehwm, { Php::ByVal("pipehwm", Php::Type::Numeric, true) });
         o.method("get_pipehwm", &ZSys::get_pipehwm);
 
         o.method("has_curve", &ZSys::has_curve);
         o.method("get_socket_limit", &ZSys::get_socket_limit);
-        o.method("set_max_sockets", &ZSys::set_max_sockets);
+        o.method("set_max_sockets", &ZSys::set_max_sockets, { Php::ByVal("max_sockets", Php::Type::Numeric, true) });
 
         o.method("hostname", &ZSys::hostname);
-        o.method("set_interface", &ZSys::set_interface);
+        o.method("set_interface", &ZSys::set_interface, { Php::ByVal("interface", Php::Type::String, true) });
         o.method("get_interface", &ZSys::get_interface);
         o.method("list_interfaces", &ZSys::list_interfaces);
 
-        o.method("set_log_ident", &ZSys::set_log_ident);
-        o.method("set_log_endpoint", &ZSys::set_log_endpoint);
-        o.method("set_log_system", &ZSys::set_log_system);
+        o.method("set_log_ident", &ZSys::set_log_ident, { Php::ByVal("log_ident", Php::Type::String, true) });
+        o.method("set_log_endpoint", &ZSys::set_log_endpoint, { Php::ByVal("log_endpoint", Php::Type::String, true) });
+        o.method("set_log_system", &ZSys::set_log_system, { Php::ByVal("enable", Php::Type::Bool, true) });
 
         o.method("libzmq_version", &ZSys::libzmq_version);
         o.method("libczmq_version", &ZSys::libczmq_version);
-        // o.method("libzyre_version", &ZSys::libzyre_version);
+        o.method("libzyre_version", &ZSys::libzyre_version);
+        o.method("libmlm_version", &ZSys::libmlm_version);
 
         // Logging ...
-        o.method("info", &ZSys::info);
-        o.method("debug", &ZSys::debug);
-        o.method("warning", &ZSys::warning);
-        o.method("error", &ZSys::error);
+        o.method("info", &ZSys::info, { Php::ByVal("message", Php::Type::String, true) });
+        o.method("debug", &ZSys::debug, { Php::ByVal("message", Php::Type::String, true) });
+        o.method("warning", &ZSys::warning, { Php::ByVal("message", Php::Type::String, true) });
+        o.method("error", &ZSys::error, { Php::ByVal("message", Php::Type::String, true) });
 
         // Const - Socket Type
         o.constant("SOCKET_PUB", "pub");

@@ -13,7 +13,7 @@ class MajordomoTest extends \PHPUnit_Framework_TestCase {
 
         # Start Broker
         $manager->fork(function() use($broker_endpoint) {
-            $broker = new Majordomo\Broker();
+            $broker = new MajordomoBroker();
             // $broker->set_verbose(false);
             $broker->bind($broker_endpoint);
             $broker->on_tick(function($broker) use (&$counter) {
@@ -27,7 +27,7 @@ class MajordomoTest extends \PHPUnit_Framework_TestCase {
         # Start Workers
         for($i = 0; $i < 5; $i++)
             $manager->fork(function() use($i, $broker_endpoint) {
-                $worker = new Majordomo\Worker();
+                $worker = new MajordomoWorker();
                 $processed = 0;
                 $worker->run('myworker', $broker_endpoint, function ($req) use ($i, &$processed) {
                     $processed++;
@@ -40,7 +40,7 @@ class MajordomoTest extends \PHPUnit_Framework_TestCase {
         # Start Clients (Send Work)
         for($i = 0; $i < 10; $i++)
             $clients[] = $manager->fork(function() use($i, $broker_endpoint) {
-                $m = new Majordomo\Client($broker_endpoint);
+                $m = new MajordomoClient($broker_endpoint);
                 $requestId = "requestId - " . $i;
                 $result = $m->call('myworker', $requestId);
                 $result_str = $result->pop_string();

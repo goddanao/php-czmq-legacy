@@ -3,7 +3,7 @@
 #include "../common.h"
 #include "../../include/czmq/zmsg.h"
 
-class MalamuteClient   : public ZHandle {
+class MalamuteClient   : public ZHandle, public Php::Base {
  private:
      bool _verbose = false;
      std::string _endpoint;
@@ -11,8 +11,8 @@ class MalamuteClient   : public ZHandle {
      int _timeout = 0;
      bool _connected = false;
  public:
-    MalamuteClient() : ZHandle() {}
-    MalamuteClient(mlm_client_t *handle, bool owned) : ZHandle(handle, owned, "malamute_client") {}
+    MalamuteClient() : ZHandle(), Php::Base() {}
+    MalamuteClient(mlm_client_t *handle, bool owned) : ZHandle(handle, owned, "malamute_client"), Php::Base() {}
     mlm_client_t *mlm_client_handle() const { return (mlm_client_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
@@ -144,6 +144,21 @@ class MalamuteClient   : public ZHandle {
 		return z.pop_picture(param);
 	}
 
+	Php::Value recv() {
+        zmsg_t *msg = mlm_client_recv (mlm_client_handle());
+        if(!msg)
+            return nullptr;
+        return Php::Object("ZMsg", new ZMsg(msg, true));
+    }
+
+    Php::Value recv_string() {
+        zmsg_t *msg = mlm_client_recv (mlm_client_handle());
+        if(!msg)
+            return nullptr;
+        ZMsg z(msg, true);
+        return z.pop_string();
+    }
+
     Php::Value set_producer(Php::Parameters &param) { return (mlm_client_set_producer(mlm_client_handle(), param[0].stringValue().c_str()) != -1); }
 
     Php::Value set_worker(Php::Parameters &param) { return (mlm_client_set_worker(mlm_client_handle(), param[0].stringValue().c_str(), param[1].stringValue().c_str()) != -1); }
@@ -152,7 +167,7 @@ class MalamuteClient   : public ZHandle {
 
 
     static Php::Class<MalamuteClient> php_register() {
-        Php::Class<MalamuteClient> o("Client");
+        Php::Class<MalamuteClient> o("MalamuteClient");
         o.method("__construct", &MalamuteClient::__construct, {
             Php::ByVal("endpoint", Php::Type::String, true),
             Php::ByVal("address", Php::Type::String, false),
@@ -193,12 +208,11 @@ class MalamuteClient   : public ZHandle {
             Php::ByVal("timeout", Php::Type::Numeric, true)
         });
 
-        // From ZHandle
-//        o.method("recv_picture", &MalamuteClient::recv_picture, {
-//            Php::ByVal("picture", Php::Type::String, true)
-//        });
-//        o.method("recv_string", &MalamuteClient::recv_string);
-//        o.method("recv", &MalamuteClient::recv);
+        o.method("recv_picture", &MalamuteClient::recv_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        o.method("recv_string", &MalamuteClient::recv_string);
+        o.method("recv", &MalamuteClient::recv);
 
 
         return o;

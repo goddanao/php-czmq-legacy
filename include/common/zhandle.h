@@ -5,16 +5,16 @@
 #include <zyre.h>
 #include <malamute.h>
 
-class ZHandle : public Php::Base {
+class ZHandle {
 protected:
     void *_handle      = nullptr;
     SOCKET _socket     = 0;
     bool _owned        = false;
     std::string _type  = "unknown";
 public:
-    ZHandle() : Php::Base() {}
-    ZHandle(void *handle, bool owned, std::string type) : Php::Base() , _handle(handle), _owned(owned), _type(type) {}
-    ZHandle(SOCKET socket, bool owned, std::string type) : Php::Base() , _socket(socket), _owned(owned), _type(type) {}
+    ZHandle() {}
+    ZHandle(void *handle, bool owned, std::string type) : _handle(handle), _owned(owned), _type(type) {}
+    ZHandle(SOCKET socket, bool owned, std::string type) : _socket(socket), _owned(owned), _type(type) {}
 
     void set_handle(void *handle, bool owned, std::string type) { _handle = handle; _owned = owned; _type  = type; }
     void set_handle(SOCKET socket, bool owned, std::string type) { _socket = socket; _owned = owned; _type  = type; }

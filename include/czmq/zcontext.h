@@ -2,10 +2,10 @@
 
 #include "../common.h"
 
-class ZContext   : public ZHandle {
+class ZContext   : public ZHandle, public Php::Base  {
 public:
-    ZContext() : ZHandle() {}
-    ZContext(void *handle, bool owned) : ZHandle(handle, owned, "zcontext") {}
+    ZContext() : ZHandle(), Php::Base() {}
+    ZContext(void *handle, bool owned) : ZHandle(handle, owned, "zcontext"), Php::Base() {}
     void *zcontext_handle() const { return get_handle(); }
 
     static Php::Value is_interrupted() { return zctx_interrupted; }

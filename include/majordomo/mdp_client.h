@@ -158,7 +158,7 @@ public:
 	}
 
     static Php::Class<MajordomoClient> php_register() {
-        Php::Class<MajordomoClient> o("Client");
+        Php::Class<MajordomoClient> o("MajordomoClient");
         o.method("__construct", &MajordomoClient::__construct);
         o.method("call", &MajordomoClient::call);
         o.method("call_async", &MajordomoClient::call_async);

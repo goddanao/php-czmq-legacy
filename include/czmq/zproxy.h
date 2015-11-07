@@ -2,11 +2,11 @@
 
 #include "zactor.h"
 
-class ZProxy : public ZActor {
+class ZProxy : public ZActor, public Php::Base {
 private:
     bool _verbose = false;
 public:
-    ZProxy() : ZActor() {}
+    ZProxy() : ZActor(), Php::Base() {}
     zactor_t *zproxy_handle() const { return (zactor_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {

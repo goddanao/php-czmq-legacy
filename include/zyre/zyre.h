@@ -3,12 +3,12 @@
 #include "../common.h"
 #include <zyre.h>
 
-class Zyre : public ZHandle {
+class Zyre : public ZHandle, public Php::Base {
 private:
     bool _verbose = false;
 public:
-    Zyre() : ZHandle() {}
-    Zyre(zyre_t *handle, bool owned) : ZHandle(handle, owned, "zyre") {}
+    Zyre() : ZHandle(), Php::Base() {}
+    Zyre(zyre_t *handle, bool owned) : ZHandle(handle, owned, "zyre"), Php::Base() {}
     zyre_t *zyre_handle() { return (zyre_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
@@ -61,6 +61,25 @@ public:
 		zlist_destroy(&list);
 		return result;
 	}
+
+	Php::Value get_peer_groups() {
+        Php::Value result;
+        int result_idx = 0;
+        zlist_t *list = zyre_peer_groups(zyre_handle());
+        char *item = (char *) zlist_first(list);
+        while(item) {
+            result[result_idx++] = item;
+            item = (char *) zlist_next(list);
+        }
+        zlist_destroy(&list);
+        return result;
+    }
+
+
+	void set_port(Php::Parameters &param) { zyre_set_port(zyre_handle(), param[0].numericValue()); }
+	void set_interface(Php::Parameters &param) { zyre_set_interface(zyre_handle(), param[0].stringValue().c_str()); }
+	void set_interval(Php::Parameters &param) { zyre_set_interval(zyre_handle(), param[0].numericValue()); }
+
 
 	Php::Value set_endpoint(Php::Parameters &param) {
 		return (zyre_set_endpoint(zyre_handle(), param[0].stringValue().c_str()) == 0);
@@ -217,8 +236,18 @@ public:
         o.method("get_name", &Zyre::get_name);
         o.method("get_peers", &Zyre::get_peers);
         o.method("get_groups", &Zyre::get_groups);
+        o.method("get_peer_groups", &Zyre::get_peer_groups);
         o.method("set_endpoint", &Zyre::set_endpoint, {
             Php::ByVal("endpoint", Php::Type::String, true)
+        });
+        o.method("set_port", &Zyre::set_port, {
+            Php::ByVal("port", Php::Type::Numeric, true)
+        });
+        o.method("set_interface", &Zyre::set_interface, {
+            Php::ByVal("interface", Php::Type::String, true)
+        });
+        o.method("set_interval", &Zyre::set_interval, {
+            Php::ByVal("interval", Php::Type::Numeric, true)
         });
         o.method("gossip_bind", &Zyre::gossip_bind, {
             Php::ByVal("endpoint", Php::Type::String, true)

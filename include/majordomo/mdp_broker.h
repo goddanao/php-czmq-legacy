@@ -4,14 +4,14 @@
 #include "zmdp_common.h"
 #include "zmdp_broker.h"
 
-class MajordomoBroker : public ZActor {
+class MajordomoBroker : public ZActor, public Php::Base {
 private:
     bool _stopped = false;
     bool _verbose = false;
     Php::Value on_idle_callback;
     Php::Value on_tick_callback;
 public:
-    MajordomoBroker() : ZActor() {}
+    MajordomoBroker() : ZActor(), Php::Base() {}
     zactor_t *zmdpbroker_handle() const { return (zactor_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
@@ -132,7 +132,7 @@ public:
 	}
 
      static Php::Class<MajordomoBroker> php_register() {
-        Php::Class<MajordomoBroker> o("Broker");
+        Php::Class<MajordomoBroker> o("MajordomoBroker");
         o.method("__construct", &MajordomoBroker::__construct);
         o.method("bind", &MajordomoBroker::bind);
         o.method("set_verbose", &MajordomoBroker::set_verbose);

@@ -2,7 +2,7 @@
 
 #include "../common.h"
 
-class ZPoller : public ZHandle {
+class ZPoller : public ZHandle, public Php::Base {
 private:
     bool _verbose = false;
     bool _stopped = false;
@@ -37,8 +37,8 @@ private:
     }
 
 public:
-    ZPoller() : ZHandle() {}
-    ZPoller(zpoller_t *handle, bool owned) : ZHandle(handle, owned, "zpoller") {}
+    ZPoller() : ZHandle(), Php::Base() {}
+    ZPoller(zpoller_t *handle, bool owned) : ZHandle(handle, owned, "zpoller"), Php::Base() {}
     zpoller_t *zpoller_handle() const { return (zpoller_t *) get_handle(); }
 
 

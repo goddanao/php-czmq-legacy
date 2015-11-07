@@ -3,7 +3,7 @@
 #include <iostream>
 #include "zmsg.h"
 
-class ZSocket  : public ZHandle {
+class ZSocket  : public ZHandle, public Php::Base {
 private:
     bool _verbose = false;
 
@@ -45,8 +45,8 @@ private:
    }
 
 public:
-    ZSocket() : ZHandle() {}
-    ZSocket(zsock_t *handle, bool owned) : ZHandle(handle, owned, "zsock") {}
+    ZSocket() : ZHandle(), Php::Base() {}
+    ZSocket(zsock_t *handle, bool owned) : ZHandle(handle, owned, "zsock"), Php::Base() {}
     zsock_t *zsock_handle() const { return (zsock_t *) get_handle(); }
 
     static Php::Value pub(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("pub", param[0].stringValue().c_str()), true)); }
@@ -63,6 +63,26 @@ public:
     static Php::Value xrep(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("xrep", param[0].stringValue().c_str()), true)); }
     static Php::Value stream(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("stream",  param[0].stringValue().c_str()), true)); }
 
+/*
+    static Php::Value __callStatic(const char *name, Php::Parameters &params) {
+
+        zsys_info("ECCOMI!!!!!!!!!!!!!!!!!!!!!!!!111");
+
+        // the return value
+        std::string retval = std::string("__callStatic ") + name;
+
+        // loop through the parameters
+        for (auto &param : params)
+        {
+            // append parameter string value to return value
+            retval += " " + param.stringValue();
+        }
+
+        zsys_info(retval.c_str());
+        // done
+        return retval;
+    }
+*/
     Php::Value send_picture(Php::Parameters &param) {
         zmsg_t *msg = zmsg_new();
         ZMsg z(msg, false);
@@ -188,7 +208,6 @@ public:
             result["ipv6"] = get_ipv6();
             result["immediate"] = get_immediate();
         #endif
-
             result["ipv4only"] = get_ipv4only();
             result["type"] = get_type();
             result["sndhwm"] = get_sndhwm();

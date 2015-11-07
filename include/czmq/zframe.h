@@ -2,10 +2,10 @@
 
 #include "../common.h"
 
-class ZFrame  : public ZHandle {
+class ZFrame  : public ZHandle, public Php::Base  {
 public:
-    ZFrame() : ZHandle() {}
-    ZFrame(zframe_t *handle, bool owned) : ZHandle(handle, owned, "zframe") {}
+    ZFrame() : ZHandle(), Php::Base() {}
+    ZFrame(zframe_t *handle, bool owned) : ZHandle(handle, owned, "zframe"), Php::Base() {}
     zframe_t *zframe_handle() const { return (zframe_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
