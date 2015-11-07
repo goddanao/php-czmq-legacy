@@ -21,9 +21,3 @@ install:
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 
 script: ./build.sh
-
-#notifications:
-#  email:
-#    recipients: goddanao@gmail.com
-#    on_success: change
-#    on_failure: always
