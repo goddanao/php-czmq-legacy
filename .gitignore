@@ -1,6 +1,7 @@
 vendor/*
 bin/*
 backup/*
+cache/*
 *~
 *.so
 src/*.o

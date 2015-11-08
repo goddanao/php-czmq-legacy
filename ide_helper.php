@@ -528,6 +528,87 @@ class ZFrame {
 
 
 /**
+ * ZLoop
+ *
+ * ...
+ */
+class ZLoop {
+
+  /**
+   * ZLoop::__construct
+   *
+   * ...
+  */
+  public function __construct() {}
+
+  /**
+   * ZLoop::set_verbose
+   *
+   * ...
+  */
+  public function set_verbose() {}
+
+  /**
+   * ZLoop::set_max_timers
+   *
+   * ...
+  */
+  public function set_max_timers() {}
+
+  /**
+   * ZLoop::start
+   *
+   * ...
+  */
+  public function start() {}
+
+  /**
+   * ZLoop::stop
+   *
+   * ...
+  */
+  public function stop() {}
+
+  /**
+   * ZLoop::add
+   *
+   * ...
+  */
+  public function add() {}
+
+  /**
+   * ZLoop::remove
+   *
+   * ...
+  */
+  public function remove() {}
+
+  /**
+   * ZLoop::add_timer
+   *
+   * ...
+  */
+  public function add_timer() {}
+
+  /**
+   * ZLoop::remove_timer
+   *
+   * ...
+   * @param mixed$timer_id ...
+  */
+  public function remove_timer($timer_id) {}
+
+  /**
+   * ZLoop::ignore_interrupts
+   *
+   * ...
+  */
+  public function ignore_interrupts() {}
+
+}
+
+
+/**
  * ZPoll
  *
  * ...
@@ -863,9 +944,9 @@ class ZCert {
    * ZCert::apply
    *
    * ...
-   * @param mixed $zhandle ...
+   * @param mixed$socket ...
   */
-  public function apply($zhandle) {}
+  public function apply($socket) {}
 
   /**
    * ZCert::dump
@@ -1973,7 +2054,7 @@ class ZBeacon implements IZSocket {
 /**
  * ZAuth
  *
- * ...
+ * Authentication for ZeroMQ security mechanisms.
  */
 class ZAuth implements IZSocket {
   const AUTH_PLAIN = "PLAIN";
@@ -1984,37 +2065,46 @@ class ZAuth implements IZSocket {
   /**
    * ZAuth::__construct
    *
-   * ...
+   *  
   */
   public function __construct() {}
 
   /**
    * ZAuth::set_verbose
    *
-   * ...
+   * Enable verbose logging of commands and activity. Verbose logging can help
+   * debug non-trivial authentication policies
   */
   public function set_verbose() {}
 
   /**
    * ZAuth::allow
    *
-   * ...
-   * @param mixed $ip ...
+   * Allow (whitelist) a list of IP addresses. For NULL, all clients from
+   * these addresses will be accepted. For PLAIN and CURVE, they will be
+   * allowed to continue with authentication. You can call this method
+   * multiple times to whitelist more IP addresses. If you whitelist one
+   * or nmore addresses, any non-whitelisted addresses are treated as
+   * blacklisted
+   * @param string $ip ip address
   */
   public function allow($ip) {}
 
   /**
    * ZAuth::deny
    *
-   * ...
-   * @param mixed $ip ...
+   * Deny (blacklist) a list of IP addresses. For all security mechanisms,
+   * this rejects the connection without any further authentication. Use
+   * either a whitelist, or a blacklist, not not both. If you define both
+   * a whitelist and a blacklist, only the whitelist takes effect
+   * @param string $ip ip address
   */
   public function deny($ip) {}
 
   /**
    * ZAuth::configure
    *
-   * ...
+   *  
   */
   public function configure() {}
 

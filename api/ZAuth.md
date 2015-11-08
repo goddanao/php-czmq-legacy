@@ -3,7 +3,7 @@ ZAuth
 
 ZAuth
 
-...
+Authentication for ZeroMQ security mechanisms.
 
 
 * Class name: ZAuth
@@ -51,7 +51,7 @@ Methods
 
 ZAuth::__construct
 
-...
+
 
 * Visibility: **public**
 
@@ -64,7 +64,8 @@ ZAuth::__construct
 
 ZAuth::set_verbose
 
-...
+Enable verbose logging of commands and activity. Verbose logging can help
+debug non-trivial authentication policies
 
 * Visibility: **public**
 
@@ -73,33 +74,41 @@ ZAuth::set_verbose
 
 ### allow
 
-    mixed ZAuth::allow(mixed $ip)
+    mixed ZAuth::allow(string $ip)
 
 ZAuth::allow
 
-...
+Allow (whitelist) a list of IP addresses. For NULL, all clients from
+these addresses will be accepted. For PLAIN and CURVE, they will be
+allowed to continue with authentication. You can call this method
+multiple times to whitelist more IP addresses. If you whitelist one
+or nmore addresses, any non-whitelisted addresses are treated as
+blacklisted
 
 * Visibility: **public**
 
 
 #### Arguments
-* $ip **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $ip **string** - &lt;p&gt;ip address&lt;/p&gt;
 
 
 
 ### deny
 
-    mixed ZAuth::deny(mixed $ip)
+    mixed ZAuth::deny(string $ip)
 
 ZAuth::deny
 
-...
+Deny (blacklist) a list of IP addresses. For all security mechanisms,
+this rejects the connection without any further authentication. Use
+either a whitelist, or a blacklist, not not both. If you define both
+a whitelist and a blacklist, only the whitelist takes effect
 
 * Visibility: **public**
 
 
 #### Arguments
-* $ip **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $ip **string** - &lt;p&gt;ip address&lt;/p&gt;
 
 
 
@@ -109,7 +118,7 @@ ZAuth::deny
 
 ZAuth::configure
 
-...
+
 
 * Visibility: **public**
 

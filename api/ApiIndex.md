@@ -7,6 +7,7 @@ API Index
 * [ZUdp](ZUdp.md)
 * [ZMsg](ZMsg.md)
 * [ZFrame](ZFrame.md)
+* [ZLoop](ZLoop.md)
 * [ZPoll](ZPoll.md)
 * [ZPoller](ZPoller.md)
 * [ZReactor](ZReactor.md)

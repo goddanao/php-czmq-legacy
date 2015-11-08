@@ -183,7 +183,7 @@ ZCert::save_secret
 
 ### apply
 
-    mixed ZCert::apply(mixed $zhandle)
+    mixed ZCert::apply($socket)
 
 ZCert::apply
 
@@ -193,7 +193,7 @@ ZCert::apply
 
 
 #### Arguments
-* $zhandle **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $socket **mixed**
 
 
 

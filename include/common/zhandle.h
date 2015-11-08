@@ -37,9 +37,7 @@ public:
 
         if(!_owned || _handle == nullptr || _handle == NULL)
             return;
-    //        if(_type == "zcontext")
-    //            zcontext_destroy((zcontext_t **) &_handle);
-    //        else
+
         if(_type == "zactor" && zactor_is(_handle))
             zactor_destroy((zactor_t **) &_handle);
         else
@@ -70,9 +68,8 @@ public:
         if(_type == "zloop")
             zloop_destroy((zloop_t **) &_handle);
         else
-        if(_type == "zudp") {
+        if(_type == "zudp")
             zsys_udp_close( _socket );
-        }
         else
         if(_type == "zyre")
             zyre_destroy((zyre_t **) &_handle);

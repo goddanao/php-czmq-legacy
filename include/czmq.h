@@ -9,6 +9,7 @@
 #include "czmq/zproxy.h"
 #include "czmq/zpoller.h"
 #include "czmq/zpoll.h"
+#include "czmq/zloop.h"
 #include "czmq/zcert.h"
 #include "czmq/zcertstore.h"
 #include "czmq/zbeacon.h"
@@ -47,6 +48,10 @@ void php_czmq_register(Php::Extension *extension) {
     // ZPoller
     Php::Class<ZPoller> zpoller = ZPoller::php_register();
     extension->add(std::move(zpoller));
+
+    // ZLoop
+    Php::Class<ZLoop> zloop = ZLoop::php_register();
+    extension->add(std::move(zloop));
 
     // ZReactor
     Php::Class<ZReactor> zreactor = ZReactor::php_register();

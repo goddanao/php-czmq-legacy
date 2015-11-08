@@ -133,7 +133,7 @@ public:
         });
 
         o.method("apply", &ZCert::apply, {
-            Php::ByRef("zhandle", "IZSocket", false, true)
+            Php::ByRef("socket", Php::Type::Object, true)
         });
 
         o.method("dump", &ZCert::dump);
