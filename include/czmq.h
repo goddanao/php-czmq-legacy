@@ -7,7 +7,6 @@
 #include "czmq/zmsg.h"
 #include "czmq/zsocket.h"
 #include "czmq/zproxy.h"
-#include "czmq/zpoller.h"
 #include "czmq/zpoll.h"
 #include "czmq/zloop.h"
 #include "czmq/zcert.h"
@@ -44,10 +43,6 @@ void php_czmq_register(Php::Extension *extension) {
     // ZPoll (Read/Write - LIBZMQ Based)
     Php::Class<ZPoll> zpoll = ZPoll::php_register();
     extension->add(std::move(zpoll));
-
-    // ZPoller
-    Php::Class<ZPoller> zpoller = ZPoller::php_register();
-    extension->add(std::move(zpoller));
 
     // ZLoop
     Php::Class<ZLoop> zloop = ZLoop::php_register();
