@@ -5,7 +5,7 @@
 
 class ZLoop : public ZHandle, public Php::Base  {
 private:
-    bool _verbose;
+    bool _verbose = false;
     zlistx_t *_callbacks = nullptr;
 
     static int cb_loop_stop(zloop_t *loop, int timer_id, void *arg) {
