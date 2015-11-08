@@ -6,15 +6,107 @@
    ...
 }
 {
-   <socketcall_sendto>
-   Memcheck:Param
-   socketcall.send(msg)
-   fun:send
-   ...
-}
-{
    <use_unset_8>
    Memcheck:Value8
    fun:_zval_ptr_dtor
    ...
+}
+{
+   <use_unset_8z85>
+   Memcheck:Value8
+   fun:zmq_z85_encode
+   ...
+}
+{
+   <php_main>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:php_build_argv
+   fun:php_hash_environment
+   fun:php_request_startup
+   fun:do_cli
+   fun:main
+}
+{
+   <php_cli>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:ZEND_RECV_INIT_SPEC_CONST_HANDLER
+   fun:execute_ex
+   fun:dtrace_execute_ex
+   obj:*
+   fun:zend_do_fcall_common_helper_SPEC
+   fun:execute_ex
+   fun:dtrace_execute_ex
+   obj:*
+   fun:zend_execute_scripts
+   fun:php_execute_script
+   fun:do_cli
+}
+{
+   <php_phar>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:compile_file
+   fun:dtrace_compile_file
+   fun:phar_compile_file
+   obj:*
+   fun:zend_execute_scripts
+   fun:php_execute_script
+   fun:do_cli
+   fun:main
+}
+{
+   <zend_vm>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:zend_assign_tmp_to_variable.part.12
+   fun:ZEND_ASSIGN_SPEC_CV_TMP_HANDLER
+   fun:execute_ex
+   fun:dtrace_execute_ex
+   obj:*
+   fun:zend_do_fcall_common_helper_SPEC
+   fun:execute_ex
+   fun:dtrace_execute_ex
+   obj:*
+   fun:zend_do_fcall_common_helper_SPEC
+   fun:execute_ex
+}
+{
+   <zend_dtrace>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:ZEND_NEW_SPEC_HANDLER
+   fun:execute_ex
+   fun:dtrace_execute_ex
+   obj:*
+   fun:zend_do_fcall_common_helper_SPEC
+   fun:execute_ex
+   fun:dtrace_execute_ex
+   obj:*
+   fun:zend_do_fcall_common_helper_SPEC
+   fun:execute_ex
+   fun:dtrace_execute_ex
+}
+{
+   <zendvm_execute>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:debug_backtrace_get_args
+   fun:zend_fetch_debug_backtrace
+   fun:zend_default_exception_new_ex
+   fun:zend_default_exception_new
+   fun:_object_and_properties_init
+   fun:ZEND_NEW_SPEC_HANDLER
+   fun:execute_ex
+   fun:dtrace_execute_ex
+   obj:*
+   fun:zend_do_fcall_common_helper_SPEC
+   fun:execute_ex
 }

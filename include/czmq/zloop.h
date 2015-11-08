@@ -6,7 +6,7 @@
 class ZLoop : public ZHandle, public Php::Base  {
 private:
     bool _verbose;
-    zlistx_t *_callbacks;
+    zlistx_t *_callbacks = nullptr;
 
     static int cb_loop_stop(zloop_t *loop, int timer_id, void *arg) {
         return -1;
@@ -33,6 +33,7 @@ private:
     }
 
 public:
+
     ZLoop() : ZHandle(), Php::Base() {}
     ZLoop(zloop_t *handle, bool owned) : ZHandle(handle, owned, "zloop"), Php::Base() {}
     zloop_t *zloop_handle() const { return (zloop_t *) get_handle(); }
@@ -44,7 +45,8 @@ public:
     }
 
     void __destruct() {
-        zlistx_destroy(&_callbacks);
+        if(_callbacks)
+            zlistx_destroy(&_callbacks);
     }
 
     void set_verbose(Php::Parameters &param) {
