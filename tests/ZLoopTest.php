@@ -27,27 +27,29 @@ class ZLoopTest extends \PHPUnit_Framework_TestCase
 
     public function test_timer() {
         $count = 0;
-        $this->loop->add_timer(1000, function($timer_id, $zloop) use (&$count) {
+        $this->loop->add_timer(500, function($timer_id, $zloop) use (&$count) {
             $count++;
-            Zsys::info("timer ($timer_id) ... ($count)");
-            if($count > 2)
+            if($count == 2) {
                 $zloop->stop();
+            }
         }, 5);
 
         $this->loop->start();
+
+        $this->assertEquals($count, 2);
     }
 
     public function test_add()
     {
 
-        $this->loop->add($this->rep, function($socket, $zloop){
-            Zsys::info("attivita' in arrivo ...");
+        $return = "";
+        $this->loop->add($this->rep, function($socket, $zloop) use (&$return) {
             $msg = $socket->recv();
-            $msg->dump();
+            $return = $msg->pop_string();
         });
 
-        // Stop after 2 sec
-        $this->loop->add_timer(2000, function($timer_id, $zloop) {
+        // Stop after 1 sec
+        $this->loop->add_timer(1000, function($timer_id, $zloop) {
            $zloop->stop();
         });
 
@@ -55,12 +57,7 @@ class ZLoopTest extends \PHPUnit_Framework_TestCase
 
         $this->loop->start();
 
-
-//        $this->loop->add_timer(5000, function($loop) {
-//            $loop->stop();
-//        });
-
-        // $this->loop->start();
+        $this->assertEquals("hello", $return);
 
     }
 }

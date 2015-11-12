@@ -44,6 +44,10 @@ public:
         return nullptr;
     }
 
+    virtual SOCKET get_fd() const {
+        return zsock_fd(get_socket());
+    }
+
     virtual void *get_socket() const {
         if(_type == "socket")
             return _handle;

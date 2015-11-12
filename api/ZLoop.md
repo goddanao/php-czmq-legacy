@@ -92,7 +92,7 @@ ZLoop::stop
 ### \ZLoop::add()
 
 ```
-mixed ZLoop::\ZLoop::add()($socket, callable $callback, $tollerant)
+mixed ZLoop::\ZLoop::add()()
 ```
 
 ZLoop::add
@@ -101,18 +101,12 @@ ZLoop::add
 
 * Visibility: **public**
 
-#### Arguments
-
-* $socket **mixed**
-* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
-* $tollerant **mixed**
-
 
 
 ### \ZLoop::remove()
 
 ```
-mixed ZLoop::\ZLoop::remove()($socket)
+mixed ZLoop::\ZLoop::remove()()
 ```
 
 ZLoop::remove
@@ -120,10 +114,6 @@ ZLoop::remove
 ...
 
 * Visibility: **public**
-
-#### Arguments
-
-* $socket **mixed**
 
 
 

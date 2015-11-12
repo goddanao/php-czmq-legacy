@@ -580,19 +580,15 @@ class ZLoop {
    * ZLoop::add
    *
    * ...
-   * @param IZSocket$socket ...
-   * @param callable $callback ...
-   * @param mixed$tollerant ... (optional)
   */
-  public function add($socket = null, $callback, $tollerant) {}
+  public function add() {}
 
   /**
    * ZLoop::remove
    *
    * ...
-   * @param IZSocket$socket ...
   */
-  public function remove($socket = null) {}
+  public function remove() {}
 
   /**
    * ZLoop::add_timer

@@ -4,7 +4,6 @@
 
 class ZLoop : public ZHandle, public Php::Base  {
 private:
-    bool _verbose = false;
     zlistx_t *_callbacks = nullptr;
 
     typedef struct {
@@ -27,7 +26,6 @@ private:
         (*data->cb)(*data->obj, Php::Object("ZLoop", new ZLoop(loop, false)));
         return 0;
     }
-
 
     static int cb_socket(zloop_t *loop, zsock_t *reader, void *arg) {
         _cbdata *data = (_cbdata *) arg;
@@ -98,21 +96,37 @@ public:
     }
 
     void add(Php::Parameters &param) {
-        ZHandle  *zh = dynamic_cast<ZHandle *> (param[0].implementation());
-        if(zh) {
-            zsock_t *socket = (zsock_t*)zh->get_socket();
-            if(socket) {
-                _cbdata *data = new _cbdata();
-                data->obj = new Php::Value(param[0]);
-                data->cb  = new Php::Value(param[1]);
-                zlistx_add_end(_callbacks, data);
-                zloop_reader (zloop_handle(), socket, cb_socket, data);
-                if(param.size() > 2 && param[2].boolValue())
-                    zloop_reader_set_tolerant(zloop_handle(), socket);
-                return;
+
+        bool valid = ((param.size() > 1) && (param[0].isObject() || param[0].isNumeric())) && (param[1].isCallable());
+
+        SOCKET fd = 0;
+        zsock_t *socket = NULL;
+
+        if(valid && param[0].isObject()) {
+            ZHandle  *zh = dynamic_cast<ZHandle *> (param[0].implementation());
+            if(zh) {
+                socket = (zsock_t*) zh->get_socket();
             }
+        } else
+        if(valid && param[0].isNumeric()) {
+            fd = param[0].numericValue();
+        } else {
+            throw Php::Exception("ZLoop add require a IZSocket or FD and a callback.");
         }
-        throw Php::Exception("ZLoop add require a ZActor or ZSocket and a callback.");
+
+        // Register callback data
+        _cbdata *data = new _cbdata();
+        data->obj  = new Php::Value(param[0]);
+        data->cb   = new Php::Value(param[1]);
+        zlistx_add_end(_callbacks, data);
+
+        // Pollitem
+        short event = (param.size() > 2) ? (short) param[2].numericValue() : ZMQ_POLLIN;
+        zmq_pollitem_t item { socket, fd, event, 0 };
+        zloop_poller( zloop_handle(), &item, cb_events, data);
+
+        if(param.size() > 3 && param[3].boolValue())
+            zloop_poller_set_tolerant(zloop_handle(), &item);
     }
 
     void remove(Php::Parameters &param) {
@@ -127,11 +141,6 @@ public:
         throw Php::Exception("ZLoop remove require a ZActor or ZSocket.");
     }
 
-
-    void add_fd(Php::Parameters &param) {
-
-    }
-
     void _add(Php::Parameters &param) {
         ZHandle  *zh = dynamic_cast<ZHandle *> (param[0].implementation());
         if(zh) {
@@ -142,17 +151,16 @@ public:
                 data->cb   = new Php::Value(param[1]);
 
                 // Preparo il Pollitem
-                zmq_pollitem_t poll;
-                poll.socket = socket;
-                poll.events = ZMQ_POLLIN; // (param.size() > 2) ? param[2].numericValue() : ZMQ_POLLIN;
+                short event = (param.size() > 2) ? (short) param[2].numericValue() : ZMQ_POLLIN;
+                zmq_pollitem_t item { socket, 0, event, 0 };
                 zlistx_add_end(_callbacks, data);
-                zloop_poller( zloop_handle(), &poll, cb_events, data);
+                zloop_poller( zloop_handle(), &item, cb_events, data);
                 if(param.size() > 3 && param[3].boolValue())
-                    zloop_poller_set_tolerant(zloop_handle(), &poll);
+                    zloop_poller_set_tolerant(zloop_handle(), &item);
                 return;
             }
         }
-        throw Php::Exception("ZLoop add require a ZActor or ZSocket and a callback.");
+        throw Php::Exception("ZLoop add require a IZSocket or FD and a callback.");
     }
 
     static Php::Class<ZLoop> php_register() {
@@ -164,18 +172,13 @@ public:
         o.method("start", &ZLoop::start);
         o.method("stop", &ZLoop::stop);
         o.method("add", &ZLoop::add, {
-            Php::ByVal("socket", "IZSocket", true),
-            Php::ByVal("callback", Php::Type::Callable, true),
-            // Php::ByVal("mode", Php::Type::Numeric, false),
-            Php::ByVal("tollerant", Php::Type::Bool, false)
-        });
-//        o.method("add_fd", &ZLoop::add_fd, {
-//            Php::ByVal("fd", Php::Type::Numeric, true),
+//            Php::ByVal("socket" , true),
 //            Php::ByVal("callback", Php::Type::Callable, true),
-//            Php::ByVal("mode", Php::Type::Numeric, false)
-//        });
+//            Php::ByVal("mode", Php::Type::Numeric, false),
+//            Php::ByVal("tollerant", Php::Type::Bool, false)
+        });
         o.method("remove", &ZLoop::remove, {
-            Php::ByVal("socket", "IZSocket", true)
+//            Php::ByVal("socket", "IZSocket", true)
         });
         o.method("add_timer", &ZLoop::add_timer);
         o.method("remove_timer", &ZLoop::remove_timer, {
