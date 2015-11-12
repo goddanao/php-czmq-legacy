@@ -8,7 +8,7 @@ COMPILER			=	g++
 LINKER				=	g++
 COMPILER_FLAGS		=	-w -c -O2 -g -std=c++11 -fpic -o
 LINKER_FLAGS		=	-shared
-LINKER_DEPENDENCIES	=	-lphpcpp -lzmq -lczmq -lzyre -lmlm
+LINKER_DEPENDENCIES	=	-lphpcpp -lzmq -lczmq -lzyre -lmlm -lmajordomo
 
 RM					=	rm -f
 CP					=	cp -f

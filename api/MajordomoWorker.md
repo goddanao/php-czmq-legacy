@@ -8,7 +8,7 @@ MajordomoWorker
 
 * Class name: MajordomoWorker
 * Namespace: 
-
+* This class implements: [IZSocket](IZSocket.md)
 
 
 
@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \MajordomoWorker::__construct()
 
-    mixed MajordomoWorker::__construct()
+```
+mixed MajordomoWorker::\MajordomoWorker::__construct()($name, $broker_endpoint, callable $callback)
+```
 
 MajordomoWorker::__construct
 
@@ -29,12 +31,33 @@ MajordomoWorker::__construct
 
 * Visibility: **public**
 
+#### Arguments
+
+* $name **mixed**
+* $broker_endpoint **mixed**
+* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### run
+### \MajordomoWorker::set_verbose()
 
-    mixed MajordomoWorker::run(mixed $name, mixed $broker, callable $callback)
+```
+mixed MajordomoWorker::\MajordomoWorker::set_verbose()()
+```
+
+MajordomoWorker::set_verbose
+
+...
+
+* Visibility: **public**
+
+
+
+### \MajordomoWorker::run()
+
+```
+mixed MajordomoWorker::\MajordomoWorker::run()()
+```
 
 MajordomoWorker::run
 
@@ -43,9 +66,17 @@ MajordomoWorker::run
 * Visibility: **public**
 
 
-#### Arguments
-* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $broker **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
+
+### \MajordomoWorker::process()
+
+```
+mixed MajordomoWorker::\MajordomoWorker::process()()
+```
+
+MajordomoWorker::process
+
+...
+
+* Visibility: **public**
 
 

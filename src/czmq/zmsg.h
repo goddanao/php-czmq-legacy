@@ -8,6 +8,28 @@ public:
     ZMsg(zmsg_t *handle, bool owned) : ZHandle(handle, owned, "zmsg"), Php::Base() {}
     zmsg_t *zmsg_handle() const { return (zmsg_t *) get_handle(); }
 
+
+    static zmsg_t *msg_from_param(Php::Value *param) {
+        zmsg_t *zmsg = nullptr;
+
+        if(param->isString()) {
+            zmsg = zmsg_new ();
+            zmsg_pushstr (zmsg, param->stringValue().c_str());
+        } else {
+            ZMsg *zzmsg = dynamic_cast<ZMsg *>(param->implementation());
+            if(zzmsg) {
+                zmsg = zmsg_dup(zzmsg->zmsg_handle());
+            } else {
+                ZFrame *frame = dynamic_cast<ZFrame *>(param->implementation());
+                if(frame) {
+                    zmsg = zmsg_new ();
+                    zmsg_pushmem (zmsg, zframe_data(frame->zframe_handle()), zframe_size(frame->zframe_handle()));
+                }
+            }
+        }
+        return zmsg;
+    }
+
     void __construct(Php::Parameters &param) {
         set_handle(zmsg_new(), true, "zmsg");
     }

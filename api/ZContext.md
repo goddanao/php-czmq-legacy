@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### is_interrupted
+### \ZContext::is_interrupted()
 
-    boolean ZContext::is_interrupted()
+```
+boolean ZContext::\ZContext::is_interrupted()()
+```
 
 ZContext::is_interrupted
 
@@ -29,6 +31,5 @@ Inform about zmq interrupt
 
 * Visibility: **public**
 * This method is **static**.
-
 
 

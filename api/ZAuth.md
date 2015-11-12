@@ -17,7 +17,9 @@ Constants
 
 ### AUTH_PLAIN
 
-    const AUTH_PLAIN = "PLAIN"
+```
+const AUTH_PLAIN = "PLAIN"
+```
 
 
 
@@ -25,7 +27,9 @@ Constants
 
 ### AUTH_CURVE
 
-    const AUTH_CURVE = "CURVE"
+```
+const AUTH_CURVE = "CURVE"
+```
 
 
 
@@ -33,7 +37,9 @@ Constants
 
 ### AUTH_GSSAPI
 
-    const AUTH_GSSAPI = "GSSAPI"
+```
+const AUTH_GSSAPI = "GSSAPI"
+```
 
 
 
@@ -45,9 +51,11 @@ Methods
 -------
 
 
-### __construct
+### \ZAuth::__construct()
 
-    mixed ZAuth::__construct()
+```
+mixed ZAuth::\ZAuth::__construct()()
+```
 
 ZAuth::__construct
 
@@ -57,10 +65,11 @@ ZAuth::__construct
 
 
 
+### \ZAuth::set_verbose()
 
-### set_verbose
-
-    mixed ZAuth::set_verbose()
+```
+mixed ZAuth::\ZAuth::set_verbose()()
+```
 
 ZAuth::set_verbose
 
@@ -71,10 +80,11 @@ debug non-trivial authentication policies
 
 
 
+### \ZAuth::allow()
 
-### allow
-
-    mixed ZAuth::allow(string $ip)
+```
+mixed ZAuth::\ZAuth::allow()(string $ip)
+```
 
 ZAuth::allow
 
@@ -87,15 +97,17 @@ blacklisted
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $ip **string** - &lt;p&gt;ip address&lt;/p&gt;
 
 
 
-### deny
+### \ZAuth::deny()
 
-    mixed ZAuth::deny(string $ip)
+```
+mixed ZAuth::\ZAuth::deny()(string $ip)
+```
 
 ZAuth::deny
 
@@ -106,21 +118,22 @@ a whitelist and a blacklist, only the whitelist takes effect
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $ip **string** - &lt;p&gt;ip address&lt;/p&gt;
 
 
 
-### configure
+### \ZAuth::configure()
 
-    mixed ZAuth::configure()
+```
+mixed ZAuth::\ZAuth::configure()()
+```
 
 ZAuth::configure
 
 
 
 * Visibility: **public**
-
 
 

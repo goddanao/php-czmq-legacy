@@ -1,4 +1,4 @@
-#include "../../include/czmq/zsocket.h"
+#include "zsocket.h"
 
 #if (ZMQ_VERSION_MAJOR == 4)
 

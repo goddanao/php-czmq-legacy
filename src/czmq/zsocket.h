@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include "zmsg.h"
 
 class ZSocket  : public ZHandle, public Php::Base {

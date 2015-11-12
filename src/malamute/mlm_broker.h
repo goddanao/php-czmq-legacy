@@ -5,7 +5,6 @@
 class MalamuteBroker : public ZActor, public Php::Base {
     bool verbose = false;
     bool stopped = false;
-    zactor_t *broker = NULL;
     Php::Value on_idle_callback;
     Php::Value on_tick_callback;
 public:
@@ -15,7 +14,7 @@ public:
 
 	void __construct(Php::Parameters &param) {
 		void *args = (param.size() == 0) ? nullptr : (void *) param[0].stringValue().c_str();
-		set_handle(zactor_new (mlm_server, args), true, "zactor");
+		set_handle(zactor_new (mlm_server, args), true, "mlm_broker");
 	}
 
 	void set_verbose(Php::Parameters &param) {

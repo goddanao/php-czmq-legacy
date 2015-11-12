@@ -8,7 +8,8 @@ RUN cd /tmp && git clone git://github.com/jedisct1/libsodium.git ./libsodium && 
 RUN cd /tmp && git clone git://github.com/zeromq/libzmq.git ./libzmq && cd ./libzmq && ./autogen.sh && ./configure && make && make install && ldconfig
 RUN cd /tmp && git clone git://github.com/zeromq/czmq.git ./czmq && cd ./czmq && ./autogen.sh && ./configure && make check && make install && ldconfig
 RUN cd /tmp && git clone git://github.com/zeromq/zyre.git ./zyre && cd ./zyre && ./autogen.sh && ./configure && make check && make install && ldconfig
-RUN cd /tmp && git clone git://github.com/malamute/malamute.git ./malamute && cd ./malamute && ./autogen.sh && ./configure && make check && make install && ldconfig
+RUN cd /tmp && git clone git://github.com/zeromq/majordomo.git ./majordomo && cd ./majordomo && ./autogen.sh && ./configure && make check && make install && ldconfig
+RUN cd /tmp && git clone git://github.com/zeromq/malamute.git ./malamute && cd ./malamute && ./autogen.sh && ./configure && make check && make install && ldconfig
 RUN cd /tmp && git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git ./phpcpp && cd ./phpcpp && make && make install && ldconfig
 RUN cd /tmp && wget https://phar.phpunit.de/phpunit.phar && chmod +x phpunit.phar && mv phpunit.phar /usr/bin/phpunit
 RUN rm /tmp/* -rf

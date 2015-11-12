@@ -9,7 +9,6 @@ API Index
 * [ZFrame](ZFrame.md)
 * [ZLoop](ZLoop.md)
 * [ZPoll](ZPoll.md)
-* [ZReactor](ZReactor.md)
 * [ZCert](ZCert.md)
 * [ZCertStore](ZCertStore.md)
 * [ZSocket](ZSocket.md)

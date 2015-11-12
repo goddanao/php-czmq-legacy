@@ -1,8 +1,6 @@
 #pragma once
 
-#include "../common.h"
 #include "zactor.h"
-
 
 class ZGossip : public ZActor, public Php::Base {
 private:

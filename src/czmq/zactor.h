@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../common.h"
-#include "../../include/czmq/zmsg.h"
+#include "zmsg.h"
 
 class ZActor  : public ZHandle {
 private:

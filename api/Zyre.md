@@ -8,7 +8,7 @@ Zyre does local area discovery and clustering. A Zyre node broadcasts UDP beacon
 
 * Class name: Zyre
 * Namespace: 
-
+* This class implements: [IZSocket](IZSocket.md)
 
 
 
@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \Zyre::__construct()
 
-    mixed Zyre::__construct(string $name)
+```
+mixed Zyre::\Zyre::__construct()(string $name)
+```
 
 Zyre::__construct
 
@@ -29,15 +31,17 @@ Creates a new Zyre node. Note that until you start the node it is silent and inv
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $name **string** - &lt;p&gt;Zyre node name. (optional)&lt;/p&gt;
 
 
 
-### start
+### \Zyre::start()
 
-    mixed Zyre::start()
+```
+mixed Zyre::\Zyre::start()()
+```
 
 Zyre::start
 
@@ -47,10 +51,11 @@ Start node, after setting header values. When you start a node it begins discove
 
 
 
+### \Zyre::stop()
 
-### stop
-
-    mixed Zyre::stop()
+```
+mixed Zyre::\Zyre::stop()()
+```
 
 Zyre::stop
 
@@ -60,10 +65,11 @@ Stop node, this signals to other peers that this node will go away. This is poli
 
 
 
+### \Zyre::recv()
 
-### recv
-
-    \ZMsg Zyre::recv()
+```
+\ZMsg Zyre::\Zyre::recv()()
+```
 
 Zyre::recv
 
@@ -73,10 +79,11 @@ Receive next message from network. The message may be a control message (ENTER, 
 
 
 
+### \Zyre::dump()
 
-### dump
-
-    mixed Zyre::dump()
+```
+mixed Zyre::\Zyre::dump()()
+```
 
 Zyre::dump
 
@@ -86,10 +93,11 @@ Dump the Zyre node configuration.
 
 
 
+### \Zyre::get_uuid()
 
-### get_uuid
-
-    string Zyre::get_uuid()
+```
+string Zyre::\Zyre::get_uuid()()
+```
 
 Zyre::get_uuid
 
@@ -99,10 +107,11 @@ Get the UUID of the Zyre node
 
 
 
+### \Zyre::get_name()
 
-### get_name
-
-    string Zyre::get_name()
+```
+string Zyre::\Zyre::get_name()()
+```
 
 Zyre::get_name
 
@@ -112,10 +121,11 @@ Get then Zyre node name.
 
 
 
+### \Zyre::get_peers()
 
-### get_peers
-
-    array Zyre::get_peers()
+```
+array Zyre::\Zyre::get_peers()()
+```
 
 Zyre::get_peers
 
@@ -125,10 +135,11 @@ Return a list of known peers.
 
 
 
+### \Zyre::get_groups()
 
-### get_groups
-
-    array Zyre::get_groups()
+```
+array Zyre::\Zyre::get_groups()()
+```
 
 Zyre::get_groups
 
@@ -138,10 +149,11 @@ Return a list of known groups.
 
 
 
+### \Zyre::get_peer_groups()
 
-### get_peer_groups
-
-    mixed Zyre::get_peer_groups()
+```
+mixed Zyre::\Zyre::get_peer_groups()()
+```
 
 Zyre::get_peer_groups
 
@@ -151,10 +163,11 @@ Zyre::get_peer_groups
 
 
 
+### \Zyre::set_endpoint()
 
-### set_endpoint
-
-    mixed Zyre::set_endpoint(string $endpoint)
+```
+mixed Zyre::\Zyre::set_endpoint()(string $endpoint)
+```
 
 Zyre::set_endpoint
 
@@ -169,15 +182,17 @@ the bind was successful.
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $endpoint **string**
 
 
 
-### set_port
+### \Zyre::set_port()
 
-    mixed Zyre::set_port($port)
+```
+mixed Zyre::\Zyre::set_port()($port)
+```
 
 Zyre::set_port
 
@@ -185,15 +200,17 @@ Set UDP beacon discovery port; defaults to 5670, this call overrides that so you
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $port **mixed**
 
 
 
-### set_interface
+### \Zyre::set_interface()
 
-    mixed Zyre::set_interface($interface)
+```
+mixed Zyre::\Zyre::set_interface()($interface)
+```
 
 Zyre::set_interface
 
@@ -203,15 +220,17 @@ specify which one you want to use, or strange things can happen.
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $interface **mixed**
 
 
 
-### set_interval
+### \Zyre::set_interval()
 
-    mixed Zyre::set_interval($interval)
+```
+mixed Zyre::\Zyre::set_interval()($interval)
+```
 
 Zyre::set_interval
 
@@ -219,15 +238,17 @@ Set UDP beacon discovery interval, in milliseconds. Default is instant beacon ex
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $interval **mixed**
 
 
 
-### gossip_bind
+### \Zyre::gossip_bind()
 
-    mixed Zyre::gossip_bind(string $endpoint)
+```
+mixed Zyre::\Zyre::gossip_bind()(string $endpoint)
+```
 
 Zyre::gossip_bind
 
@@ -238,15 +259,17 @@ endpoints, and should not overlap (they can use the same transport).
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $endpoint **string**
 
 
 
-### gossip_connect
+### \Zyre::gossip_connect()
 
-    mixed Zyre::gossip_connect(string $endpoint)
+```
+mixed Zyre::\Zyre::gossip_connect()(string $endpoint)
+```
 
 Zyre::gossip_connect
 
@@ -256,15 +279,17 @@ design, see the CZMQ zgossip class.
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $endpoint **string**
 
 
 
-### get_peer_header
+### \Zyre::get_peer_header()
 
-    mixed Zyre::get_peer_header(string $name)
+```
+mixed Zyre::\Zyre::get_peer_header()(string $name)
+```
 
 Zyre::get_peer_header
 
@@ -272,15 +297,17 @@ Return the value of a header of a conected peer.
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $name **string**
 
 
 
-### get_version
+### \Zyre::get_version()
 
-    string Zyre::get_version()
+```
+string Zyre::\Zyre::get_version()()
+```
 
 Zyre::get_version
 
@@ -291,10 +318,11 @@ Get Zyre version.
 
 
 
+### \Zyre::set_verbose()
 
-### set_verbose
-
-    mixed Zyre::set_verbose()
+```
+mixed Zyre::\Zyre::set_verbose()()
+```
 
 Zyre::set_verbose
 
@@ -304,10 +332,11 @@ Set verbose mode; this tells the node to log all traffic as well as all major ev
 
 
 
+### \Zyre::set_header()
 
-### set_header
-
-    mixed Zyre::set_header(string $name, mixed $value)
+```
+mixed Zyre::\Zyre::set_header()(string $name, mixed $value)
+```
 
 Zyre::set_header
 
@@ -315,16 +344,18 @@ Set node header; these are provided to other nodes during discovery and come in 
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $name **string** - &lt;p&gt;...&lt;/p&gt;
 * $value **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### join
+### \Zyre::join()
 
-    mixed Zyre::join(string $group)
+```
+mixed Zyre::\Zyre::join()(string $group)
+```
 
 Zyre::join
 
@@ -332,15 +363,17 @@ Join a named group; after joining a group you can send messages to the group and
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $group **string** - &lt;p&gt;Group name to join.&lt;/p&gt;
 
 
 
-### leave
+### \Zyre::leave()
 
-    mixed Zyre::leave(string $group)
+```
+mixed Zyre::\Zyre::leave()(string $group)
+```
 
 Zyre::leave
 
@@ -348,15 +381,17 @@ Leave a joined group
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $group **string** - &lt;p&gt;Group name to leave.&lt;/p&gt;
 
 
 
-### send_peer
+### \Zyre::send_peer()
 
-    mixed Zyre::send_peer(string $peer, mixed $data)
+```
+mixed Zyre::\Zyre::send_peer()(string $peer, mixed $data)
+```
 
 Zyre::send_peer
 
@@ -364,16 +399,18 @@ Send message to single peer, specified as a UUID string.
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $peer **string** - &lt;p&gt;Peer UUID.&lt;/p&gt;
 * $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### send_group
+### \Zyre::send_group()
 
-    mixed Zyre::send_group(string $group, mixed $data)
+```
+mixed Zyre::\Zyre::send_group()(string $group, mixed $data)
+```
 
 Zyre::send_group
 
@@ -381,8 +418,8 @@ Send message to a named group.
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $group **string** - &lt;p&gt;Group name.&lt;/p&gt;
 * $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 

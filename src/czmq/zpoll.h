@@ -1,8 +1,5 @@
 #pragma once
 
-#include <phpcpp.h>
-#include <iostream>
-#include <czmq.h>
 #include "../common.h"
 
 class ZPoll : public Php::Base {
@@ -170,7 +167,7 @@ public:
     }
 
     Php::Value poll(Php::Parameters &param) {
-        long timeout = (param.size()>0) ? (long) param[0] : -1; // -1 = WAIT_FOREVER
+        long timeout = (param.size()>0) ? param[0].numericValue() : -1; // -1 = WAIT_FOREVER
         int result   = zmq_poll(_items.data(), _items.size(), timeout);
         if (result < 0) {
             if(EINTR == zmq_errno())
@@ -200,9 +197,16 @@ public:
         Php::Class<ZPoll> o("ZPoll");
 
         o.method("set_verbose", &ZPoll::set_verbose);
-        o.method("add", &ZPoll::add);
-        o.method("has", &ZPoll::has);
-        o.method("remove", &ZPoll::remove);
+        o.method("add", &ZPoll::add, {
+            Php::ByVal("socket", "IZSocket", true),
+            Php::ByVal("mode", Php::Type::Numeric, false)
+        });
+        o.method("has", &ZPoll::has, {
+               Php::ByVal("socket", "IZSocket", true)
+           });
+        o.method("remove", &ZPoll::remove, {
+             Php::ByVal("socket", "IZSocket", true)
+         });
         o.method("check_for", &ZPoll::check_for);
         o.method("events", &ZPoll::events);
         o.method("poll", &ZPoll::poll);

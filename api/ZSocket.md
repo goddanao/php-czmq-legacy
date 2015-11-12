@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \ZSocket::__construct()
 
-    mixed ZSocket::__construct(mixed $socket_type, mixed $endpoint)
+```
+mixed ZSocket::\ZSocket::__construct()(mixed $socket_type, mixed $endpoint)
+```
 
 ZSocket::__construct
 
@@ -29,16 +31,18 @@ ZSocket::__construct
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $socket_type **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
-### set_verbose
+### \ZSocket::set_verbose()
 
-    mixed ZSocket::set_verbose()
+```
+mixed ZSocket::\ZSocket::set_verbose()()
+```
 
 ZSocket::set_verbose
 
@@ -48,10 +52,11 @@ ZSocket::set_verbose
 
 
 
+### \ZSocket::set_unbounded()
 
-### set_unbounded
-
-    mixed ZSocket::set_unbounded()
+```
+mixed ZSocket::\ZSocket::set_unbounded()()
+```
 
 ZSocket::set_unbounded
 
@@ -61,10 +66,11 @@ ZSocket::set_unbounded
 
 
 
+### \ZSocket::bind()
 
-### bind
-
-    mixed ZSocket::bind(string $endpoint)
+```
+mixed ZSocket::\ZSocket::bind()(string $endpoint)
+```
 
 ZSocket::bind
 
@@ -85,15 +91,17 @@ Examples:
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### unbind
+### \ZSocket::unbind()
 
-    mixed ZSocket::unbind(mixed $endpoint)
+```
+mixed ZSocket::\ZSocket::unbind()(mixed $endpoint)
+```
 
 ZSocket::unbind
 
@@ -101,15 +109,17 @@ ZSocket::unbind
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### connect
+### \ZSocket::connect()
 
-    mixed ZSocket::connect(mixed $endpoint)
+```
+mixed ZSocket::\ZSocket::connect()(mixed $endpoint)
+```
 
 ZSocket::connect
 
@@ -117,15 +127,17 @@ ZSocket::connect
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### disconnect
+### \ZSocket::disconnect()
 
-    mixed ZSocket::disconnect(mixed $endpoint)
+```
+mixed ZSocket::\ZSocket::disconnect()(mixed $endpoint)
+```
 
 ZSocket::disconnect
 
@@ -133,15 +145,17 @@ ZSocket::disconnect
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### attach
+### \ZSocket::attach()
 
-    mixed ZSocket::attach(mixed $endpoints, mixed $serverish)
+```
+mixed ZSocket::\ZSocket::attach()(mixed $endpoints, mixed $serverish)
+```
 
 ZSocket::attach
 
@@ -149,16 +163,18 @@ ZSocket::attach
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $endpoints **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $serverish **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
-### signal
+### \ZSocket::signal()
 
-    mixed ZSocket::signal(mixed $byte)
+```
+mixed ZSocket::\ZSocket::signal()(mixed $byte)
+```
 
 ZSocket::signal
 
@@ -166,15 +182,17 @@ ZSocket::signal
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $byte **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### wait
+### \ZSocket::wait()
 
-    mixed ZSocket::wait()
+```
+mixed ZSocket::\ZSocket::wait()()
+```
 
 ZSocket::wait
 
@@ -184,10 +202,11 @@ ZSocket::wait
 
 
 
+### \ZSocket::flush()
 
-### flush
-
-    mixed ZSocket::flush()
+```
+mixed ZSocket::\ZSocket::flush()()
+```
 
 ZSocket::flush
 
@@ -197,10 +216,11 @@ ZSocket::flush
 
 
 
+### \ZSocket::send_picture()
 
-### send_picture
-
-    mixed ZSocket::send_picture(mixed $picture)
+```
+mixed ZSocket::\ZSocket::send_picture()(mixed $picture)
+```
 
 ZSocket::send_picture
 
@@ -208,15 +228,17 @@ ZSocket::send_picture
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### recv_picture
+### \ZSocket::recv_picture()
 
-    mixed ZSocket::recv_picture(mixed $picture)
+```
+mixed ZSocket::\ZSocket::recv_picture()(mixed $picture)
+```
 
 ZSocket::recv_picture
 
@@ -224,15 +246,17 @@ ZSocket::recv_picture
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### send_string
+### \ZSocket::send_string()
 
-    mixed ZSocket::send_string(mixed $value)
+```
+mixed ZSocket::\ZSocket::send_string()(mixed $value)
+```
 
 ZSocket::send_string
 
@@ -240,15 +264,17 @@ ZSocket::send_string
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $value **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### recv_string
+### \ZSocket::recv_string()
 
-    mixed ZSocket::recv_string()
+```
+mixed ZSocket::\ZSocket::recv_string()()
+```
 
 ZSocket::recv_string
 
@@ -258,10 +284,11 @@ ZSocket::recv_string
 
 
 
+### \ZSocket::send()
 
-### send
-
-    mixed ZSocket::send(mixed $zmsg)
+```
+mixed ZSocket::\ZSocket::send()(mixed $zmsg)
+```
 
 ZSocket::send
 
@@ -269,15 +296,17 @@ ZSocket::send
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $zmsg **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### recv
+### \ZSocket::recv()
 
-    mixed ZSocket::recv()
+```
+mixed ZSocket::\ZSocket::recv()()
+```
 
 ZSocket::recv
 
@@ -287,10 +316,11 @@ ZSocket::recv
 
 
 
+### \ZSocket::pub()
 
-### pub
-
-    mixed ZSocket::pub()
+```
+mixed ZSocket::\ZSocket::pub()()
+```
 
 ZSocket::pub
 
@@ -301,10 +331,11 @@ ZSocket::pub
 
 
 
+### \ZSocket::sub()
 
-### sub
-
-    mixed ZSocket::sub()
+```
+mixed ZSocket::\ZSocket::sub()()
+```
 
 ZSocket::sub
 
@@ -315,10 +346,11 @@ ZSocket::sub
 
 
 
+### \ZSocket::rep()
 
-### rep
-
-    mixed ZSocket::rep()
+```
+mixed ZSocket::\ZSocket::rep()()
+```
 
 ZSocket::rep
 
@@ -329,10 +361,11 @@ ZSocket::rep
 
 
 
+### \ZSocket::req()
 
-### req
-
-    mixed ZSocket::req()
+```
+mixed ZSocket::\ZSocket::req()()
+```
 
 ZSocket::req
 
@@ -343,10 +376,11 @@ ZSocket::req
 
 
 
+### \ZSocket::dealer()
 
-### dealer
-
-    mixed ZSocket::dealer()
+```
+mixed ZSocket::\ZSocket::dealer()()
+```
 
 ZSocket::dealer
 
@@ -357,10 +391,11 @@ ZSocket::dealer
 
 
 
+### \ZSocket::router()
 
-### router
-
-    mixed ZSocket::router()
+```
+mixed ZSocket::\ZSocket::router()()
+```
 
 ZSocket::router
 
@@ -371,10 +406,11 @@ ZSocket::router
 
 
 
+### \ZSocket::push()
 
-### push
-
-    mixed ZSocket::push()
+```
+mixed ZSocket::\ZSocket::push()()
+```
 
 ZSocket::push
 
@@ -385,10 +421,11 @@ ZSocket::push
 
 
 
+### \ZSocket::pull()
 
-### pull
-
-    mixed ZSocket::pull()
+```
+mixed ZSocket::\ZSocket::pull()()
+```
 
 ZSocket::pull
 
@@ -399,10 +436,11 @@ ZSocket::pull
 
 
 
+### \ZSocket::xpub()
 
-### xpub
-
-    mixed ZSocket::xpub()
+```
+mixed ZSocket::\ZSocket::xpub()()
+```
 
 ZSocket::xpub
 
@@ -413,10 +451,11 @@ ZSocket::xpub
 
 
 
+### \ZSocket::xsub()
 
-### xsub
-
-    mixed ZSocket::xsub()
+```
+mixed ZSocket::\ZSocket::xsub()()
+```
 
 ZSocket::xsub
 
@@ -427,10 +466,11 @@ ZSocket::xsub
 
 
 
+### \ZSocket::xreq()
 
-### xreq
-
-    mixed ZSocket::xreq()
+```
+mixed ZSocket::\ZSocket::xreq()()
+```
 
 ZSocket::xreq
 
@@ -441,10 +481,11 @@ ZSocket::xreq
 
 
 
+### \ZSocket::xrep()
 
-### xrep
-
-    mixed ZSocket::xrep()
+```
+mixed ZSocket::\ZSocket::xrep()()
+```
 
 ZSocket::xrep
 
@@ -455,10 +496,11 @@ ZSocket::xrep
 
 
 
+### \ZSocket::stream()
 
-### stream
-
-    mixed ZSocket::stream()
+```
+mixed ZSocket::\ZSocket::stream()()
+```
 
 ZSocket::stream
 
@@ -469,10 +511,11 @@ ZSocket::stream
 
 
 
+### \ZSocket::get_options()
 
-### get_options
-
-    mixed ZSocket::get_options()
+```
+mixed ZSocket::\ZSocket::get_options()()
+```
 
 ZSocket::get_options
 
@@ -482,10 +525,11 @@ ZSocket::get_options
 
 
 
+### \ZSocket::get_tos()
 
-### get_tos
-
-    mixed ZSocket::get_tos()
+```
+mixed ZSocket::\ZSocket::get_tos()()
+```
 
 ZSocket::get_tos
 
@@ -495,10 +539,11 @@ ZSocket::get_tos
 
 
 
+### \ZSocket::get_zap_domain()
 
-### get_zap_domain
-
-    mixed ZSocket::get_zap_domain()
+```
+mixed ZSocket::\ZSocket::get_zap_domain()()
+```
 
 ZSocket::get_zap_domain
 
@@ -508,10 +553,11 @@ ZSocket::get_zap_domain
 
 
 
+### \ZSocket::get_mechanism()
 
-### get_mechanism
-
-    mixed ZSocket::get_mechanism()
+```
+mixed ZSocket::\ZSocket::get_mechanism()()
+```
 
 ZSocket::get_mechanism
 
@@ -521,10 +567,11 @@ ZSocket::get_mechanism
 
 
 
+### \ZSocket::get_plain_server()
 
-### get_plain_server
-
-    mixed ZSocket::get_plain_server()
+```
+mixed ZSocket::\ZSocket::get_plain_server()()
+```
 
 ZSocket::get_plain_server
 
@@ -534,10 +581,11 @@ ZSocket::get_plain_server
 
 
 
+### \ZSocket::get_plain_username()
 
-### get_plain_username
-
-    mixed ZSocket::get_plain_username()
+```
+mixed ZSocket::\ZSocket::get_plain_username()()
+```
 
 ZSocket::get_plain_username
 
@@ -547,10 +595,11 @@ ZSocket::get_plain_username
 
 
 
+### \ZSocket::get_plain_password()
 
-### get_plain_password
-
-    mixed ZSocket::get_plain_password()
+```
+mixed ZSocket::\ZSocket::get_plain_password()()
+```
 
 ZSocket::get_plain_password
 
@@ -560,10 +609,11 @@ ZSocket::get_plain_password
 
 
 
+### \ZSocket::get_curve_server()
 
-### get_curve_server
-
-    mixed ZSocket::get_curve_server()
+```
+mixed ZSocket::\ZSocket::get_curve_server()()
+```
 
 ZSocket::get_curve_server
 
@@ -573,10 +623,11 @@ ZSocket::get_curve_server
 
 
 
+### \ZSocket::get_curve_publickey()
 
-### get_curve_publickey
-
-    mixed ZSocket::get_curve_publickey()
+```
+mixed ZSocket::\ZSocket::get_curve_publickey()()
+```
 
 ZSocket::get_curve_publickey
 
@@ -586,10 +637,11 @@ ZSocket::get_curve_publickey
 
 
 
+### \ZSocket::get_curve_secretkey()
 
-### get_curve_secretkey
-
-    mixed ZSocket::get_curve_secretkey()
+```
+mixed ZSocket::\ZSocket::get_curve_secretkey()()
+```
 
 ZSocket::get_curve_secretkey
 
@@ -599,10 +651,11 @@ ZSocket::get_curve_secretkey
 
 
 
+### \ZSocket::get_curve_serverkey()
 
-### get_curve_serverkey
-
-    mixed ZSocket::get_curve_serverkey()
+```
+mixed ZSocket::\ZSocket::get_curve_serverkey()()
+```
 
 ZSocket::get_curve_serverkey
 
@@ -612,10 +665,11 @@ ZSocket::get_curve_serverkey
 
 
 
+### \ZSocket::get_gssapi_server()
 
-### get_gssapi_server
-
-    mixed ZSocket::get_gssapi_server()
+```
+mixed ZSocket::\ZSocket::get_gssapi_server()()
+```
 
 ZSocket::get_gssapi_server
 
@@ -625,10 +679,11 @@ ZSocket::get_gssapi_server
 
 
 
+### \ZSocket::get_gssapi_plaintext()
 
-### get_gssapi_plaintext
-
-    mixed ZSocket::get_gssapi_plaintext()
+```
+mixed ZSocket::\ZSocket::get_gssapi_plaintext()()
+```
 
 ZSocket::get_gssapi_plaintext
 
@@ -638,10 +693,11 @@ ZSocket::get_gssapi_plaintext
 
 
 
+### \ZSocket::get_gssapi_principal()
 
-### get_gssapi_principal
-
-    mixed ZSocket::get_gssapi_principal()
+```
+mixed ZSocket::\ZSocket::get_gssapi_principal()()
+```
 
 ZSocket::get_gssapi_principal
 
@@ -651,10 +707,11 @@ ZSocket::get_gssapi_principal
 
 
 
+### \ZSocket::get_gssapi_service_principal()
 
-### get_gssapi_service_principal
-
-    mixed ZSocket::get_gssapi_service_principal()
+```
+mixed ZSocket::\ZSocket::get_gssapi_service_principal()()
+```
 
 ZSocket::get_gssapi_service_principal
 
@@ -664,10 +721,11 @@ ZSocket::get_gssapi_service_principal
 
 
 
+### \ZSocket::get_ipv6()
 
-### get_ipv6
-
-    mixed ZSocket::get_ipv6()
+```
+mixed ZSocket::\ZSocket::get_ipv6()()
+```
 
 ZSocket::get_ipv6
 
@@ -677,10 +735,11 @@ ZSocket::get_ipv6
 
 
 
+### \ZSocket::get_immediate()
 
-### get_immediate
-
-    mixed ZSocket::get_immediate()
+```
+mixed ZSocket::\ZSocket::get_immediate()()
+```
 
 ZSocket::get_immediate
 
@@ -690,10 +749,11 @@ ZSocket::get_immediate
 
 
 
+### \ZSocket::get_ipv4only()
 
-### get_ipv4only
-
-    mixed ZSocket::get_ipv4only()
+```
+mixed ZSocket::\ZSocket::get_ipv4only()()
+```
 
 ZSocket::get_ipv4only
 
@@ -703,10 +763,11 @@ ZSocket::get_ipv4only
 
 
 
+### \ZSocket::get_type()
 
-### get_type
-
-    mixed ZSocket::get_type()
+```
+mixed ZSocket::\ZSocket::get_type()()
+```
 
 ZSocket::get_type
 
@@ -716,10 +777,11 @@ ZSocket::get_type
 
 
 
+### \ZSocket::get_sndhwm()
 
-### get_sndhwm
-
-    mixed ZSocket::get_sndhwm()
+```
+mixed ZSocket::\ZSocket::get_sndhwm()()
+```
 
 ZSocket::get_sndhwm
 
@@ -729,10 +791,11 @@ ZSocket::get_sndhwm
 
 
 
+### \ZSocket::get_rcvhwm()
 
-### get_rcvhwm
-
-    mixed ZSocket::get_rcvhwm()
+```
+mixed ZSocket::\ZSocket::get_rcvhwm()()
+```
 
 ZSocket::get_rcvhwm
 
@@ -742,10 +805,11 @@ ZSocket::get_rcvhwm
 
 
 
+### \ZSocket::get_affinity()
 
-### get_affinity
-
-    mixed ZSocket::get_affinity()
+```
+mixed ZSocket::\ZSocket::get_affinity()()
+```
 
 ZSocket::get_affinity
 
@@ -755,10 +819,11 @@ ZSocket::get_affinity
 
 
 
+### \ZSocket::get_identity()
 
-### get_identity
-
-    mixed ZSocket::get_identity()
+```
+mixed ZSocket::\ZSocket::get_identity()()
+```
 
 ZSocket::get_identity
 
@@ -768,10 +833,11 @@ ZSocket::get_identity
 
 
 
+### \ZSocket::get_rate()
 
-### get_rate
-
-    mixed ZSocket::get_rate()
+```
+mixed ZSocket::\ZSocket::get_rate()()
+```
 
 ZSocket::get_rate
 
@@ -781,10 +847,11 @@ ZSocket::get_rate
 
 
 
+### \ZSocket::get_recovery_ivl()
 
-### get_recovery_ivl
-
-    mixed ZSocket::get_recovery_ivl()
+```
+mixed ZSocket::\ZSocket::get_recovery_ivl()()
+```
 
 ZSocket::get_recovery_ivl
 
@@ -794,10 +861,11 @@ ZSocket::get_recovery_ivl
 
 
 
+### \ZSocket::get_sndbuf()
 
-### get_sndbuf
-
-    mixed ZSocket::get_sndbuf()
+```
+mixed ZSocket::\ZSocket::get_sndbuf()()
+```
 
 ZSocket::get_sndbuf
 
@@ -807,10 +875,11 @@ ZSocket::get_sndbuf
 
 
 
+### \ZSocket::get_rcvbuf()
 
-### get_rcvbuf
-
-    mixed ZSocket::get_rcvbuf()
+```
+mixed ZSocket::\ZSocket::get_rcvbuf()()
+```
 
 ZSocket::get_rcvbuf
 
@@ -820,10 +889,11 @@ ZSocket::get_rcvbuf
 
 
 
+### \ZSocket::get_linger()
 
-### get_linger
-
-    mixed ZSocket::get_linger()
+```
+mixed ZSocket::\ZSocket::get_linger()()
+```
 
 ZSocket::get_linger
 
@@ -833,10 +903,11 @@ ZSocket::get_linger
 
 
 
+### \ZSocket::get_reconnect_ivl()
 
-### get_reconnect_ivl
-
-    mixed ZSocket::get_reconnect_ivl()
+```
+mixed ZSocket::\ZSocket::get_reconnect_ivl()()
+```
 
 ZSocket::get_reconnect_ivl
 
@@ -846,10 +917,11 @@ ZSocket::get_reconnect_ivl
 
 
 
+### \ZSocket::get_reconnect_ivl_max()
 
-### get_reconnect_ivl_max
-
-    mixed ZSocket::get_reconnect_ivl_max()
+```
+mixed ZSocket::\ZSocket::get_reconnect_ivl_max()()
+```
 
 ZSocket::get_reconnect_ivl_max
 
@@ -859,10 +931,11 @@ ZSocket::get_reconnect_ivl_max
 
 
 
+### \ZSocket::get_backlog()
 
-### get_backlog
-
-    mixed ZSocket::get_backlog()
+```
+mixed ZSocket::\ZSocket::get_backlog()()
+```
 
 ZSocket::get_backlog
 
@@ -872,10 +945,11 @@ ZSocket::get_backlog
 
 
 
+### \ZSocket::get_maxmsgsize()
 
-### get_maxmsgsize
-
-    mixed ZSocket::get_maxmsgsize()
+```
+mixed ZSocket::\ZSocket::get_maxmsgsize()()
+```
 
 ZSocket::get_maxmsgsize
 
@@ -885,10 +959,11 @@ ZSocket::get_maxmsgsize
 
 
 
+### \ZSocket::get_multicast_hops()
 
-### get_multicast_hops
-
-    mixed ZSocket::get_multicast_hops()
+```
+mixed ZSocket::\ZSocket::get_multicast_hops()()
+```
 
 ZSocket::get_multicast_hops
 
@@ -898,10 +973,11 @@ ZSocket::get_multicast_hops
 
 
 
+### \ZSocket::get_rcvtimeo()
 
-### get_rcvtimeo
-
-    mixed ZSocket::get_rcvtimeo()
+```
+mixed ZSocket::\ZSocket::get_rcvtimeo()()
+```
 
 ZSocket::get_rcvtimeo
 
@@ -911,10 +987,11 @@ ZSocket::get_rcvtimeo
 
 
 
+### \ZSocket::get_sndtimeo()
 
-### get_sndtimeo
-
-    mixed ZSocket::get_sndtimeo()
+```
+mixed ZSocket::\ZSocket::get_sndtimeo()()
+```
 
 ZSocket::get_sndtimeo
 
@@ -924,10 +1001,11 @@ ZSocket::get_sndtimeo
 
 
 
+### \ZSocket::get_tcp_keepalive()
 
-### get_tcp_keepalive
-
-    mixed ZSocket::get_tcp_keepalive()
+```
+mixed ZSocket::\ZSocket::get_tcp_keepalive()()
+```
 
 ZSocket::get_tcp_keepalive
 
@@ -937,10 +1015,11 @@ ZSocket::get_tcp_keepalive
 
 
 
+### \ZSocket::get_tcp_keepalive_idle()
 
-### get_tcp_keepalive_idle
-
-    mixed ZSocket::get_tcp_keepalive_idle()
+```
+mixed ZSocket::\ZSocket::get_tcp_keepalive_idle()()
+```
 
 ZSocket::get_tcp_keepalive_idle
 
@@ -950,10 +1029,11 @@ ZSocket::get_tcp_keepalive_idle
 
 
 
+### \ZSocket::get_tcp_keepalive_cnt()
 
-### get_tcp_keepalive_cnt
-
-    mixed ZSocket::get_tcp_keepalive_cnt()
+```
+mixed ZSocket::\ZSocket::get_tcp_keepalive_cnt()()
+```
 
 ZSocket::get_tcp_keepalive_cnt
 
@@ -963,10 +1043,11 @@ ZSocket::get_tcp_keepalive_cnt
 
 
 
+### \ZSocket::get_tcp_keepalive_intvl()
 
-### get_tcp_keepalive_intvl
-
-    mixed ZSocket::get_tcp_keepalive_intvl()
+```
+mixed ZSocket::\ZSocket::get_tcp_keepalive_intvl()()
+```
 
 ZSocket::get_tcp_keepalive_intvl
 
@@ -976,10 +1057,11 @@ ZSocket::get_tcp_keepalive_intvl
 
 
 
+### \ZSocket::get_tcp_accept_filter()
 
-### get_tcp_accept_filter
-
-    mixed ZSocket::get_tcp_accept_filter()
+```
+mixed ZSocket::\ZSocket::get_tcp_accept_filter()()
+```
 
 ZSocket::get_tcp_accept_filter
 
@@ -989,10 +1071,11 @@ ZSocket::get_tcp_accept_filter
 
 
 
+### \ZSocket::get_rcvmore()
 
-### get_rcvmore
-
-    mixed ZSocket::get_rcvmore()
+```
+mixed ZSocket::\ZSocket::get_rcvmore()()
+```
 
 ZSocket::get_rcvmore
 
@@ -1002,10 +1085,11 @@ ZSocket::get_rcvmore
 
 
 
+### \ZSocket::get_events()
 
-### get_events
-
-    mixed ZSocket::get_events()
+```
+mixed ZSocket::\ZSocket::get_events()()
+```
 
 ZSocket::get_events
 
@@ -1015,10 +1099,11 @@ ZSocket::get_events
 
 
 
+### \ZSocket::get_last_endpoint()
 
-### get_last_endpoint
-
-    mixed ZSocket::get_last_endpoint()
+```
+mixed ZSocket::\ZSocket::get_last_endpoint()()
+```
 
 ZSocket::get_last_endpoint
 
@@ -1028,10 +1113,11 @@ ZSocket::get_last_endpoint
 
 
 
+### \ZSocket::set_tos()
 
-### set_tos
-
-    mixed ZSocket::set_tos()
+```
+mixed ZSocket::\ZSocket::set_tos()()
+```
 
 ZSocket::set_tos
 
@@ -1041,10 +1127,11 @@ ZSocket::set_tos
 
 
 
+### \ZSocket::set_router_handover()
 
-### set_router_handover
-
-    mixed ZSocket::set_router_handover()
+```
+mixed ZSocket::\ZSocket::set_router_handover()()
+```
 
 ZSocket::set_router_handover
 
@@ -1054,10 +1141,11 @@ ZSocket::set_router_handover
 
 
 
+### \ZSocket::set_router_mandatory()
 
-### set_router_mandatory
-
-    mixed ZSocket::set_router_mandatory()
+```
+mixed ZSocket::\ZSocket::set_router_mandatory()()
+```
 
 ZSocket::set_router_mandatory
 
@@ -1067,10 +1155,11 @@ ZSocket::set_router_mandatory
 
 
 
+### \ZSocket::set_probe_router()
 
-### set_probe_router
-
-    mixed ZSocket::set_probe_router()
+```
+mixed ZSocket::\ZSocket::set_probe_router()()
+```
 
 ZSocket::set_probe_router
 
@@ -1080,10 +1169,11 @@ ZSocket::set_probe_router
 
 
 
+### \ZSocket::set_req_relaxed()
 
-### set_req_relaxed
-
-    mixed ZSocket::set_req_relaxed()
+```
+mixed ZSocket::\ZSocket::set_req_relaxed()()
+```
 
 ZSocket::set_req_relaxed
 
@@ -1093,10 +1183,11 @@ ZSocket::set_req_relaxed
 
 
 
+### \ZSocket::set_req_correlate()
 
-### set_req_correlate
-
-    mixed ZSocket::set_req_correlate()
+```
+mixed ZSocket::\ZSocket::set_req_correlate()()
+```
 
 ZSocket::set_req_correlate
 
@@ -1106,10 +1197,11 @@ ZSocket::set_req_correlate
 
 
 
+### \ZSocket::set_conflate()
 
-### set_conflate
-
-    mixed ZSocket::set_conflate()
+```
+mixed ZSocket::\ZSocket::set_conflate()()
+```
 
 ZSocket::set_conflate
 
@@ -1119,10 +1211,11 @@ ZSocket::set_conflate
 
 
 
+### \ZSocket::set_zap_domain()
 
-### set_zap_domain
-
-    mixed ZSocket::set_zap_domain()
+```
+mixed ZSocket::\ZSocket::set_zap_domain()()
+```
 
 ZSocket::set_zap_domain
 
@@ -1132,10 +1225,11 @@ ZSocket::set_zap_domain
 
 
 
+### \ZSocket::set_plain_server()
 
-### set_plain_server
-
-    mixed ZSocket::set_plain_server()
+```
+mixed ZSocket::\ZSocket::set_plain_server()()
+```
 
 ZSocket::set_plain_server
 
@@ -1145,10 +1239,11 @@ ZSocket::set_plain_server
 
 
 
+### \ZSocket::set_plain_username()
 
-### set_plain_username
-
-    mixed ZSocket::set_plain_username()
+```
+mixed ZSocket::\ZSocket::set_plain_username()()
+```
 
 ZSocket::set_plain_username
 
@@ -1158,10 +1253,11 @@ ZSocket::set_plain_username
 
 
 
+### \ZSocket::set_plain_password()
 
-### set_plain_password
-
-    mixed ZSocket::set_plain_password()
+```
+mixed ZSocket::\ZSocket::set_plain_password()()
+```
 
 ZSocket::set_plain_password
 
@@ -1171,10 +1267,11 @@ ZSocket::set_plain_password
 
 
 
+### \ZSocket::set_curve_server()
 
-### set_curve_server
-
-    mixed ZSocket::set_curve_server()
+```
+mixed ZSocket::\ZSocket::set_curve_server()()
+```
 
 ZSocket::set_curve_server
 
@@ -1184,10 +1281,11 @@ ZSocket::set_curve_server
 
 
 
+### \ZSocket::set_curve_publickey()
 
-### set_curve_publickey
-
-    mixed ZSocket::set_curve_publickey()
+```
+mixed ZSocket::\ZSocket::set_curve_publickey()()
+```
 
 ZSocket::set_curve_publickey
 
@@ -1197,10 +1295,11 @@ ZSocket::set_curve_publickey
 
 
 
+### \ZSocket::set_curve_publickey_bin()
 
-### set_curve_publickey_bin
-
-    mixed ZSocket::set_curve_publickey_bin()
+```
+mixed ZSocket::\ZSocket::set_curve_publickey_bin()()
+```
 
 ZSocket::set_curve_publickey_bin
 
@@ -1210,10 +1309,11 @@ ZSocket::set_curve_publickey_bin
 
 
 
+### \ZSocket::set_curve_secretkey()
 
-### set_curve_secretkey
-
-    mixed ZSocket::set_curve_secretkey()
+```
+mixed ZSocket::\ZSocket::set_curve_secretkey()()
+```
 
 ZSocket::set_curve_secretkey
 
@@ -1223,10 +1323,11 @@ ZSocket::set_curve_secretkey
 
 
 
+### \ZSocket::set_curve_secretkey_bin()
 
-### set_curve_secretkey_bin
-
-    mixed ZSocket::set_curve_secretkey_bin()
+```
+mixed ZSocket::\ZSocket::set_curve_secretkey_bin()()
+```
 
 ZSocket::set_curve_secretkey_bin
 
@@ -1236,10 +1337,11 @@ ZSocket::set_curve_secretkey_bin
 
 
 
+### \ZSocket::set_curve_serverkey()
 
-### set_curve_serverkey
-
-    mixed ZSocket::set_curve_serverkey()
+```
+mixed ZSocket::\ZSocket::set_curve_serverkey()()
+```
 
 ZSocket::set_curve_serverkey
 
@@ -1249,10 +1351,11 @@ ZSocket::set_curve_serverkey
 
 
 
+### \ZSocket::set_curve_serverkey_bin()
 
-### set_curve_serverkey_bin
-
-    mixed ZSocket::set_curve_serverkey_bin()
+```
+mixed ZSocket::\ZSocket::set_curve_serverkey_bin()()
+```
 
 ZSocket::set_curve_serverkey_bin
 
@@ -1262,10 +1365,11 @@ ZSocket::set_curve_serverkey_bin
 
 
 
+### \ZSocket::set_gssapi_server()
 
-### set_gssapi_server
-
-    mixed ZSocket::set_gssapi_server()
+```
+mixed ZSocket::\ZSocket::set_gssapi_server()()
+```
 
 ZSocket::set_gssapi_server
 
@@ -1275,10 +1379,11 @@ ZSocket::set_gssapi_server
 
 
 
+### \ZSocket::set_gssapi_plaintext()
 
-### set_gssapi_plaintext
-
-    mixed ZSocket::set_gssapi_plaintext()
+```
+mixed ZSocket::\ZSocket::set_gssapi_plaintext()()
+```
 
 ZSocket::set_gssapi_plaintext
 
@@ -1288,10 +1393,11 @@ ZSocket::set_gssapi_plaintext
 
 
 
+### \ZSocket::set_gssapi_principal()
 
-### set_gssapi_principal
-
-    mixed ZSocket::set_gssapi_principal()
+```
+mixed ZSocket::\ZSocket::set_gssapi_principal()()
+```
 
 ZSocket::set_gssapi_principal
 
@@ -1301,10 +1407,11 @@ ZSocket::set_gssapi_principal
 
 
 
+### \ZSocket::set_gssapi_service_principal()
 
-### set_gssapi_service_principal
-
-    mixed ZSocket::set_gssapi_service_principal()
+```
+mixed ZSocket::\ZSocket::set_gssapi_service_principal()()
+```
 
 ZSocket::set_gssapi_service_principal
 
@@ -1314,10 +1421,11 @@ ZSocket::set_gssapi_service_principal
 
 
 
+### \ZSocket::set_ipv6()
 
-### set_ipv6
-
-    mixed ZSocket::set_ipv6()
+```
+mixed ZSocket::\ZSocket::set_ipv6()()
+```
 
 ZSocket::set_ipv6
 
@@ -1327,10 +1435,11 @@ ZSocket::set_ipv6
 
 
 
+### \ZSocket::set_immediate()
 
-### set_immediate
-
-    mixed ZSocket::set_immediate()
+```
+mixed ZSocket::\ZSocket::set_immediate()()
+```
 
 ZSocket::set_immediate
 
@@ -1340,10 +1449,11 @@ ZSocket::set_immediate
 
 
 
+### \ZSocket::set_router_raw()
 
-### set_router_raw
-
-    mixed ZSocket::set_router_raw()
+```
+mixed ZSocket::\ZSocket::set_router_raw()()
+```
 
 ZSocket::set_router_raw
 
@@ -1353,10 +1463,11 @@ ZSocket::set_router_raw
 
 
 
+### \ZSocket::set_ipv4only()
 
-### set_ipv4only
-
-    mixed ZSocket::set_ipv4only()
+```
+mixed ZSocket::\ZSocket::set_ipv4only()()
+```
 
 ZSocket::set_ipv4only
 
@@ -1366,10 +1477,11 @@ ZSocket::set_ipv4only
 
 
 
+### \ZSocket::set_delay_attach_on_connect()
 
-### set_delay_attach_on_connect
-
-    mixed ZSocket::set_delay_attach_on_connect()
+```
+mixed ZSocket::\ZSocket::set_delay_attach_on_connect()()
+```
 
 ZSocket::set_delay_attach_on_connect
 
@@ -1379,10 +1491,11 @@ ZSocket::set_delay_attach_on_connect
 
 
 
+### \ZSocket::set_sndhwm()
 
-### set_sndhwm
-
-    mixed ZSocket::set_sndhwm()
+```
+mixed ZSocket::\ZSocket::set_sndhwm()()
+```
 
 ZSocket::set_sndhwm
 
@@ -1392,10 +1505,11 @@ ZSocket::set_sndhwm
 
 
 
+### \ZSocket::set_rcvhwm()
 
-### set_rcvhwm
-
-    mixed ZSocket::set_rcvhwm()
+```
+mixed ZSocket::\ZSocket::set_rcvhwm()()
+```
 
 ZSocket::set_rcvhwm
 
@@ -1405,10 +1519,11 @@ ZSocket::set_rcvhwm
 
 
 
+### \ZSocket::set_affinity()
 
-### set_affinity
-
-    mixed ZSocket::set_affinity()
+```
+mixed ZSocket::\ZSocket::set_affinity()()
+```
 
 ZSocket::set_affinity
 
@@ -1418,10 +1533,11 @@ ZSocket::set_affinity
 
 
 
+### \ZSocket::set_subscribe()
 
-### set_subscribe
-
-    mixed ZSocket::set_subscribe()
+```
+mixed ZSocket::\ZSocket::set_subscribe()()
+```
 
 ZSocket::set_subscribe
 
@@ -1431,10 +1547,11 @@ ZSocket::set_subscribe
 
 
 
+### \ZSocket::set_unsubscribe()
 
-### set_unsubscribe
-
-    mixed ZSocket::set_unsubscribe()
+```
+mixed ZSocket::\ZSocket::set_unsubscribe()()
+```
 
 ZSocket::set_unsubscribe
 
@@ -1444,10 +1561,11 @@ ZSocket::set_unsubscribe
 
 
 
+### \ZSocket::set_identity()
 
-### set_identity
-
-    mixed ZSocket::set_identity()
+```
+mixed ZSocket::\ZSocket::set_identity()()
+```
 
 ZSocket::set_identity
 
@@ -1457,10 +1575,11 @@ ZSocket::set_identity
 
 
 
+### \ZSocket::set_rate()
 
-### set_rate
-
-    mixed ZSocket::set_rate()
+```
+mixed ZSocket::\ZSocket::set_rate()()
+```
 
 ZSocket::set_rate
 
@@ -1470,10 +1589,11 @@ ZSocket::set_rate
 
 
 
+### \ZSocket::set_recovery_ivl()
 
-### set_recovery_ivl
-
-    mixed ZSocket::set_recovery_ivl()
+```
+mixed ZSocket::\ZSocket::set_recovery_ivl()()
+```
 
 ZSocket::set_recovery_ivl
 
@@ -1483,10 +1603,11 @@ ZSocket::set_recovery_ivl
 
 
 
+### \ZSocket::set_sndbuf()
 
-### set_sndbuf
-
-    mixed ZSocket::set_sndbuf()
+```
+mixed ZSocket::\ZSocket::set_sndbuf()()
+```
 
 ZSocket::set_sndbuf
 
@@ -1496,10 +1617,11 @@ ZSocket::set_sndbuf
 
 
 
+### \ZSocket::set_rcvbuf()
 
-### set_rcvbuf
-
-    mixed ZSocket::set_rcvbuf()
+```
+mixed ZSocket::\ZSocket::set_rcvbuf()()
+```
 
 ZSocket::set_rcvbuf
 
@@ -1509,10 +1631,11 @@ ZSocket::set_rcvbuf
 
 
 
+### \ZSocket::set_linger()
 
-### set_linger
-
-    mixed ZSocket::set_linger()
+```
+mixed ZSocket::\ZSocket::set_linger()()
+```
 
 ZSocket::set_linger
 
@@ -1522,10 +1645,11 @@ ZSocket::set_linger
 
 
 
+### \ZSocket::set_reconnect_ivl()
 
-### set_reconnect_ivl
-
-    mixed ZSocket::set_reconnect_ivl()
+```
+mixed ZSocket::\ZSocket::set_reconnect_ivl()()
+```
 
 ZSocket::set_reconnect_ivl
 
@@ -1535,10 +1659,11 @@ ZSocket::set_reconnect_ivl
 
 
 
+### \ZSocket::set_reconnect_ivl_max()
 
-### set_reconnect_ivl_max
-
-    mixed ZSocket::set_reconnect_ivl_max()
+```
+mixed ZSocket::\ZSocket::set_reconnect_ivl_max()()
+```
 
 ZSocket::set_reconnect_ivl_max
 
@@ -1548,10 +1673,11 @@ ZSocket::set_reconnect_ivl_max
 
 
 
+### \ZSocket::set_backlog()
 
-### set_backlog
-
-    mixed ZSocket::set_backlog()
+```
+mixed ZSocket::\ZSocket::set_backlog()()
+```
 
 ZSocket::set_backlog
 
@@ -1561,10 +1687,11 @@ ZSocket::set_backlog
 
 
 
+### \ZSocket::set_maxmsgsize()
 
-### set_maxmsgsize
-
-    mixed ZSocket::set_maxmsgsize()
+```
+mixed ZSocket::\ZSocket::set_maxmsgsize()()
+```
 
 ZSocket::set_maxmsgsize
 
@@ -1574,10 +1701,11 @@ ZSocket::set_maxmsgsize
 
 
 
+### \ZSocket::set_multicast_hops()
 
-### set_multicast_hops
-
-    mixed ZSocket::set_multicast_hops()
+```
+mixed ZSocket::\ZSocket::set_multicast_hops()()
+```
 
 ZSocket::set_multicast_hops
 
@@ -1587,10 +1715,11 @@ ZSocket::set_multicast_hops
 
 
 
+### \ZSocket::set_rcvtimeo()
 
-### set_rcvtimeo
-
-    mixed ZSocket::set_rcvtimeo()
+```
+mixed ZSocket::\ZSocket::set_rcvtimeo()()
+```
 
 ZSocket::set_rcvtimeo
 
@@ -1600,10 +1729,11 @@ ZSocket::set_rcvtimeo
 
 
 
+### \ZSocket::set_sndtimeo()
 
-### set_sndtimeo
-
-    mixed ZSocket::set_sndtimeo()
+```
+mixed ZSocket::\ZSocket::set_sndtimeo()()
+```
 
 ZSocket::set_sndtimeo
 
@@ -1613,10 +1743,11 @@ ZSocket::set_sndtimeo
 
 
 
+### \ZSocket::set_xpub_verbose()
 
-### set_xpub_verbose
-
-    mixed ZSocket::set_xpub_verbose()
+```
+mixed ZSocket::\ZSocket::set_xpub_verbose()()
+```
 
 ZSocket::set_xpub_verbose
 
@@ -1626,10 +1757,11 @@ ZSocket::set_xpub_verbose
 
 
 
+### \ZSocket::set_tcp_keepalive()
 
-### set_tcp_keepalive
-
-    mixed ZSocket::set_tcp_keepalive()
+```
+mixed ZSocket::\ZSocket::set_tcp_keepalive()()
+```
 
 ZSocket::set_tcp_keepalive
 
@@ -1639,10 +1771,11 @@ ZSocket::set_tcp_keepalive
 
 
 
+### \ZSocket::set_tcp_keepalive_idle()
 
-### set_tcp_keepalive_idle
-
-    mixed ZSocket::set_tcp_keepalive_idle()
+```
+mixed ZSocket::\ZSocket::set_tcp_keepalive_idle()()
+```
 
 ZSocket::set_tcp_keepalive_idle
 
@@ -1652,10 +1785,11 @@ ZSocket::set_tcp_keepalive_idle
 
 
 
+### \ZSocket::set_tcp_keepalive_cnt()
 
-### set_tcp_keepalive_cnt
-
-    mixed ZSocket::set_tcp_keepalive_cnt()
+```
+mixed ZSocket::\ZSocket::set_tcp_keepalive_cnt()()
+```
 
 ZSocket::set_tcp_keepalive_cnt
 
@@ -1665,10 +1799,11 @@ ZSocket::set_tcp_keepalive_cnt
 
 
 
+### \ZSocket::set_tcp_keepalive_intvl()
 
-### set_tcp_keepalive_intvl
-
-    mixed ZSocket::set_tcp_keepalive_intvl()
+```
+mixed ZSocket::\ZSocket::set_tcp_keepalive_intvl()()
+```
 
 ZSocket::set_tcp_keepalive_intvl
 
@@ -1678,16 +1813,16 @@ ZSocket::set_tcp_keepalive_intvl
 
 
 
+### \ZSocket::set_tcp_accept_filter()
 
-### set_tcp_accept_filter
-
-    mixed ZSocket::set_tcp_accept_filter()
+```
+mixed ZSocket::\ZSocket::set_tcp_accept_filter()()
+```
 
 ZSocket::set_tcp_accept_filter
 
 ...
 
 * Visibility: **public**
-
 
 

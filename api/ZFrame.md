@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \ZFrame::__construct()
 
-    mixed ZFrame::__construct()
+```
+mixed ZFrame::\ZFrame::__construct()()
+```
 
 ZFrame::__construct
 
@@ -31,16 +33,16 @@ ZFrame::__construct
 
 
 
+### \ZFrame::dump()
 
-### dump
-
-    mixed ZFrame::dump()
+```
+mixed ZFrame::\ZFrame::dump()()
+```
 
 ZFrame::dump
 
 ...
 
 * Visibility: **public**
-
 
 

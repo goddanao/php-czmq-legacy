@@ -3,6 +3,7 @@
 #include <phpcpp.h>
 #include <czmq.h>
 #include <zyre.h>
+#include <majordomo.h>
 #include <malamute.h>
 
 class ZHandle {
@@ -21,15 +22,52 @@ public:
 
     void *get_handle() const { return _handle; }
 
+    virtual void *get_actor() const {
+        if(_type == "zactor")
+            return _handle;
+
+        if(_type == "mdp_broker")
+            return _handle;
+        if(_type == "mdp_worker")
+            return (void *) mdp_worker_actor ((mdp_worker_t *) _handle);
+        if(_type == "mdp_client")
+            return (void *) mdp_client_actor ((mdp_client_t *) _handle);
+
+        if(_type == "mlm_broker")
+            return _handle;
+        if(_type == "mlm_client")
+            return (void *) mlm_client_actor((mlm_client_t *) _handle);
+
+        if(_type == "zyre")
+                return _handle;
+
+        return nullptr;
+    }
+
     virtual void *get_socket() const {
         if(_type == "socket")
             return _handle;
+
         if(_type == "zsock")
-            return (void *) zsock_resolve(_handle);
+            return zsock_resolve(_handle);
         if(_type == "zactor")
-            return (void *) zactor_resolve(_handle);
+            return (void *) zsock_resolve(_handle);
+
+        if(_type == "mdp_broker")
+            return (void *) zsock_resolve(_handle);
+        if(_type == "mdp_worker")
+            return (void *) mdp_worker_msgpipe((mdp_worker_t *) _handle);
+        if(_type == "mdp_client")
+            return (void *) mdp_client_msgpipe((mdp_client_t *) _handle);
+
+        if(_type == "mlm_broker")
+            return (void *) zsock_resolve(_handle);
+        if(_type == "mlm_client")
+            return (void *) mlm_client_msgpipe((mlm_client_t *) _handle);
+
         if(_type == "zyre")
             return (void *) zyre_socket((zyre_t*)_handle);
+
         return nullptr;
     }
 
@@ -77,8 +115,20 @@ public:
         if(_type == "zpoller")
             zpoller_destroy((zpoller_t **) &_handle);
         else
-        if(_type == "malamute_client")
+        if(_type == "mlm_broker" && zactor_is(_handle))
+            zactor_destroy((zactor_t **) &_handle);
+        else
+        if(_type == "mlm_client")
             mlm_client_destroy ((mlm_client_t **) &_handle);
+        else
+        if(_type == "mdp_broker" && zactor_is(_handle))
+            zactor_destroy((zactor_t **) &_handle);
+        else
+        if(_type == "mdp_worker")
+            mdp_worker_destroy ((mdp_worker_t **) &_handle);
+        else
+        if(_type == "mdp_client")
+            mdp_client_destroy ((mdp_client_t **) &_handle);
         else
             ;
 

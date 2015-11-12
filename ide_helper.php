@@ -66,6 +66,13 @@ class ZSys {
   static public function context() {}
 
   /**
+   * ZSys::refresh
+   *
+   * ...
+  */
+  static public function refresh() {}
+
+  /**
    * ZSys::is_interrupted
    *
    * Inform about zmq interrupt
@@ -573,15 +580,19 @@ class ZLoop {
    * ZLoop::add
    *
    * ...
+   * @param IZSocket$socket ...
+   * @param callable $callback ...
+   * @param mixed$tollerant ... (optional)
   */
-  public function add() {}
+  public function add($socket = null, $callback, $tollerant) {}
 
   /**
    * ZLoop::remove
    *
    * ...
+   * @param IZSocket$socket ...
   */
-  public function remove() {}
+  public function remove($socket = null) {}
 
   /**
    * ZLoop::add_timer
@@ -626,22 +637,26 @@ class ZPoll {
    * ZPoll::add
    *
    * ...
+   * @param IZSocket$socket ...
+   * @param mixed$mode ... (optional)
   */
-  public function add() {}
+  public function add($socket = null, $mode) {}
 
   /**
    * ZPoll::has
    *
    * ...
+   * @param IZSocket$socket ...
   */
-  public function has() {}
+  public function has($socket = null) {}
 
   /**
    * ZPoll::remove
    *
    * ...
+   * @param IZSocket$socket ...
   */
-  public function remove() {}
+  public function remove($socket = null) {}
 
   /**
    * ZPoll::check_for
@@ -680,93 +695,6 @@ class ZPoll {
 
   /**
    * ZPoll::has_error
-   *
-   * ...
-  */
-  public function has_error() {}
-
-}
-
-
-/**
- * ZReactor
- *
- * ...
- */
-class ZReactor {
-
-  /**
-   * ZReactor::__construct
-   *
-   * ...
-  */
-  public function __construct() {}
-
-  /**
-   * ZReactor::set_verbose
-   *
-   * ...
-  */
-  public function set_verbose() {}
-
-  /**
-   * ZReactor::add
-   *
-   * ...
-  */
-  public function add() {}
-
-  /**
-   * ZReactor::has
-   *
-   * ...
-  */
-  public function has() {}
-
-  /**
-   * ZReactor::remove
-   *
-   * ...
-  */
-  public function remove() {}
-
-  /**
-   * ZReactor::check_for
-   *
-   * ...
-  */
-  public function check_for() {}
-
-  /**
-   * ZReactor::events
-   *
-   * ...
-  */
-  public function events() {}
-
-  /**
-   * ZReactor::poll
-   *
-   * ...
-  */
-  public function poll() {}
-
-  /**
-   * ZReactor::has_input
-   *
-   * ...
-  */
-  public function has_input() {}
-
-  /**
-   * ZReactor::has_output
-   *
-   * ...
-  */
-  public function has_output() {}
-
-  /**
-   * ZReactor::has_error
    *
    * ...
   */
@@ -2150,7 +2078,7 @@ class ZGossip implements IZSocket {
  *
  * Zyre does local area discovery and clustering. A Zyre node broadcasts UDP beacons, and connects to peers that it finds.
  */
-class Zyre {
+class Zyre implements IZSocket {
 
   /**
    * Zyre::__construct
@@ -2365,21 +2293,16 @@ class Zyre {
  *
  * ...
  */
-class MajordomoBroker {
+class MajordomoBroker implements IZSocket {
 
   /**
    * MajordomoBroker::__construct
    *
    * ...
+   * @param mixed$endpoint ... (optional)
+   * @param mixed$verbose ... (optional)
   */
-  public function __construct() {}
-
-  /**
-   * MajordomoBroker::bind
-   *
-   * ...
-  */
-  public function bind() {}
+  public function __construct($endpoint, $verbose) {}
 
   /**
    * MajordomoBroker::set_verbose
@@ -2389,18 +2312,32 @@ class MajordomoBroker {
   public function set_verbose() {}
 
   /**
-   * MajordomoBroker::pause
+   * MajordomoBroker::load_config
    *
    * ...
   */
-  public function pause() {}
+  public function load_config() {}
 
   /**
-   * MajordomoBroker::resume
+   * MajordomoBroker::save_config
    *
    * ...
   */
-  public function resume() {}
+  public function save_config() {}
+
+  /**
+   * MajordomoBroker::set_config
+   *
+   * ...
+  */
+  public function set_config() {}
+
+  /**
+   * MajordomoBroker::bind
+   *
+   * ...
+  */
+  public function bind() {}
 
   /**
    * MajordomoBroker::run
@@ -2408,42 +2345,6 @@ class MajordomoBroker {
    * ...
   */
   public function run() {}
-
-  /**
-   * MajordomoBroker::stop
-   *
-   * ...
-  */
-  public function stop() {}
-
-  /**
-   * MajordomoBroker::on_idle
-   *
-   * ...
-  */
-  public function on_idle() {}
-
-  /**
-   * MajordomoBroker::on_tick
-   *
-   * ...
-  */
-  public function on_tick() {}
-
-  /**
-   * MajordomoBroker::get_status
-   *
-   * ...
-  */
-  public function get_status() {}
-
-  /**
-   * MajordomoBroker::set_capture
-   *
-   * ...
-   * @param mixed $socket_endpoint ...
-  */
-  public function set_capture($socket_endpoint) {}
 
 }
 
@@ -2453,24 +2354,38 @@ class MajordomoBroker {
  *
  * ...
  */
-class MajordomoWorker {
+class MajordomoWorker implements IZSocket {
 
   /**
    * MajordomoWorker::__construct
    *
    * ...
+   * @param mixed$name ...
+   * @param mixed$broker_endpoint ...
+   * @param callable $callback ...
   */
-  public function __construct() {}
+  public function __construct($name, $broker_endpoint, $callback) {}
+
+  /**
+   * MajordomoWorker::set_verbose
+   *
+   * ...
+  */
+  public function set_verbose() {}
 
   /**
    * MajordomoWorker::run
    *
    * ...
-   * @param mixed $name ...
-   * @param mixed $broker ...
-   * @param callable $callback ...
   */
-  public function run($name, $broker, $callback) {}
+  public function run() {}
+
+  /**
+   * MajordomoWorker::process
+   *
+   * ...
+  */
+  public function process() {}
 
 }
 
@@ -2480,28 +2395,45 @@ class MajordomoWorker {
  *
  * ...
  */
-class MajordomoClient {
+class MajordomoClient implements IZSocket {
 
   /**
    * MajordomoClient::__construct
    *
    * ...
+   * @param mixed$broker_endpoint ...
   */
-  public function __construct() {}
+  public function __construct($broker_endpoint) {}
+
+  /**
+   * MajordomoClient::set_verbose
+   *
+   * ...
+  */
+  public function set_verbose() {}
+
+  /**
+   * MajordomoClient::recv
+   *
+   * ...
+  */
+  public function recv() {}
 
   /**
    * MajordomoClient::call
    *
    * ...
+   * @param mixed$service_name ...
   */
-  public function call() {}
+  public function call($service_name) {}
 
   /**
    * MajordomoClient::call_async
    *
    * ...
+   * @param mixed$service_name ...
   */
-  public function call_async() {}
+  public function call_async($service_name) {}
 
 }
 
@@ -2511,7 +2443,7 @@ class MajordomoClient {
  *
  * ...
  */
-class MalamuteBroker {
+class MalamuteBroker implements IZSocket {
 
   /**
    * MalamuteBroker::__construct
@@ -2598,7 +2530,7 @@ class MalamuteBroker {
  *
  * ...
  */
-class MalamuteClient {
+class MalamuteClient implements IZSocket {
 
   /**
    * MalamuteClient::__construct

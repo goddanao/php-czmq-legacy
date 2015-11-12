@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \ZMsg::__construct()
 
-    mixed ZMsg::__construct()
+```
+mixed ZMsg::\ZMsg::__construct()()
+```
 
 ZMsg::__construct
 
@@ -31,10 +33,11 @@ ZMsg::__construct
 
 
 
+### \ZMsg::append_picture()
 
-### append_picture
-
-    mixed ZMsg::append_picture()
+```
+mixed ZMsg::\ZMsg::append_picture()()
+```
 
 ZMsg::append_picture
 
@@ -44,10 +47,11 @@ ZMsg::append_picture
 
 
 
+### \ZMsg::prepend_picture()
 
-### prepend_picture
-
-    mixed ZMsg::prepend_picture()
+```
+mixed ZMsg::\ZMsg::prepend_picture()()
+```
 
 ZMsg::prepend_picture
 
@@ -57,10 +61,11 @@ ZMsg::prepend_picture
 
 
 
+### \ZMsg::pop_picture()
 
-### pop_picture
-
-    mixed ZMsg::pop_picture()
+```
+mixed ZMsg::\ZMsg::pop_picture()()
+```
 
 ZMsg::pop_picture
 
@@ -70,10 +75,11 @@ ZMsg::pop_picture
 
 
 
+### \ZMsg::append()
 
-### append
-
-    mixed ZMsg::append()
+```
+mixed ZMsg::\ZMsg::append()()
+```
 
 ZMsg::append
 
@@ -83,10 +89,11 @@ ZMsg::append
 
 
 
+### \ZMsg::prepend()
 
-### prepend
-
-    mixed ZMsg::prepend()
+```
+mixed ZMsg::\ZMsg::prepend()()
+```
 
 ZMsg::prepend
 
@@ -96,10 +103,11 @@ ZMsg::prepend
 
 
 
+### \ZMsg::pop()
 
-### pop
-
-    mixed ZMsg::pop()
+```
+mixed ZMsg::\ZMsg::pop()()
+```
 
 ZMsg::pop
 
@@ -109,10 +117,11 @@ ZMsg::pop
 
 
 
+### \ZMsg::append_string()
 
-### append_string
-
-    mixed ZMsg::append_string()
+```
+mixed ZMsg::\ZMsg::append_string()()
+```
 
 ZMsg::append_string
 
@@ -122,10 +131,11 @@ ZMsg::append_string
 
 
 
+### \ZMsg::prepend_string()
 
-### prepend_string
-
-    mixed ZMsg::prepend_string()
+```
+mixed ZMsg::\ZMsg::prepend_string()()
+```
 
 ZMsg::prepend_string
 
@@ -135,10 +145,11 @@ ZMsg::prepend_string
 
 
 
+### \ZMsg::pop_string()
 
-### pop_string
-
-    mixed ZMsg::pop_string()
+```
+mixed ZMsg::\ZMsg::pop_string()()
+```
 
 ZMsg::pop_string
 
@@ -148,10 +159,11 @@ ZMsg::pop_string
 
 
 
+### \ZMsg::send()
 
-### send
-
-    mixed ZMsg::send()
+```
+mixed ZMsg::\ZMsg::send()()
+```
 
 ZMsg::send
 
@@ -161,10 +173,11 @@ ZMsg::send
 
 
 
+### \ZMsg::recv()
 
-### recv
-
-    mixed ZMsg::recv()
+```
+mixed ZMsg::\ZMsg::recv()()
+```
 
 ZMsg::recv
 
@@ -174,10 +187,11 @@ ZMsg::recv
 
 
 
+### \ZMsg::remove()
 
-### remove
-
-    mixed ZMsg::remove()
+```
+mixed ZMsg::\ZMsg::remove()()
+```
 
 ZMsg::remove
 
@@ -187,10 +201,11 @@ ZMsg::remove
 
 
 
+### \ZMsg::first()
 
-### first
-
-    mixed ZMsg::first()
+```
+mixed ZMsg::\ZMsg::first()()
+```
 
 ZMsg::first
 
@@ -200,10 +215,11 @@ ZMsg::first
 
 
 
+### \ZMsg::next()
 
-### next
-
-    mixed ZMsg::next()
+```
+mixed ZMsg::\ZMsg::next()()
+```
 
 ZMsg::next
 
@@ -213,10 +229,11 @@ ZMsg::next
 
 
 
+### \ZMsg::last()
 
-### last
-
-    mixed ZMsg::last()
+```
+mixed ZMsg::\ZMsg::last()()
+```
 
 ZMsg::last
 
@@ -226,10 +243,11 @@ ZMsg::last
 
 
 
+### \ZMsg::get_size()
 
-### get_size
-
-    mixed ZMsg::get_size()
+```
+mixed ZMsg::\ZMsg::get_size()()
+```
 
 ZMsg::get_size
 
@@ -239,10 +257,11 @@ ZMsg::get_size
 
 
 
+### \ZMsg::get_content_size()
 
-### get_content_size
-
-    mixed ZMsg::get_content_size()
+```
+mixed ZMsg::\ZMsg::get_content_size()()
+```
 
 ZMsg::get_content_size
 
@@ -252,16 +271,16 @@ ZMsg::get_content_size
 
 
 
+### \ZMsg::dump()
 
-### dump
-
-    mixed ZMsg::dump()
+```
+mixed ZMsg::\ZMsg::dump()()
+```
 
 ZMsg::dump
 
 ...
 
 * Visibility: **public**
-
 
 

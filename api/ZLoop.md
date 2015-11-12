@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \ZLoop::__construct()
 
-    mixed ZLoop::__construct()
+```
+mixed ZLoop::\ZLoop::__construct()()
+```
 
 ZLoop::__construct
 
@@ -31,10 +33,11 @@ ZLoop::__construct
 
 
 
+### \ZLoop::set_verbose()
 
-### set_verbose
-
-    mixed ZLoop::set_verbose()
+```
+mixed ZLoop::\ZLoop::set_verbose()()
+```
 
 ZLoop::set_verbose
 
@@ -44,10 +47,11 @@ ZLoop::set_verbose
 
 
 
+### \ZLoop::set_max_timers()
 
-### set_max_timers
-
-    mixed ZLoop::set_max_timers()
+```
+mixed ZLoop::\ZLoop::set_max_timers()()
+```
 
 ZLoop::set_max_timers
 
@@ -57,10 +61,11 @@ ZLoop::set_max_timers
 
 
 
+### \ZLoop::start()
 
-### start
-
-    mixed ZLoop::start()
+```
+mixed ZLoop::\ZLoop::start()()
+```
 
 ZLoop::start
 
@@ -70,10 +75,11 @@ ZLoop::start
 
 
 
+### \ZLoop::stop()
 
-### stop
-
-    mixed ZLoop::stop()
+```
+mixed ZLoop::\ZLoop::stop()()
+```
 
 ZLoop::stop
 
@@ -83,10 +89,11 @@ ZLoop::stop
 
 
 
+### \ZLoop::add()
 
-### add
-
-    mixed ZLoop::add()
+```
+mixed ZLoop::\ZLoop::add()($socket, callable $callback, $tollerant)
+```
 
 ZLoop::add
 
@@ -94,12 +101,19 @@ ZLoop::add
 
 * Visibility: **public**
 
+#### Arguments
+
+* $socket **mixed**
+* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
+* $tollerant **mixed**
 
 
 
-### remove
+### \ZLoop::remove()
 
-    mixed ZLoop::remove()
+```
+mixed ZLoop::\ZLoop::remove()($socket)
+```
 
 ZLoop::remove
 
@@ -107,12 +121,17 @@ ZLoop::remove
 
 * Visibility: **public**
 
+#### Arguments
+
+* $socket **mixed**
 
 
 
-### add_timer
+### \ZLoop::add_timer()
 
-    mixed ZLoop::add_timer()
+```
+mixed ZLoop::\ZLoop::add_timer()()
+```
 
 ZLoop::add_timer
 
@@ -122,10 +141,11 @@ ZLoop::add_timer
 
 
 
+### \ZLoop::remove_timer()
 
-### remove_timer
-
-    mixed ZLoop::remove_timer($timer_id)
+```
+mixed ZLoop::\ZLoop::remove_timer()($timer_id)
+```
 
 ZLoop::remove_timer
 
@@ -133,21 +153,22 @@ ZLoop::remove_timer
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $timer_id **mixed**
 
 
 
-### ignore_interrupts
+### \ZLoop::ignore_interrupts()
 
-    mixed ZLoop::ignore_interrupts()
+```
+mixed ZLoop::\ZLoop::ignore_interrupts()()
+```
 
 ZLoop::ignore_interrupts
 
 ...
 
 * Visibility: **public**
-
 
 

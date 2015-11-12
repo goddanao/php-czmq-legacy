@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../common.h"
-#include "../../include/czmq/zmsg.h"
+#include "../czmq/zmsg.h"
 
 class MalamuteClient   : public ZHandle, public Php::Base {
  private:
@@ -10,16 +10,18 @@ class MalamuteClient   : public ZHandle, public Php::Base {
      std::string _address;
      int _timeout = 0;
      bool _connected = false;
+
  public:
+
     MalamuteClient() : ZHandle(), Php::Base() {}
-    MalamuteClient(mlm_client_t *handle, bool owned) : ZHandle(handle, owned, "malamute_client"), Php::Base() {}
+    MalamuteClient(mlm_client_t *handle, bool owned) : ZHandle(handle, owned, "mlm_client"), Php::Base() {}
     mlm_client_t *mlm_client_handle() const { return (mlm_client_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
 		mlm_client_t *client = mlm_client_new();
 		if(!client)
 			throw Php::Exception("Internal Error: Can't create MalamuteClient.");
-		set_handle(client, true, "malamute_client");
+		set_handle(client, true, "mlm_client");
 		_endpoint = (param.size() > 0) ? param[0].stringValue() : "";
 		_address  = (param.size() > 1) ? param[1].stringValue() : "";
 		_timeout  = (param.size() > 2) ? param[2].numericValue() : 0;

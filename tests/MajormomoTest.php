@@ -7,6 +7,67 @@ class MajordomoTest extends \PHPUnit_Framework_TestCase {
 
     function test_mdpbroker() {
 
+        $manager = new ProcessManager();
+
+        $broker_endpoint = 'ipc:///tmp/mdpbroker.dtest';
+
+        # Run Broker
+        $manager->fork(function() use($broker_endpoint) {
+            $broker = new MajordomoBroker($broker_endpoint, false);
+            $broker->run();
+        });
+
+        # Run 5 Workers
+        for($i = 0; $i < 5; $i++) {
+            $manager->fork(function () use ($broker_endpoint, $i) {
+                $worker = new MajordomoWorker('myworker', $broker_endpoint, function ($req) use ($i) {
+                    $usec = rand(1000, 500000);
+                    // Zsys::info("worker[$i] got req: " . $req->pop_string() . " sleeping {$usec} ms ...");
+                    usleep($usec);
+                    return "OK";
+                });
+                $worker->run();
+            });
+        }
+
+        $loop   = new ZLoop();
+
+        $loop->add_timer(5000, function($timer_id, $loop){
+            $loop->stop();
+        });
+
+        $requests = [];
+
+        $loop->add_timer(1000, function($timer_id, $loop) use ($broker_endpoint, $manager, &$requests) {
+            for($i = 0; $i < 10; $i++) {
+                usleep(100000);
+                $requests[] = $manager->fork(function() use($i, $broker_endpoint) {
+                    $client = new MajordomoClient($broker_endpoint);
+                    $requestId = "requestId - " . $i;
+                    $result = $client->call('myworker', $requestId);
+                    if($result) {
+                        return $result->pop_string();
+                    }
+                });
+            }
+        });
+
+        $loop->start();
+
+        $res = true;
+        foreach($requests as $client){
+            $client->receive();
+            $res = $res && ($client->getResult() == "OK");
+        }
+
+        $manager->killAll();
+
+        $this->assertTrue($res);
+    }
+
+    /*
+    function test_mdpbroker() {
+
         $broker_endpoint = 'ipc:///tmp/mdpbroker.test';
 
         $manager = new ProcessManager();
@@ -59,4 +120,5 @@ class MajordomoTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($res);
 
     }
+    */
 }

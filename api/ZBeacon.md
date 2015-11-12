@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \ZBeacon::__construct()
 
-    mixed ZBeacon::__construct()
+```
+mixed ZBeacon::\ZBeacon::__construct()()
+```
 
 ZBeacon::__construct
 
@@ -31,10 +33,11 @@ ZBeacon::__construct
 
 
 
+### \ZBeacon::set_verbose()
 
-### set_verbose
-
-    mixed ZBeacon::set_verbose()
+```
+mixed ZBeacon::\ZBeacon::set_verbose()()
+```
 
 ZBeacon::set_verbose
 
@@ -44,10 +47,11 @@ ZBeacon::set_verbose
 
 
 
+### \ZBeacon::set_port()
 
-### set_port
-
-    mixed ZBeacon::set_port(mixed $port)
+```
+mixed ZBeacon::\ZBeacon::set_port()(mixed $port)
+```
 
 ZBeacon::set_port
 
@@ -55,15 +59,17 @@ ZBeacon::set_port
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $port **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### subscribe
+### \ZBeacon::subscribe()
 
-    mixed ZBeacon::subscribe(mixed $filter)
+```
+mixed ZBeacon::\ZBeacon::subscribe()(mixed $filter)
+```
 
 ZBeacon::subscribe
 
@@ -71,15 +77,17 @@ ZBeacon::subscribe
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $filter **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### unsubscribe
+### \ZBeacon::unsubscribe()
 
-    mixed ZBeacon::unsubscribe()
+```
+mixed ZBeacon::\ZBeacon::unsubscribe()()
+```
 
 ZBeacon::unsubscribe
 
@@ -89,10 +97,11 @@ ZBeacon::unsubscribe
 
 
 
+### \ZBeacon::publish()
 
-### publish
-
-    mixed ZBeacon::publish(mixed $data, mixed $interval)
+```
+mixed ZBeacon::\ZBeacon::publish()(mixed $data, mixed $interval)
+```
 
 ZBeacon::publish
 
@@ -100,16 +109,18 @@ ZBeacon::publish
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $interval **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
-### silence
+### \ZBeacon::silence()
 
-    mixed ZBeacon::silence()
+```
+mixed ZBeacon::\ZBeacon::silence()()
+```
 
 ZBeacon::silence
 
@@ -119,16 +130,16 @@ ZBeacon::silence
 
 
 
+### \ZBeacon::recv()
 
-### recv
-
-    mixed ZBeacon::recv()
+```
+mixed ZBeacon::\ZBeacon::recv()()
+```
 
 ZBeacon::recv
 
 ...
 
 * Visibility: **public**
-
 
 

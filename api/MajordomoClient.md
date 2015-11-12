@@ -8,7 +8,7 @@ MajordomoClient
 
 * Class name: MajordomoClient
 * Namespace: 
-
+* This class implements: [IZSocket](IZSocket.md)
 
 
 
@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \MajordomoClient::__construct()
 
-    mixed MajordomoClient::__construct()
+```
+mixed MajordomoClient::\MajordomoClient::__construct()($broker_endpoint)
+```
 
 MajordomoClient::__construct
 
@@ -29,12 +31,45 @@ MajordomoClient::__construct
 
 * Visibility: **public**
 
+#### Arguments
+
+* $broker_endpoint **mixed**
 
 
 
-### call
+### \MajordomoClient::set_verbose()
 
-    mixed MajordomoClient::call()
+```
+mixed MajordomoClient::\MajordomoClient::set_verbose()()
+```
+
+MajordomoClient::set_verbose
+
+...
+
+* Visibility: **public**
+
+
+
+### \MajordomoClient::recv()
+
+```
+mixed MajordomoClient::\MajordomoClient::recv()()
+```
+
+MajordomoClient::recv
+
+...
+
+* Visibility: **public**
+
+
+
+### \MajordomoClient::call()
+
+```
+mixed MajordomoClient::\MajordomoClient::call()($service_name)
+```
 
 MajordomoClient::call
 
@@ -42,12 +77,17 @@ MajordomoClient::call
 
 * Visibility: **public**
 
+#### Arguments
+
+* $service_name **mixed**
 
 
 
-### call_async
+### \MajordomoClient::call_async()
 
-    mixed MajordomoClient::call_async()
+```
+mixed MajordomoClient::\MajordomoClient::call_async()($service_name)
+```
 
 MajordomoClient::call_async
 
@@ -55,5 +95,8 @@ MajordomoClient::call_async
 
 * Visibility: **public**
 
+#### Arguments
+
+* $service_name **mixed**
 
 

@@ -8,7 +8,7 @@ MajordomoBroker
 
 * Class name: MajordomoBroker
 * Namespace: 
-
+* This class implements: [IZSocket](IZSocket.md)
 
 
 
@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \MajordomoBroker::__construct()
 
-    mixed MajordomoBroker::__construct()
+```
+mixed MajordomoBroker::\MajordomoBroker::__construct()($endpoint, $verbose)
+```
 
 MajordomoBroker::__construct
 
@@ -29,25 +31,18 @@ MajordomoBroker::__construct
 
 * Visibility: **public**
 
+#### Arguments
+
+* $endpoint **mixed**
+* $verbose **mixed**
 
 
 
-### bind
+### \MajordomoBroker::set_verbose()
 
-    mixed MajordomoBroker::bind()
-
-MajordomoBroker::bind
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_verbose
-
-    mixed MajordomoBroker::set_verbose()
+```
+mixed MajordomoBroker::\MajordomoBroker::set_verbose()()
+```
 
 MajordomoBroker::set_verbose
 
@@ -57,25 +52,13 @@ MajordomoBroker::set_verbose
 
 
 
+### \MajordomoBroker::load_config()
 
-### pause
+```
+mixed MajordomoBroker::\MajordomoBroker::load_config()()
+```
 
-    mixed MajordomoBroker::pause()
-
-MajordomoBroker::pause
-
-...
-
-* Visibility: **public**
-
-
-
-
-### resume
-
-    mixed MajordomoBroker::resume()
-
-MajordomoBroker::resume
+MajordomoBroker::load_config
 
 ...
 
@@ -83,84 +66,58 @@ MajordomoBroker::resume
 
 
 
+### \MajordomoBroker::save_config()
 
-### run
+```
+mixed MajordomoBroker::\MajordomoBroker::save_config()()
+```
 
-    mixed MajordomoBroker::run()
+MajordomoBroker::save_config
+
+...
+
+* Visibility: **public**
+
+
+
+### \MajordomoBroker::set_config()
+
+```
+mixed MajordomoBroker::\MajordomoBroker::set_config()()
+```
+
+MajordomoBroker::set_config
+
+...
+
+* Visibility: **public**
+
+
+
+### \MajordomoBroker::bind()
+
+```
+mixed MajordomoBroker::\MajordomoBroker::bind()()
+```
+
+MajordomoBroker::bind
+
+...
+
+* Visibility: **public**
+
+
+
+### \MajordomoBroker::run()
+
+```
+mixed MajordomoBroker::\MajordomoBroker::run()()
+```
 
 MajordomoBroker::run
 
 ...
 
 * Visibility: **public**
-
-
-
-
-### stop
-
-    mixed MajordomoBroker::stop()
-
-MajordomoBroker::stop
-
-...
-
-* Visibility: **public**
-
-
-
-
-### on_idle
-
-    mixed MajordomoBroker::on_idle()
-
-MajordomoBroker::on_idle
-
-...
-
-* Visibility: **public**
-
-
-
-
-### on_tick
-
-    mixed MajordomoBroker::on_tick()
-
-MajordomoBroker::on_tick
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_status
-
-    mixed MajordomoBroker::get_status()
-
-MajordomoBroker::get_status
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_capture
-
-    mixed MajordomoBroker::set_capture(mixed $socket_endpoint)
-
-MajordomoBroker::set_capture
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $socket_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 

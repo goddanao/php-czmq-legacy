@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \ZGossip::__construct()
 
-    mixed ZGossip::__construct()
+```
+mixed ZGossip::\ZGossip::__construct()()
+```
 
 ZGossip::__construct
 
@@ -31,10 +33,11 @@ ZGossip::__construct
 
 
 
+### \ZGossip::set_verbose()
 
-### set_verbose
-
-    mixed ZGossip::set_verbose()
+```
+mixed ZGossip::\ZGossip::set_verbose()()
+```
 
 ZGossip::set_verbose
 
@@ -44,10 +47,11 @@ ZGossip::set_verbose
 
 
 
+### \ZGossip::configure()
 
-### configure
-
-    mixed ZGossip::configure()
+```
+mixed ZGossip::\ZGossip::configure()()
+```
 
 ZGossip::configure
 
@@ -57,10 +61,11 @@ ZGossip::configure
 
 
 
+### \ZGossip::bind()
 
-### bind
-
-    mixed ZGossip::bind()
+```
+mixed ZGossip::\ZGossip::bind()()
+```
 
 ZGossip::bind
 
@@ -70,10 +75,11 @@ ZGossip::bind
 
 
 
+### \ZGossip::connect()
 
-### connect
-
-    mixed ZGossip::connect()
+```
+mixed ZGossip::\ZGossip::connect()()
+```
 
 ZGossip::connect
 
@@ -83,10 +89,11 @@ ZGossip::connect
 
 
 
+### \ZGossip::set()
 
-### set
-
-    mixed ZGossip::set()
+```
+mixed ZGossip::\ZGossip::set()()
+```
 
 ZGossip::set
 
@@ -96,10 +103,11 @@ ZGossip::set
 
 
 
+### \ZGossip::publish()
 
-### publish
-
-    mixed ZGossip::publish()
+```
+mixed ZGossip::\ZGossip::publish()()
+```
 
 ZGossip::publish
 
@@ -109,10 +117,11 @@ ZGossip::publish
 
 
 
+### \ZGossip::count()
 
-### count
-
-    mixed ZGossip::count()
+```
+mixed ZGossip::\ZGossip::count()()
+```
 
 ZGossip::count
 
@@ -122,10 +131,11 @@ ZGossip::count
 
 
 
+### \ZGossip::send()
 
-### send
-
-    mixed ZGossip::send()
+```
+mixed ZGossip::\ZGossip::send()()
+```
 
 ZGossip::send
 
@@ -135,10 +145,11 @@ ZGossip::send
 
 
 
+### \ZGossip::recv()
 
-### recv
-
-    mixed ZGossip::recv()
+```
+mixed ZGossip::\ZGossip::recv()()
+```
 
 ZGossip::recv
 
@@ -148,10 +159,11 @@ ZGossip::recv
 
 
 
+### \ZGossip::send_string()
 
-### send_string
-
-    mixed ZGossip::send_string()
+```
+mixed ZGossip::\ZGossip::send_string()()
+```
 
 ZGossip::send_string
 
@@ -161,10 +173,11 @@ ZGossip::send_string
 
 
 
+### \ZGossip::recv_string()
 
-### recv_string
-
-    mixed ZGossip::recv_string()
+```
+mixed ZGossip::\ZGossip::recv_string()()
+```
 
 ZGossip::recv_string
 
@@ -174,10 +187,11 @@ ZGossip::recv_string
 
 
 
+### \ZGossip::send_picture()
 
-### send_picture
-
-    mixed ZGossip::send_picture()
+```
+mixed ZGossip::\ZGossip::send_picture()()
+```
 
 ZGossip::send_picture
 
@@ -187,16 +201,16 @@ ZGossip::send_picture
 
 
 
+### \ZGossip::recv_picture()
 
-### recv_picture
-
-    mixed ZGossip::recv_picture()
+```
+mixed ZGossip::\ZGossip::recv_picture()()
+```
 
 ZGossip::recv_picture
 
 ...
 
 * Visibility: **public**
-
 
 

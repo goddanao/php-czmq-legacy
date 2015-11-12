@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### set_verbose
+### \ZPoll::set_verbose()
 
-    mixed ZPoll::set_verbose()
+```
+mixed ZPoll::\ZPoll::set_verbose()()
+```
 
 ZPoll::set_verbose
 
@@ -31,10 +33,11 @@ ZPoll::set_verbose
 
 
 
+### \ZPoll::add()
 
-### add
-
-    mixed ZPoll::add()
+```
+mixed ZPoll::\ZPoll::add()($socket, $mode)
+```
 
 ZPoll::add
 
@@ -42,12 +45,18 @@ ZPoll::add
 
 * Visibility: **public**
 
+#### Arguments
+
+* $socket **mixed**
+* $mode **mixed**
 
 
 
-### has
+### \ZPoll::has()
 
-    mixed ZPoll::has()
+```
+mixed ZPoll::\ZPoll::has()($socket)
+```
 
 ZPoll::has
 
@@ -55,12 +64,17 @@ ZPoll::has
 
 * Visibility: **public**
 
+#### Arguments
+
+* $socket **mixed**
 
 
 
-### remove
+### \ZPoll::remove()
 
-    mixed ZPoll::remove()
+```
+mixed ZPoll::\ZPoll::remove()($socket)
+```
 
 ZPoll::remove
 
@@ -68,12 +82,17 @@ ZPoll::remove
 
 * Visibility: **public**
 
+#### Arguments
+
+* $socket **mixed**
 
 
 
-### check_for
+### \ZPoll::check_for()
 
-    mixed ZPoll::check_for()
+```
+mixed ZPoll::\ZPoll::check_for()()
+```
 
 ZPoll::check_for
 
@@ -83,10 +102,11 @@ ZPoll::check_for
 
 
 
+### \ZPoll::events()
 
-### events
-
-    mixed ZPoll::events()
+```
+mixed ZPoll::\ZPoll::events()()
+```
 
 ZPoll::events
 
@@ -96,10 +116,11 @@ ZPoll::events
 
 
 
+### \ZPoll::poll()
 
-### poll
-
-    mixed ZPoll::poll()
+```
+mixed ZPoll::\ZPoll::poll()()
+```
 
 ZPoll::poll
 
@@ -109,10 +130,11 @@ ZPoll::poll
 
 
 
+### \ZPoll::has_input()
 
-### has_input
-
-    mixed ZPoll::has_input()
+```
+mixed ZPoll::\ZPoll::has_input()()
+```
 
 ZPoll::has_input
 
@@ -122,10 +144,11 @@ ZPoll::has_input
 
 
 
+### \ZPoll::has_output()
 
-### has_output
-
-    mixed ZPoll::has_output()
+```
+mixed ZPoll::\ZPoll::has_output()()
+```
 
 ZPoll::has_output
 
@@ -135,16 +158,16 @@ ZPoll::has_output
 
 
 
+### \ZPoll::has_error()
 
-### has_error
-
-    mixed ZPoll::has_error()
+```
+mixed ZPoll::\ZPoll::has_error()()
+```
 
 ZPoll::has_error
 
 ...
 
 * Visibility: **public**
-
 
 

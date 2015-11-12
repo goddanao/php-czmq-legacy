@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \ZProxy::__construct()
 
-    mixed ZProxy::__construct()
+```
+mixed ZProxy::\ZProxy::__construct()()
+```
 
 ZProxy::__construct
 
@@ -31,10 +33,11 @@ ZProxy::__construct
 
 
 
+### \ZProxy::set_verbose()
 
-### set_verbose
-
-    mixed ZProxy::set_verbose()
+```
+mixed ZProxy::\ZProxy::set_verbose()()
+```
 
 ZProxy::set_verbose
 
@@ -44,10 +47,11 @@ ZProxy::set_verbose
 
 
 
+### \ZProxy::pause()
 
-### pause
-
-    mixed ZProxy::pause()
+```
+mixed ZProxy::\ZProxy::pause()()
+```
 
 ZProxy::pause
 
@@ -57,10 +61,11 @@ ZProxy::pause
 
 
 
+### \ZProxy::resume()
 
-### resume
-
-    mixed ZProxy::resume()
+```
+mixed ZProxy::\ZProxy::resume()()
+```
 
 ZProxy::resume
 
@@ -70,10 +75,11 @@ ZProxy::resume
 
 
 
+### \ZProxy::set_frontend()
 
-### set_frontend
-
-    mixed ZProxy::set_frontend(mixed $socket_type, mixed $socket_endpoint)
+```
+mixed ZProxy::\ZProxy::set_frontend()(mixed $socket_type, mixed $socket_endpoint)
+```
 
 ZProxy::set_frontend
 
@@ -81,16 +87,18 @@ ZProxy::set_frontend
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $socket_type **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $socket_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### set_backend
+### \ZProxy::set_backend()
 
-    mixed ZProxy::set_backend(mixed $socket_type, mixed $socket_endpoint)
+```
+mixed ZProxy::\ZProxy::set_backend()(mixed $socket_type, mixed $socket_endpoint)
+```
 
 ZProxy::set_backend
 
@@ -98,16 +106,18 @@ ZProxy::set_backend
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $socket_type **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $socket_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### set_capture
+### \ZProxy::set_capture()
 
-    mixed ZProxy::set_capture(mixed $socket_endpoint)
+```
+mixed ZProxy::\ZProxy::set_capture()(mixed $socket_endpoint)
+```
 
 ZProxy::set_capture
 
@@ -115,8 +125,8 @@ ZProxy::set_capture
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $socket_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 

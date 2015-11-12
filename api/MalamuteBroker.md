@@ -8,7 +8,7 @@ MalamuteBroker
 
 * Class name: MalamuteBroker
 * Namespace: 
-
+* This class implements: [IZSocket](IZSocket.md)
 
 
 
@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \MalamuteBroker::__construct()
 
-    mixed MalamuteBroker::__construct()
+```
+mixed MalamuteBroker::\MalamuteBroker::__construct()()
+```
 
 MalamuteBroker::__construct
 
@@ -31,10 +33,11 @@ MalamuteBroker::__construct
 
 
 
+### \MalamuteBroker::set_verbose()
 
-### set_verbose
-
-    mixed MalamuteBroker::set_verbose()
+```
+mixed MalamuteBroker::\MalamuteBroker::set_verbose()()
+```
 
 MalamuteBroker::set_verbose
 
@@ -44,10 +47,11 @@ MalamuteBroker::set_verbose
 
 
 
+### \MalamuteBroker::load_config()
 
-### load_config
-
-    mixed MalamuteBroker::load_config()
+```
+mixed MalamuteBroker::\MalamuteBroker::load_config()()
+```
 
 MalamuteBroker::load_config
 
@@ -57,10 +61,11 @@ MalamuteBroker::load_config
 
 
 
+### \MalamuteBroker::set_config()
 
-### set_config
-
-    mixed MalamuteBroker::set_config()
+```
+mixed MalamuteBroker::\MalamuteBroker::set_config()()
+```
 
 MalamuteBroker::set_config
 
@@ -70,10 +75,11 @@ MalamuteBroker::set_config
 
 
 
+### \MalamuteBroker::save_config()
 
-### save_config
-
-    mixed MalamuteBroker::save_config()
+```
+mixed MalamuteBroker::\MalamuteBroker::save_config()()
+```
 
 MalamuteBroker::save_config
 
@@ -83,10 +89,11 @@ MalamuteBroker::save_config
 
 
 
+### \MalamuteBroker::bind()
 
-### bind
-
-    mixed MalamuteBroker::bind()
+```
+mixed MalamuteBroker::\MalamuteBroker::bind()()
+```
 
 MalamuteBroker::bind
 
@@ -96,10 +103,11 @@ MalamuteBroker::bind
 
 
 
+### \MalamuteBroker::get_status()
 
-### get_status
-
-    mixed MalamuteBroker::get_status()
+```
+mixed MalamuteBroker::\MalamuteBroker::get_status()()
+```
 
 MalamuteBroker::get_status
 
@@ -109,10 +117,11 @@ MalamuteBroker::get_status
 
 
 
+### \MalamuteBroker::on_tick()
 
-### on_tick
-
-    mixed MalamuteBroker::on_tick()
+```
+mixed MalamuteBroker::\MalamuteBroker::on_tick()()
+```
 
 MalamuteBroker::on_tick
 
@@ -122,10 +131,11 @@ MalamuteBroker::on_tick
 
 
 
+### \MalamuteBroker::on_idle()
 
-### on_idle
-
-    mixed MalamuteBroker::on_idle()
+```
+mixed MalamuteBroker::\MalamuteBroker::on_idle()()
+```
 
 MalamuteBroker::on_idle
 
@@ -135,10 +145,11 @@ MalamuteBroker::on_idle
 
 
 
+### \MalamuteBroker::run()
 
-### run
-
-    mixed MalamuteBroker::run()
+```
+mixed MalamuteBroker::\MalamuteBroker::run()()
+```
 
 MalamuteBroker::run
 
@@ -148,16 +159,16 @@ MalamuteBroker::run
 
 
 
+### \MalamuteBroker::stop()
 
-### stop
-
-    mixed MalamuteBroker::stop()
+```
+mixed MalamuteBroker::\MalamuteBroker::stop()()
+```
 
 MalamuteBroker::stop
 
 ...
 
 * Visibility: **public**
-
 
 

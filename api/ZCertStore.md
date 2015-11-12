@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \ZCertStore::__construct()
 
-    mixed ZCertStore::__construct(mixed $certificates_dir)
+```
+mixed ZCertStore::\ZCertStore::__construct()(mixed $certificates_dir)
+```
 
 ZCertStore::__construct
 
@@ -29,15 +31,17 @@ ZCertStore::__construct
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $certificates_dir **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
-### lookup
+### \ZCertStore::lookup()
 
-    mixed ZCertStore::lookup(mixed $pubkey)
+```
+mixed ZCertStore::\ZCertStore::lookup()(mixed $pubkey)
+```
 
 ZCertStore::lookup
 
@@ -45,15 +49,17 @@ ZCertStore::lookup
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $pubkey **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### insert
+### \ZCertStore::insert()
 
-    mixed ZCertStore::insert(mixed $cert)
+```
+mixed ZCertStore::\ZCertStore::insert()(mixed $cert)
+```
 
 ZCertStore::insert
 
@@ -61,21 +67,22 @@ ZCertStore::insert
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $cert **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### dump
+### \ZCertStore::dump()
 
-    mixed ZCertStore::dump()
+```
+mixed ZCertStore::\ZCertStore::dump()()
+```
 
 ZCertStore::dump
 
 ...
 
 * Visibility: **public**
-
 
 

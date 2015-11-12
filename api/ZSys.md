@@ -17,7 +17,9 @@ Constants
 
 ### SOCKET_PUB
 
-    const SOCKET_PUB = "pub"
+```
+const SOCKET_PUB = "pub"
+```
 
 
 
@@ -25,7 +27,9 @@ Constants
 
 ### SOCKET_SUB
 
-    const SOCKET_SUB = "sub"
+```
+const SOCKET_SUB = "sub"
+```
 
 
 
@@ -33,7 +37,9 @@ Constants
 
 ### SOCKET_REP
 
-    const SOCKET_REP = "rep"
+```
+const SOCKET_REP = "rep"
+```
 
 
 
@@ -41,7 +47,9 @@ Constants
 
 ### SOCKET_REQ
 
-    const SOCKET_REQ = "req"
+```
+const SOCKET_REQ = "req"
+```
 
 
 
@@ -49,7 +57,9 @@ Constants
 
 ### SOCKET_DEALER
 
-    const SOCKET_DEALER = "dealer"
+```
+const SOCKET_DEALER = "dealer"
+```
 
 
 
@@ -57,7 +67,9 @@ Constants
 
 ### SOCKET_ROUTER
 
-    const SOCKET_ROUTER = "router"
+```
+const SOCKET_ROUTER = "router"
+```
 
 
 
@@ -65,7 +77,9 @@ Constants
 
 ### SOCKET_PUSH
 
-    const SOCKET_PUSH = "push"
+```
+const SOCKET_PUSH = "push"
+```
 
 
 
@@ -73,7 +87,9 @@ Constants
 
 ### SOCKET_PULL
 
-    const SOCKET_PULL = "pull"
+```
+const SOCKET_PULL = "pull"
+```
 
 
 
@@ -81,7 +97,9 @@ Constants
 
 ### SOCKET_XPUB
 
-    const SOCKET_XPUB = "xpub"
+```
+const SOCKET_XPUB = "xpub"
+```
 
 
 
@@ -89,7 +107,9 @@ Constants
 
 ### SOCKET_XSUB
 
-    const SOCKET_XSUB = "xsub"
+```
+const SOCKET_XSUB = "xsub"
+```
 
 
 
@@ -97,7 +117,9 @@ Constants
 
 ### SOCKET_XREP
 
-    const SOCKET_XREP = "xrep"
+```
+const SOCKET_XREP = "xrep"
+```
 
 
 
@@ -105,7 +127,9 @@ Constants
 
 ### SOCKET_XREQ
 
-    const SOCKET_XREQ = "xreq"
+```
+const SOCKET_XREQ = "xreq"
+```
 
 
 
@@ -113,7 +137,9 @@ Constants
 
 ### SOCKET_PAIR
 
-    const SOCKET_PAIR = "pair"
+```
+const SOCKET_PAIR = "pair"
+```
 
 
 
@@ -121,7 +147,9 @@ Constants
 
 ### SOCKET_STREAM
 
-    const SOCKET_STREAM = "stream"
+```
+const SOCKET_STREAM = "stream"
+```
 
 
 
@@ -129,7 +157,9 @@ Constants
 
 ### EVENT_CLOSED
 
-    const EVENT_CLOSED = 128
+```
+const EVENT_CLOSED = 128
+```
 
 
 
@@ -137,7 +167,9 @@ Constants
 
 ### EVENT_CONNECTED
 
-    const EVENT_CONNECTED = 1
+```
+const EVENT_CONNECTED = 1
+```
 
 
 
@@ -145,7 +177,9 @@ Constants
 
 ### EVENT_CONNECT_DELAYED
 
-    const EVENT_CONNECT_DELAYED = 2
+```
+const EVENT_CONNECT_DELAYED = 2
+```
 
 
 
@@ -153,7 +187,9 @@ Constants
 
 ### EVENT_CONNECT_RETRIED
 
-    const EVENT_CONNECT_RETRIED = 4
+```
+const EVENT_CONNECT_RETRIED = 4
+```
 
 
 
@@ -161,7 +197,9 @@ Constants
 
 ### EVENT_LISTENING
 
-    const EVENT_LISTENING = 8
+```
+const EVENT_LISTENING = 8
+```
 
 
 
@@ -169,7 +207,9 @@ Constants
 
 ### EVENT_BIND_FAILED
 
-    const EVENT_BIND_FAILED = 16
+```
+const EVENT_BIND_FAILED = 16
+```
 
 
 
@@ -177,7 +217,9 @@ Constants
 
 ### EVENT_ACCEPTED
 
-    const EVENT_ACCEPTED = 32
+```
+const EVENT_ACCEPTED = 32
+```
 
 
 
@@ -185,7 +227,9 @@ Constants
 
 ### EVENT_ACCEPT_FAILED
 
-    const EVENT_ACCEPT_FAILED = 64
+```
+const EVENT_ACCEPT_FAILED = 64
+```
 
 
 
@@ -193,7 +237,9 @@ Constants
 
 ### EVENT_CLOSE_FAILED
 
-    const EVENT_CLOSE_FAILED = 256
+```
+const EVENT_CLOSE_FAILED = 256
+```
 
 
 
@@ -201,7 +247,9 @@ Constants
 
 ### EVENT_DISCONNECTED
 
-    const EVENT_DISCONNECTED = 512
+```
+const EVENT_DISCONNECTED = 512
+```
 
 
 
@@ -209,7 +257,9 @@ Constants
 
 ### EVENT_MONITOR_STOPPED
 
-    const EVENT_MONITOR_STOPPED = 1024
+```
+const EVENT_MONITOR_STOPPED = 1024
+```
 
 
 
@@ -217,7 +267,9 @@ Constants
 
 ### EVENT_ALL
 
-    const EVENT_ALL = 65535
+```
+const EVENT_ALL = 65535
+```
 
 
 
@@ -225,7 +277,9 @@ Constants
 
 ### POLL_NONE
 
-    const POLL_NONE = "0"
+```
+const POLL_NONE = "0"
+```
 
 
 
@@ -233,7 +287,9 @@ Constants
 
 ### POLL_IN
 
-    const POLL_IN = 1
+```
+const POLL_IN = 1
+```
 
 
 
@@ -241,7 +297,9 @@ Constants
 
 ### POLL_OUT
 
-    const POLL_OUT = 2
+```
+const POLL_OUT = 2
+```
 
 
 
@@ -249,7 +307,9 @@ Constants
 
 ### POLL_ERR
 
-    const POLL_ERR = 4
+```
+const POLL_ERR = 4
+```
 
 
 
@@ -257,7 +317,9 @@ Constants
 
 ### POLL_PRI
 
-    const POLL_PRI = 8
+```
+const POLL_PRI = 8
+```
 
 
 
@@ -269,9 +331,11 @@ Methods
 -------
 
 
-### context
+### \ZSys::context()
 
-    \ZContext ZSys::context()
+```
+\ZContext ZSys::\ZSys::context()()
+```
 
 ZSys::context
 
@@ -282,10 +346,26 @@ Get global ZContext
 
 
 
+### \ZSys::refresh()
 
-### is_interrupted
+```
+mixed ZSys::\ZSys::refresh()()
+```
 
-    boolean ZSys::is_interrupted()
+ZSys::refresh
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
+### \ZSys::is_interrupted()
+
+```
+boolean ZSys::\ZSys::is_interrupted()()
+```
 
 ZSys::is_interrupted
 
@@ -296,10 +376,11 @@ Inform about zmq interrupt
 
 
 
+### \ZSys::set_io_threads()
 
-### set_io_threads
-
-    mixed ZSys::set_io_threads(integer $threads)
+```
+mixed ZSys::\ZSys::set_io_threads()(integer $threads)
+```
 
 ZSys::set_io_threads
 
@@ -312,15 +393,17 @@ Note that this method is valid only before any socket is created.
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $threads **integer**
 
 
 
-### set_ipv6
+### \ZSys::set_ipv6()
 
-    mixed ZSys::set_ipv6(boolean $enable)
+```
+mixed ZSys::\ZSys::set_ipv6()(boolean $enable)
+```
 
 ZSys::set_ipv6
 
@@ -334,15 +417,17 @@ default. Note: has no effect on ZMQ v2.
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $enable **boolean**
 
 
 
-### set_default_linger
+### \ZSys::set_default_linger()
 
-    mixed ZSys::set_default_linger(integer $linger)
+```
+mixed ZSys::\ZSys::set_default_linger()(integer $linger)
+```
 
 ZSys::set_default_linger
 
@@ -355,15 +440,17 @@ Note that process exit will typically be delayed by the linger time.
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $linger **integer**
 
 
 
-### set_default_sndhwm
+### \ZSys::set_default_sndhwm()
 
-    mixed ZSys::set_default_sndhwm(integer $sndhwm)
+```
+mixed ZSys::\ZSys::set_default_sndhwm()(integer $sndhwm)
+```
 
 ZSys::set_default_sndhwm
 
@@ -376,15 +463,17 @@ zero means no limit, i.e. infinite memory consumption.
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $sndhwm **integer**
 
 
 
-### set_default_rcvhwm
+### \ZSys::set_default_rcvhwm()
 
-    mixed ZSys::set_default_rcvhwm(integer $rcvhwm)
+```
+mixed ZSys::\ZSys::set_default_rcvhwm()(integer $rcvhwm)
+```
 
 ZSys::set_default_rcvhwm
 
@@ -397,15 +486,17 @@ zero means no limit, i.e. infinite memory consumption.
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $rcvhwm **integer**
 
 
 
-### set_pipehwm
+### \ZSys::set_pipehwm()
 
-    mixed ZSys::set_pipehwm(integer $pipehwm)
+```
+mixed ZSys::\ZSys::set_pipehwm()(integer $pipehwm)
+```
 
 ZSys::set_pipehwm
 
@@ -418,15 +509,17 @@ limit, i.e. infinite memory consumption.
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $pipehwm **integer**
 
 
 
-### get_pipehwm
+### \ZSys::get_pipehwm()
 
-    integer ZSys::get_pipehwm()
+```
+integer ZSys::\ZSys::get_pipehwm()()
+```
 
 ZSys::get_pipehwm
 
@@ -437,10 +530,11 @@ Return the HWM for zactor internal pipes.
 
 
 
+### \ZSys::has_curve()
 
-### has_curve
-
-    boolean ZSys::has_curve()
+```
+boolean ZSys::\ZSys::has_curve()()
+```
 
 ZSys::has_curve
 
@@ -451,10 +545,11 @@ Returns true if the underlying libzmq supports CURVE security.
 
 
 
+### \ZSys::get_socket_limit()
 
-### get_socket_limit
-
-    integer ZSys::get_socket_limit()
+```
+integer ZSys::\ZSys::get_socket_limit()()
+```
 
 ZSys::get_socket_limit
 
@@ -465,10 +560,11 @@ Return maximum number of ZeroMQ sockets that the system will support.
 
 
 
+### \ZSys::set_max_sockets()
 
-### set_max_sockets
-
-    mixed ZSys::set_max_sockets(integer $max_sockets)
+```
+mixed ZSys::\ZSys::set_max_sockets()(integer $max_sockets)
+```
 
 ZSys::set_max_sockets
 
@@ -480,15 +576,17 @@ Note that this method is valid only before any socket is created.
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $max_sockets **integer**
 
 
 
-### hostname
+### \ZSys::hostname()
 
-    string ZSys::hostname()
+```
+string ZSys::\ZSys::hostname()()
+```
 
 ZSys::hostname
 
@@ -499,10 +597,11 @@ Return current host name, for use in public tcp:// endpoints.
 
 
 
+### \ZSys::set_interface()
 
-### set_interface
-
-    mixed ZSys::set_interface(string $interface)
+```
+mixed ZSys::\ZSys::set_interface()(string $interface)
+```
 
 ZSys::set_interface
 
@@ -516,15 +615,17 @@ Setting the interface to '*' means 'use all available interfaces'.
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $interface **string**
 
 
 
-### get_interface
+### \ZSys::get_interface()
 
-    string ZSys::get_interface()
+```
+string ZSys::\ZSys::get_interface()()
+```
 
 ZSys::get_interface
 
@@ -535,10 +636,11 @@ Return network interface to use for broadcasts, or '' if none was set.
 
 
 
+### \ZSys::list_interfaces()
 
-### list_interfaces
-
-    array ZSys::list_interfaces()
+```
+array ZSys::\ZSys::list_interfaces()()
+```
 
 ZSys::list_interfaces
 
@@ -549,10 +651,11 @@ Return network interfaces
 
 
 
+### \ZSys::set_log_ident()
 
-### set_log_ident
-
-    mixed ZSys::set_log_ident(string $log_ident)
+```
+mixed ZSys::\ZSys::set_log_ident()(string $log_ident)
+```
 
 ZSys::set_log_ident
 
@@ -563,15 +666,17 @@ ZSYS_LOGIDENT, if that is set.
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $log_ident **string**
 
 
 
-### set_log_endpoint
+### \ZSys::set_log_endpoint()
 
-    mixed ZSys::set_log_endpoint(string $log_endpoint)
+```
+mixed ZSys::\ZSys::set_log_endpoint()(string $log_endpoint)
+```
 
 ZSys::set_log_endpoint
 
@@ -586,15 +691,17 @@ this method with a null argument.
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $log_endpoint **string**
 
 
 
-### set_log_system
+### \ZSys::set_log_system()
 
-    mixed ZSys::set_log_system(boolean $enable)
+```
+mixed ZSys::\ZSys::set_log_system()(boolean $enable)
+```
 
 ZSys::set_log_system
 
@@ -604,15 +711,17 @@ event log on Windows). By default this is enabled.
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $enable **boolean**
 
 
 
-### libzmq_version
+### \ZSys::libzmq_version()
 
-    string ZSys::libzmq_version()
+```
+string ZSys::\ZSys::libzmq_version()()
+```
 
 ZSys::libzmq_version
 
@@ -623,10 +732,11 @@ Return ZMQ version
 
 
 
+### \ZSys::libczmq_version()
 
-### libczmq_version
-
-    string ZSys::libczmq_version()
+```
+string ZSys::\ZSys::libczmq_version()()
+```
 
 ZSys::libczmq_version
 
@@ -637,10 +747,11 @@ Return CZMQ version
 
 
 
+### \ZSys::libzyre_version()
 
-### libzyre_version
-
-    string ZSys::libzyre_version()
+```
+string ZSys::\ZSys::libzyre_version()()
+```
 
 ZSys::libzyre_version
 
@@ -651,10 +762,11 @@ Return Zyre version
 
 
 
+### \ZSys::libmlm_version()
 
-### libmlm_version
-
-    string ZSys::libmlm_version()
+```
+string ZSys::\ZSys::libmlm_version()()
+```
 
 ZSys::libmlm_version
 
@@ -665,10 +777,11 @@ Return Malamute version
 
 
 
+### \ZSys::info()
 
-### info
-
-    mixed ZSys::info(string $message)
+```
+mixed ZSys::\ZSys::info()(string $message)
+```
 
 ZSys::info
 
@@ -677,15 +790,17 @@ Log message as Info
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $message **string**
 
 
 
-### debug
+### \ZSys::debug()
 
-    mixed ZSys::debug(string $message)
+```
+mixed ZSys::\ZSys::debug()(string $message)
+```
 
 ZSys::debug
 
@@ -694,15 +809,17 @@ Log message as Debug
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $message **string**
 
 
 
-### warning
+### \ZSys::warning()
 
-    mixed ZSys::warning(string $message)
+```
+mixed ZSys::\ZSys::warning()(string $message)
+```
 
 ZSys::warning
 
@@ -711,15 +828,17 @@ Log message as Warning
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $message **string**
 
 
 
-### error
+### \ZSys::error()
 
-    mixed ZSys::error(string $message)
+```
+mixed ZSys::\ZSys::error()(string $message)
+```
 
 ZSys::error
 
@@ -728,8 +847,8 @@ Log message as Error
 * Visibility: **public**
 * This method is **static**.
 
-
 #### Arguments
+
 * $message **string**
 
 

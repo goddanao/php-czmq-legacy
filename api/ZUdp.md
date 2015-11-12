@@ -19,9 +19,11 @@ Methods
 -------
 
 
-### __construct
+### \ZUdp::__construct()
 
-    mixed ZUdp::__construct(string $interface, integer $port, boolean $routable)
+```
+mixed ZUdp::\ZUdp::__construct()(string $interface, integer $port, boolean $routable)
+```
 
 ZUdp::__construct
 
@@ -29,17 +31,19 @@ ZUdp::__construct
 
 * Visibility: **public**
 
-
 #### Arguments
+
 * $interface **string** - &lt;p&gt;The interface name to bind (optional)&lt;/p&gt;
 * $port **integer** - &lt;p&gt;The port number to bind (optional)&lt;/p&gt;
 * $routable **boolean** - &lt;p&gt;uses multicast (not yet implemented), else uses broadcast (default) (optional)&lt;/p&gt;
 
 
 
-### set_verbose
+### \ZUdp::set_verbose()
 
-    mixed ZUdp::set_verbose()
+```
+mixed ZUdp::\ZUdp::set_verbose()()
+```
 
 ZUdp::set_verbose
 
@@ -49,10 +53,11 @@ Verbose logging
 
 
 
+### \ZUdp::send()
 
-### send
-
-    mixed ZUdp::send()
+```
+mixed ZUdp::\ZUdp::send()()
+```
 
 ZUdp::send
 
@@ -62,16 +67,16 @@ Send a ZMsg over Udp
 
 
 
+### \ZUdp::recv()
 
-### recv
-
-    \ZMsg ZUdp::recv()
+```
+\ZMsg ZUdp::\ZUdp::recv()()
+```
 
 ZUdp::recv
 
 Recieve ZMsg over Udp
 
 * Visibility: **public**
-
 
 

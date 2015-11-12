@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../common.h"
 #include "zsocket.h"
 
 class ZCert : public ZHandle, public Php::Base  {
