@@ -38,9 +38,9 @@ private:
     static void s_callbacks_destroy(_cbdata **cb_p) {
         _cbdata *data = (*cb_p);
         if(data->obj != nullptr)
-            delete *data->obj;
+            delete (Php::Value *) data->obj;
         if(data->cb != nullptr)
-            delete *data->cb;
+            delete (Php::Value *) data->cb;
         delete data;
     }
 
