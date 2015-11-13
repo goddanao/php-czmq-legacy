@@ -3,22 +3,24 @@
 #include "../../czmq/zmsg.h"
 #include "zmdp_common.h"
 
-class MajordomoClientVX : public Php::Base {
+class MajordomoClientVX : public ZHandle, public Php::Base {
 private:
-  std::string broker;
-  zsock_t *client = NULL;   //  Socket to broker
-  int verbose = 0;          //  Print activity to stdout
+  std::string _broker;
+  bool _verbose = false;
   int timeout = 30000;      //  default 30s timeout
 
   void connect_to_broker () {
-  		if (client)
-  			zsock_destroy (&client);
+    zsock_t *sock = mdp_client_handle();
+    if (sock)
+  	    zsock_destroy (&sock);
 
-  		client = zsock_new_dealer (broker.c_str());
-  		zsock_set_linger(client, 0);
+  		sock = zsock_new_dealer (_broker.c_str());
+  		zsock_set_linger(sock, 0);
 
-  		if (verbose)
-  			zclock_log ("I: connecting to broker at %s...", broker.c_str());
+        set_handle(sock, true, "mdp_client_vX");
+
+  		if (_verbose)
+  			zclock_log ("I: connecting to broker at %s...", _broker.c_str());
   	}
 
   void send (char * service, zmsg_t **request_p) {
@@ -31,20 +33,20 @@ private:
         zmsg_pushstr (request, service);
         zmsg_pushstr (request, MDPC_CLIENT);
         zmsg_pushstr (request, "");
-        if (verbose) {
+        if (_verbose) {
             zclock_log ("I: send request to '%s' service:", service);
             zmsg_dump (request);
         }
-        zmsg_send (request_p, client);
+        zmsg_send (request_p, mdp_client_handle());
   }
 
   	zmsg_t * recv (char **command_p, char **service_p) {
 
-  		zmsg_t *msg = zmsg_recv (client);
+  		zmsg_t *msg = zmsg_recv (mdp_client_handle());
   		if (msg == NULL)
   			return NULL;
 
-  		if (verbose) {
+  		if (_verbose) {
   			zclock_log ("I: received reply:");
   			zmsg_dump (msg);
   		}
@@ -84,19 +86,17 @@ private:
 
 public:
 
-    MajordomoClientVX() : Php::Base() { };
-    virtual ~MajordomoClientVX() {
-		if (client)
-			zsock_destroy (&client);
-	}
+    MajordomoClientVX() : ZHandle(), Php::Base() {}
+    MajordomoClientVX(zsock_t *handle, bool owned) : ZHandle(handle, owned, "mdp_client_vX"), Php::Base() {}
+    zsock_t *mdp_client_handle() const { return (zsock_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
 		if(param.size() == 0)
 			throw Php::Exception("MajordomoClient need broker endpoint to connect.");
 
-		broker = param[0].stringValue();
+		_broker = param[0].stringValue();
 		if(param.size() > 1)
-			verbose = (int) param[1];
+			_verbose = param[1].boolValue();
 
 		connect_to_broker ();
 	}

@@ -3,12 +3,11 @@
 #include "../../common.h"
 #include "zmdp_common.h"
 
-class MajordomoWorkerVX : public Php::Base {
+class MajordomoWorkerVX : public ZHandle, public Php::Base {
 private:
-  std::string broker;
-  std::string service;
-  zsock_t *worker = NULL;       //  Socket to broker
-  int verbose = 0;              //  Print activity to stdout
+  std::string _broker;
+  std::string _service;
+  bool _verbose = false;              //  Print activity to stdout
 
   //  Heartbeat management
 
@@ -28,25 +27,28 @@ private:
       zmsg_pushstr (msg, MDPW_WORKER);
       zmsg_pushstr (msg, "");
 
-      if (verbose) {
+      if (_verbose) {
           zclock_log ("WORKER - I: sending %s to broker", mdpw_commands [(int) *command]);
           zmsg_dump (msg);
       }
-      zmsg_send (&msg, worker);
+      zmsg_send (&msg, mdp_worker_handle());
   }
 
   void connect_to_broker () {
-      if (worker)
-          zsock_destroy (&worker);
+    zsock_t *sock = mdp_worker_handle();
+    if (sock)
+        zsock_destroy (&sock);
 
-      worker = zsock_new_dealer (broker.c_str());
-      zsock_set_linger(worker, 0);
+        sock = zsock_new_dealer (_broker.c_str());
+        zsock_set_linger(sock, 0);
 
-      if (verbose)
-          zclock_log ("WORKER - I: connecting to broker at %s...", broker.c_str());
+        set_handle(sock, true, "mdp_worker_vX");
+
+      if (_verbose)
+          zclock_log ("WORKER - I: connecting to broker at %s...", _broker.c_str());
 
       //  Register service with broker
-      send_to_broker (MDPW_READY, (char *) service.c_str(), NULL);
+      send_to_broker (MDPW_READY, (char *) _service.c_str(), NULL);
 
       //  If liveness hits zero, worker is considered disconnected
       liveness = HEARTBEAT_LIVENESS;
@@ -66,7 +68,7 @@ private:
 
   zmsg_t * recv (zframe_t **reply_to_p) {
 
-      zpoller_t *poller = zpoller_new(worker, NULL);
+      zpoller_t *poller = zpoller_new(mdp_worker_handle(), NULL);
 
       while (true) {
 
@@ -77,7 +79,7 @@ private:
               if (!msg)
                   break;          //  Interrupted
 
-              if (verbose) {
+              if (_verbose) {
                   zclock_log ("WORKER - I: received message from broker:");
                   zmsg_dump (msg);
               }
@@ -132,7 +134,7 @@ private:
           }
           else
           if (--liveness == 0) {
-              if (verbose)
+              if (_verbose)
                   zclock_log ("W: disconnected from broker - retrying...");
               zclock_sleep (reconnect);
               connect_to_broker ();
@@ -156,15 +158,13 @@ private:
 
 public:
 
-    MajordomoWorkerVX() : Php::Base() {};
-    virtual ~MajordomoWorkerVX() {
-	if (worker)
-        zsock_destroy (&worker);
-    }
+    MajordomoWorkerVX() : ZHandle(), Php::Base() {}
+    MajordomoWorkerVX(zsock_t *handle, bool owned) : ZHandle(handle, owned, "mdp_worker_vX"), Php::Base() {}
+    zsock_t *mdp_worker_handle() const { return (zsock_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
         if(param.size() > 0)
-            verbose = (int) param[0];
+            _verbose = param[0].boolValue();
     }
 
 
@@ -172,8 +172,8 @@ public:
         if(param.size() < 3 || !param[2].isCallable())
             throw Php::Exception("MajordomoWorker: please sepcify service name, broker endpoints, a callback to recieve/process requests.");
 
-        service = param[0].stringValue();
-        broker = param[1].stringValue();
+        _service = param[0].stringValue();
+        _broker = param[1].stringValue();
 
         connect_to_broker();
 
