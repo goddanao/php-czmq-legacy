@@ -283,6 +283,13 @@ class ZSys {
   static public function libzyre_version() {}
 
   /**
+   * ZSys::libmdp_version
+   *
+   * ...
+  */
+  static public function libmdp_version() {}
+
+  /**
    * ZSys::libmlm_version
    *
    * Return Malamute version

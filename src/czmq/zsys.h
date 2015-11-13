@@ -28,6 +28,11 @@ public:
         return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
     }
 
+    static Php::Value libmdp_version() {
+        int major = MAJORDOMO_VERSION_MAJOR, minor = MAJORDOMO_VERSION_MINOR, patch = MAJORDOMO_VERSION_PATCH;
+        return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
+    }
+
     static Php::Value hostname() {
         Php::Value result;
         char *hostname = zsys_hostname();
@@ -181,6 +186,7 @@ public:
         o.method("libzmq_version", &ZSys::libzmq_version);
         o.method("libczmq_version", &ZSys::libczmq_version);
         o.method("libzyre_version", &ZSys::libzyre_version);
+        o.method("libmdp_version", &ZSys::libmdp_version);
         o.method("libmlm_version", &ZSys::libmlm_version);
 
         // Logging ...

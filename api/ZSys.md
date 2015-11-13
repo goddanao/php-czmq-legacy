@@ -762,6 +762,21 @@ Return Zyre version
 
 
 
+### \ZSys::libmdp_version()
+
+```
+mixed ZSys::\ZSys::libmdp_version()()
+```
+
+ZSys::libmdp_version
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
 ### \ZSys::libmlm_version()
 
 ```

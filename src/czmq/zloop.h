@@ -130,37 +130,26 @@ public:
     }
 
     void remove(Php::Parameters &param) {
-        ZHandle  *zh = dynamic_cast<ZHandle *> (param[0].implementation());
-        if(zh) {
-            zsock_t *socket = (zsock_t*)zh->get_socket();
-            if(socket) {
-                zloop_reader_end (zloop_handle(), socket);
-                return;
-            }
-        }
-        throw Php::Exception("ZLoop remove require a ZActor or ZSocket.");
-    }
+        bool valid = param.size() > 0;
 
-    void _add(Php::Parameters &param) {
-        ZHandle  *zh = dynamic_cast<ZHandle *> (param[0].implementation());
-        if(zh) {
-            zsock_t *socket = (zsock_t*)zh->get_socket();
-            if(socket) {
-                _cbdata *data = new _cbdata();
-                data->obj  = new Php::Value(param[0]);
-                data->cb   = new Php::Value(param[1]);
+        SOCKET fd = 0;
+        zsock_t *socket = NULL;
 
-                // Preparo il Pollitem
-                short event = (param.size() > 2) ? (short) param[2].numericValue() : ZMQ_POLLIN;
-                zmq_pollitem_t item { socket, 0, event, 0 };
-                zlistx_add_end(_callbacks, data);
-                zloop_poller( zloop_handle(), &item, cb_events, data);
-                if(param.size() > 3 && param[3].boolValue())
-                    zloop_poller_set_tolerant(zloop_handle(), &item);
-                return;
+        if(valid && param[0].isObject()) {
+            ZHandle  *zh = dynamic_cast<ZHandle *> (param[0].implementation());
+            if(zh) {
+                socket = (zsock_t*) zh->get_socket();
             }
+        } else
+        if(valid && param[0].isNumeric()) {
+            fd = param[0].numericValue();
+        } else {
+            throw Php::Exception("ZLoop remove require a IZSocket or FD.");
         }
-        throw Php::Exception("ZLoop add require a IZSocket or FD and a callback.");
+
+        zmq_pollitem_t item { socket, fd, 0, 0 };
+        zloop_poller_end( zloop_handle(), &item);
+
     }
 
     static Php::Class<ZLoop> php_register() {
