@@ -337,12 +337,12 @@ class ZSys {
  *
  * Udp low level class
  */
-class ZUdp {
+class ZUdp implements IZSocket {
 
   /**
    * ZUdp::__construct
    *
-   *  
+   *
    * @param string $interface The interface name to bind (optional)
    * @param int $port The port number to bind (optional)
    * @param bool $routable uses multicast (not yet implemented), else uses broadcast (default) (optional)
@@ -1922,7 +1922,7 @@ class ZAuth implements IZSocket {
   /**
    * ZAuth::__construct
    *
-   *  
+   *
   */
   public function __construct() {}
 
@@ -1961,7 +1961,7 @@ class ZAuth implements IZSocket {
   /**
    * ZAuth::configure
    *
-   *  
+   *
   */
   public function configure() {}
 
@@ -2170,7 +2170,7 @@ class Zyre implements IZSocket {
    * inproc://, ipc://, or tcp:// transports (for tcp://, use an IP address
    * that is meaningful to remote as well as local nodes). Returns true if
    * the bind was successful.
-   * @param string $endpoint  
+   * @param string $endpoint
   */
   public function set_endpoint($endpoint) {}
 
@@ -2188,7 +2188,7 @@ class Zyre implements IZSocket {
    * Set network interface for UDP beacons. If you do not set this, CZMQ will
    * choose an interface for you. On boxes with several interfaces you should
    * specify which one you want to use, or strange things can happen.
-   * @param string$interface  
+   * @param string$interface
   */
   public function set_interface($interface) {}
 
@@ -2206,8 +2206,8 @@ class Zyre implements IZSocket {
    * Set-up gossip discovery of other nodes. At least one node in the cluster
    * must bind to a well-known gossip endpoint, so other nodes can connect to
    * it. Note that gossip endpoints are completely distinct from Zyre node
-   * endpoints, and should not overlap (they can use the same transport).   
-   * @param string $endpoint  
+   * endpoints, and should not overlap (they can use the same transport).
+   * @param string $endpoint
   */
   public function gossip_bind($endpoint) {}
 
@@ -2216,8 +2216,8 @@ class Zyre implements IZSocket {
    *
    * Set-up gossip discovery of other nodes. A node may connect to multiple
    * other nodes, for redundancy paths. For details of the gossip network
-   * design, see the CZMQ zgossip class.      
-   * @param string $endpoint  
+   * design, see the CZMQ zgossip class.
+   * @param string $endpoint
   */
   public function gossip_connect($endpoint) {}
 
@@ -2225,7 +2225,7 @@ class Zyre implements IZSocket {
    * Zyre::get_peer_header
    *
    * Return the value of a header of a conected peer.
-   * @param string $name  
+   * @param string $name
    * @return mixed
   */
   public function get_peer_header($name) {}
@@ -2290,16 +2290,17 @@ class Zyre implements IZSocket {
 
 }
 
+namespace Majordomo\V2;
 
 /**
- * MajordomoBroker
+ * Majordomo\V2\MajordomoBroker
  *
  * ...
  */
 class MajordomoBroker implements IZSocket {
 
   /**
-   * MajordomoBroker::__construct
+   * Majordomo\V2\MajordomoBroker::__construct
    *
    * ...
    * @param mixed$endpoint ... (optional)
@@ -2308,42 +2309,42 @@ class MajordomoBroker implements IZSocket {
   public function __construct($endpoint, $verbose) {}
 
   /**
-   * MajordomoBroker::set_verbose
+   * Majordomo\V2\MajordomoBroker::set_verbose
    *
    * ...
   */
   public function set_verbose() {}
 
   /**
-   * MajordomoBroker::load_config
+   * Majordomo\V2\MajordomoBroker::load_config
    *
    * ...
   */
   public function load_config() {}
 
   /**
-   * MajordomoBroker::save_config
+   * Majordomo\V2\MajordomoBroker::save_config
    *
    * ...
   */
   public function save_config() {}
 
   /**
-   * MajordomoBroker::set_config
+   * Majordomo\V2\MajordomoBroker::set_config
    *
    * ...
   */
   public function set_config() {}
 
   /**
-   * MajordomoBroker::bind
+   * Majordomo\V2\MajordomoBroker::bind
    *
    * ...
   */
   public function bind() {}
 
   /**
-   * MajordomoBroker::run
+   * Majordomo\V2\MajordomoBroker::run
    *
    * ...
   */
@@ -2353,14 +2354,14 @@ class MajordomoBroker implements IZSocket {
 
 
 /**
- * MajordomoWorker
+ * Majordomo\V2\MajordomoWorker
  *
  * ...
  */
 class MajordomoWorker implements IZSocket {
 
   /**
-   * MajordomoWorker::__construct
+   * Majordomo\V2\MajordomoWorker::__construct
    *
    * ...
    * @param mixed$name ...
@@ -2370,21 +2371,21 @@ class MajordomoWorker implements IZSocket {
   public function __construct($name, $broker_endpoint, $callback) {}
 
   /**
-   * MajordomoWorker::set_verbose
+   * Majordomo\V2\MajordomoWorker::set_verbose
    *
    * ...
   */
   public function set_verbose() {}
 
   /**
-   * MajordomoWorker::run
+   * Majordomo\V2\MajordomoWorker::run
    *
    * ...
   */
   public function run() {}
 
   /**
-   * MajordomoWorker::process
+   * Majordomo\V2\MajordomoWorker::process
    *
    * ...
   */
@@ -2394,14 +2395,14 @@ class MajordomoWorker implements IZSocket {
 
 
 /**
- * MajordomoClient
+ * Majordomo\V2\MajordomoClient
  *
  * ...
  */
 class MajordomoClient implements IZSocket {
 
   /**
-   * MajordomoClient::__construct
+   * Majordomo\V2\MajordomoClient::__construct
    *
    * ...
    * @param mixed$broker_endpoint ...
@@ -2409,21 +2410,21 @@ class MajordomoClient implements IZSocket {
   public function __construct($broker_endpoint) {}
 
   /**
-   * MajordomoClient::set_verbose
+   * Majordomo\V2\MajordomoClient::set_verbose
    *
    * ...
   */
   public function set_verbose() {}
 
   /**
-   * MajordomoClient::recv
+   * Majordomo\V2\MajordomoClient::recv
    *
    * ...
   */
   public function recv() {}
 
   /**
-   * MajordomoClient::call
+   * Majordomo\V2\MajordomoClient::call
    *
    * ...
    * @param mixed$service_name ...
@@ -2431,7 +2432,7 @@ class MajordomoClient implements IZSocket {
   public function call($service_name) {}
 
   /**
-   * MajordomoClient::call_async
+   * Majordomo\V2\MajordomoClient::call_async
    *
    * ...
    * @param mixed$service_name ...
@@ -2441,85 +2442,87 @@ class MajordomoClient implements IZSocket {
 }
 
 
+namespace Malamute;
+
 /**
- * MalamuteBroker
+ * Malamute\MalamuteBroker
  *
  * ...
  */
-class MalamuteBroker implements IZSocket {
+class MalamuteBroker implements \IZSocket {
 
   /**
-   * MalamuteBroker::__construct
+   * Malamute\MalamuteBroker::__construct
    *
    * ...
   */
   public function __construct() {}
 
   /**
-   * MalamuteBroker::set_verbose
+   * Malamute\MalamuteBroker::set_verbose
    *
    * ...
   */
   public function set_verbose() {}
 
   /**
-   * MalamuteBroker::load_config
+   * Malamute\MalamuteBroker::load_config
    *
    * ...
   */
   public function load_config() {}
 
   /**
-   * MalamuteBroker::set_config
+   * Malamute\MalamuteBroker::set_config
    *
    * ...
   */
   public function set_config() {}
 
   /**
-   * MalamuteBroker::save_config
+   * Malamute\MalamuteBroker::save_config
    *
    * ...
   */
   public function save_config() {}
 
   /**
-   * MalamuteBroker::bind
+   * Malamute\MalamuteBroker::bind
    *
    * ...
   */
   public function bind() {}
 
   /**
-   * MalamuteBroker::get_status
+   * Malamute\MalamuteBroker::get_status
    *
    * ...
   */
   public function get_status() {}
 
   /**
-   * MalamuteBroker::on_tick
+   * Malamute\MalamuteBroker::on_tick
    *
    * ...
   */
   public function on_tick() {}
 
   /**
-   * MalamuteBroker::on_idle
+   * Malamute\MalamuteBroker::on_idle
    *
    * ...
   */
   public function on_idle() {}
 
   /**
-   * MalamuteBroker::run
+   * Malamute\MalamuteBroker::run
    *
    * ...
   */
   public function run() {}
 
   /**
-   * MalamuteBroker::stop
+   * Malamute\MalamuteBroker::stop
    *
    * ...
   */
@@ -2529,126 +2532,126 @@ class MalamuteBroker implements IZSocket {
 
 
 /**
- * MalamuteClient
+ * Malamute\MalamuteClient
  *
  * ...
  */
 class MalamuteClient implements IZSocket {
 
   /**
-   * MalamuteClient::__construct
+   * Malamute\MalamuteClient::__construct
    *
    * ...
-   * @param mixed $endpoint ...
-   * @param mixed $address ... (optional)
-   * @param mixed $timeout ... (optional)
+   * @param mixed$endpoint ...
+   * @param mixed$address ... (optional)
+   * @param mixed$timeout ... (optional)
   */
   public function __construct($endpoint, $address, $timeout) {}
 
   /**
-   * MalamuteClient::set_verbose
+   * Malamute\MalamuteClient::set_verbose
    *
    * ...
   */
   public function set_verbose() {}
 
   /**
-   * MalamuteClient::connect
+   * Malamute\MalamuteClient::connect
    *
    * ...
-   * @param mixed $endpoint ... (optional)
-   * @param mixed $address ... (optional)
-   * @param mixed $timeout ... (optional)
+   * @param mixed$endpoint ... (optional)
+   * @param mixed$address ... (optional)
+   * @param mixed$timeout ... (optional)
   */
   public function connect($endpoint, $address, $timeout) {}
 
   /**
-   * MalamuteClient::header
+   * Malamute\MalamuteClient::header
    *
    * ...
   */
   public function header() {}
 
   /**
-   * MalamuteClient::content
+   * Malamute\MalamuteClient::content
    *
    * ...
   */
   public function content() {}
 
   /**
-   * MalamuteClient::set_producer
+   * Malamute\MalamuteClient::set_producer
    *
    * ...
-   * @param mixed $stream ...
+   * @param mixed$stream ...
   */
   public function set_producer($stream) {}
 
   /**
-   * MalamuteClient::set_worker
+   * Malamute\MalamuteClient::set_worker
    *
    * ...
-   * @param mixed $address ...
-   * @param mixed $patern ...
+   * @param mixed$address ...
+   * @param mixed$patern ...
   */
   public function set_worker($address, $patern) {}
 
   /**
-   * MalamuteClient::set_consumer
+   * Malamute\MalamuteClient::set_consumer
    *
    * ...
-   * @param mixed $stream ...
-   * @param mixed $patern ...
+   * @param mixed$stream ...
+   * @param mixed$patern ...
   */
   public function set_consumer($stream, $patern) {}
 
   /**
-   * MalamuteClient::send_stream
+   * Malamute\MalamuteClient::send_stream
    *
    * ...
-   * @param mixed $subject ...
+   * @param mixed$subject ...
   */
   public function send_stream($subject) {}
 
   /**
-   * MalamuteClient::send_mailbox
+   * Malamute\MalamuteClient::send_mailbox
    *
    * ...
-   * @param mixed $address ...
-   * @param mixed $subject ...
-   * @param mixed $pattern ...
-   * @param mixed $timeout ...
+   * @param mixed$address ...
+   * @param mixed$subject ...
+   * @param mixed$pattern ...
+   * @param mixed$timeout ...
   */
   public function send_mailbox($address, $subject, $pattern, $timeout) {}
 
   /**
-   * MalamuteClient::send_service
+   * Malamute\MalamuteClient::send_service
    *
    * ...
-   * @param mixed $address ...
-   * @param mixed $subject ...
-   * @param mixed $pattern ...
-   * @param mixed $timeout ...
+   * @param mixed$address ...
+   * @param mixed$subject ...
+   * @param mixed$pattern ...
+   * @param mixed$timeout ...
   */
   public function send_service($address, $subject, $pattern, $timeout) {}
 
   /**
-   * MalamuteClient::recv_picture
+   * Malamute\MalamuteClient::recv_picture
    *
    * ...
-   * @param mixed $picture ...
+   * @param mixed$picture ...
   */
   public function recv_picture($picture) {}
 
   /**
-   * MalamuteClient::recv_string
+   * Malamute\MalamuteClient::recv_string
    *
    * ...
   */
   public function recv_string() {}
 
   /**
-   * MalamuteClient::recv
+   * Malamute\MalamuteClient::recv
    *
    * ...
   */
