@@ -1,4 +1,5 @@
 <?php
+namespace   {
 
 /**
  * ZContext
@@ -337,12 +338,12 @@ class ZSys {
  *
  * Udp low level class
  */
-class ZUdp implements IZSocket {
+class ZUdp implements \IZSocket {
 
   /**
    * ZUdp::__construct
    *
-   *
+   *  
    * @param string $interface The interface name to bind (optional)
    * @param int $port The port number to bind (optional)
    * @param bool $routable uses multicast (not yet implemented), else uses broadcast (default) (optional)
@@ -870,7 +871,7 @@ interface IZSocket {
  *
  * ...
  */
-class ZSocket implements IZSocket {
+class ZSocket implements \IZSocket {
 
   /**
    * ZSocket::__construct
@@ -1779,7 +1780,7 @@ class ZSocket implements IZSocket {
  *
  * ...
  */
-class ZProxy implements IZSocket {
+class ZProxy implements \IZSocket {
 
   /**
    * ZProxy::__construct
@@ -1843,7 +1844,7 @@ class ZProxy implements IZSocket {
  *
  * ...
  */
-class ZBeacon implements IZSocket {
+class ZBeacon implements \IZSocket {
 
   /**
    * ZBeacon::__construct
@@ -1913,7 +1914,7 @@ class ZBeacon implements IZSocket {
  *
  * Authentication for ZeroMQ security mechanisms.
  */
-class ZAuth implements IZSocket {
+class ZAuth implements \IZSocket {
   const AUTH_PLAIN = "PLAIN";
   const AUTH_CURVE = "CURVE";
   const AUTH_GSSAPI = "GSSAPI";
@@ -1922,7 +1923,7 @@ class ZAuth implements IZSocket {
   /**
    * ZAuth::__construct
    *
-   *
+   *  
   */
   public function __construct() {}
 
@@ -1961,7 +1962,7 @@ class ZAuth implements IZSocket {
   /**
    * ZAuth::configure
    *
-   *
+   *  
   */
   public function configure() {}
 
@@ -1973,7 +1974,7 @@ class ZAuth implements IZSocket {
  *
  * ...
  */
-class ZGossip implements IZSocket {
+class ZGossip implements \IZSocket {
 
   /**
    * ZGossip::__construct
@@ -2081,7 +2082,7 @@ class ZGossip implements IZSocket {
  *
  * Zyre does local area discovery and clustering. A Zyre node broadcasts UDP beacons, and connects to peers that it finds.
  */
-class Zyre implements IZSocket {
+class Zyre implements \IZSocket {
 
   /**
    * Zyre::__construct
@@ -2170,7 +2171,7 @@ class Zyre implements IZSocket {
    * inproc://, ipc://, or tcp:// transports (for tcp://, use an IP address
    * that is meaningful to remote as well as local nodes). Returns true if
    * the bind was successful.
-   * @param string $endpoint
+   * @param string $endpoint  
   */
   public function set_endpoint($endpoint) {}
 
@@ -2188,7 +2189,7 @@ class Zyre implements IZSocket {
    * Set network interface for UDP beacons. If you do not set this, CZMQ will
    * choose an interface for you. On boxes with several interfaces you should
    * specify which one you want to use, or strange things can happen.
-   * @param string$interface
+   * @param string$interface  
   */
   public function set_interface($interface) {}
 
@@ -2206,8 +2207,8 @@ class Zyre implements IZSocket {
    * Set-up gossip discovery of other nodes. At least one node in the cluster
    * must bind to a well-known gossip endpoint, so other nodes can connect to
    * it. Note that gossip endpoints are completely distinct from Zyre node
-   * endpoints, and should not overlap (they can use the same transport).
-   * @param string $endpoint
+   * endpoints, and should not overlap (they can use the same transport).   
+   * @param string $endpoint  
   */
   public function gossip_bind($endpoint) {}
 
@@ -2216,8 +2217,8 @@ class Zyre implements IZSocket {
    *
    * Set-up gossip discovery of other nodes. A node may connect to multiple
    * other nodes, for redundancy paths. For details of the gossip network
-   * design, see the CZMQ zgossip class.
-   * @param string $endpoint
+   * design, see the CZMQ zgossip class.      
+   * @param string $endpoint  
   */
   public function gossip_connect($endpoint) {}
 
@@ -2225,7 +2226,7 @@ class Zyre implements IZSocket {
    * Zyre::get_peer_header
    *
    * Return the value of a header of a conected peer.
-   * @param string $name
+   * @param string $name  
    * @return mixed
   */
   public function get_peer_header($name) {}
@@ -2290,17 +2291,18 @@ class Zyre implements IZSocket {
 
 }
 
-namespace Majordomo\V2;
+}
+namespace Majordomo\V2 {
 
 /**
- * Majordomo\V2\MajordomoBroker
+ * Broker
  *
- * ...
+ * 
  */
-class MajordomoBroker implements IZSocket {
+class Broker implements \IZSocket {
 
   /**
-   * Majordomo\V2\MajordomoBroker::__construct
+   * Broker::__construct
    *
    * ...
    * @param mixed$endpoint ... (optional)
@@ -2309,42 +2311,42 @@ class MajordomoBroker implements IZSocket {
   public function __construct($endpoint, $verbose) {}
 
   /**
-   * Majordomo\V2\MajordomoBroker::set_verbose
+   * Broker::set_verbose
    *
    * ...
   */
   public function set_verbose() {}
 
   /**
-   * Majordomo\V2\MajordomoBroker::load_config
+   * Broker::load_config
    *
    * ...
   */
   public function load_config() {}
 
   /**
-   * Majordomo\V2\MajordomoBroker::save_config
+   * Broker::save_config
    *
    * ...
   */
   public function save_config() {}
 
   /**
-   * Majordomo\V2\MajordomoBroker::set_config
+   * Broker::set_config
    *
    * ...
   */
   public function set_config() {}
 
   /**
-   * Majordomo\V2\MajordomoBroker::bind
+   * Broker::bind
    *
    * ...
   */
   public function bind() {}
 
   /**
-   * Majordomo\V2\MajordomoBroker::run
+   * Broker::run
    *
    * ...
   */
@@ -2354,14 +2356,14 @@ class MajordomoBroker implements IZSocket {
 
 
 /**
- * Majordomo\V2\MajordomoWorker
+ * Worker
  *
- * ...
+ * 
  */
-class MajordomoWorker implements IZSocket {
+class Worker implements \IZSocket {
 
   /**
-   * Majordomo\V2\MajordomoWorker::__construct
+   * Worker::__construct
    *
    * ...
    * @param mixed$name ...
@@ -2371,21 +2373,21 @@ class MajordomoWorker implements IZSocket {
   public function __construct($name, $broker_endpoint, $callback) {}
 
   /**
-   * Majordomo\V2\MajordomoWorker::set_verbose
+   * Worker::set_verbose
    *
    * ...
   */
   public function set_verbose() {}
 
   /**
-   * Majordomo\V2\MajordomoWorker::run
+   * Worker::run
    *
    * ...
   */
   public function run() {}
 
   /**
-   * Majordomo\V2\MajordomoWorker::process
+   * Worker::process
    *
    * ...
   */
@@ -2395,14 +2397,14 @@ class MajordomoWorker implements IZSocket {
 
 
 /**
- * Majordomo\V2\MajordomoClient
+ * Client
  *
- * ...
+ * 
  */
-class MajordomoClient implements IZSocket {
+class Client implements \IZSocket {
 
   /**
-   * Majordomo\V2\MajordomoClient::__construct
+   * Client::__construct
    *
    * ...
    * @param mixed$broker_endpoint ...
@@ -2410,21 +2412,21 @@ class MajordomoClient implements IZSocket {
   public function __construct($broker_endpoint) {}
 
   /**
-   * Majordomo\V2\MajordomoClient::set_verbose
+   * Client::set_verbose
    *
    * ...
   */
   public function set_verbose() {}
 
   /**
-   * Majordomo\V2\MajordomoClient::recv
+   * Client::recv
    *
    * ...
   */
   public function recv() {}
 
   /**
-   * Majordomo\V2\MajordomoClient::call
+   * Client::call
    *
    * ...
    * @param mixed$service_name ...
@@ -2432,7 +2434,7 @@ class MajordomoClient implements IZSocket {
   public function call($service_name) {}
 
   /**
-   * Majordomo\V2\MajordomoClient::call_async
+   * Client::call_async
    *
    * ...
    * @param mixed$service_name ...
@@ -2441,88 +2443,236 @@ class MajordomoClient implements IZSocket {
 
 }
 
-
-namespace Malamute;
+}
+namespace Majordomo\VX {
 
 /**
- * Malamute\MalamuteBroker
+ * Broker
  *
- * ...
+ * 
  */
-class MalamuteBroker implements \IZSocket {
+class Broker implements \IZSocket {
 
   /**
-   * Malamute\MalamuteBroker::__construct
+   * Broker::__construct
    *
    * ...
   */
   public function __construct() {}
 
   /**
-   * Malamute\MalamuteBroker::set_verbose
-   *
-   * ...
-  */
-  public function set_verbose() {}
-
-  /**
-   * Malamute\MalamuteBroker::load_config
-   *
-   * ...
-  */
-  public function load_config() {}
-
-  /**
-   * Malamute\MalamuteBroker::set_config
-   *
-   * ...
-  */
-  public function set_config() {}
-
-  /**
-   * Malamute\MalamuteBroker::save_config
-   *
-   * ...
-  */
-  public function save_config() {}
-
-  /**
-   * Malamute\MalamuteBroker::bind
+   * Broker::bind
    *
    * ...
   */
   public function bind() {}
 
   /**
-   * Malamute\MalamuteBroker::get_status
+   * Broker::set_verbose
    *
    * ...
   */
-  public function get_status() {}
+  public function set_verbose() {}
 
   /**
-   * Malamute\MalamuteBroker::on_tick
+   * Broker::pause
    *
    * ...
   */
-  public function on_tick() {}
+  public function pause() {}
 
   /**
-   * Malamute\MalamuteBroker::on_idle
+   * Broker::resume
    *
    * ...
   */
-  public function on_idle() {}
+  public function resume() {}
 
   /**
-   * Malamute\MalamuteBroker::run
+   * Broker::run
    *
    * ...
   */
   public function run() {}
 
   /**
-   * Malamute\MalamuteBroker::stop
+   * Broker::stop
+   *
+   * ...
+  */
+  public function stop() {}
+
+  /**
+   * Broker::on_idle
+   *
+   * ...
+  */
+  public function on_idle() {}
+
+  /**
+   * Broker::on_tick
+   *
+   * ...
+  */
+  public function on_tick() {}
+
+  /**
+   * Broker::get_status
+   *
+   * ...
+  */
+  public function get_status() {}
+
+  /**
+   * Broker::set_capture
+   *
+   * ...
+   * @param mixed$socket_endpoint ...
+  */
+  public function set_capture($socket_endpoint) {}
+
+}
+
+
+/**
+ * Worker
+ *
+ * 
+ */
+class Worker implements \IZSocket {
+
+  /**
+   * Worker::__construct
+   *
+   * ...
+  */
+  public function __construct() {}
+
+  /**
+   * Worker::run
+   *
+   * ...
+   * @param mixed$name ...
+   * @param mixed$broker ...
+   * @param callable $callback ...
+  */
+  public function run($name, $broker, $callback) {}
+
+}
+
+
+/**
+ * Client
+ *
+ * 
+ */
+class Client implements \IZSocket {
+
+  /**
+   * Client::__construct
+   *
+   * ...
+  */
+  public function __construct() {}
+
+  /**
+   * Client::call
+   *
+   * ...
+  */
+  public function call() {}
+
+  /**
+   * Client::call_async
+   *
+   * ...
+  */
+  public function call_async() {}
+
+}
+
+}
+namespace Malamute {
+
+/**
+ * Broker
+ *
+ * 
+ */
+class Broker implements \IZSocket {
+
+  /**
+   * Broker::__construct
+   *
+   * ...
+  */
+  public function __construct() {}
+
+  /**
+   * Broker::set_verbose
+   *
+   * ...
+  */
+  public function set_verbose() {}
+
+  /**
+   * Broker::load_config
+   *
+   * ...
+  */
+  public function load_config() {}
+
+  /**
+   * Broker::set_config
+   *
+   * ...
+  */
+  public function set_config() {}
+
+  /**
+   * Broker::save_config
+   *
+   * ...
+  */
+  public function save_config() {}
+
+  /**
+   * Broker::bind
+   *
+   * ...
+  */
+  public function bind() {}
+
+  /**
+   * Broker::get_status
+   *
+   * ...
+  */
+  public function get_status() {}
+
+  /**
+   * Broker::on_tick
+   *
+   * ...
+  */
+  public function on_tick() {}
+
+  /**
+   * Broker::on_idle
+   *
+   * ...
+  */
+  public function on_idle() {}
+
+  /**
+   * Broker::run
+   *
+   * ...
+  */
+  public function run() {}
+
+  /**
+   * Broker::stop
    *
    * ...
   */
@@ -2532,14 +2682,14 @@ class MalamuteBroker implements \IZSocket {
 
 
 /**
- * Malamute\MalamuteClient
+ * Client
  *
- * ...
+ * 
  */
-class MalamuteClient implements IZSocket {
+class Client implements \IZSocket {
 
   /**
-   * Malamute\MalamuteClient::__construct
+   * Client::__construct
    *
    * ...
    * @param mixed$endpoint ...
@@ -2549,14 +2699,14 @@ class MalamuteClient implements IZSocket {
   public function __construct($endpoint, $address, $timeout) {}
 
   /**
-   * Malamute\MalamuteClient::set_verbose
+   * Client::set_verbose
    *
    * ...
   */
   public function set_verbose() {}
 
   /**
-   * Malamute\MalamuteClient::connect
+   * Client::connect
    *
    * ...
    * @param mixed$endpoint ... (optional)
@@ -2566,21 +2716,21 @@ class MalamuteClient implements IZSocket {
   public function connect($endpoint, $address, $timeout) {}
 
   /**
-   * Malamute\MalamuteClient::header
+   * Client::header
    *
    * ...
   */
   public function header() {}
 
   /**
-   * Malamute\MalamuteClient::content
+   * Client::content
    *
    * ...
   */
   public function content() {}
 
   /**
-   * Malamute\MalamuteClient::set_producer
+   * Client::set_producer
    *
    * ...
    * @param mixed$stream ...
@@ -2588,7 +2738,7 @@ class MalamuteClient implements IZSocket {
   public function set_producer($stream) {}
 
   /**
-   * Malamute\MalamuteClient::set_worker
+   * Client::set_worker
    *
    * ...
    * @param mixed$address ...
@@ -2597,7 +2747,7 @@ class MalamuteClient implements IZSocket {
   public function set_worker($address, $patern) {}
 
   /**
-   * Malamute\MalamuteClient::set_consumer
+   * Client::set_consumer
    *
    * ...
    * @param mixed$stream ...
@@ -2606,7 +2756,7 @@ class MalamuteClient implements IZSocket {
   public function set_consumer($stream, $patern) {}
 
   /**
-   * Malamute\MalamuteClient::send_stream
+   * Client::send_stream
    *
    * ...
    * @param mixed$subject ...
@@ -2614,7 +2764,7 @@ class MalamuteClient implements IZSocket {
   public function send_stream($subject) {}
 
   /**
-   * Malamute\MalamuteClient::send_mailbox
+   * Client::send_mailbox
    *
    * ...
    * @param mixed$address ...
@@ -2625,7 +2775,7 @@ class MalamuteClient implements IZSocket {
   public function send_mailbox($address, $subject, $pattern, $timeout) {}
 
   /**
-   * Malamute\MalamuteClient::send_service
+   * Client::send_service
    *
    * ...
    * @param mixed$address ...
@@ -2636,7 +2786,7 @@ class MalamuteClient implements IZSocket {
   public function send_service($address, $subject, $pattern, $timeout) {}
 
   /**
-   * Malamute\MalamuteClient::recv_picture
+   * Client::recv_picture
    *
    * ...
    * @param mixed$picture ...
@@ -2644,17 +2794,19 @@ class MalamuteClient implements IZSocket {
   public function recv_picture($picture) {}
 
   /**
-   * Malamute\MalamuteClient::recv_string
+   * Client::recv_string
    *
    * ...
   */
   public function recv_string() {}
 
   /**
-   * Malamute\MalamuteClient::recv
+   * Client::recv
    *
    * ...
   */
   public function recv() {}
+
+}
 
 }
