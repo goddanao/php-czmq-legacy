@@ -36,9 +36,6 @@ extern "C" {
         // ZSys
         Php::Class<ZSys> zsys = ZSys::php_register();
 
-        // ZUdp
-        Php::Class<ZUdp> zudp = ZUdp::php_register();
-
         // ZMsg
         Php::Class<ZMsg> zmsg = ZMsg::php_register();
 
@@ -73,6 +70,10 @@ extern "C" {
         Php::Class<ZAuth> zauth = ZAuth::php_register();
         zauth.implements(izsocket);
 
+        // ZUdp
+        Php::Class<ZUdp> zudp = ZUdp::php_register();
+        zudp.implements(izsocket);
+
         // ZGossip
         Php::Class<ZGossip> zgossip = ZGossip::php_register();
         zgossip.implements(izsocket);
@@ -85,29 +86,57 @@ extern "C" {
 
     // MAJORDOMO
 
+        Php::Namespace mdp_ns("Majordomo");
+        Php::Namespace mdp_ns_version2("V2");
+        Php::Namespace mdp_ns_versionX("VX");
+
         // Majordomo Broker
-        Php::Class<MajordomoBroker> mdpbroker = MajordomoBroker::php_register();
+        Php::Class<MajordomoBrokerV2> mdpbroker = MajordomoBrokerV2::php_register();
         mdpbroker.implements(izsocket);
+        mdp_ns_version2.add(std::move(mdpbroker));
 
         // Majordomo Worker
-        Php::Class<MajordomoWorker> mdpworker = MajordomoWorker::php_register();
+        Php::Class<MajordomoWorkerV2> mdpworker = MajordomoWorkerV2::php_register();
         mdpworker.implements(izsocket);
+        mdp_ns_version2.add(std::move(mdpworker));
 
         // Majordomo Client
-        Php::Class<MajordomoClient> mdpclient = MajordomoClient::php_register();
+        Php::Class<MajordomoClientV2> mdpclient = MajordomoClientV2::php_register();
         mdpclient.implements(izsocket);
+        mdp_ns_version2.add(std::move(mdpclient));
+
+        mdp_ns.add(std::move(mdp_ns_version2));
+
+        // Majordomo Broker VX
+        Php::Class<MajordomoBrokerVX> mdpbrokervx = MajordomoBrokerVX::php_register();
+        mdpbrokervx.implements(izsocket);
+        mdp_ns_versionX.add(std::move(mdpbrokervx));
+
+        // Majordomo Worker VX
+        Php::Class<MajordomoWorkerVX> mdpworkervx = MajordomoWorkerVX::php_register();
+        mdpworkervx.implements(izsocket);
+        mdp_ns_versionX.add(std::move(mdpworkervx));
+
+        // Majordomo Client VX
+        Php::Class<MajordomoClientVX> mdpclientvx = MajordomoClientVX::php_register();
+        mdpclientvx.implements(izsocket);
+        mdp_ns_versionX.add(std::move(mdpclientvx));
+
+        mdp_ns.add(std::move(mdp_ns_versionX));
 
     // MALAMUTE
+
+        Php::Namespace mlm_ns("Malamute");
 
         // Malamute Broker
         Php::Class<MalamuteBroker> mlmbroker = MalamuteBroker::php_register();
         mlmbroker.implements(izsocket);
-
+        mlm_ns.add(std::move(mlmbroker));
 
         // Malamute Client
         Php::Class<MalamuteClient> mlmclient = MalamuteClient::php_register();
         mlmclient.implements(izsocket);
-
+        mlm_ns.add(std::move(mlmclient));
 
     // Add classes to Extension
 
@@ -132,12 +161,9 @@ extern "C" {
         // zyre
         extension.add(std::move(zyre));
         // majordomo
-        extension.add(std::move(mdpbroker));
-        extension.add(std::move(mdpworker));
-        extension.add(std::move(mdpclient));
+        extension.add(std::move(mdp_ns));
         // malamute
-        extension.add(std::move(mlmbroker));
-        extension.add(std::move(mlmclient));
+        extension.add(std::move(mlm_ns));
 
 
 

@@ -162,7 +162,7 @@ public:
 	}
 
     static Php::Class<MalamuteBroker> php_register() {
-        Php::Class<MalamuteBroker> o("MalamuteBroker");
+        Php::Class<MalamuteBroker> o("Broker");
         o.method("__construct", &MalamuteBroker::__construct);
         o.method("set_verbose", &MalamuteBroker::set_verbose);
         o.method("load_config", &MalamuteBroker::load_config);

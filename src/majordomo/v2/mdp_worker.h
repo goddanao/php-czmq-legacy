@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../common.h"
+#include "../../common.h"
 
-class MajordomoWorker : public ZHandle, public Php::Base  {
+class MajordomoWorkerV2 : public ZHandle, public Php::Base  {
 private:
     std::string _name;
     std::string _broker_endpoint;
@@ -10,15 +10,15 @@ private:
 
 public:
 
-    MajordomoWorker() : ZHandle(), Php::Base() {};
-    MajordomoWorker(mdp_worker_t *handle, bool owned) : ZHandle(handle, owned, "mdp_worker"), Php::Base() {}
+    MajordomoWorkerV2() : ZHandle(), Php::Base() {};
+    MajordomoWorkerV2(mdp_worker_t *handle, bool owned) : ZHandle(handle, owned, "mdp_worker_v2"), Php::Base() {}
     mdp_worker_t *mdpworker_handle() const { return (mdp_worker_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
         _name = param[0].stringValue();
         _broker_endpoint = param[1].stringValue();
         _callback = param[2];
-        set_handle(mdp_worker_new(_broker_endpoint.c_str(), _name.c_str()), true, "mdp_worker");
+        set_handle(mdp_worker_new(_broker_endpoint.c_str(), _name.c_str()), true, "mdp_worker_v2");
     }
 
     void set_verbose() {
@@ -48,16 +48,16 @@ public:
         while(process().boolValue()) ;
     }
 
-    static Php::Class<MajordomoWorker> php_register() {
-        Php::Class<MajordomoWorker> o("MajordomoWorker");
-        o.method("__construct", &MajordomoWorker::__construct, {
+    static Php::Class<MajordomoWorkerV2> php_register() {
+        Php::Class<MajordomoWorkerV2> o("Worker");
+        o.method("__construct", &MajordomoWorkerV2::__construct, {
             Php::ByVal("name", Php::Type::String, true),
             Php::ByVal("broker_endpoint", Php::Type::String, true),
             Php::ByVal("callback", Php::Type::Callable, true)
         });
-        o.method("set_verbose", &MajordomoWorker::set_verbose);
-        o.method("run", &MajordomoWorker::run);
-        o.method("process", &MajordomoWorker::process);
+        o.method("set_verbose", &MajordomoWorkerV2::set_verbose);
+        o.method("run", &MajordomoWorkerV2::run);
+        o.method("process", &MajordomoWorkerV2::process);
         return o;
     }
 

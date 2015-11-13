@@ -26,11 +26,11 @@ public:
         if(_type == "zactor")
             return _handle;
 
-        if(_type == "mdp_broker")
+        if(_type == "mdp_broker_v2")
             return _handle;
-        if(_type == "mdp_worker")
+        if(_type == "mdp_worker_v2")
             return (void *) mdp_worker_actor ((mdp_worker_t *) _handle);
-        if(_type == "mdp_client")
+        if(_type == "mdp_client_v2")
             return (void *) mdp_client_actor ((mdp_client_t *) _handle);
 
         if(_type == "mlm_broker")
@@ -45,6 +45,8 @@ public:
     }
 
     virtual SOCKET get_fd() const {
+        if(_type == "zudp")
+            return _socket;
         return zsock_fd(get_socket());
     }
 
@@ -57,11 +59,11 @@ public:
         if(_type == "zactor")
             return (void *) zsock_resolve(_handle);
 
-        if(_type == "mdp_broker")
+        if(_type == "mdp_broker_v2")
             return (void *) zsock_resolve(_handle);
-        if(_type == "mdp_worker")
+        if(_type == "mdp_worker_v2")
             return (void *) mdp_worker_msgpipe((mdp_worker_t *) _handle);
-        if(_type == "mdp_client")
+        if(_type == "mdp_client_v2")
             return (void *) mdp_client_msgpipe((mdp_client_t *) _handle);
 
         if(_type == "mlm_broker")
@@ -125,14 +127,17 @@ public:
         if(_type == "mlm_client")
             mlm_client_destroy ((mlm_client_t **) &_handle);
         else
-        if(_type == "mdp_broker" && zactor_is(_handle))
+        if(_type == "mdp_broker_v2" && zactor_is(_handle))
             zactor_destroy((zactor_t **) &_handle);
         else
-        if(_type == "mdp_worker")
+        if(_type == "mdp_worker_v2")
             mdp_worker_destroy ((mdp_worker_t **) &_handle);
         else
-        if(_type == "mdp_client")
+        if(_type == "mdp_client_v2")
             mdp_client_destroy ((mdp_client_t **) &_handle);
+        else
+        if(_type == "mdp_broker_vX" && zactor_is(_handle))
+            zactor_destroy((zactor_t **) &_handle);
         else
             ;
 

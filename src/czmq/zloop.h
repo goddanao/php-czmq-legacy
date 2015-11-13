@@ -106,6 +106,9 @@ public:
             ZHandle  *zh = dynamic_cast<ZHandle *> (param[0].implementation());
             if(zh) {
                 socket = (zsock_t*) zh->get_socket();
+                if(socket == nullptr) {
+                    fd = zh->get_fd();
+                }
             }
         } else
         if(valid && param[0].isNumeric()) {
@@ -113,6 +116,9 @@ public:
         } else {
             throw Php::Exception("ZLoop add require a IZSocket or FD and a callback.");
         }
+
+        if(socket == nullptr && fd == 0)
+            throw Php::Exception("ZLoop add require a IZSocket or FD and a callback.");
 
         // Register callback data
         _cbdata *data = new _cbdata();
@@ -139,6 +145,9 @@ public:
             ZHandle  *zh = dynamic_cast<ZHandle *> (param[0].implementation());
             if(zh) {
                 socket = (zsock_t*) zh->get_socket();
+                if(socket == nullptr) {
+                    fd = zh->get_fd();
+                }
             }
         } else
         if(valid && param[0].isNumeric()) {
@@ -146,6 +155,9 @@ public:
         } else {
             throw Php::Exception("ZLoop remove require a IZSocket or FD.");
         }
+
+        if(socket == nullptr && fd == 0)
+            throw Php::Exception("ZLoop remove require a IZSocket or FD.");
 
         zmq_pollitem_t item { socket, fd, 0, 0 };
         zloop_poller_end( zloop_handle(), &item);

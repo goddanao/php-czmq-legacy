@@ -169,7 +169,7 @@ class MalamuteClient   : public ZHandle, public Php::Base {
 
 
     static Php::Class<MalamuteClient> php_register() {
-        Php::Class<MalamuteClient> o("MalamuteClient");
+        Php::Class<MalamuteClient> o("Client");
         o.method("__construct", &MalamuteClient::__construct, {
             Php::ByVal("endpoint", Php::Type::String, true),
             Php::ByVal("address", Php::Type::String, false),

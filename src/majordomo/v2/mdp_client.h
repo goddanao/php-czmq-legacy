@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../common.h"
-#include "../czmq/zmsg.h"
+#include "../../common.h"
+#include "../../czmq/zmsg.h"
 
-class MajordomoClient : public ZHandle, public Php::Base {
+class MajordomoClientV2 : public ZHandle, public Php::Base {
 private:
     bool _verbose = false;
     int  _timeout = 30000;      //  default 30s timeout
@@ -11,13 +11,13 @@ private:
 
 public:
 
-    MajordomoClient() : ZHandle(), Php::Base() {};
-    MajordomoClient(mdp_client_t *handle, bool owned) : ZHandle(handle, owned, "mdp_client"), Php::Base() {}
+    MajordomoClientV2() : ZHandle(), Php::Base() {};
+    MajordomoClientV2(mdp_client_t *handle, bool owned) : ZHandle(handle, owned, "mdp_client_v2"), Php::Base() {}
     mdp_client_t *mdpclient_handle() const { return (mdp_client_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
         _broker_endpoint = param[0].stringValue();
-        set_handle(mdp_client_new(_broker_endpoint.c_str()), true, "mdp_client");
+        set_handle(mdp_client_new(_broker_endpoint.c_str()), true, "mdp_client_v2");
     }
 
     void set_verbose() {
@@ -59,17 +59,17 @@ public:
         return recv();
     }
 
-    static Php::Class<MajordomoClient> php_register() {
-        Php::Class<MajordomoClient> o("MajordomoClient");
-        o.method("__construct", &MajordomoClient::__construct, {
+    static Php::Class<MajordomoClientV2> php_register() {
+        Php::Class<MajordomoClientV2> o("Client");
+        o.method("__construct", &MajordomoClientV2::__construct, {
             Php::ByVal("broker_endpoint", Php::Type::String, true)
         });
-        o.method("set_verbose", &MajordomoClient::set_verbose);
-        o.method("recv", &MajordomoClient::recv);
-        o.method("call", &MajordomoClient::call, {
+        o.method("set_verbose", &MajordomoClientV2::set_verbose);
+        o.method("recv", &MajordomoClientV2::recv);
+        o.method("call", &MajordomoClientV2::call, {
             Php::ByVal("service_name", Php::Type::String, true)
         });
-        o.method("call_async", &MajordomoClient::call_async, {
+        o.method("call_async", &MajordomoClientV2::call_async, {
             Php::ByVal("service_name", Php::Type::String, true)
         });
         return o;
