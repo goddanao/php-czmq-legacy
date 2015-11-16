@@ -507,7 +507,23 @@ public:
         return (int) zmsg_content_size(zmsg_handle());
     }
 
-
+    Php::Value __toString() {
+        std::string result;
+        zmsg_t *msg = zmsg_dup (zmsg_handle());
+        char *str = zmsg_popstr(zmsg_handle());
+        if(zmsg_size(msg) == 0) {
+            result = str;
+            zstr_free(&str);
+            return result;
+        }
+        int i = 0;
+        while(str) {
+            result = ((i == 0) ? "" : result + "\n") + std::string(str);
+            zstr_free(&str);
+            str = zmsg_popstr(zmsg_handle());
+        }
+        return result;
+    }
 
 
 
