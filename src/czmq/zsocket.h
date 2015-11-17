@@ -62,26 +62,27 @@ public:
     static Php::Value xrep(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("xrep", param[0].stringValue().c_str()), true)); }
     static Php::Value stream(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("stream",  param[0].stringValue().c_str()), true)); }
 
-/*
-    static Php::Value __callStatic(const char *name, Php::Parameters &params) {
 
-        zsys_info("ECCOMI!!!!!!!!!!!!!!!!!!!!!!!!111");
+//    static Php::Value __callStatic (const char *name, Php::Parameters &params) {
+//
+//        zsys_info("ECCOMI!!!!!!!!!!!!!!!!!!!!!!!!111");
+//        return nullptr;
+//
+//        // the return value
+//        std::string retval = std::string("__callStatic ") + name;
+//
+//        // loop through the parameters
+//        for (auto &param : params)
+//        {
+//            // append parameter string value to return value
+//            retval += " " + param.stringValue();
+//        }
+//
+//        zsys_info(retval.c_str());
+//        // done
+//        return retval;
+//    }
 
-        // the return value
-        std::string retval = std::string("__callStatic ") + name;
-
-        // loop through the parameters
-        for (auto &param : params)
-        {
-            // append parameter string value to return value
-            retval += " " + param.stringValue();
-        }
-
-        zsys_info(retval.c_str());
-        // done
-        return retval;
-    }
-*/
     Php::Value send_picture(Php::Parameters &param) {
         zmsg_t *msg = zmsg_new();
         ZMsg z(msg, false);
@@ -555,7 +556,7 @@ public:
 
         Php::Class<ZSocket> o("ZSocket");
 
-    	o.method("__construct", &ZSocket::__construct, {
+        o.method("__construct", &ZSocket::__construct, {
     		Php::ByVal("socket_type", Php::Type::String, true),
     		Php::ByVal("endpoint", Php::Type::String, false)
     	});

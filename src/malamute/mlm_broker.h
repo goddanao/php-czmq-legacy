@@ -125,7 +125,7 @@ public:
 
 		zpoller_t *poller = zpoller_new(mlm_broker_handle(), NULL);
 
-		while(!stopped) {
+		while(!zsys_interrupted && !stopped) {
 
 			if(stop_after != -1 && ((zclock_time() - started) > stop_after))
 				break;

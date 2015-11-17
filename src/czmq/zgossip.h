@@ -66,11 +66,25 @@ public:
         Php::Class<ZGossip> o("ZGossip");
         o.method("__construct", &ZGossip::__construct);
         o.method("set_verbose", &ZGossip::set_verbose);
-        o.method("configure", &ZGossip::configure);
-        o.method("bind", &ZGossip::bind);
-        o.method("connect", &ZGossip::connect);
-        o.method("set", &ZGossip::set);
-        o.method("publish", &ZGossip::publish);
+
+        o.method("configure", &ZGossip::configure, {
+            Php::ByVal("filename", Php::Type::String, true)
+        });
+        o.method("bind", &ZGossip::bind, {
+            Php::ByVal("endpoint", Php::Type::String, true)
+        });
+        o.method("connect", &ZGossip::connect, {
+            Php::ByVal("endpoint", Php::Type::String, true)
+        });
+        o.method("set", &ZGossip::set, {
+            Php::ByVal("property", Php::Type::String, true),
+            Php::ByVal("value", Php::Type::String, true)
+        });
+        o.method("publish", &ZGossip::publish, {
+            Php::ByVal("property", Php::Type::String, true),
+            Php::ByVal("value", Php::Type::String, true)
+        });
+
         o.method("count", &ZGossip::count);
 
         o.method("send", &ZGossip::send);

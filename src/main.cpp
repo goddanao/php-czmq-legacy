@@ -16,6 +16,9 @@ extern "C" {
             zsys_set_pipehwm (0);
             zsys_set_sndhwm (0);
             zsys_set_rcvhwm (0);
+
+            // mlm_client_verbose = true;
+
         });
 
         // Shutdown zmq global context
@@ -27,6 +30,7 @@ extern "C" {
 
         // IZSocket
         Php::Interface izsocket("IZSocket");
+        // izsocket.method("get_socket");
 
     // CZMQ
 
@@ -137,6 +141,22 @@ extern "C" {
         Php::Class<MalamuteClient> mlmclient = MalamuteClient::php_register();
         mlmclient.implements(izsocket);
         mlm_ns.add(std::move(mlmclient));
+
+        // Malamute Worker
+        Php::Class<MalamuteWorker> mlmworker = MalamuteWorker::php_register();
+        mlmworker.implements(izsocket);
+        mlm_ns.add(std::move(mlmworker));
+
+        // Malamute Producer
+        Php::Class<MalamuteProducer> mlmproducer = MalamuteProducer::php_register();
+        mlmproducer.implements(izsocket);
+        mlm_ns.add(std::move(mlmproducer));
+
+        // Malamute Consumer
+        Php::Class<MalamuteConsumer> mlmconsumer = MalamuteConsumer::php_register();
+        mlmconsumer.implements(izsocket);
+        mlm_ns.add(std::move(mlmconsumer));
+
 
     // Add classes to Extension
 

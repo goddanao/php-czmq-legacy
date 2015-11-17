@@ -62,79 +62,44 @@ class MalamuteClient   : public ZHandle, public Php::Base {
 
 	Php::Value send_stream(Php::Parameters &param) {
 		std::string subject = param[0].stringValue();
+		zmsg_t *msg = nullptr;
+        if(param.size() > 1) {
+            Php::Value p(param[1]);
+            msg = ZMsg::msg_from_param(&p);
+        }
 
-		zmsg_t *msg = NULL;
-		ZMsg *zmsg = (ZMsg *) dynamic_cast<ZMsg *>(param[1].implementation());
-		if(!zmsg) {
-			ZFrame *zframe = (ZFrame *) dynamic_cast<ZFrame *>(param[1].implementation());
-			if(zframe) {
-				msg = zmsg_new();
-				zmsg_pushmem(msg, zframe_data(zframe->zframe_handle()), zframe_size(zframe->zframe_handle()));
-			}
-			else
-			if(param[1].isString()) {
-				msg = zmsg_new();
-				zmsg_pushmem(msg, param[1].rawValue(), param[1].size());
-			}
-			else
-				throw Php::Exception("Send Stream need a ZMsg, ZFrame or String Buffer");
-		} else {
-			 msg = zmsg_dup(zmsg->zmsg_handle());
-		}
 		return (mlm_client_send(mlm_client_handle(), subject.c_str(), &msg) == 0);
 	}
 
 	Php::Value send_mailbox(Php::Parameters &param) {
 		std::string address = param[0].stringValue();
-		std::string subject = param[1].stringValue();
-		std::string tracker = param[2].stringValue();
-		int _to = (param.size() > 3) ? param[3].numericValue() : _timeout;
 
-		zmsg_t *msg = NULL;
-		ZMsg *zmsg = (ZMsg *) dynamic_cast<ZMsg *>(param[4].implementation());
-		if(!zmsg) {
-			ZFrame *zframe = (ZFrame *) dynamic_cast<ZFrame *>(param[4].implementation());
-			if(zframe) {
-				msg = zmsg_new();
-				zmsg_pushmem(msg, zframe_data(zframe->zframe_handle()), zframe_size(zframe->zframe_handle()));
-			}
-			else
-			if(param[4].isString()) {
-				msg = zmsg_new();
-				zmsg_pushmem(msg, param[4].rawValue(), param[4].size());
-			}
-			else
-				throw Php::Exception("Send Mailbox need a ZMsg, ZFrame or String Buffer");
-		} else {
-			 msg = zmsg_dup(zmsg->zmsg_handle());
+		zmsg_t *msg = nullptr;
+		if(param.size() > 1) {
+			Php::Value p(param[1]);
+			msg = ZMsg::msg_from_param(&p);
 		}
+
+		int _to = (param.size() > 2) ? param[2].numericValue() : _timeout;
+        std::string subject = (param.size() > 3) ? param[3].stringValue() : "";
+        std::string tracker = (param.size() > 4) ? param[4].stringValue() : "";
+
 		return (mlm_client_sendto(mlm_client_handle(), address.c_str(), subject.c_str(), tracker.c_str(), _to, &msg) == 0);
 	}
 
 	Php::Value send_service(Php::Parameters &param) {
 		std::string address = param[0].stringValue();
-		std::string subject = param[1].stringValue();
-		std::string tracker = param[2].stringValue();
-		int _to = (param.size() > 3) ? param[3].numericValue() : _timeout;
+        std::string subject = (param.size() > 1) ? param[1].stringValue() : "";
 
-		zmsg_t *msg = NULL;
-		ZMsg *zmsg = (ZMsg *) dynamic_cast<ZMsg *>(param[4].implementation());
-		if(!zmsg) {
-			ZFrame *zframe = (ZFrame *) dynamic_cast<ZFrame *>(param[4].implementation());
-			if(zframe) {
-				msg = zmsg_new();
-				zmsg_pushmem(msg, zframe_data(zframe->zframe_handle()), zframe_size(zframe->zframe_handle()));
-			}
-			else
-			if(param[4].isString()) {
-				msg = zmsg_new();
-				zmsg_pushmem(msg, param[4].rawValue(), param[4].size());
-			}
-			else
-				throw Php::Exception("Send Service need a ZMsg, ZFrame or String Buffer");
-		} else {
-			 msg = zmsg_dup(zmsg->zmsg_handle());
-		}
+		zmsg_t *msg = nullptr;
+        if(param.size() > 2) {
+            Php::Value p(param[2]);
+            msg = ZMsg::msg_from_param(&p);
+        }
+
+        int _to = (param.size() > 3) ? param[3].numericValue() : _timeout;
+        std::string tracker = (param.size() > 4) ? param[4].stringValue() : "";
+
 		return (mlm_client_sendfor(mlm_client_handle(), address.c_str(), subject.c_str(), tracker.c_str(), _to, &msg) == 0);
 	}
 
@@ -199,15 +164,17 @@ class MalamuteClient   : public ZHandle, public Php::Base {
         });
         o.method("send_mailbox", &MalamuteClient::send_mailbox, {
             Php::ByVal("address", Php::Type::String, true),
-            Php::ByVal("subject", Php::Type::String, true),
-            Php::ByVal("pattern", Php::Type::String, true),
-            Php::ByVal("timeout", Php::Type::Numeric, true)
+            Php::ByVal("payload", Php::Type::String, false),
+            Php::ByVal("timeout", Php::Type::Numeric, false),
+            Php::ByVal("subject", Php::Type::String, false),
+            Php::ByVal("tracker", Php::Type::String, false)
         });
         o.method("send_service", &MalamuteClient::send_service, {
             Php::ByVal("address", Php::Type::String, true),
             Php::ByVal("subject", Php::Type::String, true),
-            Php::ByVal("pattern", Php::Type::String, true),
-            Php::ByVal("timeout", Php::Type::Numeric, true)
+            Php::ByVal("payload", Php::Type::String, false),
+            Php::ByVal("timeout", Php::Type::Numeric, false),
+            Php::ByVal("tracker", Php::Type::String, false)
         });
 
         o.method("recv_picture", &MalamuteClient::recv_picture, {

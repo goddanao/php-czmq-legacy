@@ -120,10 +120,6 @@ public:
     static void set_max_sockets(Php::Parameters &param) { zsys_set_max_sockets(param[0].numericValue()); }
 
     static Php::Value context(Php::Parameters &param) { return Php::Object("ZContext", new ZContext(zsys_init(), false)); }
-    static Php::Value refresh(Php::Parameters &param) {
-        zsys_shutdown();
-        return Php::Object("ZContext", new ZContext(zsys_init(), false));
-    }
 
     static Php::Value is_interrupted() { return zsys_interrupted; }
 
@@ -153,7 +149,6 @@ public:
 
         // Static methods
         o.method("Context", &ZSys::context);
-        o.method("refresh", &ZSys::refresh);
 
         o.method("is_interrupted", &ZContext::is_interrupted);
 
