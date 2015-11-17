@@ -1,6 +1,6 @@
 PHP-CZMQ [![Build Status](https://travis-ci.org/goddanao/php-czmq.svg)](https://travis-ci.org/goddanao/php-czmq)
 ================
-Experimental php (5.4+) binding for [CZMQ](http://czmq.zeromq.org), [ZYRE](https://github.com/zeromq/zyre), [Malamute](https://github.com/Malamute/malamute-core) and [Majordomo Pattern](http://rfc.zeromq.org/spec:7) built with [PHP-CPP](http://www.php-cpp.com/).
+Experimental php (5.4+) binding for [CZMQ](http://czmq.zeromq.org), [ZYRE](https://github.com/zeromq/zyre), [FILEMQ](https://github.com/zeromq/filemq), [Malamute](https://github.com/Malamute/malamute-core), [Majordomo Pattern V1](http://rfc.zeromq.org/spec:7), [Majordomo Pattern V2](http://rfc.zeromq.org/spec:18) built with [PHP-CPP](http://www.php-cpp.com/).
 **DISCLAIMER:** It's my first (early stage) approach to c++, this project need to be considered highly experimental thus open to your suggestions/improvements. Please be patient! ;-)
 
 ##Motivation

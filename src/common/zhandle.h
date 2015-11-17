@@ -5,6 +5,7 @@
 #include <zyre.h>
 #include <majordomo.h>
 #include <malamute.h>
+#include <fmq.h>
 
 class ZHandle {
 protected:
@@ -23,8 +24,14 @@ public:
     void *get_handle() const { return _handle; }
 
     virtual void *get_actor() const {
+
         if(_type == "zactor")
             return _handle;
+
+        if(_type == "fmq_broker")
+            return _handle;
+        if(_type == "fmq_client")
+            return fmq_client_actor ((fmq_client_t *) _handle);
 
         if(_type == "mdp_broker_v2")
             return _handle;
@@ -35,7 +42,6 @@ public:
 
         if(_type == "mdp_broker_vX")
             return _handle;
-
 
         if(_type == "mlm_broker")
             return _handle;
@@ -62,6 +68,11 @@ public:
             return zsock_resolve(_handle);
         if(_type == "zactor")
             return (void *) zsock_resolve(_handle);
+
+        if(_type == "fmq_broker")
+            return (void *) zsock_resolve(_handle);
+        if(_type == "fmq_client")
+             return fmq_client_msgpipe((fmq_client_t *) _handle);
 
         if(_type == "mdp_broker_v2")
             return (void *) zsock_resolve(_handle);
@@ -156,7 +167,14 @@ public:
         if(_type == "mdp_client_vX" && zsock_is(_handle))
             zsock_destroy((zsock_t **) &_handle);
         else
-            ;
+        if(_type == "fmq_broker")
+             zactor_destroy((zactor_t **) &_handle);
+         else
+         if(_type == "fmq_client")
+              fmq_client_destroy((fmq_client_t **) &_handle);
+          else
+          ;
+
 
         _handle = nullptr;
         _socket = INVALID_SOCKET;

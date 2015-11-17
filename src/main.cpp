@@ -2,6 +2,7 @@
 #include "zyre.h"
 #include "majordomo.h"
 #include "malamute.h"
+#include "fmq.h"
 
 extern "C" {
     
@@ -158,6 +159,21 @@ extern "C" {
         mlm_ns.add(std::move(mlmconsumer));
 
 
+    // FILEMQ
+
+        Php::Namespace fmq_ns("FileMq");
+
+        // FileMq Broker
+        Php::Class<FmqBroker> fmqbroker = FmqBroker::php_register();
+        fmqbroker.implements(izsocket);
+        fmq_ns.add(std::move(fmqbroker));
+
+        // FileMq Client
+        Php::Class<FmqClient> fmqclient = FmqClient::php_register();
+        fmqclient.implements(izsocket);
+        fmq_ns.add(std::move(fmqclient));
+
+
     // Add classes to Extension
 
         //common
@@ -184,6 +200,8 @@ extern "C" {
         extension.add(std::move(mdp_ns));
         // malamute
         extension.add(std::move(mlm_ns));
+        // fmq
+        extension.add(std::move(fmq_ns));
 
 
 

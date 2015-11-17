@@ -30,6 +30,11 @@ git clone git://github.com/zeromq/${MALAMUTE_REPO}.git &&
 ( cd ${MALAMUTE_REPO}; ./autogen.sh && ./configure &&
     make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
 
+# Build, check, and install the version of FILEMQ given by FILEMQ_REPO
+git clone git://github.com/zeromq/${FILEMQ_REPO}.git &&
+( cd ${FILEMQ_REPO}; ./autogen.sh && ./configure &&
+    make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
+
 # Build and install PHP-CPP (-b 'v1.5' --single-branch --depth 1)
 git clone ${PHPCPP_BRANCH} git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
 ( cd PHP-CPP; make -j4 && sudo make install && sudo ldconfig && cd ..) || exit 1
