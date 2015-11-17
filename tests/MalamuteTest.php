@@ -91,54 +91,53 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-//    public function test_malamute() {
-//
-//
-////
-//
-//
-//
-////        # Start Service Workers
-////        for($i = 0; $i < 5; $i++)
-////            $forks[] = $manager->fork(function() use($i, $broker_endpoint) {
-////                $processed = 0;
-////                $worker   = new Malamute\Worker($broker_endpoint, "my_worker", "mywork*");
-////                $worker->run(function($req, $headers) use($i, &$processed) {
-////                    $processed++;
-////                    $usec = rand(0, 100000);
-////                  //  ZSys::info("my_worker {$i} - $req - done: {$processed} - sleeping: {$usec} ms - headers: " . json_encode($headers));
-////                    usleep($usec);
-////                    return "stocazzo";
-////                });
-////            });
-//
-////
-//
-////        # Start Clients (Send Work to Services)
-////        for($i = 0; $i < 10; $i++)
-////            $clients[] = $manager->fork(function() use($i, $broker_endpoint) {
-////                $service_client = new Malamute\Client($broker_endpoint, 'client_' . $i);
-////                $service_client->connect();
-////                $service_client->send_service('my_worker', 'mywork', json_encode(['gino' => 'pino']), 30000);
-////                while($rcv = $service_client->recv()) {
-////                    $headers = $service_client->header();
-////                //    ZSys::info("client recieved result from my_worker {$i} - recieved: {$rcv} - " . json_encode($headers));
-////                }
-////                return "OK";
-////            });
-//
-////        sleep(10);
-////
-////        $manager->killAll();
-////
-////        $res = true;
-////        foreach($clients as $client){
-////            $client->receive();
-////            $res = $res && ($client->getResult() == "OK");
-////        }
-////
-////        $this->assertTrue($res);
-//
-//
-//    }
+    public function test_pooled_service()
+    {
+        $manager = new ProcessManager();
+
+        $manager->fork(function() {
+            $broker = new Malamute\Broker("mybroker");
+            $broker->load_config(__DIR__ . "/cfg/malamute.cfg");
+            $broker->run();
+        });
+
+        # Start Service Workers
+        for($i = 0; $i < 5; $i++)
+            $forks[] = $manager->fork(function() use($i) {
+                $processed = 0;
+                $worker   = new Malamute\Worker($this->broker_endpoint, "my_worker", "mywork*");
+                $worker->run(function($req, $headers) use($i, &$processed) {
+                    $processed++;
+                    $usec = rand(0, 1000);
+                    usleep($usec);
+                    return "mydata";
+                });
+            });
+
+
+        # Start Clients (Send Work to Services)
+        for($i = 0; $i < 10; $i++)
+            $clients[] = $manager->fork(function() use($i) {
+                $service_client = new Malamute\Client($this->broker_endpoint, 'client_' . $i);
+                $service_client->connect();
+                $service_client->send_service('my_worker', 'mywork', json_encode(['gino' => 'pino']), 30000);
+                $rcv = $service_client->recv();
+                return $rcv == "mydata" ? "OK" : "KO";
+            });
+
+        sleep(5);
+
+
+        $res = true;
+        foreach($clients as $client){
+            $client->receive();
+            $res = $res && ($client->getResult() == "OK");
+        }
+
+        $manager->killAll();
+
+        $this->assertTrue($res);
+
+    }
+
 }
