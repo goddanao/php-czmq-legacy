@@ -5,7 +5,7 @@
 #include <zyre.h>
 #include <majordomo.h>
 #include <malamute.h>
-#include <fmq.h>
+#include <filemq.h>
 
 class ZHandle {
 protected:

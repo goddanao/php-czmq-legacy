@@ -33,6 +33,11 @@ public:
         return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
     }
 
+    static Php::Value libfmq_version() {
+        int major = FILEMQ_VERSION_MAJOR, minor = FILEMQ_VERSION_MINOR, patch = FILEMQ_VERSION_PATCH;
+        return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
+    }
+
     static Php::Value hostname() {
         Php::Value result;
         char *hostname = zsys_hostname();
@@ -183,6 +188,7 @@ public:
         o.method("libzyre_version", &ZSys::libzyre_version);
         o.method("libmdp_version", &ZSys::libmdp_version);
         o.method("libmlm_version", &ZSys::libmlm_version);
+        o.method("libfmq_version", &ZSys::libfmq_version);
 
         // Logging ...
         o.method("info", &ZSys::info, { Php::ByVal("message", Php::Type::String, true) });
