@@ -21,7 +21,6 @@ extern "C" {
             // mlm_client_verbose = true;
             // fmq_client_verbose = true;
 
-
         });
 
         // Shutdown zmq global context
