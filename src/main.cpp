@@ -19,6 +19,8 @@ extern "C" {
             zsys_set_rcvhwm (0);
 
             // mlm_client_verbose = true;
+            // fmq_client_verbose = true;
+
 
         });
 

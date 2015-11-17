@@ -59,6 +59,20 @@ public:
 		return true;
 	}
 
+	Php::Value publish(Php::Parameters &param) {
+		if(param.size() != 2)
+			throw Php::Exception("Please specify a path and alias.");
+		zstr_sendx (fmq_broker_handle(), "PUBLISH", param[0].stringValue().c_str(), param[1].stringValue().c_str(), NULL);
+
+		char *result;
+		zstr_recvx (fmq_broker_handle(), &result, NULL);
+		if(!result)
+			return false;
+		Php::Value ret = streq(result,"SUCCESS");
+		zstr_free(&result);
+		return ret;
+	}
+
 	void on_idle(Php::Parameters &param) {
 	   if(param.size()>0 && param[0].isCallable())
 			on_idle_callback = param[0];
@@ -121,13 +135,17 @@ public:
 	}
 
     static Php::Class<FmqBroker> php_register() {
-        Php::Class<FmqBroker> o("Broker");
+        Php::Class<FmqBroker> o("Server");
         o.method("__construct", &FmqBroker::__construct);
         o.method("set_verbose", &FmqBroker::set_verbose);
         o.method("load_config", &FmqBroker::load_config);
         o.method("set_config", &FmqBroker::set_config);
         o.method("save_config", &FmqBroker::save_config);
         o.method("bind", &FmqBroker::bind);
+        o.method("publish", &FmqBroker::publish, {
+			Php::ByVal("local_path", Php::Type::String, true),
+			Php::ByVal("alias", Php::Type::String, true)
+        });
         o.method("on_tick", &FmqBroker::on_tick);
         o.method("on_idle", &FmqBroker::on_idle);
         o.method("run", &FmqBroker::run);

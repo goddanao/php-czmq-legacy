@@ -8,6 +8,7 @@ private:
     std::string _endpoint   = "";
     std::string _local_dir  = "";
     int _timeout = 0;
+    bool _connected = false;
 public:
 
     FmqClient() : ZHandle(), Php::Base() {}
@@ -24,6 +25,8 @@ public:
 		_timeout  = (param.size() > 2) ? param[2].numericValue() : 0;
 
 		set_handle(client, true, "fmq_client");
+
+		connect();
 	}
 
 	void set_timeout(Php::Parameters &param) {
@@ -31,17 +34,26 @@ public:
     }
 
 	void subscribe(Php::Parameters &param) {
+	    connect();
         fmq_client_subscribe(fmq_client_handle(), param[0].stringValue().c_str());
     }
 
-
-    void run(Php::Parameters &param){
+    void connect() {
+        if(_connected)
+            return;
 
         int rc = fmq_client_connect(fmq_client_handle(), _endpoint.c_str(), _timeout);
         if(rc != -1)
             rc = fmq_client_set_inbox(fmq_client_handle(), _local_dir.c_str());
         if(rc == -1)
-            throw Php::Exception("Internal Error: Can't create Malamute Consumer.");
+            throw Php::Exception("Internal Error: Can't create FileMQ Client.");
+        _connected = true;
+
+    }
+
+    void run(Php::Parameters &param){
+
+        connect();
 
         zsock_t *client = fmq_client_msgpipe (fmq_client_handle());
         zpoller_t *poller = zpoller_new (client, NULL);
@@ -68,7 +80,8 @@ public:
         o.method("set_timeout", &FmqClient::set_timeout, {
             Php::ByVal("timeout", Php::Type::Numeric, true)
         });
-         o.method("subscribe", &FmqClient::subscribe, {
+        o.method("connect", &FmqClient::connect);
+        o.method("subscribe", &FmqClient::subscribe, {
             Php::ByVal("remote_path", Php::Type::String, true)
         });
         o.method("run", &FmqClient::run, {
