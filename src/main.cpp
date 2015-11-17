@@ -175,7 +175,6 @@ extern "C" {
         fmqclient.implements(izsocket);
         fmq_ns.add(std::move(fmqclient));
 
-
     // Add classes to Extension
 
         //common
