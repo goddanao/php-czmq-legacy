@@ -3,7 +3,7 @@ ZGossip
 
 ZGossip
 
-...
+Decentralized configuration management.
 
 
 * Class name: ZGossip
@@ -27,7 +27,7 @@ mixed ZGossip::\ZGossip::__construct()()
 
 ZGossip::__construct
 
-...
+
 
 * Visibility: **public**
 
@@ -41,7 +41,7 @@ mixed ZGossip::\ZGossip::set_verbose()()
 
 ZGossip::set_verbose
 
-...
+Enable verbose logging of commands and activity.
 
 * Visibility: **public**
 
@@ -50,7 +50,7 @@ ZGossip::set_verbose
 ### \ZGossip::configure()
 
 ```
-mixed ZGossip::\ZGossip::configure()()
+mixed ZGossip::\ZGossip::configure()($filename)
 ```
 
 ZGossip::configure
@@ -59,12 +59,16 @@ ZGossip::configure
 
 * Visibility: **public**
 
+#### Arguments
+
+* $filename **mixed**
+
 
 
 ### \ZGossip::bind()
 
 ```
-mixed ZGossip::\ZGossip::bind()()
+mixed ZGossip::\ZGossip::bind()($endpoint)
 ```
 
 ZGossip::bind
@@ -73,12 +77,16 @@ ZGossip::bind
 
 * Visibility: **public**
 
+#### Arguments
+
+* $endpoint **mixed**
+
 
 
 ### \ZGossip::connect()
 
 ```
-mixed ZGossip::\ZGossip::connect()()
+mixed ZGossip::\ZGossip::connect()($endpoint)
 ```
 
 ZGossip::connect
@@ -87,12 +95,16 @@ ZGossip::connect
 
 * Visibility: **public**
 
+#### Arguments
+
+* $endpoint **mixed**
+
 
 
 ### \ZGossip::set()
 
 ```
-mixed ZGossip::\ZGossip::set()()
+mixed ZGossip::\ZGossip::set()($property, $value)
 ```
 
 ZGossip::set
@@ -101,12 +113,17 @@ ZGossip::set
 
 * Visibility: **public**
 
+#### Arguments
+
+* $property **mixed**
+* $value **mixed**
+
 
 
 ### \ZGossip::publish()
 
 ```
-mixed ZGossip::\ZGossip::publish()()
+mixed ZGossip::\ZGossip::publish()($property, $value)
 ```
 
 ZGossip::publish
@@ -114,6 +131,11 @@ ZGossip::publish
 ...
 
 * Visibility: **public**
+
+#### Arguments
+
+* $property **mixed**
+* $value **mixed**
 
 
 

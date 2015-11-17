@@ -3,7 +3,7 @@ ZSys
 
 ZSys
 
-ZMQ System Utils
+ZMQ System
 
 
 * Class name: ZSys
@@ -278,7 +278,7 @@ const EVENT_ALL = 65535
 ### POLL_NONE
 
 ```
-const POLL_NONE = "0"
+const POLL_NONE = 0
 ```
 
 
@@ -334,27 +334,12 @@ Methods
 ### \ZSys::context()
 
 ```
-\Malamute\ZContext ZSys::\ZSys::context()()
+\FileMq\ZContext ZSys::\ZSys::context()()
 ```
 
 ZSys::context
 
 Get global ZContext
-
-* Visibility: **public**
-* This method is **static**.
-
-
-
-### \ZSys::refresh()
-
-```
-mixed ZSys::\ZSys::refresh()()
-```
-
-ZSys::refresh
-
-...
 
 * Visibility: **public**
 * This method is **static**.

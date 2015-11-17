@@ -3,7 +3,7 @@ Malamute\Client
 
 Client
 
-
+...
 
 
 * Class name: Client
@@ -178,7 +178,7 @@ Client::send_stream
 ### \Malamute\Client::send_mailbox()
 
 ```
-mixed Malamute\Client::\Malamute\Client::send_mailbox()($address, $subject, $pattern, $timeout)
+mixed Malamute\Client::\Malamute\Client::send_mailbox()($address, $payload, $timeout, $subject, $tracker)
 ```
 
 Client::send_mailbox
@@ -190,16 +190,17 @@ Client::send_mailbox
 #### Arguments
 
 * $address **mixed**
-* $subject **mixed**
-* $pattern **mixed**
+* $payload **mixed**
 * $timeout **mixed**
+* $subject **mixed**
+* $tracker **mixed**
 
 
 
 ### \Malamute\Client::send_service()
 
 ```
-mixed Malamute\Client::\Malamute\Client::send_service()($address, $subject, $pattern, $timeout)
+mixed Malamute\Client::\Malamute\Client::send_service()($address, $subject, $payload, $timeout, $tracker)
 ```
 
 Client::send_service
@@ -212,8 +213,9 @@ Client::send_service
 
 * $address **mixed**
 * $subject **mixed**
-* $pattern **mixed**
+* $payload **mixed**
 * $timeout **mixed**
+* $tracker **mixed**
 
 
 

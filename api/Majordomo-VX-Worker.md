@@ -3,7 +3,7 @@ Majordomo\VX\Worker
 
 Worker
 
-
+...
 
 
 * Class name: Worker

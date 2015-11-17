@@ -1,5 +1,6 @@
 <?php
-namespace   {
+
+namespace {
 
 /**
  * ZContext
@@ -22,7 +23,7 @@ class ZContext {
 /**
  * ZSys
  *
- * ZMQ System Utils
+ * ZMQ System
  */
 class ZSys {
   const SOCKET_PUB = "pub";
@@ -51,7 +52,7 @@ class ZSys {
   const EVENT_DISCONNECTED = 512;
   const EVENT_MONITOR_STOPPED = 1024;
   const EVENT_ALL = 65535;
-  const POLL_NONE = "0";
+  const POLL_NONE = 0;
   const POLL_IN = 1;
   const POLL_OUT = 2;
   const POLL_ERR = 4;
@@ -65,13 +66,6 @@ class ZSys {
    * @return ZContext
   */
   static public function context() {}
-
-  /**
-   * ZSys::refresh
-   *
-   * ...
-  */
-  static public function refresh() {}
 
   /**
    * ZSys::is_interrupted
@@ -913,7 +907,7 @@ class ZSocket implements \IZSocket {
    *     tcp://127.0.0.1:![-60000]   bind to random port from C000 to 60000
    *     tcp://127.0.0.1:![55000-55999]
    *                                 bind to random port from 55000 to 55999
-   * @param string $endpoint ...
+   * @param string $endpoint Endpoint.
    * @return mixed On success, returns the actual port number used, for tcp:// endpoints,
    * and 0 for other transports. On failure, returns -1. Note that when using
    * ephemeral ports, a port may be reused by different services without
@@ -1972,21 +1966,21 @@ class ZAuth implements \IZSocket {
 /**
  * ZGossip
  *
- * ...
+ * Decentralized configuration management.
  */
 class ZGossip implements \IZSocket {
 
   /**
    * ZGossip::__construct
    *
-   * ...
+   *  
   */
   public function __construct() {}
 
   /**
    * ZGossip::set_verbose
    *
-   * ...
+   * Enable verbose logging of commands and activity.
   */
   public function set_verbose() {}
 
@@ -1994,36 +1988,43 @@ class ZGossip implements \IZSocket {
    * ZGossip::configure
    *
    * ...
+   * @param mixed$filename ...
   */
-  public function configure() {}
+  public function configure($filename) {}
 
   /**
    * ZGossip::bind
    *
    * ...
+   * @param mixed$endpoint ...
   */
-  public function bind() {}
+  public function bind($endpoint) {}
 
   /**
    * ZGossip::connect
    *
    * ...
+   * @param mixed$endpoint ...
   */
-  public function connect() {}
+  public function connect($endpoint) {}
 
   /**
    * ZGossip::set
    *
    * ...
+   * @param mixed$property ...
+   * @param mixed$value ...
   */
-  public function set() {}
+  public function set($property, $value) {}
 
   /**
    * ZGossip::publish
    *
    * ...
+   * @param mixed$property ...
+   * @param mixed$value ...
   */
-  public function publish() {}
+  public function publish($property, $value) {}
 
   /**
    * ZGossip::count
@@ -2292,12 +2293,13 @@ class Zyre implements \IZSocket {
 }
 
 }
+
 namespace Majordomo\V2 {
 
 /**
  * Broker
  *
- * 
+ * ...
  */
 class Broker implements \IZSocket {
 
@@ -2358,7 +2360,7 @@ class Broker implements \IZSocket {
 /**
  * Worker
  *
- * 
+ * ...
  */
 class Worker implements \IZSocket {
 
@@ -2399,7 +2401,7 @@ class Worker implements \IZSocket {
 /**
  * Client
  *
- * 
+ * ...
  */
 class Client implements \IZSocket {
 
@@ -2444,12 +2446,13 @@ class Client implements \IZSocket {
 }
 
 }
+
 namespace Majordomo\VX {
 
 /**
  * Broker
  *
- * 
+ * ...
  */
 class Broker implements \IZSocket {
 
@@ -2537,7 +2540,7 @@ class Broker implements \IZSocket {
 /**
  * Worker
  *
- * 
+ * ...
  */
 class Worker implements \IZSocket {
 
@@ -2564,7 +2567,7 @@ class Worker implements \IZSocket {
 /**
  * Client
  *
- * 
+ * ...
  */
 class Client implements \IZSocket {
 
@@ -2592,12 +2595,13 @@ class Client implements \IZSocket {
 }
 
 }
+
 namespace Malamute {
 
 /**
  * Broker
  *
- * 
+ * ...
  */
 class Broker implements \IZSocket {
 
@@ -2682,9 +2686,45 @@ class Broker implements \IZSocket {
 
 
 /**
+ * Worker
+ *
+ * ...
+ */
+class Worker implements \IZSocket {
+
+  /**
+   * Worker::__construct
+   *
+   * ...
+   * @param mixed$endpoint ...
+   * @param mixed$address ...
+   * @param mixed$pattern ... (optional)
+  */
+  public function __construct($endpoint, $address, $pattern) {}
+
+  /**
+   * Worker::set_timeout
+   *
+   * ...
+   * @param mixed$timeout ...
+  */
+  public function set_timeout($timeout) {}
+
+  /**
+   * Worker::run
+   *
+   * ...
+   * @param callable $callback ...
+  */
+  public function run($callback) {}
+
+}
+
+
+/**
  * Client
  *
- * 
+ * ...
  */
 class Client implements \IZSocket {
 
@@ -2768,11 +2808,12 @@ class Client implements \IZSocket {
    *
    * ...
    * @param mixed$address ...
-   * @param mixed$subject ...
-   * @param mixed$pattern ...
-   * @param mixed$timeout ...
+   * @param mixed$payload ... (optional)
+   * @param mixed$timeout ... (optional)
+   * @param mixed$subject ... (optional)
+   * @param mixed$tracker ... (optional)
   */
-  public function send_mailbox($address, $subject, $pattern, $timeout) {}
+  public function send_mailbox($address, $payload, $timeout, $subject, $tracker) {}
 
   /**
    * Client::send_service
@@ -2780,10 +2821,11 @@ class Client implements \IZSocket {
    * ...
    * @param mixed$address ...
    * @param mixed$subject ...
-   * @param mixed$pattern ...
-   * @param mixed$timeout ...
+   * @param mixed$payload ... (optional)
+   * @param mixed$timeout ... (optional)
+   * @param mixed$tracker ... (optional)
   */
-  public function send_service($address, $subject, $pattern, $timeout) {}
+  public function send_service($address, $subject, $payload, $timeout, $tracker) {}
 
   /**
    * Client::recv_picture
@@ -2806,6 +2848,205 @@ class Client implements \IZSocket {
    * ...
   */
   public function recv() {}
+
+}
+
+
+/**
+ * Producer
+ *
+ * ...
+ */
+class Producer implements \IZSocket {
+
+  /**
+   * Producer::__construct
+   *
+   * ...
+   * @param mixed$endpoint ...
+   * @param mixed$stream ...
+  */
+  public function __construct($endpoint, $stream) {}
+
+  /**
+   * Producer::set_timeout
+   *
+   * ...
+   * @param mixed$timeout ...
+  */
+  public function set_timeout($timeout) {}
+
+  /**
+   * Producer::run
+   *
+   * ...
+   * @param mixed$subject ...
+   * @param callable $callback ...
+  */
+  public function run($subject, $callback) {}
+
+}
+
+
+/**
+ * Consumer
+ *
+ * ...
+ */
+class Consumer implements \IZSocket {
+
+  /**
+   * Consumer::__construct
+   *
+   * ...
+   * @param mixed$endpoint ...
+   * @param mixed$stream ...
+  */
+  public function __construct($endpoint, $stream) {}
+
+  /**
+   * Consumer::set_timeout
+   *
+   * ...
+   * @param mixed$timeout ...
+  */
+  public function set_timeout($timeout) {}
+
+  /**
+   * Consumer::run
+   *
+   * ...
+   * @param mixed$pattern ...
+   * @param callable $callback ...
+  */
+  public function run($pattern, $callback) {}
+
+}
+
+}
+
+namespace FileMq {
+
+/**
+ * Broker
+ *
+ * ...
+ */
+class Broker implements \IZSocket {
+
+  /**
+   * Broker::__construct
+   *
+   * ...
+  */
+  public function __construct() {}
+
+  /**
+   * Broker::set_verbose
+   *
+   * ...
+  */
+  public function set_verbose() {}
+
+  /**
+   * Broker::load_config
+   *
+   * ...
+  */
+  public function load_config() {}
+
+  /**
+   * Broker::set_config
+   *
+   * ...
+  */
+  public function set_config() {}
+
+  /**
+   * Broker::save_config
+   *
+   * ...
+  */
+  public function save_config() {}
+
+  /**
+   * Broker::bind
+   *
+   * ...
+  */
+  public function bind() {}
+
+  /**
+   * Broker::on_tick
+   *
+   * ...
+  */
+  public function on_tick() {}
+
+  /**
+   * Broker::on_idle
+   *
+   * ...
+  */
+  public function on_idle() {}
+
+  /**
+   * Broker::run
+   *
+   * ...
+  */
+  public function run() {}
+
+  /**
+   * Broker::stop
+   *
+   * ...
+  */
+  public function stop() {}
+
+}
+
+
+/**
+ * Client
+ *
+ * ...
+ */
+class Client implements \IZSocket {
+
+  /**
+   * Client::__construct
+   *
+   * ...
+   * @param mixed$endpoint ...
+   * @param mixed$local_path ...
+   * @param mixed$timeout ... (optional)
+  */
+  public function __construct($endpoint, $local_path, $timeout) {}
+
+  /**
+   * Client::set_timeout
+   *
+   * ...
+   * @param mixed$timeout ...
+  */
+  public function set_timeout($timeout) {}
+
+  /**
+   * Client::subscribe
+   *
+   * ...
+   * @param mixed$remote_path ...
+  */
+  public function subscribe($remote_path) {}
+
+  /**
+   * Client::run
+   *
+   * ...
+   * @param callable $callback ...
+  */
+  public function run($callback) {}
 
 }
 

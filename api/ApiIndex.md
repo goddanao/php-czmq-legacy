@@ -28,5 +28,11 @@ API Index
         * [Client](Majordomo-VX-Client.md)
 * Malamute
     * [Broker](Malamute-Broker.md)
+    * [Worker](Malamute-Worker.md)
     * [Client](Malamute-Client.md)
+    * [Producer](Malamute-Producer.md)
+    * [Consumer](Malamute-Consumer.md)
+* FileMq
+    * [Broker](FileMq-Broker.md)
+    * [Client](FileMq-Client.md)
 

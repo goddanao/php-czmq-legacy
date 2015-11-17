@@ -70,7 +70,7 @@ Send a ZMsg over Udp
 ### \ZUdp::recv()
 
 ```
-\Malamute\ZMsg ZUdp::\ZUdp::recv()()
+\FileMq\ZMsg ZUdp::\ZUdp::recv()()
 ```
 
 ZUdp::recv

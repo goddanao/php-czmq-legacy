@@ -3,7 +3,7 @@ Majordomo\VX\Client
 
 Client
 
-
+...
 
 
 * Class name: Client

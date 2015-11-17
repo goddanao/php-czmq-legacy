@@ -68,7 +68,7 @@ Stop node, this signals to other peers that this node will go away. This is poli
 ### \Zyre::recv()
 
 ```
-\Malamute\ZMsg Zyre::\Zyre::recv()()
+\FileMq\ZMsg Zyre::\Zyre::recv()()
 ```
 
 Zyre::recv

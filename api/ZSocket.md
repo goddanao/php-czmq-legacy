@@ -93,7 +93,7 @@ Examples:
 
 #### Arguments
 
-* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint.&lt;/p&gt;
 
 
 
