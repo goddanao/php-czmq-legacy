@@ -161,7 +161,6 @@ extern "C" {
         mlmconsumer.implements(izsocket);
         mlm_ns.add(std::move(mlmconsumer));
 
-
     // FILEMQ
 
         Php::Namespace fmq_ns("FileMq");
@@ -205,8 +204,6 @@ extern "C" {
         extension.add(std::move(mlm_ns));
         // fmq
         extension.add(std::move(fmq_ns));
-
-
 
         return extension;
     }
