@@ -32,7 +32,7 @@ class MajordomoTestVX extends \PHPUnit_Framework_TestCase {
                 $worker->run('myworker', $broker_endpoint, function ($req) use ($i, &$processed) {
                     $processed++;
                     $usec = rand(1000, 500000);
-                    Zsys::info("worker id {$i} - processed: {$processed}: need to process ... " . $req->pop_string() . " sleeping {$usec} ms ...");
+                    Zsys::info("worker id {$i} - processed: {$processed}: need to process ... $req sleeping {$usec} ms ...");
                     usleep($usec);
                 });
             });
@@ -43,8 +43,11 @@ class MajordomoTestVX extends \PHPUnit_Framework_TestCase {
                 $m = new Majordomo\VX\Client($broker_endpoint);
                 $requestId = "requestId - " . $i;
                 $result = $m->call('myworker', $requestId);
-                $result_str = $result->pop_string();
-                return $result_str == $requestId ? "OK" : "KO";
+                if($result) {
+                    $result_str = $result->pop_string();
+                    return $result_str == $requestId ? "OK" : "KO";
+                }
+                return "KO";
             });
 
         sleep(5);
