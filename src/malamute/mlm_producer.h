@@ -58,6 +58,11 @@ public:
             Php::ByVal("subject", Php::Type::String, true),
             Php::ByVal("callback", Php::Type::Callable, true)
         });
+
+        // IZSocket intf support
+        o.method("get_socket", &MalamuteProducer::_get_socket);
+        o.method("get_fd", &MalamuteProducer::_get_fd);
+
         return o;
     }
 

@@ -184,6 +184,11 @@ class MalamuteClient   : public ZHandle, public Php::Base {
         o.method("recv", &MalamuteClient::recv);
 
 
+        // IZSocket intf support
+        o.method("get_socket", &MalamuteClient::_get_socket);
+        o.method("get_fd", &MalamuteClient::_get_fd);
+
+
         return o;
     }
 

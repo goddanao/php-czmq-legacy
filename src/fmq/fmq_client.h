@@ -87,7 +87,11 @@ public:
         o.method("run", &FmqClient::run, {
             Php::ByVal("callback", Php::Type::Callable, true)
         });
-        return o;
+
+        // IZSocket intf support
+        o.method("get_socket", &FmqClient::_get_socket);
+        o.method("get_fd", &FmqClient::_get_fd);
+
 
         return o;
     }

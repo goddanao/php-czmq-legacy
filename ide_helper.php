@@ -293,6 +293,13 @@ class ZSys {
   static public function libmlm_version() {}
 
   /**
+   * ZSys::libfmq_version
+   *
+   * ...
+  */
+  static public function libfmq_version() {}
+
+  /**
    * ZSys::info
    *
    * Log message as Info
@@ -365,6 +372,20 @@ class ZUdp implements \IZSocket {
    * @return ZMsg
   */
   public function recv() {}
+
+  /**
+   * ZUdp::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * ZUdp::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 
@@ -857,6 +878,21 @@ class ZCertStore {
  * ...
  */
 interface IZSocket {
+
+  /**
+   * IZSocket::get_socket
+   *
+   * ...
+  */
+  public function get_socket() ;
+
+  /**
+   * IZSocket::get_fd
+   *
+   * ...
+  */
+  public function get_fd() ;
+
 }
 
 
@@ -1114,6 +1150,20 @@ class ZSocket implements \IZSocket {
    * ...
   */
   public function get_options() {}
+
+  /**
+   * ZSocket::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * ZSocket::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
   /**
    * ZSocket::get_tos
@@ -1830,6 +1880,20 @@ class ZProxy implements \IZSocket {
   */
   public function set_capture($socket_endpoint) {}
 
+  /**
+   * ZProxy::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * ZProxy::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 
@@ -1900,6 +1964,20 @@ class ZBeacon implements \IZSocket {
   */
   public function recv() {}
 
+  /**
+   * ZBeacon::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * ZBeacon::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 
@@ -1959,6 +2037,20 @@ class ZAuth implements \IZSocket {
    *  
   */
   public function configure() {}
+
+  /**
+   * ZAuth::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * ZAuth::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 
@@ -2074,6 +2166,20 @@ class ZGossip implements \IZSocket {
    * ...
   */
   public function recv_picture() {}
+
+  /**
+   * ZGossip::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * ZGossip::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 
@@ -2290,6 +2396,20 @@ class Zyre implements \IZSocket {
   */
   public function send_group($group, $data) {}
 
+  /**
+   * Zyre::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Zyre::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 }
@@ -2354,6 +2474,20 @@ class Broker implements \IZSocket {
   */
   public function run() {}
 
+  /**
+   * Broker::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Broker::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 
@@ -2394,6 +2528,20 @@ class Worker implements \IZSocket {
    * ...
   */
   public function process() {}
+
+  /**
+   * Worker::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Worker::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 
@@ -2442,6 +2590,20 @@ class Client implements \IZSocket {
    * @param mixed$service_name ...
   */
   public function call_async($service_name) {}
+
+  /**
+   * Client::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Client::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 
@@ -2534,6 +2696,20 @@ class Broker implements \IZSocket {
   */
   public function set_capture($socket_endpoint) {}
 
+  /**
+   * Broker::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Broker::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 
@@ -2560,6 +2736,20 @@ class Worker implements \IZSocket {
    * @param callable $callback ...
   */
   public function run($name, $broker, $callback) {}
+
+  /**
+   * Worker::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Worker::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 
@@ -2591,6 +2781,20 @@ class Client implements \IZSocket {
    * ...
   */
   public function call_async() {}
+
+  /**
+   * Client::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Client::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 
@@ -2682,6 +2886,20 @@ class Broker implements \IZSocket {
   */
   public function stop() {}
 
+  /**
+   * Broker::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Broker::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 
@@ -2717,6 +2935,20 @@ class Worker implements \IZSocket {
    * @param callable $callback ...
   */
   public function run($callback) {}
+
+  /**
+   * Worker::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Worker::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 
@@ -2849,6 +3081,20 @@ class Client implements \IZSocket {
   */
   public function recv() {}
 
+  /**
+   * Client::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Client::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 
@@ -2884,6 +3130,20 @@ class Producer implements \IZSocket {
    * @param callable $callback ...
   */
   public function run($subject, $callback) {}
+
+  /**
+   * Producer::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Producer::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 
@@ -2921,6 +3181,20 @@ class Consumer implements \IZSocket {
   */
   public function run($pattern, $callback) {}
 
+  /**
+   * Consumer::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Consumer::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 }
@@ -2928,81 +3202,104 @@ class Consumer implements \IZSocket {
 namespace FileMq {
 
 /**
- * Broker
+ * Server
  *
  * ...
  */
-class Broker implements \IZSocket {
+class Server implements \IZSocket {
 
   /**
-   * Broker::__construct
+   * Server::__construct
    *
    * ...
   */
   public function __construct() {}
 
   /**
-   * Broker::set_verbose
+   * Server::set_verbose
    *
    * ...
   */
   public function set_verbose() {}
 
   /**
-   * Broker::load_config
+   * Server::load_config
    *
    * ...
   */
   public function load_config() {}
 
   /**
-   * Broker::set_config
+   * Server::set_config
    *
    * ...
   */
   public function set_config() {}
 
   /**
-   * Broker::save_config
+   * Server::save_config
    *
    * ...
   */
   public function save_config() {}
 
   /**
-   * Broker::bind
+   * Server::bind
    *
    * ...
   */
   public function bind() {}
 
   /**
-   * Broker::on_tick
+   * Server::publish
+   *
+   * ...
+   * @param mixed$local_path ...
+   * @param mixed$alias ...
+  */
+  public function publish($local_path, $alias) {}
+
+  /**
+   * Server::on_tick
    *
    * ...
   */
   public function on_tick() {}
 
   /**
-   * Broker::on_idle
+   * Server::on_idle
    *
    * ...
   */
   public function on_idle() {}
 
   /**
-   * Broker::run
+   * Server::run
    *
    * ...
   */
   public function run() {}
 
   /**
-   * Broker::stop
+   * Server::stop
    *
    * ...
   */
   public function stop() {}
+
+  /**
+   * Server::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Server::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 
@@ -3033,6 +3330,13 @@ class Client implements \IZSocket {
   public function set_timeout($timeout) {}
 
   /**
+   * Client::connect
+   *
+   * ...
+  */
+  public function connect() {}
+
+  /**
    * Client::subscribe
    *
    * ...
@@ -3047,6 +3351,20 @@ class Client implements \IZSocket {
    * @param callable $callback ...
   */
   public function run($callback) {}
+
+  /**
+   * Client::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * Client::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 

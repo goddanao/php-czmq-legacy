@@ -33,7 +33,8 @@ extern "C" {
 
         // IZSocket
         Php::Interface izsocket("IZSocket");
-        // izsocket.method("get_socket");
+        izsocket.method("get_socket");
+        izsocket.method("get_fd");
 
     // CZMQ
 

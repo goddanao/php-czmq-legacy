@@ -132,6 +132,11 @@ public:
         o.method("set_verbose", &ZUdp::set_verbose);
         o.method("send", &ZUdp::send);
         o.method("recv", &ZUdp::recv);
+
+        // IZSocket intf support
+        o.method("get_socket", &ZUdp::_get_socket);
+        o.method("get_fd", &ZUdp::_get_fd);
+
         return o;
     }
 

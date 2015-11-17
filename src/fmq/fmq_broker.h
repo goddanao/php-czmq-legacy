@@ -11,7 +11,6 @@ public:
     FmqBroker() : ZActor(), Php::Base() {}
     zactor_t *fmq_broker_handle() const { return (zactor_t *) get_handle(); }
 
-
 	void __construct(Php::Parameters &param) {
 		void *args = (param.size() == 0) ? nullptr : (void *) param[0].stringValue().c_str();
 		set_handle(zactor_new (fmq_server, args), true, "fmq_broker");
@@ -150,6 +149,12 @@ public:
         o.method("on_idle", &FmqBroker::on_idle);
         o.method("run", &FmqBroker::run);
         o.method("stop", &FmqBroker::stop);
+
+
+		// IZSocket intf support
+        o.method("get_socket", &FmqBroker::_get_socket);
+        o.method("get_fd", &FmqBroker::_get_fd);
+
         return o;
     }
 

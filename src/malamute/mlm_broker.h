@@ -174,6 +174,11 @@ public:
         o.method("on_idle", &MalamuteBroker::on_idle);
         o.method("run", &MalamuteBroker::run);
         o.method("stop", &MalamuteBroker::stop);
+
+         // IZSocket intf support
+        o.method("get_socket", &MalamuteBroker::_get_socket);
+        o.method("get_fd", &MalamuteBroker::_get_fd);
+
         return o;
     }
 

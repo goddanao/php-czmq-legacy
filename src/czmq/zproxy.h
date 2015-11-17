@@ -76,6 +76,10 @@ public:
             Php::ByVal("socket_endpoint", Php::Type::String, true)
         });
 
+        // IZSocket intf support
+        o.method("get_socket", &ZProxy::_get_socket);
+        o.method("get_fd", &ZProxy::_get_fd);
+
         return o;
     }
 

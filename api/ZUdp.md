@@ -80,3 +80,61 @@ Recieve ZMsg over Udp
 * Visibility: **public**
 
 
+
+### \ZUdp::get_socket()
+
+```
+mixed ZUdp::\ZUdp::get_socket()()
+```
+
+ZUdp::get_socket
+
+...
+
+* Visibility: **public**
+
+
+
+### \ZUdp::get_fd()
+
+```
+mixed ZUdp::\ZUdp::get_fd()()
+```
+
+ZUdp::get_fd
+
+...
+
+* Visibility: **public**
+
+
+
+### \IZSocket::get_socket()
+
+```
+mixed IZSocket::\IZSocket::get_socket()()
+```
+
+IZSocket::get_socket
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
+
+
+
+### \IZSocket::get_fd()
+
+```
+mixed IZSocket::\IZSocket::get_fd()()
+```
+
+IZSocket::get_fd
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
+
+

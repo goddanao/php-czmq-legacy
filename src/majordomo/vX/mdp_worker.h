@@ -215,7 +215,12 @@ public:
             Php::ByVal("broker", Php::Type::String),
             Php::ByVal("callback", Php::Type::Callable)
         });
-        return o;
+
+        // IZSocket intf support
+		o.method("get_socket", &MajordomoWorkerVX::_get_socket);
+		o.method("get_fd", &MajordomoWorkerVX::_get_fd);
+
+       return o;
     }
 
 };

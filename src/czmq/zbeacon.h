@@ -80,6 +80,10 @@ public:
         o.method("silence", &ZBeacon::silence);
         o.method("recv", &ZBeacon::recv);
 
+        // IZSocket intf support
+        o.method("get_socket", &ZBeacon::_get_socket);
+        o.method("get_fd", &ZBeacon::_get_fd);
+
         return o;
     }
 

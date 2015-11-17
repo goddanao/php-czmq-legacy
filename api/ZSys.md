@@ -777,6 +777,21 @@ Return Malamute version
 
 
 
+### \ZSys::libfmq_version()
+
+```
+mixed ZSys::\ZSys::libfmq_version()()
+```
+
+ZSys::libfmq_version
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
 ### \ZSys::info()
 
 ```

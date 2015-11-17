@@ -130,3 +130,61 @@ ZProxy::set_capture
 * $socket_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
+
+### \ZProxy::get_socket()
+
+```
+mixed ZProxy::\ZProxy::get_socket()()
+```
+
+ZProxy::get_socket
+
+...
+
+* Visibility: **public**
+
+
+
+### \ZProxy::get_fd()
+
+```
+mixed ZProxy::\ZProxy::get_fd()()
+```
+
+ZProxy::get_fd
+
+...
+
+* Visibility: **public**
+
+
+
+### \IZSocket::get_socket()
+
+```
+mixed IZSocket::\IZSocket::get_socket()()
+```
+
+IZSocket::get_socket
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
+
+
+
+### \IZSocket::get_fd()
+
+```
+mixed IZSocket::\IZSocket::get_fd()()
+```
+
+IZSocket::get_fd
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
+
+

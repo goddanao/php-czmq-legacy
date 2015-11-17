@@ -69,6 +69,8 @@ public:
              Php::ByVal("ip", Php::Type::String, true)
          });
         o.method("configure", &ZAuth::configure);
+        o.method("get_socket", &ZAuth::_get_socket);
+        o.method("get_fd", &ZAuth::_get_fd);
         o.property("AUTH_PLAIN", "PLAIN", Php::Const);
         o.property("AUTH_CURVE", "CURVE", Php::Const);
         o.property("AUTH_GSSAPI", "GSSAPI", Php::Const);

@@ -283,6 +283,9 @@ public:
         });
 
 
+		// IZSocket intf support
+        o.method("get_socket", &Zyre::_get_socket);
+        o.method("get_fd", &Zyre::_get_fd);
 
         return o;
     }

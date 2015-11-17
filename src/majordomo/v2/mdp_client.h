@@ -72,6 +72,11 @@ public:
         o.method("call_async", &MajordomoClientV2::call_async, {
             Php::ByVal("service_name", Php::Type::String, true)
         });
+
+        // IZSocket intf support
+        o.method("get_socket", &MajordomoClientV2::_get_socket);
+        o.method("get_fd", &MajordomoClientV2::_get_fd);
+
         return o;
     }
 

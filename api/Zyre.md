@@ -424,3 +424,61 @@ Send message to a named group.
 * $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
+
+### \Zyre::get_socket()
+
+```
+mixed Zyre::\Zyre::get_socket()()
+```
+
+Zyre::get_socket
+
+...
+
+* Visibility: **public**
+
+
+
+### \Zyre::get_fd()
+
+```
+mixed Zyre::\Zyre::get_fd()()
+```
+
+Zyre::get_fd
+
+...
+
+* Visibility: **public**
+
+
+
+### \IZSocket::get_socket()
+
+```
+mixed IZSocket::\IZSocket::get_socket()()
+```
+
+IZSocket::get_socket
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
+
+
+
+### \IZSocket::get_fd()
+
+```
+mixed IZSocket::\IZSocket::get_fd()()
+```
+
+IZSocket::get_fd
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
+
+

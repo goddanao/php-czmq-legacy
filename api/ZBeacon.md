@@ -143,3 +143,61 @@ ZBeacon::recv
 * Visibility: **public**
 
 
+
+### \ZBeacon::get_socket()
+
+```
+mixed ZBeacon::\ZBeacon::get_socket()()
+```
+
+ZBeacon::get_socket
+
+...
+
+* Visibility: **public**
+
+
+
+### \ZBeacon::get_fd()
+
+```
+mixed ZBeacon::\ZBeacon::get_fd()()
+```
+
+ZBeacon::get_fd
+
+...
+
+* Visibility: **public**
+
+
+
+### \IZSocket::get_socket()
+
+```
+mixed IZSocket::\IZSocket::get_socket()()
+```
+
+IZSocket::get_socket
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
+
+
+
+### \IZSocket::get_fd()
+
+```
+mixed IZSocket::\IZSocket::get_fd()()
+```
+
+IZSocket::get_fd
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
+
+

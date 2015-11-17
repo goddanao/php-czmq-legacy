@@ -619,6 +619,11 @@ public:
 
         o.method("get_options", &ZSocket::get_options);
 
+        // IZSocket intf support
+        o.method("get_socket", &ZSocket::_get_socket);
+        o.method("get_fd", &ZSocket::_get_fd);
+
+
 #if (ZMQ_VERSION_MAJOR == 4)
 
     	o.method("get_tos", &ZSocket::get_tos);

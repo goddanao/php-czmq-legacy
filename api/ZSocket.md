@@ -525,6 +525,34 @@ ZSocket::get_options
 
 
 
+### \ZSocket::get_socket()
+
+```
+mixed ZSocket::\ZSocket::get_socket()()
+```
+
+ZSocket::get_socket
+
+...
+
+* Visibility: **public**
+
+
+
+### \ZSocket::get_fd()
+
+```
+mixed ZSocket::\ZSocket::get_fd()()
+```
+
+ZSocket::get_fd
+
+...
+
+* Visibility: **public**
+
+
+
 ### \ZSocket::get_tos()
 
 ```
@@ -1824,5 +1852,35 @@ ZSocket::set_tcp_accept_filter
 ...
 
 * Visibility: **public**
+
+
+
+### \IZSocket::get_socket()
+
+```
+mixed IZSocket::\IZSocket::get_socket()()
+```
+
+IZSocket::get_socket
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
+
+
+
+### \IZSocket::get_fd()
+
+```
+mixed IZSocket::\IZSocket::get_fd()()
+```
+
+IZSocket::get_fd
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
 
 

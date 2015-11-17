@@ -145,6 +145,11 @@ public:
         o.method("__construct", &MajordomoClientVX::__construct);
         o.method("call", &MajordomoClientVX::call);
         o.method("call_async", &MajordomoClientVX::call_async);
+
+        // IZSocket intf support
+		o.method("get_socket", &MajordomoClientVX::_get_socket);
+		o.method("get_fd", &MajordomoClientVX::_get_fd);
+
         return o;
     }
 

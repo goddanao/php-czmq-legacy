@@ -87,6 +87,11 @@ public:
         o.method("run", &MalamuteWorker::run, {
             Php::ByVal("callback", Php::Type::Callable, true)
         });
+
+        // IZSocket intf support
+        o.method("get_socket", &MalamuteWorker::_get_socket);
+        o.method("get_fd", &MalamuteWorker::_get_fd);
+
         return o;
     }
 

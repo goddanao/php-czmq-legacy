@@ -33,6 +33,6 @@ API Index
     * [Producer](Malamute-Producer.md)
     * [Consumer](Malamute-Consumer.md)
 * FileMq
-    * [Broker](FileMq-Broker.md)
+    * [Server](FileMq-Server.md)
     * [Client](FileMq-Client.md)
 

@@ -137,3 +137,61 @@ ZAuth::configure
 * Visibility: **public**
 
 
+
+### \ZAuth::get_socket()
+
+```
+mixed ZAuth::\ZAuth::get_socket()()
+```
+
+ZAuth::get_socket
+
+...
+
+* Visibility: **public**
+
+
+
+### \ZAuth::get_fd()
+
+```
+mixed ZAuth::\ZAuth::get_fd()()
+```
+
+ZAuth::get_fd
+
+...
+
+* Visibility: **public**
+
+
+
+### \IZSocket::get_socket()
+
+```
+mixed IZSocket::\IZSocket::get_socket()()
+```
+
+IZSocket::get_socket
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
+
+
+
+### \IZSocket::get_fd()
+
+```
+mixed IZSocket::\IZSocket::get_fd()()
+```
+
+IZSocket::get_fd
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
+
+

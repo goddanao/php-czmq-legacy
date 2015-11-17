@@ -94,6 +94,10 @@ public:
         o.method("send_picture", &ZGossip::send_picture);
         o.method("recv_picture", &ZGossip::recv_picture);
 
+        // IZSocket intf support
+        o.method("get_socket", &ZGossip::_get_socket);
+        o.method("get_fd", &ZGossip::_get_fd);
+
         return o;
     }
 
