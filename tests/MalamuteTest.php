@@ -7,7 +7,31 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
 
     private $broker_endpoint = "tcp://127.0.0.1:9999";  // same as ./cfg/malamute.cfg
 
-    public function test_producer_consumer() {
+//    public function test_producer_consumer_zloop() {
+//        $loop = new ZLoop();
+//
+//        $broker = new Malamute\Broker("mybroker");
+//        $broker->load_config(__DIR__ . "/cfg/malamute.cfg");
+//
+//        # Start a Stream Producer
+//        $worker = new Malamute\Producer($this->broker_endpoint, "my_stream");
+//
+//
+//        $msg_count = 50;
+//
+//
+//        $loop->add($worker, function() use(&$processed, $msg_count) {
+//            $processed++;
+//            $usec = rand(0, 1000);
+//            usleep($usec);
+//            return ($processed <= $msg_count) ? "mydata" : false;
+//        });
+//
+//
+//
+//    }
+
+        public function test_producer_consumer() {
 
         $manager = new ProcessManager();
 
@@ -43,7 +67,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
             return ($msg_count == $processed) ? "OK" : "KO";
         });
 
-        sleep(3);
+        sleep(5);
 
         $client->receive();
         $result = $client->getResult();
@@ -81,7 +105,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
             $service_client->send_mailbox('my_mailbox_worker', json_encode(['gino' => 'pino' . $i]), 1000);
         });
 
-        sleep(3);
+        sleep(5);
 
         $w->receive();
         $result = $w->getResult();
@@ -125,7 +149,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
                 return $rcv == "mydata" ? "OK" : "KO";
             });
 
-        sleep(3);
+        sleep(5);
 
 
         $res = true;
