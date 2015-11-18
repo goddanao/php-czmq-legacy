@@ -43,7 +43,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
             return ($msg_count == $processed) ? "OK" : "KO";
         });
 
-        sleep(2);
+        sleep(3);
 
         $client->receive();
         $result = $client->getResult();
@@ -81,7 +81,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
             $service_client->send_mailbox('my_mailbox_worker', json_encode(['gino' => 'pino' . $i]), 1000);
         });
 
-        sleep(2);
+        sleep(3);
 
         $w->receive();
         $result = $w->getResult();
@@ -125,7 +125,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
                 return $rcv == "mydata" ? "OK" : "KO";
             });
 
-        sleep(5);
+        sleep(3);
 
 
         $res = true;
