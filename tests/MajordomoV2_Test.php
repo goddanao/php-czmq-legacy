@@ -3,7 +3,7 @@
 use Spork\Fork;
 use Spork\ProcessManager;
 
-class MajordomoTestV2 extends \PHPUnit_Framework_TestCase {
+class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
 
     function test_mdpbroker() {
 
@@ -14,7 +14,8 @@ class MajordomoTestV2 extends \PHPUnit_Framework_TestCase {
         # Run Broker
         $manager->fork(function() use($broker_endpoint) {
             $broker = new Majordomo\V2\Broker($broker_endpoint, false);
-            $broker->run();
+            $zloop = new ZLoop();
+            $zloop->start();
         });
 
         # Run 5 Workers

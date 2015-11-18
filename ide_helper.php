@@ -2468,13 +2468,6 @@ class Broker implements \IZSocket {
   public function bind() {}
 
   /**
-   * Broker::run
-   *
-   * ...
-  */
-  public function run() {}
-
-  /**
    * Broker::get_socket
    *
    * ...
@@ -2640,48 +2633,6 @@ class Broker implements \IZSocket {
   public function set_verbose() {}
 
   /**
-   * Broker::pause
-   *
-   * ...
-  */
-  public function pause() {}
-
-  /**
-   * Broker::resume
-   *
-   * ...
-  */
-  public function resume() {}
-
-  /**
-   * Broker::run
-   *
-   * ...
-  */
-  public function run() {}
-
-  /**
-   * Broker::stop
-   *
-   * ...
-  */
-  public function stop() {}
-
-  /**
-   * Broker::on_idle
-   *
-   * ...
-  */
-  public function on_idle() {}
-
-  /**
-   * Broker::on_tick
-   *
-   * ...
-  */
-  public function on_tick() {}
-
-  /**
    * Broker::get_status
    *
    * ...
@@ -2724,18 +2675,19 @@ class Worker implements \IZSocket {
    * Worker::__construct
    *
    * ...
+   * @param mixed$broker_endpoint ...
+   * @param mixed$name ...
+   * @param mixed$verbose ... (optional)
   */
-  public function __construct() {}
+  public function __construct($broker_endpoint, $name, $verbose) {}
 
   /**
    * Worker::run
    *
    * ...
-   * @param mixed$name ...
-   * @param mixed$broker ...
    * @param callable $callback ...
   */
-  public function run($name, $broker, $callback) {}
+  public function run($callback) {}
 
   /**
    * Worker::get_socket
@@ -2857,34 +2809,6 @@ class Broker implements \IZSocket {
    * ...
   */
   public function get_status() {}
-
-  /**
-   * Broker::on_tick
-   *
-   * ...
-  */
-  public function on_tick() {}
-
-  /**
-   * Broker::on_idle
-   *
-   * ...
-  */
-  public function on_idle() {}
-
-  /**
-   * Broker::run
-   *
-   * ...
-  */
-  public function run() {}
-
-  /**
-   * Broker::stop
-   *
-   * ...
-  */
-  public function stop() {}
 
   /**
    * Broker::get_socket
@@ -3173,6 +3097,14 @@ class Consumer implements \IZSocket {
   public function set_timeout($timeout) {}
 
   /**
+   * Consumer::header
+   *
+   * ...
+   * @param mixed$header ... (optional)
+  */
+  public function header($header) {}
+
+  /**
    * Consumer::run
    *
    * ...
@@ -3258,34 +3190,6 @@ class Server implements \IZSocket {
    * @param mixed$alias ...
   */
   public function publish($local_path, $alias) {}
-
-  /**
-   * Server::on_tick
-   *
-   * ...
-  */
-  public function on_tick() {}
-
-  /**
-   * Server::on_idle
-   *
-   * ...
-  */
-  public function on_idle() {}
-
-  /**
-   * Server::run
-   *
-   * ...
-  */
-  public function run() {}
-
-  /**
-   * Server::stop
-   *
-   * ...
-  */
-  public function stop() {}
 
   /**
    * Server::get_socket

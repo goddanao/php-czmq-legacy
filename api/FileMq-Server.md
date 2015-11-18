@@ -122,62 +122,6 @@ Server::publish
 
 
 
-### \FileMq\Server::on_tick()
-
-```
-mixed FileMq\Server::\FileMq\Server::on_tick()()
-```
-
-Server::on_tick
-
-...
-
-* Visibility: **public**
-
-
-
-### \FileMq\Server::on_idle()
-
-```
-mixed FileMq\Server::\FileMq\Server::on_idle()()
-```
-
-Server::on_idle
-
-...
-
-* Visibility: **public**
-
-
-
-### \FileMq\Server::run()
-
-```
-mixed FileMq\Server::\FileMq\Server::run()()
-```
-
-Server::run
-
-...
-
-* Visibility: **public**
-
-
-
-### \FileMq\Server::stop()
-
-```
-mixed FileMq\Server::\FileMq\Server::stop()()
-```
-
-Server::stop
-
-...
-
-* Visibility: **public**
-
-
-
 ### \FileMq\Server::get_socket()
 
 ```

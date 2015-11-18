@@ -3,7 +3,7 @@
 use Spork\Fork;
 use Spork\ProcessManager;
 
-class MajordomoTestVX extends \PHPUnit_Framework_TestCase {
+class MajordomoVXTest extends \PHPUnit_Framework_TestCase {
 
     function test_mdpbroker() {
 
@@ -13,32 +13,31 @@ class MajordomoTestVX extends \PHPUnit_Framework_TestCase {
         # Start Broker
         $manager->fork(function() use($broker_endpoint) {
             $broker = new Majordomo\VX\Broker();
-            // $broker->set_verbose(false);
             $broker->bind($broker_endpoint);
-            $broker->on_tick(function($broker) use (&$counter) {
+            $zloop = new ZLoop();
+            $zloop->add_timer(1000, function () use ($broker) {
                 $status = $broker->get_status();
                 foreach($status['services'] as $svc_name => $svc)
                     Zsys::info("MDP: STATUS {$svc_name} -> WRKS: {$svc['workers']} REQS: {$svc['requests']} WAIT: {$svc['waiting']} BLACK: {$svc['blacklist']}");
-            });
-
-            $broker->run();
+            }, 10);
+            $zloop->start();
         });
 
         # Start Workers
         for($i = 0; $i < 5; $i++)
             $manager->fork(function() use($i, $broker_endpoint) {
-                $worker = new Majordomo\VX\Worker();
+                $worker = new Majordomo\VX\Worker($broker_endpoint, 'myworker');
                 $processed = 0;
-                $worker->run('myworker', $broker_endpoint, function ($req) use ($i, &$processed) {
+                $worker->run(function ($req) use ($i, &$processed) {
                     $processed++;
-                    $usec = rand(1000, 500000);
-                    Zsys::info("worker id {$i} - processed: {$processed}: need to process ... $req sleeping {$usec} ms ...");
+                    $usec = rand(($i < 2) ? 1 : 1000, ($i < 2) ? 1000 : 50000);
+                    Zsys::info("worker-{$i} - processed: {$processed} -> $req -> sleeping {$usec} ms ...");
                     usleep($usec);
                 });
             });
 
         # Start Clients (Send Work)
-        for($i = 0; $i < 10; $i++)
+        for($i = 0; $i < 50; $i++)
             $clients[] = $manager->fork(function() use($i, $broker_endpoint) {
                 $m = new Majordomo\VX\Client($broker_endpoint);
                 $requestId = "requestId - " . $i;
@@ -62,4 +61,5 @@ class MajordomoTestVX extends \PHPUnit_Framework_TestCase {
 
         $this->assertTrue($res);
     }
+
 }

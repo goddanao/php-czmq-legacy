@@ -22,7 +22,7 @@ Methods
 ### \Majordomo\VX\Worker::__construct()
 
 ```
-mixed Majordomo\VX\Worker::\Majordomo\VX\Worker::__construct()()
+mixed Majordomo\VX\Worker::\Majordomo\VX\Worker::__construct()($broker_endpoint, $name, $verbose)
 ```
 
 Worker::__construct
@@ -31,12 +31,18 @@ Worker::__construct
 
 * Visibility: **public**
 
+#### Arguments
+
+* $broker_endpoint **mixed**
+* $name **mixed**
+* $verbose **mixed**
+
 
 
 ### \Majordomo\VX\Worker::run()
 
 ```
-mixed Majordomo\VX\Worker::\Majordomo\VX\Worker::run()($name, $broker, callable $callback)
+mixed Majordomo\VX\Worker::\Majordomo\VX\Worker::run()(callable $callback)
 ```
 
 Worker::run
@@ -47,8 +53,6 @@ Worker::run
 
 #### Arguments
 
-* $name **mixed**
-* $broker **mixed**
 * $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 

@@ -163,17 +163,12 @@ public:
     zsock_t *mdp_worker_handle() const { return (zsock_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
-        if(param.size() > 0)
-            _verbose = param[0].boolValue();
+        _broker = param[0].stringValue();
+        _service = param[1].stringValue();
+        _verbose = (param.size() > 2) ? param[2].boolValue() : false;
     }
 
-
     void run(Php::Parameters &param) {
-        if(param.size() < 3 || !param[2].isCallable())
-            throw Php::Exception("MajordomoWorker: please sepcify service name, broker endpoints, a callback to recieve/process requests.");
-
-        _service = param[0].stringValue();
-        _broker = param[1].stringValue();
 
         connect_to_broker();
 
@@ -182,7 +177,7 @@ public:
             zmsg_t *request = recv (&reply_to);
             if (request) {
                 Php::Object zmsg("ZMsg", new ZMsg(zmsg_dup(request), true));
-                Php::Value result = param[2](zmsg);
+                Php::Value result = param[0](zmsg);
 
                 // in funzione del tipo di risultato (ZMsg / scalar type) devo valutare come confezionare la risposta.
                 if(result.isObject()) {
@@ -209,11 +204,14 @@ public:
 
     static Php::Class<MajordomoWorkerVX> php_register() {
         Php::Class<MajordomoWorkerVX> o("Worker");
-        o.method("__construct", &MajordomoWorkerVX::__construct);
+        o.method("__construct", &MajordomoWorkerVX::__construct, {
+            Php::ByVal("broker_endpoint", Php::Type::String, true),
+            Php::ByVal("name", Php::Type::String, true),
+            Php::ByVal("verbose", Php::Type::Bool, false)
+
+        });
         o.method("run", &MajordomoWorkerVX::run, {
-            Php::ByVal("name", Php::Type::String),
-            Php::ByVal("broker", Php::Type::String),
-            Php::ByVal("callback", Php::Type::Callable)
+            Php::ByVal("callback", Php::Type::Callable, true)
         });
 
         // IZSocket intf support

@@ -1,15 +1,13 @@
 #pragma once
 
 #include "../../czmq/zactor.h"
+#include "../../czmq/zloop.h"
 #include "zmdp_common.h"
 #include "zmdp_broker.h"
 
 class MajordomoBrokerVX : public ZActor, public Php::Base {
 private:
-    bool _stopped = false;
     bool _verbose = false;
-    Php::Value on_idle_callback;
-    Php::Value on_tick_callback;
 public:
     MajordomoBrokerVX() : ZActor(), Php::Base() {}
     zactor_t *zmdpbroker_handle() const { return (zactor_t *) get_handle(); }
@@ -28,20 +26,6 @@ public:
 		zstr_sendx (zmdpbroker_handle(), "BIND", param[0].stringValue().c_str(), NULL);
 		zsock_wait (zmdpbroker_handle());
 		return true;
-	}
-
-	void pause() {
-		zstr_sendx (zmdpbroker_handle(), "PAUSE", NULL);
-		zsock_wait (zmdpbroker_handle());
-	}
-
-	void stop() {
-		_stopped = true;
-	}
-
-	void resume() {
-		zstr_sendx (zmdpbroker_handle(), "RESUME", NULL);
-		zsock_wait (zmdpbroker_handle());
 	}
 
 	void set_verbose(Php::Parameters &param) {
@@ -99,49 +83,11 @@ public:
 			return nullptr;
 	}
 
-	void on_idle(Php::Parameters &param) {
-		if(param.size()>0 && param[0].isCallable())
-			on_idle_callback = param[0];
-		else
-			on_idle_callback = nullptr;
-	}
-
-	void on_tick(Php::Parameters &param) {
-		if(param.size()>0 && param[0].isCallable())
-			on_tick_callback = param[0];
-		else
-			on_tick_callback = nullptr;
-	}
-
-	void run(Php::Parameters &param) {
-		_stopped = false;
-		while(!_stopped) {
-			char *event, *data;
-			int result = zstr_recvx (zmdpbroker_handle(), &event, &data, NULL);
-			if(result != -1) {
-				if(streq(event, "IDLE") && on_idle_callback.isCallable())
-					on_idle_callback(this);
-				if(streq(event, "TICK") && on_tick_callback.isCallable())
-					on_tick_callback(this);
-				zstr_free(&event);
-				zstr_free(&data);
-			} else {
-				break;
-			}
-		}
-	}
-
      static Php::Class<MajordomoBrokerVX> php_register() {
         Php::Class<MajordomoBrokerVX> o("Broker");
         o.method("__construct", &MajordomoBrokerVX::__construct);
         o.method("bind", &MajordomoBrokerVX::bind);
         o.method("set_verbose", &MajordomoBrokerVX::set_verbose);
-        o.method("pause", &MajordomoBrokerVX::pause);
-        o.method("resume", &MajordomoBrokerVX::resume);
-        o.method("run", &MajordomoBrokerVX::run);
-        o.method("stop", &MajordomoBrokerVX::stop);
-        o.method("on_idle", &MajordomoBrokerVX::on_idle);
-        o.method("on_tick", &MajordomoBrokerVX::on_tick);
         o.method("get_status", &MajordomoBrokerVX::get_status);
         o.method("set_capture", &MajordomoBrokerVX::set_capture, {
             Php::ByVal("socket_endpoint", Php::Type::String, true)

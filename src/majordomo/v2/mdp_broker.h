@@ -54,21 +54,6 @@ public:
 		return true;
 	}
 
-	void run(Php::Parameters &param) {
-		_stopped = false;
-		while(!_stopped) {
-			char *event, *data;
-			int result = zstr_recvx (zmdpbroker_handle(), &event, &data, NULL);
-			if(result != -1) {
-				zsys_info("broker %s -> %s", event, data);
-				zstr_free(&event);
-				zstr_free(&data);
-			} else {
-				break;
-			}
-		}
-	}
-
     static Php::Class<MajordomoBrokerV2> php_register() {
         Php::Class<MajordomoBrokerV2> o("Broker");
         o.method("__construct", &MajordomoBrokerV2::__construct, {
@@ -80,7 +65,6 @@ public:
         o.method("save_config", &MajordomoBrokerV2::save_config);
         o.method("set_config", &MajordomoBrokerV2::set_config);
         o.method("bind", &MajordomoBrokerV2::bind);
-        o.method("run", &MajordomoBrokerV2::run);
 
 		// IZSocket intf support
         o.method("get_socket", &MajordomoBrokerV2::_get_socket);

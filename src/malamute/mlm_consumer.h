@@ -8,6 +8,7 @@ private:
     std::string _endpoint = "";
     std::string _stream  = "";
     int _timeout = 0;
+
 public:
 
     MalamuteConsumer() : ZHandle(), Php::Base() {}
@@ -45,13 +46,13 @@ public:
             if (which == client) {
                 zmsg_t *request = mlm_client_recv (mlm_consumer_handle());
                 Php::Object zmsg("ZMsg", new ZMsg(request, true));
-                result = param[1](zmsg, header());
+                result = param[1](zmsg, this);
             }
         }
         zpoller_destroy(&poller);
     }
 
-    Php::Value header() {
+    Php::Value header(Php::Parameters &param) {
         Php::Value result;
         result["command"]  = mlm_client_command(mlm_consumer_handle());
         result["status"]   = mlm_client_status(mlm_consumer_handle());
@@ -60,7 +61,7 @@ public:
         result["sender"]   = mlm_client_sender(mlm_consumer_handle());
         result["subject"]  = mlm_client_subject(mlm_consumer_handle());
         result["tracker"]  = mlm_client_tracker(mlm_consumer_handle());
-        return result;
+        return (param.size() > 0) ? result[param[0].stringValue()] : result;
     }
 
     static Php::Class<MalamuteConsumer> php_register() {
@@ -71,6 +72,9 @@ public:
         });
         o.method("set_timeout", &MalamuteConsumer::set_timeout, {
             Php::ByVal("timeout", Php::Type::Numeric, true)
+        });
+        o.method("header", &MalamuteConsumer::header, {
+            Php::ByVal("header", Php::Type::String, false)
         });
         o.method("run", &MalamuteConsumer::run, {
             Php::ByVal("pattern", Php::Type::String, true),

@@ -288,11 +288,6 @@ zmdpbroker (zsock_t *pipe, void *unused)
     while (!self->terminated) {
         zsock_t *which = (zsock_t *) zpoller_wait (self->poller, 1000 * ZMQ_POLL_MSEC);
 
-        if((zclock_mono() - last_tick) > 1000) {
-            zstr_sendx(pipe, "TICK", "", NULL);
-            last_tick = zclock_mono();
-        }
-
         if (zpoller_expired(self->poller)) {
 
         	//  Disconnect and delete any expired workers
@@ -307,8 +302,6 @@ zmdpbroker (zsock_t *pipe, void *unused)
 				self->heartbeat_at = zclock_time () + HEARTBEAT_INTERVAL;
 			}
 
-            // Notifico al gestore dell'attore che sto in idle time
-			zstr_sendx(pipe, "IDLE", "", NULL);
         }
         else
         if (zpoller_terminated (self->poller)) {

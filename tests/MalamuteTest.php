@@ -7,38 +7,15 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
 
     private $broker_endpoint = "tcp://127.0.0.1:9999";  // same as ./cfg/malamute.cfg
 
-//    public function test_producer_consumer_zloop() {
-//        $loop = new ZLoop();
-//
-//        $broker = new Malamute\Broker("mybroker");
-//        $broker->load_config(__DIR__ . "/cfg/malamute.cfg");
-//
-//        # Start a Stream Producer
-//        $worker = new Malamute\Producer($this->broker_endpoint, "my_stream");
-//
-//
-//        $msg_count = 50;
-//
-//
-//        $loop->add($worker, function() use(&$processed, $msg_count) {
-//            $processed++;
-//            $usec = rand(0, 1000);
-//            usleep($usec);
-//            return ($processed <= $msg_count) ? "mydata" : false;
-//        });
-//
-//
-//
-//    }
-
-        public function test_producer_consumer() {
+    public function test_producer_consumer() {
 
         $manager = new ProcessManager();
 
         $manager->fork(function() {
             $broker = new Malamute\Broker("mybroker");
             $broker->load_config(__DIR__ . "/cfg/malamute.cfg");
-            $broker->run();
+            $zloop = new ZLoop();
+            $zloop->start();
         });
 
         $msg_count = 50;
@@ -59,7 +36,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         $client = $manager->fork(function() use ($msg_count) {
             $processed = 0;
             $worker = new Malamute\Consumer($this->broker_endpoint, "my_stream");
-            $worker->run("mysubject", function($msg, $headers) use(&$processed, $msg_count) {
+            $worker->run("mysubject", function($msg, $me) use(&$processed, $msg_count) {
                 $processed++;
                 return ($processed < $msg_count) ? true : false;
             });
@@ -84,7 +61,8 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         $manager->fork(function() {
             $broker = new Malamute\Broker("mybroker");
             $broker->load_config(__DIR__ . "/cfg/malamute.cfg");
-            $broker->run();
+            $zloop = new ZLoop();
+            $zloop->start();
         });
 
         $w = $manager->fork(function() {
@@ -122,7 +100,8 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         $manager->fork(function() {
             $broker = new Malamute\Broker("mybroker");
             $broker->load_config(__DIR__ . "/cfg/malamute.cfg");
-            $broker->run();
+            $zloop = new ZLoop();
+            $zloop->start();
         });
 
         # Start Service Workers
@@ -130,7 +109,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
             $forks[] = $manager->fork(function() use($i) {
                 $processed = 0;
                 $worker   = new Malamute\Worker($this->broker_endpoint, "my_worker", "mywork*");
-                $worker->run(function($req, $headers) use($i, &$processed) {
+                $worker->run(function($req, $me) use($i, &$processed) {
                     $processed++;
                     $usec = rand(0, 1000);
                     usleep($usec);

@@ -108,20 +108,6 @@ Broker::bind
 
 
 
-### \Majordomo\V2\Broker::run()
-
-```
-mixed Majordomo\V2\Broker::\Majordomo\V2\Broker::run()()
-```
-
-Broker::run
-
-...
-
-* Visibility: **public**
-
-
-
 ### \Majordomo\V2\Broker::get_socket()
 
 ```

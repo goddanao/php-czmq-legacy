@@ -23,7 +23,7 @@ private:
 
     static int cb_events(zloop_t *loop, zmq_pollitem_t *item, void *arg) {
         _cbdata *data = (_cbdata *) arg;
-        (*data->cb)(*data->obj, Php::Object("ZLoop", new ZLoop(loop, false)));
+        (*data->cb)(*data->obj, item->revents, Php::Object("ZLoop", new ZLoop(loop, false)));
         return 0;
     }
 
@@ -172,15 +172,8 @@ public:
         o.method("set_max_timers", &ZLoop::set_max_timers);
         o.method("start", &ZLoop::start);
         o.method("stop", &ZLoop::stop);
-        o.method("add", &ZLoop::add, {
-//            Php::ByVal("socket" , true),
-//            Php::ByVal("callback", Php::Type::Callable, true),
-//            Php::ByVal("mode", Php::Type::Numeric, false),
-//            Php::ByVal("tollerant", Php::Type::Bool, false)
-        });
-        o.method("remove", &ZLoop::remove, {
-//            Php::ByVal("socket", "IZSocket", true)
-        });
+        o.method("add", &ZLoop::add);
+        o.method("remove", &ZLoop::remove);
         o.method("add_timer", &ZLoop::add_timer);
         o.method("remove_timer", &ZLoop::remove_timer, {
             Php::ByVal("timer_id", Php::Type::Numeric, true)

@@ -56,6 +56,24 @@ Consumer::set_timeout
 
 
 
+### \Malamute\Consumer::header()
+
+```
+mixed Malamute\Consumer::\Malamute\Consumer::header()($header)
+```
+
+Consumer::header
+
+...
+
+* Visibility: **public**
+
+#### Arguments
+
+* $header **mixed**
+
+
+
 ### \Malamute\Consumer::run()
 
 ```

@@ -3,10 +3,6 @@
 #include "../czmq/zactor.h"
 
 class FmqBroker : public ZActor, public Php::Base {
-    bool verbose = false;
-    bool stopped = false;
-    Php::Value on_idle_callback;
-    Php::Value on_tick_callback;
 public:
     FmqBroker() : ZActor(), Php::Base() {}
     zactor_t *fmq_broker_handle() const { return (zactor_t *) get_handle(); }
@@ -17,7 +13,6 @@ public:
 	}
 
 	void set_verbose(Php::Parameters &param) {
-		verbose = true;
 		zstr_sendx (fmq_broker_handle(), "VERBOSE", NULL);
 	}
 
@@ -72,67 +67,6 @@ public:
 		return ret;
 	}
 
-	void on_idle(Php::Parameters &param) {
-	   if(param.size()>0 && param[0].isCallable())
-			on_idle_callback = param[0];
-	}
-
-	void on_tick(Php::Parameters &param) {
-	   if(param.size()>0 && param[0].isCallable())
-			on_tick_callback = param[0];
-	}
-
-	void stop() {
-		stopped = true;
-	}
-
-	void run(Php::Parameters &param) {
-		int64_t stop_after = -1;
-		int64_t started = zclock_time();
-
-		if(param.size()>0 && param[0].isNumeric())
-			stop_after = param[0].numericValue();
-
-		stopped = false;
-
-		zpoller_t *poller = zpoller_new(fmq_broker_handle(), NULL);
-
-		while(!zsys_interrupted && !stopped) {
-
-			if(stop_after != -1 && ((zclock_time() - started) > stop_after))
-				break;
-
-			void *socket = zpoller_wait(poller, 1000);
-			if(socket) {
-				char *event, *data;
-				int result = zstr_recvx (socket, &event, &data, NULL);
-				if(result != -1) {
-					zsys_info("fmqbroker: %s -> %s", event, data);
-
-
-
-
-					zstr_free(&event);
-					zstr_free(&data);
-				}
-			}
-			else
-			if(zpoller_expired(poller)) {
-				if(on_tick_callback.isCallable())
-					on_tick_callback(this);
-				// zsys_info("mlmbroker: TICK");
-	//            if(on_idle_callback.isCallable())
-	//                on_idle_callback(this);
-			}
-			else
-			if(zpoller_terminated(poller)) {
-				break;
-			}
-		}
-
-		zpoller_destroy(&poller);
-	}
-
     static Php::Class<FmqBroker> php_register() {
         Php::Class<FmqBroker> o("Server");
         o.method("__construct", &FmqBroker::__construct);
@@ -145,11 +79,6 @@ public:
 			Php::ByVal("local_path", Php::Type::String, true),
 			Php::ByVal("alias", Php::Type::String, true)
         });
-        o.method("on_tick", &FmqBroker::on_tick);
-        o.method("on_idle", &FmqBroker::on_idle);
-        o.method("run", &FmqBroker::run);
-        o.method("stop", &FmqBroker::stop);
-
 
 		// IZSocket intf support
         o.method("get_socket", &FmqBroker::_get_socket);

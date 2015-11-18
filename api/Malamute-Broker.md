@@ -117,62 +117,6 @@ Broker::get_status
 
 
 
-### \Malamute\Broker::on_tick()
-
-```
-mixed Malamute\Broker::\Malamute\Broker::on_tick()()
-```
-
-Broker::on_tick
-
-...
-
-* Visibility: **public**
-
-
-
-### \Malamute\Broker::on_idle()
-
-```
-mixed Malamute\Broker::\Malamute\Broker::on_idle()()
-```
-
-Broker::on_idle
-
-...
-
-* Visibility: **public**
-
-
-
-### \Malamute\Broker::run()
-
-```
-mixed Malamute\Broker::\Malamute\Broker::run()()
-```
-
-Broker::run
-
-...
-
-* Visibility: **public**
-
-
-
-### \Malamute\Broker::stop()
-
-```
-mixed Malamute\Broker::\Malamute\Broker::stop()()
-```
-
-Broker::stop
-
-...
-
-* Visibility: **public**
-
-
-
 ### \Malamute\Broker::get_socket()
 
 ```
