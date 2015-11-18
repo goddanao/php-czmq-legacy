@@ -18,12 +18,12 @@ public:
 
     void allow(Php::Parameters &param) {
         zstr_sendx (zauth_handle(), "ALLOW", param[0].stringValue().c_str(), NULL);
-        zsock_wait (zauth_handle());
+        zsock_wait(zauth_handle());
     }
 
     void deny(Php::Parameters &param) {
         zstr_sendx (zauth_handle(), "DENY", param[0].stringValue().c_str(), NULL);
-        zsock_wait (zauth_handle());
+        zsock_wait(zauth_handle());
     }
 
     void configure(Php::Parameters &param) {
@@ -37,7 +37,7 @@ public:
             }
             std::string filename = param[1];
             zstr_sendx (zauth_handle(), "PLAIN", (void *) filename.c_str(), NULL);
-            zsock_wait (zauth_handle());
+            zsock_wait(zauth_handle());
         }
         else
         if(mode == "CURVE") {
@@ -46,12 +46,12 @@ public:
             }
             std::string directory = param[1];
             zstr_sendx (zauth_handle(), "CURVE", (void *) directory.c_str(), NULL);
-            zsock_wait (zauth_handle());
+            zsock_wait(zauth_handle());
         }
         else
         if(mode == "GSSAPI") {
             zstr_sendx (zauth_handle(), "GSSAPI", NULL);
-            zsock_wait (zauth_handle());
+            zsock_wait(zauth_handle());
         }
         else {
             throw Php::Exception("Auth mode not supported.");
@@ -69,11 +69,14 @@ public:
              Php::ByVal("ip", Php::Type::String, true)
          });
         o.method("configure", &ZAuth::configure);
+
         o.method("get_socket", &ZAuth::_get_socket);
         o.method("get_fd", &ZAuth::_get_fd);
+
         o.property("AUTH_PLAIN", "PLAIN", Php::Const);
         o.property("AUTH_CURVE", "CURVE", Php::Const);
         o.property("AUTH_GSSAPI", "GSSAPI", Php::Const);
+
         return o;
     }
 

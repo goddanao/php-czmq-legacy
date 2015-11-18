@@ -3,18 +3,17 @@
 #include "../czmq/zactor.h"
 
 class MalamuteBroker : public ZActor, public Php::Base {
-    bool verbose = false;
 public:
     MalamuteBroker() : ZActor(), Php::Base() {}
     zactor_t *mlm_broker_handle() const { return (zactor_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
-		void *args = (param.size() == 0) ? nullptr : (void *) param[0].stringValue().c_str();
-		set_handle(zactor_new (mlm_server, args), true, "mlm_broker");
+		set_handle(zactor_new (mlm_server, NULL), true, "mlm_broker");
+		if(param.size() > 0 && param[0].boolValue())
+		    zstr_sendx (mlm_broker_handle(), "VERBOSE", NULL);
 	}
 
 	void set_verbose(Php::Parameters &param) {
-		verbose = true;
 		zstr_sendx (mlm_broker_handle(), "VERBOSE", NULL);
 	}
 
@@ -55,62 +54,18 @@ public:
 		return true;
 	}
 
-	Php::Value get_status() {
-	//
-	//	Php::Value result;
-	//
-	//	zstr_sendx(mlm_broker_handle(), "STATUS", NULL);
-	//	zsock_wait(mlm_broker_handle());
-	//
-	//    zhash_t *services= NULL;
-	//    zhash_t *workers = NULL;
-	//    zlist_t *waiting = NULL;
-	//	zsock_recv(mlm_broker_handle(), "ppp", &services, &workers, &waiting);
-	//	zsock_wait(mlm_broker_handle());
-	//
-	//	if(services != NULL)	{
-	//
-	//		zlist_t *keys = zhash_keys(services);
-	//		if(keys != NULL) {
-	//			char *item = (char *) zlist_first(keys);
-	//			int service_idx = 0;
-	//
-	//			while(item) {
-	//				service_t *svc = (service_t *) zhash_lookup(services, item);
-	//				if(svc != NULL) {
-	//					std::string idx = item;
-	//					result["services"][idx]["workers"] = (int) svc->workers;
-	//					result["services"][idx]["requests"] = (int) zlist_size(svc->requests);
-	//					result["services"][idx]["waiting"] = (int) zlist_size(svc->waiting);
-	//					result["services"][idx]["blacklist"] = (int) zlist_size(svc->blacklist);
-	//					service_idx++;
-	//				}
-	//				item = (char *) zlist_next(keys);
-	//			}
-	//			zlist_destroy(&keys);
-	//		}
-	//
-	//		return result;
-	//	}
-	//	else
-			return nullptr;
-	}
-
-
     static Php::Class<MalamuteBroker> php_register() {
         Php::Class<MalamuteBroker> o("Broker");
         o.method("__construct", &MalamuteBroker::__construct);
         o.method("set_verbose", &MalamuteBroker::set_verbose);
-        o.method("load_config", &MalamuteBroker::load_config);
-        o.method("set_config", &MalamuteBroker::set_config);
-        o.method("save_config", &MalamuteBroker::save_config);
         o.method("bind", &MalamuteBroker::bind);
-        o.method("get_status", &MalamuteBroker::get_status);
+        o.method("load_config", &MalamuteBroker::load_config);
+        o.method("save_config", &MalamuteBroker::save_config);
+        o.method("set_config", &MalamuteBroker::set_config);
 
          // IZSocket intf support
         o.method("get_socket", &MalamuteBroker::_get_socket);
         o.method("get_fd", &MalamuteBroker::_get_fd);
-
         return o;
     }
 

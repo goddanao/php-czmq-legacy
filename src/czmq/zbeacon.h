@@ -12,6 +12,10 @@ public:
         set_handle(zactor_new(zbeacon, NULL), true, "zactor");
     }
 
+    void set_verbose() {
+        zstr_send (zbeacon_handle(), "VERBOSE");
+    }
+
     Php::Value set_port(Php::Parameters &param) {
         int port_number = param[0].numericValue();
         zsock_send (zbeacon_handle(), "si", "CONFIGURE", port_number);

@@ -3,17 +3,10 @@
 #include "zmsg.h"
 
 class ZActor  : public ZHandle {
-private:
-    bool _verbose = false;
 public:
     ZActor() : ZHandle() {}
     ZActor(zactor_t *handle, bool owned) : ZHandle(handle, owned, "zactor") {}
     zactor_t *zactor_handle() const { return (zactor_t *) get_handle(); }
-
-    void set_verbose (Php::Parameters &param) {
-    	_verbose = param.size() > 0 ? param[0].boolValue() : true;
-    	zstr_send (zactor_handle(), "VERBOSE");
-    }
 
     Php::Value send_picture(Php::Parameters &param) {
         zmsg_t *msg = zmsg_new();

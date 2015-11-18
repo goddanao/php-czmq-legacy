@@ -89,7 +89,6 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($this->can_connect());
     }
 
-    /*
     public function test_curve_auth_all() {
         $auth = new ZAuth();
 
@@ -129,8 +128,6 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
         }
 
     }
-
-    */
 
     private function reset_sockets() {
         $this->server = new ZSocket(ZSys::SOCKET_PUSH);

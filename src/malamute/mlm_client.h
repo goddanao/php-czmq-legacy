@@ -4,15 +4,14 @@
 #include "../czmq/zmsg.h"
 
 class MalamuteClient   : public ZHandle, public Php::Base {
- private:
-     bool _verbose = false;
-     std::string _endpoint;
-     std::string _address;
-     int _timeout = 0;
-     bool _connected = false;
+private:
+    bool _verbose = false;
+    std::string _endpoint;
+    std::string _address;
+    int _timeout = 0;
+    bool _connected = false;
 
- public:
-
+public:
     MalamuteClient() : ZHandle(), Php::Base() {}
     MalamuteClient(mlm_client_t *handle, bool owned) : ZHandle(handle, owned, "mlm_client"), Php::Base() {}
     mlm_client_t *mlm_client_handle() const { return (mlm_client_t *) get_handle(); }
