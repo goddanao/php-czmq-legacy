@@ -1,10 +1,10 @@
 #pragma once
 
-#include "zactor.h"
+#include "../common.h"
 
-class ZAuth  : public ZActor, public Php::Base  {
+class ZAuth  : public ZHandle, public Php::Base  {
 public:
-    ZAuth() : ZActor(), Php::Base() {}
+    ZAuth() : ZHandle(), Php::Base() {}
     zactor_t *zauth_handle() const { return (zactor_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {

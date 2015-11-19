@@ -3,7 +3,7 @@
 use Spork\Fork;
 use Spork\ProcessManager;
 
-class FileMqTest extends \PHPUnit_Framework_TestCase {
+class ZFileMqTest extends \PHPUnit_Framework_TestCase {
 
     public function test_filemq()
     {

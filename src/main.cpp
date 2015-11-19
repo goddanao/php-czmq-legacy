@@ -95,7 +95,7 @@ extern "C" {
 
         Php::Namespace mdp_ns("Majordomo");
         Php::Namespace mdp_ns_version2("V2");
-        Php::Namespace mdp_ns_versionX("VX");
+        Php::Namespace mdp_ns_versionX("V1");
 
         // Majordomo Broker
         Php::Class<MajordomoBrokerV2> mdpbroker = MajordomoBrokerV2::php_register();
@@ -114,20 +114,20 @@ extern "C" {
 
         mdp_ns.add(std::move(mdp_ns_version2));
 
-        // Majordomo Broker VX
-        Php::Class<MajordomoBrokerVX> mdpbrokervx = MajordomoBrokerVX::php_register();
-        mdpbrokervx.implements(izsocket);
-        mdp_ns_versionX.add(std::move(mdpbrokervx));
+        // Majordomo Broker V1
+        Php::Class<MajordomoBrokerV1> mdpbrokerv1 = MajordomoBrokerV1::php_register();
+        mdpbrokerv1.implements(izsocket);
+        mdp_ns_versionX.add(std::move(mdpbrokerv1));
 
-        // Majordomo Worker VX
-        Php::Class<MajordomoWorkerVX> mdpworkervx = MajordomoWorkerVX::php_register();
-        mdpworkervx.implements(izsocket);
-        mdp_ns_versionX.add(std::move(mdpworkervx));
+        // Majordomo Worker V1
+        Php::Class<MajordomoWorkerV1> mdpworkerv1 = MajordomoWorkerV1::php_register();
+        mdpworkerv1.implements(izsocket);
+        mdp_ns_versionX.add(std::move(mdpworkerv1));
 
-        // Majordomo Client VX
-        Php::Class<MajordomoClientVX> mdpclientvx = MajordomoClientVX::php_register();
-        mdpclientvx.implements(izsocket);
-        mdp_ns_versionX.add(std::move(mdpclientvx));
+        // Majordomo Client V1
+        Php::Class<MajordomoClientV1> mdpclientv1 = MajordomoClientV1::php_register();
+        mdpclientv1.implements(izsocket);
+        mdp_ns_versionX.add(std::move(mdpclientv1));
 
         mdp_ns.add(std::move(mdp_ns_versionX));
 
@@ -165,12 +165,12 @@ extern "C" {
         Php::Namespace fmq_ns("FileMq");
 
         // FileMq Broker
-        Php::Class<FmqBroker> fmqbroker = FmqBroker::php_register();
-        fmqbroker.implements(izsocket);
-        fmq_ns.add(std::move(fmqbroker));
+        Php::Class<FileMqServer> fmqserver = FileMqServer::php_register();
+        fmqserver.implements(izsocket);
+        fmq_ns.add(std::move(fmqserver));
 
         // FileMq Client
-        Php::Class<FmqClient> fmqclient = FmqClient::php_register();
+        Php::Class<FileMqClient> fmqclient = FileMqClient::php_register();
         fmqclient.implements(izsocket);
         fmq_ns.add(std::move(fmqclient));
 

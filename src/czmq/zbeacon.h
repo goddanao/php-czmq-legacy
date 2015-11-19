@@ -1,10 +1,10 @@
 #pragma once
 
-#include "zactor.h"
+#include "../common.h"
 
-class ZBeacon : public ZActor, public Php::Base {
+class ZBeacon : public ZHandle, public Php::Base {
 public:
-    ZBeacon() : ZActor(), Php::Base() {}
+    ZBeacon() : ZHandle(), Php::Base() {}
     zactor_t *zbeacon_handle() const { return (zactor_t *) get_handle(); }
 
 

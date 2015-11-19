@@ -3,7 +3,7 @@
 use Spork\Fork;
 use Spork\ProcessManager;
 
-class MajordomoVXTest extends \PHPUnit_Framework_TestCase {
+class MajordomoV1Test extends \PHPUnit_Framework_TestCase {
 
     function test_mdpbroker() {
 
@@ -12,7 +12,7 @@ class MajordomoVXTest extends \PHPUnit_Framework_TestCase {
 
         # Start Broker
         $manager->fork(function() use($broker_endpoint) {
-            $broker = new Majordomo\VX\Broker();
+            $broker = new Majordomo\V1\Broker();
             $broker->bind($broker_endpoint);
             $zloop = new ZLoop();
             $zloop->add_timer(1000, function () use ($broker) {
@@ -26,7 +26,7 @@ class MajordomoVXTest extends \PHPUnit_Framework_TestCase {
         # Start Workers
         for($i = 0; $i < 5; $i++)
             $manager->fork(function() use($i, $broker_endpoint) {
-                $worker = new Majordomo\VX\Worker($broker_endpoint, 'myworker');
+                $worker = new Majordomo\V1\Worker($broker_endpoint, 'myworker');
                 $processed = 0;
                 $worker->run(function ($req) use ($i, &$processed) {
                     $processed++;
@@ -39,7 +39,7 @@ class MajordomoVXTest extends \PHPUnit_Framework_TestCase {
         # Start Clients (Send Work)
         for($i = 0; $i < 50; $i++)
             $clients[] = $manager->fork(function() use($i, $broker_endpoint) {
-                $m = new Majordomo\VX\Client($broker_endpoint);
+                $m = new Majordomo\V1\Client($broker_endpoint);
                 $requestId = "requestId - " . $i;
                 $result = $m->call('myworker', $requestId);
                 if($result) {

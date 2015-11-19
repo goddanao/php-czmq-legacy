@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../../czmq/zactor.h"
+#include "../../common.h"
 
-class MajordomoBrokerV2 : public ZActor, public Php::Base {
+class MajordomoBrokerV2 : public ZHandle, public Php::Base {
 private:
     bool _stopped = false;
     std::string _endpoint = "";
 public:
 
-    MajordomoBrokerV2() : ZActor(), Php::Base() {}
+    MajordomoBrokerV2() : ZHandle(), Php::Base() {}
     zactor_t *zmdpbroker_handle() const { return (zactor_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {

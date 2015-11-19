@@ -1,15 +1,15 @@
 #pragma once
 
-#include "../czmq/zactor.h"
+#include "../common.h"
 
-class FmqBroker : public ZActor, public Php::Base {
+class FileMqServer : public ZHandle, public Php::Base {
 public:
-    FmqBroker() : ZActor(), Php::Base() {}
+    FileMqServer() : ZHandle(), Php::Base() {}
     zactor_t *fmq_broker_handle() const { return (zactor_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
 		void *args = (param.size() == 0) ? nullptr : (void *) param[0].stringValue().c_str();
-		set_handle(zactor_new (fmq_server, args), true, "fmq_broker");
+		set_handle(zactor_new (fmq_server, args), true, "fmq_server");
 	}
 
 	void set_verbose(Php::Parameters &param) {
@@ -67,22 +67,22 @@ public:
 		return ret;
 	}
 
-    static Php::Class<FmqBroker> php_register() {
-        Php::Class<FmqBroker> o("Server");
-        o.method("__construct", &FmqBroker::__construct);
-        o.method("set_verbose", &FmqBroker::set_verbose);
-        o.method("load_config", &FmqBroker::load_config);
-        o.method("set_config", &FmqBroker::set_config);
-        o.method("save_config", &FmqBroker::save_config);
-        o.method("bind", &FmqBroker::bind);
-        o.method("publish", &FmqBroker::publish, {
+    static Php::Class<FileMqServer> php_register() {
+        Php::Class<FileMqServer> o("Server");
+        o.method("__construct", &FileMqServer::__construct);
+        o.method("set_verbose", &FileMqServer::set_verbose);
+        o.method("load_config", &FileMqServer::load_config);
+        o.method("set_config", &FileMqServer::set_config);
+        o.method("save_config", &FileMqServer::save_config);
+        o.method("bind", &FileMqServer::bind);
+        o.method("publish", &FileMqServer::publish, {
 			Php::ByVal("local_path", Php::Type::String, true),
 			Php::ByVal("alias", Php::Type::String, true)
         });
 
 		// IZSocket intf support
-        o.method("get_socket", &FmqBroker::_get_socket);
-        o.method("get_fd", &FmqBroker::_get_fd);
+        o.method("get_socket", &FileMqServer::_get_socket);
+        o.method("get_fd", &FileMqServer::_get_fd);
 
         return o;
     }

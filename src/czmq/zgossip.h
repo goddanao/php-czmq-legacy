@@ -1,12 +1,12 @@
 #pragma once
 
-#include "zactor.h"
+#include "../common.h"
 
-class ZGossip : public ZActor, public Php::Base {
+class ZGossip : public ZHandle, public Php::Base {
 private:
     bool _stopped = false;
 public:
-    ZGossip() : ZActor(), Php::Base() {}
+    ZGossip() : ZHandle(), Php::Base() {}
     zactor_t *zgossip_handle() const { return (zactor_t *) get_handle(); }
 
 

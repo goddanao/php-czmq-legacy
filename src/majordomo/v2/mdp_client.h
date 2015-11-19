@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../../common.h"
 #include "../../czmq/zmsg.h"
 
 class MajordomoClientV2 : public ZHandle, public Php::Base {

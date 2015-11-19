@@ -12,7 +12,6 @@
 #include "czmq/zcert.h"
 #include "czmq/zcertstore.h"
 #include "czmq/zbeacon.h"
-#include "czmq/zactor.h"
 #include "czmq/zauth.h"
 #include "czmq/zgossip.h"
 #include "czmq/zudp.h"

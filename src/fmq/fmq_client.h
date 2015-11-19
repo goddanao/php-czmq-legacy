@@ -3,7 +3,7 @@
 #include "../common.h"
 #include "../czmq/zmsg.h"
 
-class FmqClient   : public ZHandle, public Php::Base {
+class FileMqClient   : public ZHandle, public Php::Base {
 private:
     std::string _endpoint   = "";
     std::string _local_dir  = "";
@@ -11,8 +11,8 @@ private:
     bool _connected = false;
 public:
 
-    FmqClient() : ZHandle(), Php::Base() {}
-    FmqClient(mlm_client_t *handle, bool owned) : ZHandle(handle, owned, "fmq_client"), Php::Base() {}
+    FileMqClient() : ZHandle(), Php::Base() {}
+    FileMqClient(mlm_client_t *handle, bool owned) : ZHandle(handle, owned, "fmq_client"), Php::Base() {}
     fmq_client_t *fmq_client_handle() const { return (fmq_client_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
@@ -70,27 +70,27 @@ public:
         zpoller_destroy(&poller);
     }
 
-    static Php::Class<FmqClient> php_register() {
-        Php::Class<FmqClient> o("Client");
-        o.method("__construct", &FmqClient::__construct, {
+    static Php::Class<FileMqClient> php_register() {
+        Php::Class<FileMqClient> o("Client");
+        o.method("__construct", &FileMqClient::__construct, {
             Php::ByVal("endpoint", Php::Type::String, true),
             Php::ByVal("local_path", Php::Type::String, true),
             Php::ByVal("timeout", Php::Type::Numeric, false)
         });
-        o.method("set_timeout", &FmqClient::set_timeout, {
+        o.method("set_timeout", &FileMqClient::set_timeout, {
             Php::ByVal("timeout", Php::Type::Numeric, true)
         });
-        o.method("connect", &FmqClient::connect);
-        o.method("subscribe", &FmqClient::subscribe, {
+        o.method("connect", &FileMqClient::connect);
+        o.method("subscribe", &FileMqClient::subscribe, {
             Php::ByVal("remote_path", Php::Type::String, true)
         });
-        o.method("run", &FmqClient::run, {
+        o.method("run", &FileMqClient::run, {
             Php::ByVal("callback", Php::Type::Callable, true)
         });
 
         // IZSocket intf support
-        o.method("get_socket", &FmqClient::_get_socket);
-        o.method("get_fd", &FmqClient::_get_fd);
+        o.method("get_socket", &FileMqClient::_get_socket);
+        o.method("get_fd", &FileMqClient::_get_fd);
 
 
         return o;

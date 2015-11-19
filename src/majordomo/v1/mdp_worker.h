@@ -3,7 +3,7 @@
 #include "../../common.h"
 #include "zmdp_common.h"
 
-class MajordomoWorkerVX : public ZHandle, public Php::Base {
+class MajordomoWorkerV1 : public ZHandle, public Php::Base {
 private:
   std::string _broker;
   std::string _service;
@@ -42,7 +42,7 @@ private:
         sock = zsock_new_dealer (_broker.c_str());
         zsock_set_linger(sock, 0);
 
-        set_handle(sock, true, "mdp_worker_vX");
+        set_handle(sock, true, "mdp_worker_v1");
 
       if (_verbose)
           zclock_log ("WORKER - I: connecting to broker at %s...", _broker.c_str());
@@ -158,8 +158,8 @@ private:
 
 public:
 
-    MajordomoWorkerVX() : ZHandle(), Php::Base() {}
-    MajordomoWorkerVX(zsock_t *handle, bool owned) : ZHandle(handle, owned, "mdp_worker_vX"), Php::Base() {}
+    MajordomoWorkerV1() : ZHandle(), Php::Base() {}
+    MajordomoWorkerV1(zsock_t *handle, bool owned) : ZHandle(handle, owned, "mdp_worker_vX"), Php::Base() {}
     zsock_t *mdp_worker_handle() const { return (zsock_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
@@ -202,21 +202,21 @@ public:
         }
     }
 
-    static Php::Class<MajordomoWorkerVX> php_register() {
-        Php::Class<MajordomoWorkerVX> o("Worker");
-        o.method("__construct", &MajordomoWorkerVX::__construct, {
+    static Php::Class<MajordomoWorkerV1> php_register() {
+        Php::Class<MajordomoWorkerV1> o("Worker");
+        o.method("__construct", &MajordomoWorkerV1::__construct, {
             Php::ByVal("broker_endpoint", Php::Type::String, true),
             Php::ByVal("name", Php::Type::String, true),
             Php::ByVal("verbose", Php::Type::Bool, false)
 
         });
-        o.method("run", &MajordomoWorkerVX::run, {
+        o.method("run", &MajordomoWorkerV1::run, {
             Php::ByVal("callback", Php::Type::Callable, true)
         });
 
         // IZSocket intf support
-		o.method("get_socket", &MajordomoWorkerVX::_get_socket);
-		o.method("get_fd", &MajordomoWorkerVX::_get_fd);
+		o.method("get_socket", &MajordomoWorkerV1::_get_socket);
+		o.method("get_fd", &MajordomoWorkerV1::_get_fd);
 
        return o;
     }

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../czmq/zactor.h"
+#include "../common.h"
 
-class MalamuteBroker : public ZActor, public Php::Base {
+class MalamuteBroker : public ZHandle, public Php::Base {
 public:
-    MalamuteBroker() : ZActor(), Php::Base() {}
+    MalamuteBroker() : ZHandle(), Php::Base() { zsys_info("creating mlm_broker .... c++ constructor ... "); }
     zactor_t *mlm_broker_handle() const { return (zactor_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {

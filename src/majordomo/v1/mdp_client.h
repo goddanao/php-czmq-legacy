@@ -3,7 +3,7 @@
 #include "../../czmq/zmsg.h"
 #include "zmdp_common.h"
 
-class MajordomoClientVX : public ZHandle, public Php::Base {
+class MajordomoClientV1 : public ZHandle, public Php::Base {
 private:
   std::string _broker;
   bool _verbose = false;
@@ -17,7 +17,7 @@ private:
   		sock = zsock_new_dealer (_broker.c_str());
   		zsock_set_linger(sock, 0);
 
-        set_handle(sock, true, "mdp_client_vX");
+        set_handle(sock, true, "mdp_client_v1");
 
   		if (_verbose)
   			zclock_log ("I: connecting to broker at %s...", _broker.c_str());
@@ -86,8 +86,8 @@ private:
 
 public:
 
-    MajordomoClientVX() : ZHandle(), Php::Base() {}
-    MajordomoClientVX(zsock_t *handle, bool owned) : ZHandle(handle, owned, "mdp_client_vX"), Php::Base() {}
+    MajordomoClientV1() : ZHandle(), Php::Base() {}
+    MajordomoClientV1(zsock_t *handle, bool owned) : ZHandle(handle, owned, "mdp_client_vX"), Php::Base() {}
     zsock_t *mdp_client_handle() const { return (zsock_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
@@ -140,15 +140,15 @@ public:
 
 	}
 
-    static Php::Class<MajordomoClientVX> php_register() {
-        Php::Class<MajordomoClientVX> o("Client");
-        o.method("__construct", &MajordomoClientVX::__construct);
-        o.method("call", &MajordomoClientVX::call);
-        o.method("call_async", &MajordomoClientVX::call_async);
+    static Php::Class<MajordomoClientV1> php_register() {
+        Php::Class<MajordomoClientV1> o("Client");
+        o.method("__construct", &MajordomoClientV1::__construct);
+        o.method("call", &MajordomoClientV1::call);
+        o.method("call_async", &MajordomoClientV1::call_async);
 
         // IZSocket intf support
-		o.method("get_socket", &MajordomoClientVX::_get_socket);
-		o.method("get_fd", &MajordomoClientVX::_get_fd);
+		o.method("get_socket", &MajordomoClientV1::_get_socket);
+		o.method("get_fd", &MajordomoClientV1::_get_fd);
 
         return o;
     }

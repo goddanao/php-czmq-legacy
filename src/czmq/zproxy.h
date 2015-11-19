@@ -1,12 +1,12 @@
 #pragma once
 
-#include "zactor.h"
+#include "../common.h"
 
-class ZProxy : public ZActor, public Php::Base {
+class ZProxy : public ZHandle, public Php::Base {
 private:
     bool _verbose = false;
 public:
-    ZProxy() : ZActor(), Php::Base() {}
+    ZProxy() : ZHandle(), Php::Base() {}
     zactor_t *zproxy_handle() const { return (zactor_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {

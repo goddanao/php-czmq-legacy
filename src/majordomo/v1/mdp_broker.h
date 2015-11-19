@@ -1,15 +1,15 @@
 #pragma once
 
-#include "../../czmq/zactor.h"
+#include "../../common.h"
 #include "../../czmq/zloop.h"
 #include "zmdp_common.h"
 #include "zmdp_broker.h"
 
-class MajordomoBrokerVX : public ZActor, public Php::Base {
+class MajordomoBrokerV1 : public ZHandle, public Php::Base {
 private:
     bool _verbose = false;
 public:
-    MajordomoBrokerVX() : ZActor(), Php::Base() {}
+    MajordomoBrokerV1() : ZHandle(), Php::Base() {}
     zactor_t *zmdpbroker_handle() const { return (zactor_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
@@ -17,7 +17,7 @@ public:
 			_verbose = param[0].boolValue();
 		zactor_t *broker = zactor_new(zmdpbroker, NULL);
 		if(broker)
-			set_handle(broker, true, "mdp_broker_vX");
+			set_handle(broker, true, "mdp_broker_v1");
 	}
 
 	Php::Value bind(Php::Parameters &param) {
@@ -83,19 +83,19 @@ public:
 			return nullptr;
 	}
 
-     static Php::Class<MajordomoBrokerVX> php_register() {
-        Php::Class<MajordomoBrokerVX> o("Broker");
-        o.method("__construct", &MajordomoBrokerVX::__construct);
-        o.method("bind", &MajordomoBrokerVX::bind);
-        o.method("set_verbose", &MajordomoBrokerVX::set_verbose);
-        o.method("get_status", &MajordomoBrokerVX::get_status);
-        o.method("set_capture", &MajordomoBrokerVX::set_capture, {
+     static Php::Class<MajordomoBrokerV1> php_register() {
+        Php::Class<MajordomoBrokerV1> o("Broker");
+        o.method("__construct", &MajordomoBrokerV1::__construct);
+        o.method("bind", &MajordomoBrokerV1::bind);
+        o.method("set_verbose", &MajordomoBrokerV1::set_verbose);
+        o.method("get_status", &MajordomoBrokerV1::get_status);
+        o.method("set_capture", &MajordomoBrokerV1::set_capture, {
             Php::ByVal("socket_endpoint", Php::Type::String, true)
         });
 
         // IZSocket intf support
-		o.method("get_socket", &MajordomoBrokerVX::_get_socket);
-		o.method("get_fd", &MajordomoBrokerVX::_get_fd);
+		o.method("get_socket", &MajordomoBrokerV1::_get_socket);
+		o.method("get_fd", &MajordomoBrokerV1::_get_fd);
 
         return o;
     }

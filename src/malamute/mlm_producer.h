@@ -2,7 +2,6 @@
 
 #include "mlm_client.h"
 
-
 class MalamuteProducer   : public ZHandle, public Php::Base {
 private:
     std::string _endpoint = "";
