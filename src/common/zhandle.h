@@ -60,9 +60,6 @@ public:
         return zsock_fd(get_socket());
     }
 
-    Php::Value _get_fd () const;
-    Php::Value _get_socket () const;
-
     virtual void *get_socket() const {
         if(_type == "socket")
             return _handle;
@@ -146,8 +143,10 @@ public:
         if(_type == "zpoller")
             zpoller_destroy((zpoller_t **) &_handle);
         else
-        if(_type == "mlm_broker" && zactor_is(_handle))
+        if(_type == "mlm_broker" && zactor_is(_handle)) {
+            zsys_info("destroying mlm_broker ....");
             zactor_destroy((zactor_t **) &_handle);
+        }
         else
         if(_type == "mlm_client")
             mlm_client_destroy ((mlm_client_t **) &_handle);
@@ -182,5 +181,17 @@ public:
         _handle = nullptr;
         _socket = INVALID_SOCKET;
     }
+
+    // IZSocket Intf
+    Php::Value _get_fd () const;
+    Php::Value _get_socket () const;
+
+
+    virtual Php::Value send(Php::Parameters &param);
+    virtual Php::Value recv(Php::Parameters &param);
+    virtual Php::Value send_string(Php::Parameters &param);
+    virtual Php::Value recv_string(Php::Parameters &param);
+    virtual Php::Value send_picture(Php::Parameters &param);
+    virtual Php::Value recv_picture(Php::Parameters &param);
 
 };

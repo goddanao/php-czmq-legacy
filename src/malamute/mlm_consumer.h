@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../common.h"
-#include "../czmq/zmsg.h"
+#include "mlm_client.h"
 
 class MalamuteConsumer   : public ZHandle, public Php::Base {
 private:
@@ -64,6 +63,8 @@ public:
         return (param.size() > 0) ? result[param[0].stringValue()] : result;
     }
 
+    Php::Value get_client() { return Php::Object("Malamute\\Client", new MalamuteClient((mlm_client_t *) get_handle(), false)); }
+
     static Php::Class<MalamuteConsumer> php_register() {
         Php::Class<MalamuteConsumer> o("Consumer");
         o.method("__construct", &MalamuteConsumer::__construct, {
@@ -80,6 +81,9 @@ public:
             Php::ByVal("pattern", Php::Type::String, true),
             Php::ByVal("callback", Php::Type::Callable, true)
         });
+
+        o.method("get_client", &MalamuteConsumer::get_client);
+
 
         // IZSocket intf support
         o.method("get_socket", &MalamuteConsumer::_get_socket);

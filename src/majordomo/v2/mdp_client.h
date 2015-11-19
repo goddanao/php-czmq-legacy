@@ -24,7 +24,7 @@ public:
         mdp_client_set_verbose(mdpclient_handle());
     }
 
-    Php::Value recv() {
+    Php::Value recv(Php::Parameters &param) {
         char *command;
         zmsg_t *body;
         int rc = zsock_recv(get_socket(), "sm", &command, &body);
@@ -56,7 +56,7 @@ public:
 	    if(!call_async(param)) {
             return nullptr;
         }
-        return recv();
+        return recv(param);
     }
 
     static Php::Class<MajordomoClientV2> php_register() {

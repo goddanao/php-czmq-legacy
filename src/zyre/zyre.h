@@ -135,7 +135,7 @@ public:
 		return (zyre_leave(zyre_handle(), param[0].stringValue().c_str()) == 0);
 	}
 
-	Php::Value recv() {
+	Php::Value recv(Php::Parameters &param) {
 
 		zmsg_t *msg = zyre_recv(zyre_handle());
 		if(msg == NULL)

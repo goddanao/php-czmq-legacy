@@ -7,13 +7,34 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
 
     private $broker_endpoint = "tcp://127.0.0.1:9999";  // same as ./cfg/malamute.cfg
 
+    public function test_get_client() {
+
+        $worker = new Malamute\Worker();
+        $this->assertNotNull($worker);
+        $c = $worker->get_client();
+        $this->assertNotNull($c);
+        $this->assertInstanceOf("Malamute\\Client", $c);
+
+        $consumer = new Malamute\Consumer();
+        $this->assertNotNull($consumer);
+        $c = $consumer->get_client();
+        $this->assertNotNull($c);
+        $this->assertInstanceOf("Malamute\\Client", $c);
+
+        $producer = new Malamute\Producer();
+        $this->assertNotNull($producer);
+        $c = $producer->get_client();
+        $this->assertNotNull($c);
+        $this->assertInstanceOf("Malamute\\Client", $c);
+    }
+
     public function test_producer_consumer() {
 
         $manager = new ProcessManager();
 
         $manager->fork(function() {
-            $broker = new Malamute\Broker("mybroker");
-            $broker->load_config(__DIR__ . "/cfg/malamute.cfg");
+            $broker = new Malamute\Broker();
+            $broker->bind($this->broker_endpoint);
             $zloop = new ZLoop();
             $zloop->start();
         });
@@ -59,8 +80,8 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         $manager = new ProcessManager();
 
         $manager->fork(function() {
-            $broker = new Malamute\Broker("mybroker");
-            $broker->load_config(__DIR__ . "/cfg/malamute.cfg");
+            $broker = new Malamute\Broker();
+            $broker->bind($this->broker_endpoint);
             $zloop = new ZLoop();
             $zloop->start();
         });
@@ -98,8 +119,8 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         $manager = new ProcessManager();
 
         $manager->fork(function() {
-            $broker = new Malamute\Broker("mybroker");
-            $broker->load_config(__DIR__ . "/cfg/malamute.cfg");
+            $broker = new Malamute\Broker();
+            $broker->bind($this->broker_endpoint);
             $zloop = new ZLoop();
             $zloop->start();
         });

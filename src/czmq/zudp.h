@@ -93,7 +93,7 @@ public:
         set_handle(socket, true, "zudp");
     }
 
-    void send(Php::Parameters &param) {
+    Php::Value send(Php::Parameters &param) {
 
         zframe_t *frame = nullptr;
 

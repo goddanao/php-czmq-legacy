@@ -83,49 +83,6 @@ public:
 //        return retval;
 //    }
 
-    Php::Value send_picture(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_new();
-        ZMsg z(msg, false);
-        z.append_picture(param);
-        return (zmsg_send (&msg, get_socket()) == 0);
-    }
-
-    Php::Value recv_picture(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        ZMsg z(msg, true);
-        return z.pop_picture(param);
-    }
-
-    Php::Value send_string(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_new();
-        ZMsg z(msg, false);
-        z.append_string(param);
-        return (zmsg_send (&msg, get_socket()) == 0);
-    }
-
-    Php::Value recv_string(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        ZMsg z(msg, true);
-        return z.pop_string();
-    }
-
-    Php::Value send(Php::Parameters &param) {
-        ZMsg *zmsg = dynamic_cast<ZMsg *>(param[0].implementation());
-        zmsg_t *czmsg = zmsg_dup(zmsg->zmsg_handle());
-        return zmsg_send(&czmsg, get_socket());
-    }
-
-    Php::Value recv(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        return Php::Object("ZMsg", new ZMsg(msg, true));
-    }
-
     void __construct(Php::Parameters &param) {
         void *socket;
         if(param.size() > 1 && param[1].size() > 0)

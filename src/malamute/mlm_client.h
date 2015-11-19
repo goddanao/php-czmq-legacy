@@ -110,14 +110,14 @@ public:
 		return z.pop_picture(param);
 	}
 
-	Php::Value recv() {
+	Php::Value recv(Php::Parameters &param) {
         zmsg_t *msg = mlm_client_recv (mlm_client_handle());
         if(!msg)
             return nullptr;
         return Php::Object("ZMsg", new ZMsg(msg, true));
     }
 
-    Php::Value recv_string() {
+    Php::Value recv_string(Php::Parameters &param) {
         zmsg_t *msg = mlm_client_recv (mlm_client_handle());
         if(!msg)
             return nullptr;
@@ -130,7 +130,6 @@ public:
     Php::Value set_worker(Php::Parameters &param) { return (mlm_client_set_worker(mlm_client_handle(), param[0].stringValue().c_str(), param[1].stringValue().c_str()) != -1); }
 
     Php::Value set_consumer(Php::Parameters &param) { return (mlm_client_set_consumer(mlm_client_handle(), param[0].stringValue().c_str(), param[1].stringValue().c_str()) != -1); }
-
 
     static Php::Class<MalamuteClient> php_register() {
         Php::Class<MalamuteClient> o("Client");
