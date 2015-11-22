@@ -57,6 +57,13 @@ public:
         zsock_wait(zproxy_handle());
     }
 
+    Php::Value recv(Php::Parameters &param) {
+        zmsg_t *msg = zmsg_recv (get_socket());
+        if(!msg)
+            return nullptr;
+        return Php::Object("ZMsg", new ZMsg(msg, true));
+    }
+
     static Php::Class<ZProxy> php_register() {
         Php::Class<ZProxy> o("ZProxy");
 
@@ -64,6 +71,8 @@ public:
         o.method("set_verbose", &ZProxy::set_verbose);
         o.method("pause", &ZProxy::pause);
         o.method("resume", &ZProxy::resume);
+        o.method("recv", &ZProxy::recv);
+
         o.method("set_frontend", &ZProxy::set_frontend, {
             Php::ByVal("socket_type", Php::Type::String, true),
             Php::ByVal("socket_endpoint", Php::Type::String, true)

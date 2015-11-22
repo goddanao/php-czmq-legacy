@@ -49,7 +49,7 @@ class MajordomoV1Test extends \PHPUnit_Framework_TestCase {
                 return "KO";
             });
 
-        sleep(5);
+        sleep(2);
 
         $res = true;
         foreach($clients as $client){

@@ -4,9 +4,9 @@
 
 class ZBeacon : public ZHandle, public Php::Base {
 public:
+
     ZBeacon() : ZHandle(), Php::Base() {}
     zactor_t *zbeacon_handle() const { return (zactor_t *) get_handle(); }
-
 
     void __construct(Php::Parameters &param) {
         set_handle(zactor_new(zbeacon, NULL), true, "zactor");
@@ -45,23 +45,11 @@ public:
     }
 
     Php::Value recv(Php::Parameters &param) {
-
-        int rcvtimeout = param.size() > 0 ? param[0].numericValue() : 500;
-
-        void *zbsocket = get_socket();
-
-        if(!zbsocket)
-            throw Php::Exception("ZBeacon error while accessing zmq socket handle for zactor.");
-
-        zsock_set_rcvtimeo(zbsocket, rcvtimeout);
-
-        zmsg_t *msg = zmsg_recv(zbsocket);
-        if(msg)
-            return Php::Object("ZMsg", new ZMsg(msg, true));
-
-        return nullptr;
+        zmsg_t *msg = zmsg_recv (get_socket());
+        if(!msg)
+            return nullptr;
+        return Php::Object("ZMsg", new ZMsg(msg, true));
     }
-
 
     static Php::Class<ZBeacon> php_register() {
         Php::Class<ZBeacon> o("ZBeacon");

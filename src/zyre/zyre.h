@@ -282,7 +282,6 @@ public:
             Php::ByVal("data", Php::Type::String, true)
         });
 
-
 		// IZSocket intf support
         o.method("get_socket", &Zyre::_get_socket);
         o.method("get_fd", &Zyre::_get_fd);

@@ -51,23 +51,11 @@ public:
 
     }
 
-    void run(Php::Parameters &param){
-
-        connect();
-
-        zsock_t *client = fmq_client_msgpipe (fmq_client_handle());
-        zpoller_t *poller = zpoller_new (client, NULL);
-        Php::Value result;
-        while(!zsys_interrupted && !(result.isBool() && result == false)) {
-            zsock_t *which = (zsock_t *) zpoller_wait (poller, 1000);
-            if (which == client) {
-                zsys_info("messaggio in arrivo da fmq .... client ...");
-//                zmsg_t *request = mlm_client_recv (mlm_consumer_handle());
-//                Php::Object zmsg("ZMsg", new ZMsg(request, true));
-//                result = param[1](zmsg, header());
-            }
-        }
-        zpoller_destroy(&poller);
+    Php::Value recv(Php::Parameters &param) {
+        zmsg_t *msg = zmsg_recv (get_socket());
+        if(!msg)
+            return nullptr;
+        return Php::Object("ZMsg", new ZMsg(msg, true));
     }
 
     static Php::Class<FileMqClient> php_register() {
@@ -84,9 +72,7 @@ public:
         o.method("subscribe", &FileMqClient::subscribe, {
             Php::ByVal("remote_path", Php::Type::String, true)
         });
-        o.method("run", &FileMqClient::run, {
-            Php::ByVal("callback", Php::Type::Callable, true)
-        });
+        o.method("recv", &FileMqClient::recv);
 
         // IZSocket intf support
         o.method("get_socket", &FileMqClient::_get_socket);

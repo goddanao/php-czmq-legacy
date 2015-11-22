@@ -15,3 +15,4 @@
 #include "czmq/zauth.h"
 #include "czmq/zgossip.h"
 #include "czmq/zudp.h"
+#include "czmq/zmonitor.h"

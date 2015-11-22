@@ -37,7 +37,6 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
 
     public function test_zap_domain_deny_localhost() {
         $auth = new ZAuth();
-
         $this->reset_sockets();
         $this->server->set_zap_domain("global");
         $auth->deny("127.0.0.1");

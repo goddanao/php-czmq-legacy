@@ -197,6 +197,48 @@ public:
         return result;
     }
 
+    Php::Value send_picture(Php::Parameters &param) {
+        zmsg_t *msg = zmsg_new();
+        ZMsg z(msg, false);
+        z.append_picture(param);
+        return (zmsg_send (&msg, get_socket()) == 0);
+    }
+
+    Php::Value recv_picture(Php::Parameters &param) {
+        zmsg_t *msg = zmsg_recv (get_socket());
+        if(!msg)
+            return nullptr;
+        ZMsg z(msg, true);
+        return z.pop_picture(param);
+    }
+
+    Php::Value send_string(Php::Parameters &param) {
+        zmsg_t *msg = zmsg_new();
+        ZMsg z(msg, false);
+        z.append_string(param);
+        return (zmsg_send (&msg, get_socket()) == 0);
+    }
+
+    Php::Value recv_string(Php::Parameters &param) {
+        zmsg_t *msg = zmsg_recv (get_socket());
+        if(!msg)
+            return nullptr;
+        ZMsg z(msg, true);
+        return z.pop_string();
+    }
+
+    Php::Value send(Php::Parameters &param) {
+        Php::Value p(param[0]);
+        zmsg_t *czmsg = ZMsg::msg_from_param(&p);
+        return zmsg_send(&czmsg, get_socket());
+    }
+
+    Php::Value recv(Php::Parameters &param) {
+        zmsg_t *msg = zmsg_recv (get_socket());
+        if(!msg)
+            return nullptr;
+        return Php::Object("ZMsg", new ZMsg(msg, true));
+    }
 
     // Get Socket Options
 
@@ -540,22 +582,21 @@ public:
         });
     	o.method("wait", &ZSocket::wait);
     	o.method("flush", &ZSocket::flush);
-    	o.method("send_picture", &ZSocket::send_picture, {
+
+        o.method("send", &ZSocket::send, {
+            Php::ByRef("zmsg", "ZMsg", false, true)
+        });
+    	o.method("recv", &ZSocket::recv);
+        o.method("send_string", &ZSocket::send_string, {
+            Php::ByVal("value", Php::Type::String, true)
+        });
+        o.method("recv_string", &ZSocket::recv_string);
+        o.method("send_picture", &ZSocket::send_picture, {
             Php::ByVal("picture", Php::Type::String, true)
         });
     	o.method("recv_picture", &ZSocket::recv_picture, {
             Php::ByVal("picture", Php::Type::String, true)
         });
-        o.method("send_string", &ZSocket::send_string, {
-            Php::ByVal("value", Php::Type::String, true)
-        });
-        o.method("recv_string", &ZSocket::recv_string);
-
-    	o.method("send", &ZSocket::send, {
-            Php::ByRef("zmsg", "ZMsg", false, true)
-        });
-    	o.method("recv", &ZSocket::recv);
-
 
     	// static accessors
         o.method("pub", &ZSocket::pub);

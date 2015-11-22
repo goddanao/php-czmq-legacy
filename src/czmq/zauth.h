@@ -58,10 +58,18 @@ public:
         }
     }
 
+    Php::Value recv(Php::Parameters &param) {
+        zmsg_t *msg = zmsg_recv (get_socket());
+        if(!msg)
+            return nullptr;
+        return Php::Object("ZMsg", new ZMsg(msg, true));
+    }
+
     static Php::Class<ZAuth> php_register() {
         Php::Class<ZAuth> o("ZAuth");
         o.method("__construct", &ZAuth::__construct);
         o.method("set_verbose", &ZAuth::set_verbose);
+        o.method("recv", &ZAuth::recv);
         o.method("allow", &ZAuth::allow, {
             Php::ByVal("ip", Php::Type::String, true)
         });
@@ -70,6 +78,7 @@ public:
          });
         o.method("configure", &ZAuth::configure);
 
+        // IZSocket
         o.method("get_socket", &ZAuth::_get_socket);
         o.method("get_fd", &ZAuth::_get_fd);
 

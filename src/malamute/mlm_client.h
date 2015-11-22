@@ -102,27 +102,11 @@ public:
 		return (mlm_client_sendfor(mlm_client_handle(), address.c_str(), subject.c_str(), tracker.c_str(), _to, &msg) == 0);
 	}
 
-	Php::Value recv_picture(Php::Parameters &param) {
-		zmsg_t *msg = mlm_client_recv (mlm_client_handle());
-		if(!msg)
-			return nullptr;
-		ZMsg z(msg, true);
-		return z.pop_picture(param);
-	}
-
 	Php::Value recv(Php::Parameters &param) {
         zmsg_t *msg = mlm_client_recv (mlm_client_handle());
         if(!msg)
             return nullptr;
         return Php::Object("ZMsg", new ZMsg(msg, true));
-    }
-
-    Php::Value recv_string(Php::Parameters &param) {
-        zmsg_t *msg = mlm_client_recv (mlm_client_handle());
-        if(!msg)
-            return nullptr;
-        ZMsg z(msg, true);
-        return z.pop_string();
     }
 
     Php::Value set_producer(Php::Parameters &param) { return (mlm_client_set_producer(mlm_client_handle(), param[0].stringValue().c_str()) != -1); }
@@ -175,10 +159,6 @@ public:
             Php::ByVal("tracker", Php::Type::String, false)
         });
 
-        o.method("recv_picture", &MalamuteClient::recv_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o.method("recv_string", &MalamuteClient::recv_string);
         o.method("recv", &MalamuteClient::recv);
 
 

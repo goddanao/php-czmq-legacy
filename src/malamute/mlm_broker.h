@@ -4,13 +4,11 @@
 
 class MalamuteBroker : public ZHandle, public Php::Base {
 public:
-    MalamuteBroker() : ZHandle(), Php::Base() { zsys_info("creating mlm_broker .... c++ constructor ... "); }
+    MalamuteBroker() : ZHandle(), Php::Base() { }
     zactor_t *mlm_broker_handle() const { return (zactor_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
-	    zsys_info("creating mlm_broker ....");
-
-		set_handle(zactor_new (mlm_server, NULL), true, "mlm_broker");
+	    set_handle(zactor_new (mlm_server, NULL), true, "mlm_broker");
 		if(param.size() > 0 && param[0].boolValue())
 		    zstr_sendx (mlm_broker_handle(), "VERBOSE", NULL);
 	}

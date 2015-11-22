@@ -99,7 +99,7 @@ public:
 
         bool valid = ((param.size() > 1) && (param[0].isObject() || param[0].isNumeric())) && (param[1].isCallable());
 
-        SOCKET fd = 0;
+        SOCKET fd = INVALID_SOCKET;
         zsock_t *socket = NULL;
 
         if(valid && param[0].isObject()) {
@@ -109,6 +109,7 @@ public:
                 if(socket == nullptr) {
                     fd = zh->get_fd();
                 }
+                // zsys_info("ZLoop::add -> socket: %p - fd: %d", socket, fd);
             }
         } else
         if(valid && param[0].isNumeric()) {
@@ -117,7 +118,7 @@ public:
             throw Php::Exception("ZLoop add require a IZSocket or FD and a callback.");
         }
 
-        if(socket == nullptr && fd == 0)
+        if(socket == nullptr && fd == INVALID_SOCKET)
             throw Php::Exception("ZLoop add require a IZSocket or FD and a callback.");
 
         // Register callback data
@@ -138,7 +139,7 @@ public:
     void remove(Php::Parameters &param) {
         bool valid = param.size() > 0;
 
-        SOCKET fd = 0;
+        SOCKET fd = INVALID_SOCKET;
         zsock_t *socket = NULL;
 
         if(valid && param[0].isObject()) {
@@ -156,7 +157,7 @@ public:
             throw Php::Exception("ZLoop remove require a IZSocket or FD.");
         }
 
-        if(socket == nullptr && fd == 0)
+        if(socket == nullptr && fd == INVALID_SOCKET)
             throw Php::Exception("ZLoop remove require a IZSocket or FD.");
 
         zmq_pollitem_t item { socket, fd, 0, 0 };

@@ -25,3 +25,28 @@ std::string toLower(const std::string& s)
 
     return result;
 }
+
+std::vector<std::string> explode(const std::string& str, const char delimiter)
+{
+  std::vector<std::string> elements;
+  std::stringstream stream(str);
+  std::string item;
+  while (std::getline(stream, item, delimiter))
+    elements.push_back(item);
+
+  return elements;
+}
+
+// definition
+std::string implode(std::vector<std::string> & elements, char delimiter)
+{
+  std::string full;
+  for (std::vector<std::string>::iterator it = elements.begin(); it != elements.end(); ++it)
+  {
+    full += (*it);
+    if (it != elements.end()-1)
+      full += delimiter;
+
+  }
+  return full;
+}

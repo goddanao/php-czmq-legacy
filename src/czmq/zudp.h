@@ -94,32 +94,33 @@ public:
     }
 
     Php::Value send(Php::Parameters &param) {
+        int rc = 0;
 
+        Php::Value p(param[0]);
+        zmsg_t *zmsg = ZMsg::msg_from_param(&p);
         zframe_t *frame = nullptr;
 
-        ZFrame *zframe = dynamic_cast<ZFrame *>(param[0].implementation());
-        if(!zframe) {
-            ZMsg *zmsg = dynamic_cast<ZMsg *>(param[0].implementation());
-            if(zmsg) {
-                frame = zmsg_pop (zmsg->zmsg_handle());
-                while(frame) {
-                    zsys_udp_send(zudp_handle(), frame, &broadcast);
-                    zframe_destroy(&frame);
-                    frame = zmsg_pop (zmsg->zmsg_handle());
-                }
+        if(zmsg != nullptr) {
+            frame = zmsg_pop (zmsg);
+            while(frame && (rc != -1)) {
+                rc = zsys_udp_send(zudp_handle(), frame, &broadcast);
+                zframe_destroy(&frame);
+                frame = zmsg_pop (zmsg);
             }
-        } else {
-            frame = zframe->zframe_handle();
-            zsys_udp_send(zudp_handle(), frame, &broadcast);
+            zmsg_destroy(&zmsg);
         }
+        return (rc != -1);
     }
 
-    Php::Value recv() {
+    Php::Value recv(Php::Parameters &param) {
         char peername [INET_ADDRSTRLEN];
         zframe_t *frame = zsys_udp_recv(zudp_handle(), peername);
-        if(frame)
-            return Php::Object("ZFrame", new ZFrame(frame, true));
-        return nullptr;
+        if(!frame)
+            return nullptr;
+        zmsg_t *msg = zmsg_new();
+        zmsg_addstr(msg, peername);
+        zmsg_append(msg, &frame);
+        return Php::Object("ZMsg", new ZMsg(msg, true));
     }
 
     static Php::Class<ZUdp> php_register() {

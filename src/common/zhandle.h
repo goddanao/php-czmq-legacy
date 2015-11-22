@@ -9,21 +9,22 @@
 
 class ZHandle {
 protected:
-    void *_handle      = nullptr;
-    SOCKET _socket     = 0;
-    bool _owned        = false;
-    std::string _type  = "unknown";
+    int _created_by_pid = -1;
+    void *_handle       = nullptr;
+    SOCKET _socket      = INVALID_SOCKET;
+    bool _owned         = false;
+    std::string _type   = "unknown";
 public:
-    ZHandle() {}
-    ZHandle(void *handle, bool owned, std::string type) : _handle(handle), _owned(owned), _type(type) {}
-    ZHandle(SOCKET socket, bool owned, std::string type) : _socket(socket), _owned(owned), _type(type) {}
+    ZHandle() { _created_by_pid = getpid(); }
+    ZHandle(void *handle, bool owned, std::string type) : _handle(handle), _owned(owned), _type(type) { _created_by_pid = getpid(); }
+    ZHandle(SOCKET socket, bool owned, std::string type) : _socket(socket), _owned(owned), _type(type) { _created_by_pid = getpid(); }
 
     void set_handle(void *handle, bool owned, std::string type) { _handle = handle; _owned = owned; _type  = type; }
     void set_handle(SOCKET socket, bool owned, std::string type) { _socket = socket; _owned = owned; _type  = type; }
 
     void *get_handle() const { return _handle; }
 
-    virtual void *get_actor() const {
+    void *get_actor() const {
 
         if(_type == "zactor")
             return _handle;
@@ -54,13 +55,15 @@ public:
         return nullptr;
     }
 
-    virtual SOCKET get_fd() const {
+    SOCKET get_fd() const {
         if(_type == "zudp")
+            return _socket;
+        if(_type == "fd")
             return _socket;
         return zsock_fd(get_socket());
     }
 
-    virtual void *get_socket() const {
+    void *get_socket() const {
         if(_type == "socket")
             return _handle;
 
@@ -94,15 +97,17 @@ public:
             return (void *) mlm_client_msgpipe((mlm_client_t *) _handle);
 
         if(_type == "zyre")
-            return (void *) zyre_socket((zyre_t*)_handle);
+            return (void *) zsock_resolve(zyre_socket((zyre_t*)_handle));
 
         return nullptr;
     }
 
     virtual ~ZHandle() {
 
-        if(!_owned || _handle == nullptr || _handle == NULL)
+        if(!_owned || _handle == nullptr || _handle == NULL || _created_by_pid != getpid())
             return;
+
+        // zsys_info("destroying %s .... PID: %d", _type.c_str(), _created_by_pid);
 
         if(_type == "zactor" && zactor_is(_handle))
             zactor_destroy((zactor_t **) &_handle);
@@ -143,11 +148,8 @@ public:
         if(_type == "zpoller")
             zpoller_destroy((zpoller_t **) &_handle);
         else
-        if((_type == "mlm_broker") && zactor_is(_handle)) {
-            zsys_info("destroying mlm_broker .... %p, sending TERM", _handle);
-            // zstr_sendx (_handle, "$TERM", NULL);
+        if((_type == "mlm_broker") && zactor_is(_handle))
             zactor_destroy((zactor_t **) &_handle);
-        }
         else
         if(_type == "mlm_client")
             mlm_client_destroy ((mlm_client_t **) &_handle);
@@ -172,10 +174,13 @@ public:
         else
         if(_type == "fmq_server")
              zactor_destroy((zactor_t **) &_handle);
-         else
-         if(_type == "fmq_client")
+        else
+        if(_type == "fmq_client")
               fmq_client_destroy((fmq_client_t **) &_handle);
-          else
+        else
+        if(_type == "fd")
+            close(_socket);
+        else
           ;
 
 
@@ -186,13 +191,5 @@ public:
     // IZSocket Intf
     Php::Value _get_fd () const;
     Php::Value _get_socket () const;
-
-
-    virtual Php::Value send(Php::Parameters &param);
-    virtual Php::Value recv(Php::Parameters &param);
-    virtual Php::Value send_string(Php::Parameters &param);
-    virtual Php::Value recv_string(Php::Parameters &param);
-    virtual Php::Value send_picture(Php::Parameters &param);
-    virtual Php::Value recv_picture(Php::Parameters &param);
 
 };

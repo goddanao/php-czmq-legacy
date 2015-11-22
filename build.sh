@@ -48,7 +48,7 @@ git clone ${PHPCPP_BRANCH} git://github.com/CopernicaMarketingSoftware/PHP-CPP.g
 composer update
 
 # Run PhpUnit tests
-phpunit
+$(which phpunit) -dzend.enable_gc=0
 
 # Detect Memory Leaks
 # USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 valgrind --log-file=./czmq.log php ~/.phpenv/versions/$(phpenv version-name)/bin/phpunit

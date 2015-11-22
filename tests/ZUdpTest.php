@@ -21,12 +21,16 @@ class ZUdpTest extends \PHPUnit_Framework_TestCase {
         $msg->append_string("hello");
         $msg->append_string("world");
         $udp1->send($msg);
-        $frame = $udp2->recv();
-        $this->assertNotNull($frame);
-        $this->assertTrue($frame == "hello");
-        $frame = $udp2->recv();
-        $this->assertNotNull($frame);
-        $this->assertTrue($frame == "world");
+        $msg = $udp2->recv();
+        $this->assertNotNull($msg);
+        $sender = $msg->pop_string();
+        $this->assertRegExp('/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/sim', $sender);
+        $this->assertEquals($msg->pop_string(), "hello");
+        $msg = $udp2->recv();
+        $this->assertNotNull($msg);
+        $sender = $msg->pop_string();
+        $this->assertRegExp('/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/sim', $sender);
+        $this->assertEquals($msg->pop_string(), "world");
     }
 
 }

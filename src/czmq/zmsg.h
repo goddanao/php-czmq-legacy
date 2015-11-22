@@ -2,8 +2,9 @@
 
 #include "zframe.h"
 
-class ZMsg  : public ZHandle, public Php::Base {
+class ZMsg  : public ZHandle, public Php::Base, public Php::Countable {
 public:
+
     ZMsg() : ZHandle(), Php::Base() {}
     ZMsg(zmsg_t *handle, bool owned) : ZHandle(handle, owned, "zmsg"), Php::Base() {}
     zmsg_t *zmsg_handle() const { return (zmsg_t *) get_handle(); }
@@ -38,11 +39,6 @@ public:
         ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
         zmsg_t *zmsg = zmsg_dup(zmsg_handle());
         return zmsg_send(&zmsg, zhandle->get_socket());
-    }
-
-    Php::Value recv(Php::Parameters &param) {
-        ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
-        return Php::Object("ZMsg", new ZMsg(zmsg_recv(zhandle->get_socket()), true));
     }
 
     void remove(Php::Parameters &param) {
@@ -508,24 +504,36 @@ public:
     }
 
     Php::Value __toString() {
-        std::string result;
+
+        zsys_info("casting to string?");
+
+        if(zmsg_size(zmsg_handle()) == 0)
+            return "";
+
+        std::vector<std::string> result;
+
         zmsg_t *msg = zmsg_dup (zmsg_handle());
-        char *str = zmsg_popstr(zmsg_handle());
-        if(zmsg_size(msg) == 0) {
-            result = str;
-            zstr_free(&str);
-            return result;
-        }
-        int i = 0;
+        char *str = zmsg_popstr(msg);
         while(str) {
-            result = ((i == 0) ? "" : result + "\n") + std::string(str);
+            result.push_back(std::string(str));
             zstr_free(&str);
-            str = zmsg_popstr(zmsg_handle());
+            str = zmsg_popstr(msg);
         }
-        return result;
+        zmsg_destroy(&msg);
+
+        return implode(result, ' ');
     }
 
 
+    /**
+     *  Method from the Php::Countable interface that
+     *  returns the number of elements in the map
+     *  @return long
+     */
+    virtual long count() override
+    {
+        return zmsg_size(zmsg_handle());
+    }
 
     static Php::Class<ZMsg> php_register() {
         Php::Class<ZMsg> o("ZMsg");
@@ -544,7 +552,6 @@ public:
         o.method("pop_string", &ZMsg::pop_string);
 
         o.method("send", &ZMsg::send);
-        o.method("recv", &ZMsg::recv);
 
         o.method("remove", &ZMsg::remove);
         o.method("first", &ZMsg::first);
