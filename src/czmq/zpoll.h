@@ -198,14 +198,14 @@ public:
 
         o.method("set_verbose", &ZPoll::set_verbose);
         o.method("add", &ZPoll::add, {
-            Php::ByVal("socket", "IZSocket", true),
+            Php::ByVal("socket", "ZDescriptor", true),
             Php::ByVal("mode", Php::Type::Numeric, false)
         });
         o.method("has", &ZPoll::has, {
-               Php::ByVal("socket", "IZSocket", true)
+               Php::ByVal("socket", "ZDescriptor", true)
            });
         o.method("remove", &ZPoll::remove, {
-             Php::ByVal("socket", "IZSocket", true)
+             Php::ByVal("socket", "ZDescriptor", true)
          });
         o.method("check_for", &ZPoll::check_for);
         o.method("events", &ZPoll::events);

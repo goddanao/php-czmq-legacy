@@ -92,8 +92,7 @@ public:
         o.method("get_client", &MalamuteWorker::get_client);
 
         // IZSocket intf support
-        o.method("get_socket", &MalamuteWorker::_get_socket);
-        o.method("get_fd", &MalamuteWorker::_get_fd);
+        o.method("get_fd", &MalamuteWorker::get_fd);
 
         return o;
     }

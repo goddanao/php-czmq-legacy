@@ -56,7 +56,7 @@ public:
         return nullptr;
     }
 
-    int get_fd() const {
+    Php::Value get_fd() const {
         if(_type == "zudp")
             return _fd;
         if(_type == "fd")
@@ -189,8 +189,17 @@ public:
         _fd = -1;
     }
 
-    // IZSocket Intf
-    Php::Value _get_fd () const;
-    Php::Value _get_socket () const;
+    virtual Php::Value send_picture(Php::Parameters &param);
+
+    virtual Php::Value recv_picture(Php::Parameters &param);
+
+    virtual Php::Value send_string(Php::Parameters &param);
+
+    virtual Php::Value recv_string(Php::Parameters &param);
+
+    virtual Php::Value send(Php::Parameters &param);
+
+    virtual Php::Value recv(Php::Parameters &param);
+
 
 };

@@ -58,13 +58,6 @@ public:
         }
     }
 
-    Php::Value recv(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        return Php::Object("ZMsg", new ZMsg(msg, true));
-    }
-
     static Php::Class<ZAuth> php_register() {
         Php::Class<ZAuth> o("ZAuth");
         o.method("__construct", &ZAuth::__construct);
@@ -79,8 +72,7 @@ public:
         o.method("configure", &ZAuth::configure);
 
         // IZSocket
-        o.method("get_socket", &ZAuth::_get_socket);
-        o.method("get_fd", &ZAuth::_get_fd);
+        o.method("get_fd", &ZAuth::get_fd);
 
         o.property("AUTH_PLAIN", "PLAIN", Php::Const);
         o.property("AUTH_CURVE", "CURVE", Php::Const);

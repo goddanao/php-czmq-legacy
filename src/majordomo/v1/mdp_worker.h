@@ -215,8 +215,7 @@ public:
         });
 
         // IZSocket intf support
-		o.method("get_socket", &MajordomoWorkerV1::_get_socket);
-		o.method("get_fd", &MajordomoWorkerV1::_get_fd);
+		o.method("get_fd", &MajordomoWorkerV1::get_fd);
 
        return o;
     }

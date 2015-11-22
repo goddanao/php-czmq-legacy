@@ -57,13 +57,6 @@ public:
         zsock_wait(zproxy_handle());
     }
 
-    Php::Value recv(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        return Php::Object("ZMsg", new ZMsg(msg, true));
-    }
-
     static Php::Class<ZProxy> php_register() {
         Php::Class<ZProxy> o("ZProxy");
 
@@ -86,8 +79,7 @@ public:
         });
 
         // IZSocket intf support
-        o.method("get_socket", &ZProxy::_get_socket);
-        o.method("get_fd", &ZProxy::_get_fd);
+        o.method("get_fd", &ZProxy::get_fd);
 
         return o;
     }

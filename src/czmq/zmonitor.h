@@ -36,13 +36,6 @@ public:
         zsock_wait(zmonitor_handle());
     }
 
-    Php::Value recv(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        return Php::Object("ZMsg", new ZMsg(msg, true));
-    }
-
     static Php::Class<ZMonitor> php_register() {
         Php::Class<ZMonitor> o("ZMonitor");
         o.method("__construct", &ZMonitor::__construct);
@@ -67,8 +60,7 @@ public:
         o.constant("EVT_ALL", "ALL");
 
         // IZSocket intf support
-        o.method("get_socket", &ZMonitor::_get_socket);
-        o.method("get_fd", &ZMonitor::_get_fd);
+        o.method("get_fd", &ZMonitor::get_fd);
 
         return o;
     }

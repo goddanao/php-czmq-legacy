@@ -51,13 +51,6 @@ public:
 
     }
 
-    Php::Value recv(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        return Php::Object("ZMsg", new ZMsg(msg, true));
-    }
-
     static Php::Class<FileMqClient> php_register() {
         Php::Class<FileMqClient> o("Client");
         o.method("__construct", &FileMqClient::__construct, {
@@ -75,8 +68,7 @@ public:
         o.method("recv", &FileMqClient::recv);
 
         // IZSocket intf support
-        o.method("get_socket", &FileMqClient::_get_socket);
-        o.method("get_fd", &FileMqClient::_get_fd);
+        o.method("get_fd", &FileMqClient::get_fd);
 
 
         return o;

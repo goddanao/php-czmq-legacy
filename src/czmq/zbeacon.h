@@ -44,13 +44,6 @@ public:
         zstr_sendx (zbeacon_handle(), "SILENCE", NULL);
     }
 
-    Php::Value recv(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        return Php::Object("ZMsg", new ZMsg(msg, true));
-    }
-
     static Php::Class<ZBeacon> php_register() {
         Php::Class<ZBeacon> o("ZBeacon");
 
@@ -73,8 +66,7 @@ public:
         o.method("recv", &ZBeacon::recv);
 
         // IZSocket intf support
-        o.method("get_socket", &ZBeacon::_get_socket);
-        o.method("get_fd", &ZBeacon::_get_fd);
+        o.method("get_fd", &ZBeacon::get_fd);
 
         return o;
     }

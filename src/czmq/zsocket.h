@@ -197,49 +197,6 @@ public:
         return result;
     }
 
-    Php::Value send_picture(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_new();
-        ZMsg z(msg, false);
-        z.append_picture(param);
-        return (zmsg_send (&msg, get_socket()) == 0);
-    }
-
-    Php::Value recv_picture(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        ZMsg z(msg, true);
-        return z.pop_picture(param);
-    }
-
-    Php::Value send_string(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_new();
-        ZMsg z(msg, false);
-        z.append_string(param);
-        return (zmsg_send (&msg, get_socket()) == 0);
-    }
-
-    Php::Value recv_string(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        ZMsg z(msg, true);
-        return z.pop_string();
-    }
-
-    Php::Value send(Php::Parameters &param) {
-        Php::Value p(param[0]);
-        zmsg_t *czmsg = ZMsg::msg_from_param(&p);
-        return zmsg_send(&czmsg, get_socket());
-    }
-
-    Php::Value recv(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        return Php::Object("ZMsg", new ZMsg(msg, true));
-    }
-
     // Get Socket Options
 
 #if (ZMQ_VERSION_MAJOR == 4)
@@ -618,8 +575,7 @@ public:
         o.method("get_options", &ZSocket::get_options);
 
         // IZSocket intf support
-        o.method("get_socket", &ZSocket::_get_socket);
-        o.method("get_fd", &ZSocket::_get_fd);
+        o.method("get_fd", &ZSocket::get_fd);
 
 
 #if (ZMQ_VERSION_MAJOR == 4)

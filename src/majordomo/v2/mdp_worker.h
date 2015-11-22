@@ -60,8 +60,7 @@ public:
         o.method("process", &MajordomoWorkerV2::process);
 
         // IZSocket intf support
-        o.method("get_socket", &MajordomoWorkerV2::_get_socket);
-        o.method("get_fd", &MajordomoWorkerV2::_get_fd);
+        o.method("get_fd", &MajordomoWorkerV2::get_fd);
 
         return o;
     }

@@ -2,12 +2,12 @@
 
 #include "../common.h"
 
-class Watcher : public ZHandle, public Php::Base {
+class ZInotify : public ZHandle, public Php::Base {
 private:
     std::map<int,std::string> _map;
 public:
 
-    Watcher() : ZHandle(inotify_init(), true, "fd"), Php::Base() { }
+    ZInotify() : ZHandle(inotify_init(), true, "fd"), Php::Base() { }
 
 	Php::Value watch(Php::Parameters &param) {
         int wd;
@@ -50,12 +50,12 @@ public:
     }
 
 
-	static Php::Class<Watcher> php_register() {
-        Php::Class<Watcher> o("Watcher");
+	static Php::Class<ZInotify> php_register() {
+        Php::Class<ZInotify> o("ZInotify");
 
-        o.method("watch", &Watcher::watch);
-        o.method("remove", &Watcher::remove);
-        o.method("recv", &Watcher::recv);
+        o.method("watch", &ZInotify::watch);
+        o.method("remove", &ZInotify::remove);
+        o.method("recv", &ZInotify::recv);
 
         o.constant("IN_ACCESS", IN_ACCESS);
         o.constant("IN_MODIFY", IN_MODIFY);
@@ -85,6 +85,9 @@ public:
         // o.constant("IN_ONESHOT", IN_ONESHOT);
 
         o.constant("IN_ALL_EVENTS", IN_ALL_EVENTS);
+
+        // IZSocket intf support
+        o.method("get_fd", &ZInotify::get_fd);
 
         return o;
     }

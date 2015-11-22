@@ -23,6 +23,8 @@ public:
         Php::Class<ZStdIn> o("ZStdIn");
         o.method("recv", &ZStdIn::recv);
         o.method("send", &ZStdIn::send);
+        // IZSocket intf support
+        o.method("get_fd", &ZStdIn::get_fd);
         return o;
     }
 
@@ -49,6 +51,8 @@ public:
         Php::Class<ZStdOut> o("ZStdOut");
         o.method("recv", &ZStdOut::recv);
         o.method("send", &ZStdOut::send);
+        // IZSocket intf support
+        o.method("get_fd", &ZStdOut::get_fd);
         return o;
     }
 
@@ -75,6 +79,8 @@ public:
         Php::Class<ZStdErr> o("ZStdErr");
         o.method("recv", &ZStdErr::recv);
         o.method("send", &ZStdErr::send);
+        // IZSocket intf support
+        o.method("get_fd", &ZStdErr::get_fd);
         return o;
     }
 

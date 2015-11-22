@@ -135,8 +135,7 @@ public:
         o.method("recv", &ZUdp::recv);
 
         // IZSocket intf support
-        o.method("get_socket", &ZUdp::_get_socket);
-        o.method("get_fd", &ZUdp::_get_fd);
+        o.method("get_fd", &ZUdp::get_fd);
 
         return o;
     }

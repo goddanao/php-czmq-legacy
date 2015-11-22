@@ -102,13 +102,6 @@ public:
 		return (mlm_client_sendfor(mlm_client_handle(), address.c_str(), subject.c_str(), tracker.c_str(), _to, &msg) == 0);
 	}
 
-	Php::Value recv(Php::Parameters &param) {
-        zmsg_t *msg = mlm_client_recv (mlm_client_handle());
-        if(!msg)
-            return nullptr;
-        return Php::Object("ZMsg", new ZMsg(msg, true));
-    }
-
     Php::Value set_producer(Php::Parameters &param) { return (mlm_client_set_producer(mlm_client_handle(), param[0].stringValue().c_str()) != -1); }
 
     Php::Value set_worker(Php::Parameters &param) { return (mlm_client_set_worker(mlm_client_handle(), param[0].stringValue().c_str(), param[1].stringValue().c_str()) != -1); }
@@ -163,8 +156,7 @@ public:
 
 
         // IZSocket intf support
-        o.method("get_socket", &MalamuteClient::_get_socket);
-        o.method("get_fd", &MalamuteClient::_get_fd);
+        o.method("get_fd", &MalamuteClient::get_fd);
 
 
         return o;

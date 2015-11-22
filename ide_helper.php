@@ -339,7 +339,7 @@ class ZSys {
  *
  * Udp low level class
  */
-class ZUdp implements \IZSocket {
+class ZUdp implements \ZDescriptor {
 
   /**
    * ZUdp::__construct
@@ -372,13 +372,6 @@ class ZUdp implements \IZSocket {
    * @return ZMsg
   */
   public function recv() {}
-
-  /**
-   * ZUdp::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
 
   /**
    * ZUdp::get_fd
@@ -649,7 +642,7 @@ class ZPoll {
    * ZPoll::add
    *
    * ...
-   * @param IZSocket$socket ...
+   * @param ZDescriptor$socket ...
    * @param mixed$mode ... (optional)
   */
   public function add($socket = null, $mode) {}
@@ -658,7 +651,7 @@ class ZPoll {
    * ZPoll::has
    *
    * ...
-   * @param IZSocket$socket ...
+   * @param ZDescriptor$socket ...
   */
   public function has($socket = null) {}
 
@@ -666,7 +659,7 @@ class ZPoll {
    * ZPoll::remove
    *
    * ...
-   * @param IZSocket$socket ...
+   * @param ZDescriptor$socket ...
   */
   public function remove($socket = null) {}
 
@@ -921,13 +914,6 @@ class ZMonitor {
   public function recv() {}
 
   /**
-   * ZMonitor::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * ZMonitor::get_fd
    *
    * ...
@@ -938,21 +924,14 @@ class ZMonitor {
 
 
 /**
- * IZSocket
+ * ZDescriptor
  *
  * ...
  */
-interface IZSocket {
+interface ZDescriptor {
 
   /**
-   * IZSocket::get_socket
-   *
-   * ...
-  */
-  public function get_socket() ;
-
-  /**
-   * IZSocket::get_fd
+   * ZDescriptor::get_fd
    *
    * ...
   */
@@ -966,7 +945,7 @@ interface IZSocket {
  *
  * ...
  */
-class ZSocket implements \IZSocket {
+class ZSocket implements \ZDescriptor {
 
   /**
    * ZSocket::__construct
@@ -1215,13 +1194,6 @@ class ZSocket implements \IZSocket {
    * ...
   */
   public function get_options() {}
-
-  /**
-   * ZSocket::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
 
   /**
    * ZSocket::get_fd
@@ -1889,7 +1861,7 @@ class ZSocket implements \IZSocket {
  *
  * ...
  */
-class ZProxy implements \IZSocket {
+class ZProxy implements \ZDescriptor {
 
   /**
    * ZProxy::__construct
@@ -1953,13 +1925,6 @@ class ZProxy implements \IZSocket {
   public function set_capture($socket_endpoint) {}
 
   /**
-   * ZProxy::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * ZProxy::get_fd
    *
    * ...
@@ -1974,7 +1939,7 @@ class ZProxy implements \IZSocket {
  *
  * ...
  */
-class ZBeacon implements \IZSocket {
+class ZBeacon implements \ZDescriptor {
 
   /**
    * ZBeacon::__construct
@@ -2037,13 +2002,6 @@ class ZBeacon implements \IZSocket {
   public function recv() {}
 
   /**
-   * ZBeacon::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * ZBeacon::get_fd
    *
    * ...
@@ -2058,7 +2016,7 @@ class ZBeacon implements \IZSocket {
  *
  * Authentication for ZeroMQ security mechanisms.
  */
-class ZAuth implements \IZSocket {
+class ZAuth implements \ZDescriptor {
   const AUTH_PLAIN = "PLAIN";
   const AUTH_CURVE = "CURVE";
   const AUTH_GSSAPI = "GSSAPI";
@@ -2118,13 +2076,6 @@ class ZAuth implements \IZSocket {
   public function configure() {}
 
   /**
-   * ZAuth::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * ZAuth::get_fd
    *
    * ...
@@ -2139,7 +2090,7 @@ class ZAuth implements \IZSocket {
  *
  * Decentralized configuration management.
  */
-class ZGossip implements \IZSocket {
+class ZGossip implements \ZDescriptor {
 
   /**
    * ZGossip::__construct
@@ -2212,13 +2163,6 @@ class ZGossip implements \IZSocket {
   public function recv() {}
 
   /**
-   * ZGossip::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * ZGossip::get_fd
    *
    * ...
@@ -2233,7 +2177,7 @@ class ZGossip implements \IZSocket {
  *
  * Zyre does local area discovery and clustering. A Zyre node broadcasts UDP beacons, and connects to peers that it finds.
  */
-class Zyre implements \IZSocket {
+class Zyre implements \ZDescriptor {
 
   /**
    * Zyre::__construct
@@ -2441,13 +2385,6 @@ class Zyre implements \IZSocket {
   public function send_group($group, $data) {}
 
   /**
-   * Zyre::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Zyre::get_fd
    *
    * ...
@@ -2462,7 +2399,7 @@ class Zyre implements \IZSocket {
  *
  * ...
  */
-class ZInotify {
+class ZInotify implements \ZDescriptor {
   const IN_ACCESS = 1;
   const IN_MODIFY = 2;
   const IN_ATTRIB = 4;
@@ -2509,6 +2446,13 @@ class ZInotify {
   */
   public function recv() {}
 
+  /**
+   * ZInotify::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 
@@ -2517,7 +2461,7 @@ class ZInotify {
  *
  * ...
  */
-class ZStdIn {
+class ZStdIn implements \ZDescriptor {
 
   /**
    * ZStdIn::recv
@@ -2533,6 +2477,13 @@ class ZStdIn {
   */
   public function send() {}
 
+  /**
+   * ZStdIn::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 
@@ -2541,7 +2492,7 @@ class ZStdIn {
  *
  * ...
  */
-class ZStdOut {
+class ZStdOut implements \ZDescriptor {
 
   /**
    * ZStdOut::recv
@@ -2557,6 +2508,13 @@ class ZStdOut {
   */
   public function send() {}
 
+  /**
+   * ZStdOut::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 
@@ -2565,7 +2523,7 @@ class ZStdOut {
  *
  * ...
  */
-class ZStdErr {
+class ZStdErr implements \ZDescriptor {
 
   /**
    * ZStdErr::recv
@@ -2581,6 +2539,13 @@ class ZStdErr {
   */
   public function send() {}
 
+  /**
+   * ZStdErr::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
+
 }
 
 }
@@ -2592,7 +2557,7 @@ namespace Majordomo\V2 {
  *
  * ...
  */
-class Broker implements \IZSocket {
+class Broker implements \ZDescriptor {
 
   /**
    * Broker::__construct
@@ -2639,13 +2604,6 @@ class Broker implements \IZSocket {
   public function bind() {}
 
   /**
-   * Broker::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Broker::get_fd
    *
    * ...
@@ -2660,7 +2618,7 @@ class Broker implements \IZSocket {
  *
  * ...
  */
-class Worker implements \IZSocket {
+class Worker implements \ZDescriptor {
 
   /**
    * Worker::__construct
@@ -2694,13 +2652,6 @@ class Worker implements \IZSocket {
   public function process() {}
 
   /**
-   * Worker::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Worker::get_fd
    *
    * ...
@@ -2715,7 +2666,7 @@ class Worker implements \IZSocket {
  *
  * ...
  */
-class Client implements \IZSocket {
+class Client implements \ZDescriptor {
 
   /**
    * Client::__construct
@@ -2756,13 +2707,6 @@ class Client implements \IZSocket {
   public function call_async($service_name) {}
 
   /**
-   * Client::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Client::get_fd
    *
    * ...
@@ -2780,7 +2724,7 @@ namespace Majordomo\V1 {
  *
  * ...
  */
-class Broker implements \IZSocket {
+class Broker implements \ZDescriptor {
 
   /**
    * Broker::__construct
@@ -2819,13 +2763,6 @@ class Broker implements \IZSocket {
   public function set_capture($socket_endpoint) {}
 
   /**
-   * Broker::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Broker::get_fd
    *
    * ...
@@ -2840,7 +2777,7 @@ class Broker implements \IZSocket {
  *
  * ...
  */
-class Worker implements \IZSocket {
+class Worker implements \ZDescriptor {
 
   /**
    * Worker::__construct
@@ -2861,13 +2798,6 @@ class Worker implements \IZSocket {
   public function run($callback) {}
 
   /**
-   * Worker::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Worker::get_fd
    *
    * ...
@@ -2882,7 +2812,7 @@ class Worker implements \IZSocket {
  *
  * ...
  */
-class Client implements \IZSocket {
+class Client implements \ZDescriptor {
 
   /**
    * Client::__construct
@@ -2906,13 +2836,6 @@ class Client implements \IZSocket {
   public function call_async() {}
 
   /**
-   * Client::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Client::get_fd
    *
    * ...
@@ -2930,7 +2853,7 @@ namespace Malamute {
  *
  * ...
  */
-class Broker implements \IZSocket {
+class Broker implements \ZDescriptor {
 
   /**
    * Broker::__construct
@@ -2975,13 +2898,6 @@ class Broker implements \IZSocket {
   public function set_config() {}
 
   /**
-   * Broker::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Broker::get_fd
    *
    * ...
@@ -2996,7 +2912,7 @@ class Broker implements \IZSocket {
  *
  * ...
  */
-class Worker implements \IZSocket {
+class Worker implements \ZDescriptor {
 
   /**
    * Worker::__construct
@@ -3032,13 +2948,6 @@ class Worker implements \IZSocket {
   public function get_client() {}
 
   /**
-   * Worker::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Worker::get_fd
    *
    * ...
@@ -3053,7 +2962,7 @@ class Worker implements \IZSocket {
  *
  * ...
  */
-class Client implements \IZSocket {
+class Client implements \ZDescriptor {
 
   /**
    * Client::__construct
@@ -3162,13 +3071,6 @@ class Client implements \IZSocket {
   public function recv() {}
 
   /**
-   * Client::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Client::get_fd
    *
    * ...
@@ -3183,7 +3085,7 @@ class Client implements \IZSocket {
  *
  * ...
  */
-class Producer implements \IZSocket {
+class Producer implements \ZDescriptor {
 
   /**
    * Producer::__construct
@@ -3219,13 +3121,6 @@ class Producer implements \IZSocket {
   public function get_client() {}
 
   /**
-   * Producer::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Producer::get_fd
    *
    * ...
@@ -3240,7 +3135,7 @@ class Producer implements \IZSocket {
  *
  * ...
  */
-class Consumer implements \IZSocket {
+class Consumer implements \ZDescriptor {
 
   /**
    * Consumer::__construct
@@ -3284,13 +3179,6 @@ class Consumer implements \IZSocket {
   public function get_client() {}
 
   /**
-   * Consumer::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Consumer::get_fd
    *
    * ...
@@ -3308,7 +3196,7 @@ namespace FileMq {
  *
  * ...
  */
-class Server implements \IZSocket {
+class Server implements \ZDescriptor {
 
   /**
    * Server::__construct
@@ -3362,13 +3250,6 @@ class Server implements \IZSocket {
   public function publish($local_path, $alias) {}
 
   /**
-   * Server::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
-
-  /**
    * Server::get_fd
    *
    * ...
@@ -3390,7 +3271,7 @@ class Server implements \IZSocket {
  *
  * ...
  */
-class Client implements \IZSocket {
+class Client implements \ZDescriptor {
 
   /**
    * Client::__construct
@@ -3431,13 +3312,6 @@ class Client implements \IZSocket {
    * ...
   */
   public function recv() {}
-
-  /**
-   * Client::get_socket
-   *
-   * ...
-  */
-  public function get_socket() {}
 
   /**
    * Client::get_fd

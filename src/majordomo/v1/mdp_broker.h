@@ -94,8 +94,7 @@ public:
         });
 
         // IZSocket intf support
-		o.method("get_socket", &MajordomoBrokerV1::_get_socket);
-		o.method("get_fd", &MajordomoBrokerV1::_get_fd);
+		o.method("get_fd", &MajordomoBrokerV1::get_fd);
 
         return o;
     }

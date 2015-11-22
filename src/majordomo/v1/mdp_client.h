@@ -147,8 +147,7 @@ public:
         o.method("call_async", &MajordomoClientV1::call_async);
 
         // IZSocket intf support
-		o.method("get_socket", &MajordomoClientV1::_get_socket);
-		o.method("get_fd", &MajordomoClientV1::_get_fd);
+		o.method("get_fd", &MajordomoClientV1::get_fd);
 
         return o;
     }

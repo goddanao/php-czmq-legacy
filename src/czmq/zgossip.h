@@ -64,13 +64,6 @@ public:
         return result;
     }
 
-    Php::Value recv(Php::Parameters &param) {
-        zmsg_t *msg = zmsg_recv (get_socket());
-        if(!msg)
-            return nullptr;
-        return Php::Object("ZMsg", new ZMsg(msg, true));
-    }
-
     static Php::Class<ZGossip> php_register() {
         Php::Class<ZGossip> o("ZGossip");
         o.method("__construct", &ZGossip::__construct);
@@ -99,8 +92,7 @@ public:
         o.method("recv", &ZGossip::recv);
 
         // IZSocket intf support
-        o.method("get_socket", &ZGossip::_get_socket);
-        o.method("get_fd", &ZGossip::_get_fd);
+        o.method("get_fd", &ZGossip::get_fd);
 
         return o;
     }
