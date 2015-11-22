@@ -2,7 +2,6 @@ API Index
 =========
 
 * [IZSocket](IZSocket.md)
-* [Watcher](Watcher.md)
 * [ZContext](ZContext.md)
 * [ZSys](ZSys.md)
 * [ZUdp](ZUdp.md)
@@ -19,6 +18,10 @@ API Index
 * [ZAuth](ZAuth.md)
 * [ZGossip](ZGossip.md)
 * [Zyre](Zyre.md)
+* [ZInotify](ZInotify.md)
+* [ZStdIn](ZStdIn.md)
+* [ZStdOut](ZStdOut.md)
+* [ZStdErr](ZStdErr.md)
 * Majordomo
     * Majordomo\V2
         * [Broker](Majordomo-V2-Broker.md)

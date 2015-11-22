@@ -3,61 +3,6 @@
 namespace {
 
 /**
- * Watcher
- *
- * ...
- */
-class Watcher {
-  const IN_ACCESS = 1;
-  const IN_MODIFY = 2;
-  const IN_ATTRIB = 4;
-  const IN_CLOSE_WRITE = 8;
-  const IN_CLOSE_NOWRITE = 16;
-  const IN_OPEN = 32;
-  const IN_MOVED_FROM = 64;
-  const IN_MOVED_TO = 128;
-  const IN_CREATE = 256;
-  const IN_DELETE = 512;
-  const IN_DELETE_SELF = 1024;
-  const IN_MOVE_SELF = 2048;
-  const IN_UNMOUNT = 8192;
-  const IN_Q_OVERFLOW = 16384;
-  const IN_IGNORED = 32768;
-  const IN_CLOSE = 24;
-  const IN_MOVE = 192;
-  const IN_ONLYDIR = 16777216;
-  const IN_DONT_FOLLOW = 33554432;
-  const IN_EXCL_UNLINK = 67108864;
-  const IN_MASK_ADD = 536870912;
-  const IN_ISDIR = 1073741824;
-  const IN_ALL_EVENTS = 4095;
-
-
-  /**
-   * Watcher::watch
-   *
-   * ...
-  */
-  public function watch() {}
-
-  /**
-   * Watcher::remove
-   *
-   * ...
-  */
-  public function remove() {}
-
-  /**
-   * Watcher::recv
-   *
-   * ...
-  */
-  public function recv() {}
-
-}
-
-
-/**
  * ZContext
  *
  * ZMQ Context holder
@@ -2508,6 +2453,133 @@ class Zyre implements \IZSocket {
    * ...
   */
   public function get_fd() {}
+
+}
+
+
+/**
+ * ZInotify
+ *
+ * ...
+ */
+class ZInotify {
+  const IN_ACCESS = 1;
+  const IN_MODIFY = 2;
+  const IN_ATTRIB = 4;
+  const IN_CLOSE_WRITE = 8;
+  const IN_CLOSE_NOWRITE = 16;
+  const IN_OPEN = 32;
+  const IN_MOVED_FROM = 64;
+  const IN_MOVED_TO = 128;
+  const IN_CREATE = 256;
+  const IN_DELETE = 512;
+  const IN_DELETE_SELF = 1024;
+  const IN_MOVE_SELF = 2048;
+  const IN_UNMOUNT = 8192;
+  const IN_Q_OVERFLOW = 16384;
+  const IN_IGNORED = 32768;
+  const IN_CLOSE = 24;
+  const IN_MOVE = 192;
+  const IN_ONLYDIR = 16777216;
+  const IN_DONT_FOLLOW = 33554432;
+  const IN_EXCL_UNLINK = 67108864;
+  const IN_MASK_ADD = 536870912;
+  const IN_ISDIR = 1073741824;
+  const IN_ALL_EVENTS = 4095;
+
+
+  /**
+   * ZInotify::watch
+   *
+   * ...
+  */
+  public function watch() {}
+
+  /**
+   * ZInotify::remove
+   *
+   * ...
+  */
+  public function remove() {}
+
+  /**
+   * ZInotify::recv
+   *
+   * ...
+  */
+  public function recv() {}
+
+}
+
+
+/**
+ * ZStdIn
+ *
+ * ...
+ */
+class ZStdIn {
+
+  /**
+   * ZStdIn::recv
+   *
+   * ...
+  */
+  public function recv() {}
+
+  /**
+   * ZStdIn::send
+   *
+   * ...
+  */
+  public function send() {}
+
+}
+
+
+/**
+ * ZStdOut
+ *
+ * ...
+ */
+class ZStdOut {
+
+  /**
+   * ZStdOut::recv
+   *
+   * ...
+  */
+  public function recv() {}
+
+  /**
+   * ZStdOut::send
+   *
+   * ...
+  */
+  public function send() {}
+
+}
+
+
+/**
+ * ZStdErr
+ *
+ * ...
+ */
+class ZStdErr {
+
+  /**
+   * ZStdErr::recv
+   *
+   * ...
+  */
+  public function recv() {}
+
+  /**
+   * ZStdErr::send
+   *
+   * ...
+  */
+  public function send() {}
 
 }
 
