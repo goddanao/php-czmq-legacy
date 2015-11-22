@@ -1,7 +1,5 @@
 #pragma once
 
-#include "zcontext.h"
-
 class ZSys : public Php::Base {
 public:
 
@@ -124,8 +122,6 @@ public:
     static Php::Value get_socket_limit() { return (int) zsys_socket_limit(); }
     static void set_max_sockets(Php::Parameters &param) { zsys_set_max_sockets(param[0].numericValue()); }
 
-    static Php::Value context(Php::Parameters &param) { return Php::Object("ZContext", new ZContext(zsys_init(), false)); }
-
     static Php::Value is_interrupted() { return zsys_interrupted; }
 
     static void info(Php::Parameters &param) {
@@ -151,11 +147,6 @@ public:
     static Php::Class<ZSys> php_register() {
 
         Php::Class<ZSys> o("ZSys");
-
-        // Static methods
-        o.method("Context", &ZSys::context);
-
-        o.method("is_interrupted", &ZContext::is_interrupted);
 
         o.method("set_io_threads", &ZSys::set_io_threads, {
             Php::ByVal("threads", Php::Type::Numeric, true)

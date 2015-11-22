@@ -269,34 +269,6 @@ Methods
 -------
 
 
-### context
-
-    \FileMq\ZContext ZSys::context()
-
-ZSys::context
-
-Get global ZContext
-
-* Visibility: **public**
-* This method is **static**.
-
-
-
-
-### is_interrupted
-
-    boolean ZSys::is_interrupted()
-
-ZSys::is_interrupted
-
-Inform about zmq interrupt
-
-* Visibility: **public**
-* This method is **static**.
-
-
-
-
 ### set_io_threads
 
     mixed ZSys::set_io_threads(integer $threads)

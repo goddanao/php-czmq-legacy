@@ -36,9 +36,6 @@ extern "C" {
 
     // CZMQ
 
-        // ZContext
-        Php::Class<ZContext> zcontext = ZContext::php_register();
-
         // ZSys
         Php::Class<ZSys> zsys = ZSys::php_register();
 
@@ -194,7 +191,6 @@ extern "C" {
         extension.add(std::move(zdescriptor));
 
         // czmq
-        extension.add(std::move(zcontext));
         extension.add(std::move(zsys));
         extension.add(std::move(zudp));
         extension.add(std::move(zmsg));

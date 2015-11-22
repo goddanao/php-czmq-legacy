@@ -1,7 +1,6 @@
 #pragma once
 
 #include "common.h"
-#include "czmq/zcontext.h"
 #include "czmq/zsys.h"
 #include "czmq/zframe.h"
 #include "czmq/zmsg.h"

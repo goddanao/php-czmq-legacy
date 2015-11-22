@@ -2,7 +2,6 @@ API Index
 =========
 
 * [ZDescriptor](ZDescriptor.md)
-* [ZContext](ZContext.md)
 * [ZSys](ZSys.md)
 * [ZUdp](ZUdp.md)
 * [ZMsg](ZMsg.md)

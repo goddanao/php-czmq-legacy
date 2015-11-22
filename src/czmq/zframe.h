@@ -15,8 +15,10 @@ public:
     Php::Value __toString() {
         Php::Value result;
         char *framestr = zframe_strdup (zframe_handle());
-        result = framestr;
-        free(framestr);
+        if(framestr) {
+            result = framestr;
+            zstr_free(&framestr);
+        }
     	return result;
     }
 

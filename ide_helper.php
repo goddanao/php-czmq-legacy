@@ -3,24 +3,6 @@
 namespace {
 
 /**
- * ZContext
- *
- * ZMQ Context holder
- */
-class ZContext {
-
-  /**
-   * ZContext::is_interrupted
-   *
-   * Inform about zmq interrupt
-   * @return bool
-  */
-  static public function is_interrupted() {}
-
-}
-
-
-/**
  * ZSys
  *
  * ZMQ System
@@ -58,22 +40,6 @@ class ZSys {
   const POLL_ERR = 4;
   const POLL_PRI = 8;
 
-
-  /**
-   * ZSys::context
-   *
-   * Get global ZContext
-   * @return ZContext
-  */
-  static public function context() {}
-
-  /**
-   * ZSys::is_interrupted
-   *
-   * Inform about zmq interrupt
-   * @return bool
-  */
-  static public function is_interrupted() {}
 
   /**
    * ZSys::set_io_threads
