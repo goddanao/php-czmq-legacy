@@ -10,7 +10,8 @@
         "php": ">=5.4"
     },
     "require-dev": {
-        "kriswallsmith/spork": "*"
+        "kriswallsmith/spork": "*",
+        "evert/phpdoc-md" : "~0.1.1"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
