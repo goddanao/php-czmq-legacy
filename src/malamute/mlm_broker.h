@@ -65,6 +65,8 @@ public:
 
          // IZSocket intf support
         o.method("get_fd", &MalamuteBroker::get_fd);
+        o.method("get_socket", &MalamuteBroker::_get_socket);
+
         return o;
     }
 

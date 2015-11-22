@@ -1,12 +1,12 @@
-ZDescriptor
+IZDescriptor
 ===============
 
-ZDescriptor
+IZDescriptor
 
 ...
 
 
-* Interface name: ZDescriptor
+* Interface name: IZDescriptor
 * Namespace: 
 * This is an **interface**
 
@@ -21,9 +21,9 @@ Methods
 
 ### get_fd
 
-    mixed ZDescriptor::get_fd()
+    mixed IZDescriptor::get_fd()
 
-ZDescriptor::get_fd
+IZDescriptor::get_fd
 
 ...
 

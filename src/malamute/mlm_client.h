@@ -157,6 +157,7 @@ public:
 
         // IZSocket intf support
         o.method("get_fd", &MalamuteClient::get_fd);
+        o.method("get_socket", &MalamuteClient::_get_socket);
 
 
         return o;

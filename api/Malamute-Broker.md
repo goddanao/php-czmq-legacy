@@ -8,7 +8,7 @@ Broker
 
 * Class name: Broker
 * Namespace: Malamute
-* This class implements: [ZDescriptor](ZDescriptor.md)
+* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md)
 
 
 
@@ -99,14 +99,28 @@ Broker::set_config
 
 ### get_fd
 
-    mixed ZDescriptor::get_fd()
+    mixed IZDescriptor::get_fd()
 
-ZDescriptor::get_fd
+IZDescriptor::get_fd
 
 ...
 
 * Visibility: **public**
-* This method is defined by [ZDescriptor](ZDescriptor.md)
+* This method is defined by [IZDescriptor](IZDescriptor.md)
+
+
+
+
+### get_socket
+
+    mixed IZSocket::get_socket()
+
+IZSocket::get_socket
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
 
 
 

@@ -93,6 +93,7 @@ public:
 
         // IZSocket intf support
         o.method("get_fd", &ZGossip::get_fd);
+        o.method("get_socket", &ZGossip::_get_socket);
 
         return o;
     }

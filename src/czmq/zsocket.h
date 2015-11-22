@@ -576,6 +576,7 @@ public:
 
         // IZSocket intf support
         o.method("get_fd", &ZSocket::get_fd);
+        o.method("get_socket", &ZSocket::_get_socket);
 
 
 #if (ZMQ_VERSION_MAJOR == 4)

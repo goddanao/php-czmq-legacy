@@ -284,6 +284,7 @@ public:
 
 		// IZSocket intf support
         o.method("get_fd", &Zyre::get_fd);
+        o.method("get_socket", &Zyre::_get_socket);
 
         return o;
     }

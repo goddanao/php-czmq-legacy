@@ -61,6 +61,7 @@ public:
 
         // IZSocket intf support
         o.method("get_fd", &MajordomoWorkerV2::get_fd);
+        o.method("get_socket", &MajordomoWorkerV2::_get_socket);
 
         return o;
     }

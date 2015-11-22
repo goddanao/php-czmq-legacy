@@ -1,5 +1,9 @@
 #include "../czmq/zsocket.h"
 
+Php::Value ZHandle::_get_socket() {
+    return Php::Object("ZSocket", new ZSocket((zsock_t*) get_socket(), false));
+}
+
 Php::Value ZHandle::send_picture(Php::Parameters &param) {
     zmsg_t *msg = zmsg_new();
     ZMsg z(msg, false);

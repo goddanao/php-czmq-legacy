@@ -64,6 +64,8 @@ public:
         return zsock_fd(get_socket());
     }
 
+    Php::Value _get_socket();
+
     void *get_socket() const {
         if(_type == "socket")
             return _handle;

@@ -68,6 +68,7 @@ public:
 
 		// IZSocket intf support
         o.method("get_fd", &MajordomoBrokerV2::get_fd);
+        o.method("get_socket", &MajordomoBrokerV2::_get_socket);
 
 
         return o;

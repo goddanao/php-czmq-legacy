@@ -31,8 +31,11 @@ extern "C" {
     // COMMON
 
         // IZSocket
-        Php::Interface zdescriptor("ZDescriptor");
-        zdescriptor.method("get_fd");
+        Php::Interface izdescriptor("IZDescriptor");
+        izdescriptor.method("get_fd");
+        Php::Interface izsocket("IZSocket");
+        izsocket.method("get_socket");
+        izsocket.extends(izdescriptor);
 
     // CZMQ
 
@@ -62,45 +65,45 @@ extern "C" {
 
         // ZSocket
         Php::Class<ZSocket> zsocket = ZSocket::php_register();
-        zsocket.implements(zdescriptor);
+        zsocket.implements(izsocket);
 
         // ZProxy
         Php::Class<ZProxy> zproxy = ZProxy::php_register();
-        zproxy.implements(zdescriptor);
+        zproxy.implements(izsocket);
 
         // ZBeacon
         Php::Class<ZBeacon> zbeacon = ZBeacon::php_register();
-        zbeacon.implements(zdescriptor);
+        zbeacon.implements(izsocket);
 
         // ZAuth
         Php::Class<ZAuth> zauth = ZAuth::php_register();
-        zauth.implements(zdescriptor);
+        zauth.implements(izsocket);
 
         // ZUdp
         Php::Class<ZUdp> zudp = ZUdp::php_register();
-        zudp.implements(zdescriptor);
+        zudp.implements(izdescriptor);
 
         // ZGossip
         Php::Class<ZGossip> zgossip = ZGossip::php_register();
-        zgossip.implements(zdescriptor);
+        zgossip.implements(izsocket);
 
         // ZInotify
         Php::Class<ZInotify> zinotify = ZInotify::php_register();
-        zinotify.implements(zdescriptor);
+        zinotify.implements(izdescriptor);
 
         // Std IN OUT ERR
         Php::Class<ZStdIn> _stdin = ZStdIn::php_register();
-        _stdin.implements(zdescriptor);
+        _stdin.implements(izdescriptor);
         Php::Class<ZStdOut> _stdout = ZStdOut::php_register();
-        _stdout.implements(zdescriptor);
+        _stdout.implements(izdescriptor);
         Php::Class<ZStdErr> _stderr = ZStdErr::php_register();
-        _stderr.implements(zdescriptor);
+        _stderr.implements(izdescriptor);
 
     // ZYRE
 
         // Zyre
         Php::Class<Zyre> zyre = Zyre::php_register();
-        zyre.implements(zdescriptor);
+        zyre.implements(izsocket);
 
     // MAJORDOMO
 
@@ -110,34 +113,34 @@ extern "C" {
 
         // Majordomo Broker V1
         Php::Class<MajordomoBrokerV1> mdpbrokerv1 = MajordomoBrokerV1::php_register();
-        mdpbrokerv1.implements(zdescriptor);
+        mdpbrokerv1.implements(izsocket);
         mdp_ns_version1.add(std::move(mdpbrokerv1));
 
         // Majordomo Worker V1
         Php::Class<MajordomoWorkerV1> mdpworkerv1 = MajordomoWorkerV1::php_register();
-        mdpworkerv1.implements(zdescriptor);
+        mdpworkerv1.implements(izsocket);
         mdp_ns_version1.add(std::move(mdpworkerv1));
 
         // Majordomo Client V1
         Php::Class<MajordomoClientV1> mdpclientv1 = MajordomoClientV1::php_register();
-        mdpclientv1.implements(zdescriptor);
+        mdpclientv1.implements(izsocket);
         mdp_ns_version1.add(std::move(mdpclientv1));
 
         mdp_ns.add(std::move(mdp_ns_version1));
 
         // Majordomo Broker V2
         Php::Class<MajordomoBrokerV2> mdpbroker = MajordomoBrokerV2::php_register();
-        mdpbroker.implements(zdescriptor);
+        mdpbroker.implements(izsocket);
         mdp_ns_version2.add(std::move(mdpbroker));
 
         // Majordomo Worker V2
         Php::Class<MajordomoWorkerV2> mdpworker = MajordomoWorkerV2::php_register();
-        mdpworker.implements(zdescriptor);
+        mdpworker.implements(izsocket);
         mdp_ns_version2.add(std::move(mdpworker));
 
         // Majordomo Client V2
         Php::Class<MajordomoClientV2> mdpclient = MajordomoClientV2::php_register();
-        mdpclient.implements(zdescriptor);
+        mdpclient.implements(izsocket);
         mdp_ns_version2.add(std::move(mdpclient));
 
         mdp_ns.add(std::move(mdp_ns_version2));
@@ -148,27 +151,27 @@ extern "C" {
 
         // Malamute Broker
         Php::Class<MalamuteBroker> mlmbroker = MalamuteBroker::php_register();
-        mlmbroker.implements(zdescriptor);
+        mlmbroker.implements(izsocket);
         mlm_ns.add(std::move(mlmbroker));
 
         // Malamute Client
         Php::Class<MalamuteClient> mlmclient = MalamuteClient::php_register();
-        mlmclient.implements(zdescriptor);
+        mlmclient.implements(izsocket);
         mlm_ns.add(std::move(mlmclient));
 
         // Malamute Worker
         Php::Class<MalamuteWorker> mlmworker = MalamuteWorker::php_register();
-        mlmworker.implements(zdescriptor);
+        mlmworker.implements(izsocket);
         mlm_ns.add(std::move(mlmworker));
 
         // Malamute Producer
         Php::Class<MalamuteProducer> mlmproducer = MalamuteProducer::php_register();
-        mlmproducer.implements(zdescriptor);
+        mlmproducer.implements(izsocket);
         mlm_ns.add(std::move(mlmproducer));
 
         // Malamute Consumer
         Php::Class<MalamuteConsumer> mlmconsumer = MalamuteConsumer::php_register();
-        mlmconsumer.implements(zdescriptor);
+        mlmconsumer.implements(izsocket);
         mlm_ns.add(std::move(mlmconsumer));
 
     // FILEMQ
@@ -177,18 +180,19 @@ extern "C" {
 
         // FileMq Broker
         Php::Class<FileMqServer> fmqserver = FileMqServer::php_register();
-        fmqserver.implements(zdescriptor);
+        fmqserver.implements(izsocket);
         fmq_ns.add(std::move(fmqserver));
 
         // FileMq Client
         Php::Class<FileMqClient> fmqclient = FileMqClient::php_register();
-        fmqclient.implements(zdescriptor);
+        fmqclient.implements(izsocket);
         fmq_ns.add(std::move(fmqclient));
 
     // Add classes to Extension
 
         //common
-        extension.add(std::move(zdescriptor));
+        extension.add(std::move(izdescriptor));
+        extension.add(std::move(izsocket));
 
         // czmq
         extension.add(std::move(zsys));

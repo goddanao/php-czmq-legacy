@@ -93,6 +93,7 @@ public:
 
         // IZSocket intf support
         o.method("get_fd", &MalamuteWorker::get_fd);
+        o.method("get_socket", &MalamuteWorker::_get_socket);
 
         return o;
     }

@@ -86,7 +86,7 @@ ZLoop::stop
 
 ### add
 
-    mixed ZLoop::add()
+    mixed ZLoop::add($socket, $mode)
 
 ZLoop::add
 
@@ -95,11 +95,15 @@ ZLoop::add
 * Visibility: **public**
 
 
+#### Arguments
+* $socket **mixed**
+* $mode **mixed**
+
 
 
 ### remove
 
-    mixed ZLoop::remove()
+    mixed ZLoop::remove($socket)
 
 ZLoop::remove
 
@@ -107,6 +111,9 @@ ZLoop::remove
 
 * Visibility: **public**
 
+
+#### Arguments
+* $socket **mixed**
 
 
 

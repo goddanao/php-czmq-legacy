@@ -69,6 +69,7 @@ public:
 
         // IZSocket intf support
         o.method("get_fd", &FileMqClient::get_fd);
+        o.method("get_socket", &FileMqClient::_get_socket);
 
 
         return o;

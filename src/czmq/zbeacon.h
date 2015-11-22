@@ -67,6 +67,7 @@ public:
 
         // IZSocket intf support
         o.method("get_fd", &ZBeacon::get_fd);
+        o.method("get_socket", &ZBeacon::_get_socket);
 
         return o;
     }

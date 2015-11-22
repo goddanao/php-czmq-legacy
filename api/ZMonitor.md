@@ -197,3 +197,16 @@ ZMonitor::get_fd
 
 
 
+
+### get_socket
+
+    mixed ZMonitor::get_socket()
+
+ZMonitor::get_socket
+
+...
+
+* Visibility: **public**
+
+
+

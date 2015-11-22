@@ -38,7 +38,9 @@ public:
 
     static Php::Class<ZMonitor> php_register() {
         Php::Class<ZMonitor> o("ZMonitor");
-        o.method("__construct", &ZMonitor::__construct);
+        o.method("__construct", &ZMonitor::__construct, {
+          Php::ByVal("socket", "IZSocket", true)
+        });
         o.method("set_verbose", &ZMonitor::set_verbose);
         o.method("listen", &ZMonitor::listen, {
             Php::ByVal("event", Php::Type::String, true)
@@ -61,6 +63,7 @@ public:
 
         // IZSocket intf support
         o.method("get_fd", &ZMonitor::get_fd);
+        o.method("get_socket", &ZMonitor::_get_socket);
 
         return o;
     }

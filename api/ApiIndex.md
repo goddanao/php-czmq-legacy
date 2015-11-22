@@ -1,7 +1,8 @@
 API Index
 =========
 
-* [ZDescriptor](ZDescriptor.md)
+* [IZDescriptor](IZDescriptor.md)
+* [IZSocket](IZSocket.md)
 * [ZSys](ZSys.md)
 * [ZUdp](ZUdp.md)
 * [ZMsg](ZMsg.md)

@@ -8,7 +8,7 @@ Udp low level class
 
 * Class name: ZUdp
 * Namespace: 
-* This class implements: [ZDescriptor](ZDescriptor.md)
+* This class implements: [IZDescriptor](IZDescriptor.md)
 
 
 
@@ -78,14 +78,14 @@ Recieve ZMsg over Udp
 
 ### get_fd
 
-    mixed ZDescriptor::get_fd()
+    mixed IZDescriptor::get_fd()
 
-ZDescriptor::get_fd
+IZDescriptor::get_fd
 
 ...
 
 * Visibility: **public**
-* This method is defined by [ZDescriptor](ZDescriptor.md)
+* This method is defined by [IZDescriptor](IZDescriptor.md)
 
 
 

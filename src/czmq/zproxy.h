@@ -80,6 +80,7 @@ public:
 
         // IZSocket intf support
         o.method("get_fd", &ZProxy::get_fd);
+        o.method("get_socket", &ZProxy::_get_socket);
 
         return o;
     }

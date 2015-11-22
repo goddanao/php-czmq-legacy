@@ -109,17 +109,16 @@ public:
                 if(socket == nullptr) {
                     fd = zh->get_fd();
                 }
-                // zsys_info("ZLoop::add -> socket: %p - fd: %d", socket, fd);
             }
         } else
         if(valid && param[0].isNumeric()) {
             fd = param[0].numericValue();
         } else {
-            throw Php::Exception("ZLoop add require a IZSocket or FD and a callback.");
+            throw Php::Exception("ZLoop add require a ZDescriptor and a callback.");
         }
 
         if(socket == nullptr && fd == INVALID_SOCKET)
-            throw Php::Exception("ZLoop add require a IZSocket or FD and a callback.");
+            throw Php::Exception("ZLoop add require a ZDescriptor and a callback.");
 
         // Register callback data
         _cbdata *data = new _cbdata();
@@ -154,11 +153,11 @@ public:
         if(valid && param[0].isNumeric()) {
             fd = param[0].numericValue();
         } else {
-            throw Php::Exception("ZLoop remove require a IZSocket or FD.");
+            throw Php::Exception("ZLoop remove require a ZDescriptor.");
         }
 
         if(socket == nullptr && fd == INVALID_SOCKET)
-            throw Php::Exception("ZLoop remove require a IZSocket or FD.");
+            throw Php::Exception("ZLoop remove require a ZDescriptor.");
 
         zmq_pollitem_t item { socket, fd, 0, 0 };
         zloop_poller_end( zloop_handle(), &item);
@@ -173,8 +172,13 @@ public:
         o.method("set_max_timers", &ZLoop::set_max_timers);
         o.method("start", &ZLoop::start);
         o.method("stop", &ZLoop::stop);
-        o.method("add", &ZLoop::add);
-        o.method("remove", &ZLoop::remove);
+        o.method("add", &ZLoop::add, {
+            Php::ByVal("socket", "IZDescriptor", true),
+            Php::ByVal("mode", Php::Type::Numeric, false)
+        });
+        o.method("remove", &ZLoop::remove, {
+            Php::ByVal("socket", "IZDescriptor", true)
+        });
         o.method("add_timer", &ZLoop::add_timer);
         o.method("remove_timer", &ZLoop::remove_timer, {
             Php::ByVal("timer_id", Php::Type::Numeric, true)

@@ -1,15 +1,15 @@
-ZStdIn
+IZSocket
 ===============
 
-ZStdIn
+IZSocket
 
 ...
 
 
-* Class name: ZStdIn
+* Interface name: IZSocket
 * Namespace: 
-* This class implements: [IZDescriptor](IZDescriptor.md)
-
+* This is an **interface**
+* This interface extends: [IZDescriptor](IZDescriptor.md)
 
 
 
@@ -19,24 +19,11 @@ Methods
 -------
 
 
-### recv
+### get_socket
 
-    mixed ZStdIn::recv()
+    mixed IZSocket::get_socket()
 
-ZStdIn::recv
-
-...
-
-* Visibility: **public**
-
-
-
-
-### send
-
-    mixed ZStdIn::send()
-
-ZStdIn::send
+IZSocket::get_socket
 
 ...
 
