@@ -9,7 +9,7 @@ private:
 public:
     ZUdp() : ZHandle(), Php::Base() {}
     ZUdp(SOCKET handle, bool owned) : ZHandle(handle, owned, "zudp"), Php::Base() {}
-    SOCKET  zudp_handle() const { return _socket; }
+    SOCKET  zudp_handle() const { return _fd; }
 
     void set_verbose (Php::Parameters &param) {
     	_verbose = param.size() > 0 ? param[0].boolValue() : true;

@@ -3,6 +3,61 @@
 namespace {
 
 /**
+ * Watcher
+ *
+ * ...
+ */
+class Watcher {
+  const IN_ACCESS = 1;
+  const IN_MODIFY = 2;
+  const IN_ATTRIB = 4;
+  const IN_CLOSE_WRITE = 8;
+  const IN_CLOSE_NOWRITE = 16;
+  const IN_OPEN = 32;
+  const IN_MOVED_FROM = 64;
+  const IN_MOVED_TO = 128;
+  const IN_CREATE = 256;
+  const IN_DELETE = 512;
+  const IN_DELETE_SELF = 1024;
+  const IN_MOVE_SELF = 2048;
+  const IN_UNMOUNT = 8192;
+  const IN_Q_OVERFLOW = 16384;
+  const IN_IGNORED = 32768;
+  const IN_CLOSE = 24;
+  const IN_MOVE = 192;
+  const IN_ONLYDIR = 16777216;
+  const IN_DONT_FOLLOW = 33554432;
+  const IN_EXCL_UNLINK = 67108864;
+  const IN_MASK_ADD = 536870912;
+  const IN_ISDIR = 1073741824;
+  const IN_ALL_EVENTS = 4095;
+
+
+  /**
+   * Watcher::watch
+   *
+   * ...
+  */
+  public function watch() {}
+
+  /**
+   * Watcher::remove
+   *
+   * ...
+  */
+  public function remove() {}
+
+  /**
+   * Watcher::recv
+   *
+   * ...
+  */
+  public function recv() {}
+
+}
+
+
+/**
  * ZContext
  *
  * ZMQ Context holder
@@ -475,13 +530,6 @@ class ZMsg {
   public function send() {}
 
   /**
-   * ZMsg::recv
-   *
-   * ...
-  */
-  public function recv() {}
-
-  /**
    * ZMsg::remove
    *
    * ...
@@ -817,9 +865,8 @@ class ZCert {
    * ZCert::apply
    *
    * ...
-   * @param mixed$socket ...
   */
-  public function apply($socket) {}
+  public function apply() {}
 
   /**
    * ZCert::dump
@@ -868,6 +915,79 @@ class ZCertStore {
    * ...
   */
   public function dump() {}
+
+}
+
+
+/**
+ * ZMonitor
+ *
+ * ...
+ */
+class ZMonitor {
+  const EVT_CONNECTED = "CONNECTED";
+  const EVT_CONNECT_DELAYED = "CONNECT_DELAYED";
+  const EVT_CONNECT_RETRIED = "CONNECT_RETRIED";
+  const EVT_LISTENING = "LISTENING";
+  const EVT_BIND_FAILED = "BIND_FAILED";
+  const EVT_ACCEPTED = "ACCEPTED";
+  const EVT_ACCEPT_FAILED = "ACCEPT_FAILED";
+  const EVT_CLOSED = "CLOSED";
+  const EVT_CLOSE_FAILED = "CLOSE_FAILED";
+  const EVT_DISCONNECTED = "DISCONNECTED";
+  const EVT_MONITOR_STOPPED = "MONITOR_STOPPED";
+  const EVT_ALL = "ALL";
+
+
+  /**
+   * ZMonitor::__construct
+   *
+   * ...
+  */
+  public function __construct() {}
+
+  /**
+   * ZMonitor::set_verbose
+   *
+   * ...
+  */
+  public function set_verbose() {}
+
+  /**
+   * ZMonitor::listen
+   *
+   * ...
+   * @param mixed$event ...
+  */
+  public function listen($event) {}
+
+  /**
+   * ZMonitor::start
+   *
+   * ...
+  */
+  public function start() {}
+
+  /**
+   * ZMonitor::recv
+   *
+   * ...
+  */
+  public function recv() {}
+
+  /**
+   * ZMonitor::get_socket
+   *
+   * ...
+  */
+  public function get_socket() {}
+
+  /**
+   * ZMonitor::get_fd
+   *
+   * ...
+  */
+  public function get_fd() {}
 
 }
 
@@ -1008,20 +1128,19 @@ class ZSocket implements \IZSocket {
   public function flush() {}
 
   /**
-   * ZSocket::send_picture
+   * ZSocket::send
    *
    * ...
-   * @param mixed $picture ...
+   * @param mixed $zmsg ...
   */
-  public function send_picture($picture) {}
+  public function send($zmsg) {}
 
   /**
-   * ZSocket::recv_picture
+   * ZSocket::recv
    *
    * ...
-   * @param mixed $picture ...
   */
-  public function recv_picture($picture) {}
+  public function recv() {}
 
   /**
    * ZSocket::send_string
@@ -1039,19 +1158,20 @@ class ZSocket implements \IZSocket {
   public function recv_string() {}
 
   /**
-   * ZSocket::send
+   * ZSocket::send_picture
    *
    * ...
-   * @param mixed $zmsg ...
+   * @param mixed $picture ...
   */
-  public function send($zmsg) {}
+  public function send_picture($picture) {}
 
   /**
-   * ZSocket::recv
+   * ZSocket::recv_picture
    *
    * ...
+   * @param mixed $picture ...
   */
-  public function recv() {}
+  public function recv_picture($picture) {}
 
   /**
    * ZSocket::pub
@@ -1855,6 +1975,13 @@ class ZProxy implements \IZSocket {
   public function resume() {}
 
   /**
+   * ZProxy::recv
+   *
+   * ...
+  */
+  public function recv() {}
+
+  /**
    * ZProxy::set_frontend
    *
    * ...
@@ -2008,6 +2135,13 @@ class ZAuth implements \IZSocket {
   public function set_verbose() {}
 
   /**
+   * ZAuth::recv
+   *
+   * ...
+  */
+  public function recv() {}
+
+  /**
    * ZAuth::allow
    *
    * Allow (whitelist) a list of IP addresses. For NULL, all clients from
@@ -2126,46 +2260,11 @@ class ZGossip implements \IZSocket {
   public function count() {}
 
   /**
-   * ZGossip::send
-   *
-   * ...
-  */
-  public function send() {}
-
-  /**
    * ZGossip::recv
    *
    * ...
   */
   public function recv() {}
-
-  /**
-   * ZGossip::send_string
-   *
-   * ...
-  */
-  public function send_string() {}
-
-  /**
-   * ZGossip::recv_string
-   *
-   * ...
-  */
-  public function recv_string() {}
-
-  /**
-   * ZGossip::send_picture
-   *
-   * ...
-  */
-  public function send_picture() {}
-
-  /**
-   * ZGossip::recv_picture
-   *
-   * ...
-  */
-  public function recv_picture() {}
 
   /**
    * ZGossip::get_socket
@@ -2602,7 +2701,7 @@ class Client implements \IZSocket {
 
 }
 
-namespace Majordomo\VX {
+namespace Majordomo\V1 {
 
 /**
  * Broker
@@ -2776,18 +2875,18 @@ class Broker implements \IZSocket {
   public function set_verbose() {}
 
   /**
+   * Broker::bind
+   *
+   * ...
+  */
+  public function bind() {}
+
+  /**
    * Broker::load_config
    *
    * ...
   */
   public function load_config() {}
-
-  /**
-   * Broker::set_config
-   *
-   * ...
-  */
-  public function set_config() {}
 
   /**
    * Broker::save_config
@@ -2797,18 +2896,11 @@ class Broker implements \IZSocket {
   public function save_config() {}
 
   /**
-   * Broker::bind
+   * Broker::set_config
    *
    * ...
   */
-  public function bind() {}
-
-  /**
-   * Broker::get_status
-   *
-   * ...
-  */
-  public function get_status() {}
+  public function set_config() {}
 
   /**
    * Broker::get_socket
@@ -2859,6 +2951,13 @@ class Worker implements \IZSocket {
    * @param callable $callback ...
   */
   public function run($callback) {}
+
+  /**
+   * Worker::get_client
+   *
+   * ...
+  */
+  public function get_client() {}
 
   /**
    * Worker::get_socket
@@ -2984,21 +3083,6 @@ class Client implements \IZSocket {
   public function send_service($address, $subject, $payload, $timeout, $tracker) {}
 
   /**
-   * Client::recv_picture
-   *
-   * ...
-   * @param mixed$picture ...
-  */
-  public function recv_picture($picture) {}
-
-  /**
-   * Client::recv_string
-   *
-   * ...
-  */
-  public function recv_string() {}
-
-  /**
    * Client::recv
    *
    * ...
@@ -3054,6 +3138,13 @@ class Producer implements \IZSocket {
    * @param callable $callback ...
   */
   public function run($subject, $callback) {}
+
+  /**
+   * Producer::get_client
+   *
+   * ...
+  */
+  public function get_client() {}
 
   /**
    * Producer::get_socket
@@ -3112,6 +3203,13 @@ class Consumer implements \IZSocket {
    * @param callable $callback ...
   */
   public function run($pattern, $callback) {}
+
+  /**
+   * Consumer::get_client
+   *
+   * ...
+  */
+  public function get_client() {}
 
   /**
    * Consumer::get_socket
@@ -3205,6 +3303,13 @@ class Server implements \IZSocket {
   */
   public function get_fd() {}
 
+  /**
+   * Server::recv
+   *
+   * ...
+  */
+  public function recv() {}
+
 }
 
 
@@ -3249,12 +3354,11 @@ class Client implements \IZSocket {
   public function subscribe($remote_path) {}
 
   /**
-   * Client::run
+   * Client::recv
    *
    * ...
-   * @param callable $callback ...
   */
-  public function run($callback) {}
+  public function recv() {}
 
   /**
    * Client::get_socket

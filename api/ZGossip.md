@@ -153,20 +153,6 @@ ZGossip::count
 
 
 
-### \ZGossip::send()
-
-```
-mixed ZGossip::\ZGossip::send()()
-```
-
-ZGossip::send
-
-...
-
-* Visibility: **public**
-
-
-
 ### \ZGossip::recv()
 
 ```
@@ -174,62 +160,6 @@ mixed ZGossip::\ZGossip::recv()()
 ```
 
 ZGossip::recv
-
-...
-
-* Visibility: **public**
-
-
-
-### \ZGossip::send_string()
-
-```
-mixed ZGossip::\ZGossip::send_string()()
-```
-
-ZGossip::send_string
-
-...
-
-* Visibility: **public**
-
-
-
-### \ZGossip::recv_string()
-
-```
-mixed ZGossip::\ZGossip::recv_string()()
-```
-
-ZGossip::recv_string
-
-...
-
-* Visibility: **public**
-
-
-
-### \ZGossip::send_picture()
-
-```
-mixed ZGossip::\ZGossip::send_picture()()
-```
-
-ZGossip::send_picture
-
-...
-
-* Visibility: **public**
-
-
-
-### \ZGossip::recv_picture()
-
-```
-mixed ZGossip::\ZGossip::recv_picture()()
-```
-
-ZGossip::recv_picture
 
 ...
 

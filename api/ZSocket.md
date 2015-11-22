@@ -216,13 +216,13 @@ ZSocket::flush
 
 
 
-### \ZSocket::send_picture()
+### \ZSocket::send()
 
 ```
-mixed ZSocket::\ZSocket::send_picture()(mixed $picture)
+mixed ZSocket::\ZSocket::send()(mixed $zmsg)
 ```
 
-ZSocket::send_picture
+ZSocket::send
 
 ...
 
@@ -230,25 +230,21 @@ ZSocket::send_picture
 
 #### Arguments
 
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $zmsg **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### \ZSocket::recv_picture()
+### \ZSocket::recv()
 
 ```
-mixed ZSocket::\ZSocket::recv_picture()(mixed $picture)
+mixed ZSocket::\ZSocket::recv()()
 ```
 
-ZSocket::recv_picture
+ZSocket::recv
 
 ...
 
 * Visibility: **public**
-
-#### Arguments
-
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -284,13 +280,13 @@ ZSocket::recv_string
 
 
 
-### \ZSocket::send()
+### \ZSocket::send_picture()
 
 ```
-mixed ZSocket::\ZSocket::send()(mixed $zmsg)
+mixed ZSocket::\ZSocket::send_picture()(mixed $picture)
 ```
 
-ZSocket::send
+ZSocket::send_picture
 
 ...
 
@@ -298,21 +294,25 @@ ZSocket::send
 
 #### Arguments
 
-* $zmsg **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-### \ZSocket::recv()
+### \ZSocket::recv_picture()
 
 ```
-mixed ZSocket::\ZSocket::recv()()
+mixed ZSocket::\ZSocket::recv_picture()(mixed $picture)
 ```
 
-ZSocket::recv
+ZSocket::recv_picture
 
 ...
 
 * Visibility: **public**
+
+#### Arguments
+
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

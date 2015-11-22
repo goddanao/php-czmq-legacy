@@ -150,6 +150,20 @@ Server::get_fd
 
 
 
+### \FileMq\Server::recv()
+
+```
+mixed FileMq\Server::\FileMq\Server::recv()()
+```
+
+Server::recv
+
+...
+
+* Visibility: **public**
+
+
+
 ### \IZSocket::get_socket()
 
 ```

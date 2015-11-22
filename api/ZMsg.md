@@ -173,20 +173,6 @@ ZMsg::send
 
 
 
-### \ZMsg::recv()
-
-```
-mixed ZMsg::\ZMsg::recv()()
-```
-
-ZMsg::recv
-
-...
-
-* Visibility: **public**
-
-
-
 ### \ZMsg::remove()
 
 ```

@@ -47,13 +47,13 @@ Broker::set_verbose
 
 
 
-### \Malamute\Broker::load_config()
+### \Malamute\Broker::bind()
 
 ```
-mixed Malamute\Broker::\Malamute\Broker::load_config()()
+mixed Malamute\Broker::\Malamute\Broker::bind()()
 ```
 
-Broker::load_config
+Broker::bind
 
 ...
 
@@ -61,13 +61,13 @@ Broker::load_config
 
 
 
-### \Malamute\Broker::set_config()
+### \Malamute\Broker::load_config()
 
 ```
-mixed Malamute\Broker::\Malamute\Broker::set_config()()
+mixed Malamute\Broker::\Malamute\Broker::load_config()()
 ```
 
-Broker::set_config
+Broker::load_config
 
 ...
 
@@ -89,27 +89,13 @@ Broker::save_config
 
 
 
-### \Malamute\Broker::bind()
+### \Malamute\Broker::set_config()
 
 ```
-mixed Malamute\Broker::\Malamute\Broker::bind()()
+mixed Malamute\Broker::\Malamute\Broker::set_config()()
 ```
 
-Broker::bind
-
-...
-
-* Visibility: **public**
-
-
-
-### \Malamute\Broker::get_status()
-
-```
-mixed Malamute\Broker::\Malamute\Broker::get_status()()
-```
-
-Broker::get_status
+Broker::set_config
 
 ...
 

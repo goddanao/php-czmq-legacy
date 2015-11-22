@@ -75,6 +75,20 @@ Worker::run
 
 
 
+### \Malamute\Worker::get_client()
+
+```
+mixed Malamute\Worker::\Malamute\Worker::get_client()()
+```
+
+Worker::get_client
+
+...
+
+* Visibility: **public**
+
+
+
 ### \Malamute\Worker::get_socket()
 
 ```

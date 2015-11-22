@@ -93,6 +93,20 @@ Consumer::run
 
 
 
+### \Malamute\Consumer::get_client()
+
+```
+mixed Malamute\Consumer::\Malamute\Consumer::get_client()()
+```
+
+Consumer::get_client
+
+...
+
+* Visibility: **public**
+
+
+
 ### \Malamute\Consumer::get_socket()
 
 ```

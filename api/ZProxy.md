@@ -75,6 +75,20 @@ ZProxy::resume
 
 
 
+### \ZProxy::recv()
+
+```
+mixed ZProxy::\ZProxy::recv()()
+```
+
+ZProxy::recv
+
+...
+
+* Visibility: **public**
+
+
+
 ### \ZProxy::set_frontend()
 
 ```

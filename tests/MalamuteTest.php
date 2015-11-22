@@ -77,7 +77,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
             return ($msg_count == $processed) ? "OK" : "KO";
         });
 
-        sleep(2);
+        sleep(4);
 
         $client->receive();
         $result = $client->getResult();

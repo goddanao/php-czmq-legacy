@@ -75,6 +75,20 @@ Producer::run
 
 
 
+### \Malamute\Producer::get_client()
+
+```
+mixed Malamute\Producer::\Malamute\Producer::get_client()()
+```
+
+Producer::get_client
+
+...
+
+* Visibility: **public**
+
+
+
 ### \Malamute\Producer::get_socket()
 
 ```

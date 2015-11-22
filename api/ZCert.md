@@ -201,7 +201,7 @@ ZCert::save_secret
 ### \ZCert::apply()
 
 ```
-mixed ZCert::\ZCert::apply()($socket)
+mixed ZCert::\ZCert::apply()()
 ```
 
 ZCert::apply
@@ -209,10 +209,6 @@ ZCert::apply
 ...
 
 * Visibility: **public**
-
-#### Arguments
-
-* $socket **mixed**
 
 
 

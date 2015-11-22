@@ -89,21 +89,17 @@ Client::subscribe
 
 
 
-### \FileMq\Client::run()
+### \FileMq\Client::recv()
 
 ```
-mixed FileMq\Client::\FileMq\Client::run()(callable $callback)
+mixed FileMq\Client::\FileMq\Client::recv()()
 ```
 
-Client::run
+Client::recv
 
 ...
 
 * Visibility: **public**
-
-#### Arguments
-
-* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
 

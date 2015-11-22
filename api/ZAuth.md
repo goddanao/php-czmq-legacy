@@ -80,6 +80,20 @@ debug non-trivial authentication policies
 
 
 
+### \ZAuth::recv()
+
+```
+mixed ZAuth::\ZAuth::recv()()
+```
+
+ZAuth::recv
+
+...
+
+* Visibility: **public**
+
+
+
 ### \ZAuth::allow()
 
 ```

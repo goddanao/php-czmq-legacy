@@ -11,16 +11,17 @@ class ZHandle {
 protected:
     int _created_by_pid = -1;
     void *_handle       = nullptr;
-    SOCKET _socket      = INVALID_SOCKET;
+    int _fd             = -1;
     bool _owned         = false;
     std::string _type   = "unknown";
+
 public:
     ZHandle() { _created_by_pid = getpid(); }
     ZHandle(void *handle, bool owned, std::string type) : _handle(handle), _owned(owned), _type(type) { _created_by_pid = getpid(); }
-    ZHandle(SOCKET socket, bool owned, std::string type) : _socket(socket), _owned(owned), _type(type) { _created_by_pid = getpid(); }
+    ZHandle(int fd, bool owned, std::string type) : _fd(fd), _owned(owned), _type(type) { _created_by_pid = getpid(); }
 
     void set_handle(void *handle, bool owned, std::string type) { _handle = handle; _owned = owned; _type  = type; }
-    void set_handle(SOCKET socket, bool owned, std::string type) { _socket = socket; _owned = owned; _type  = type; }
+    void set_handle(int fd, bool owned, std::string type) { _fd = fd; _owned = owned; _type  = type; }
 
     void *get_handle() const { return _handle; }
 
@@ -55,11 +56,11 @@ public:
         return nullptr;
     }
 
-    SOCKET get_fd() const {
+    int get_fd() const {
         if(_type == "zudp")
-            return _socket;
+            return _fd;
         if(_type == "fd")
-            return _socket;
+            return _fd;
         return zsock_fd(get_socket());
     }
 
@@ -140,7 +141,7 @@ public:
             zloop_destroy((zloop_t **) &_handle);
         else
         if(_type == "zudp")
-            zsys_udp_close( _socket );
+            zsys_udp_close( _fd );
         else
         if(_type == "zyre")
             zyre_destroy((zyre_t **) &_handle);
@@ -179,13 +180,13 @@ public:
               fmq_client_destroy((fmq_client_t **) &_handle);
         else
         if(_type == "fd")
-            close(_socket);
+            close(_fd);
         else
           ;
 
 
         _handle = nullptr;
-        _socket = INVALID_SOCKET;
+        _fd = -1;
     }
 
     // IZSocket Intf

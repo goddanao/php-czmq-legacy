@@ -219,38 +219,6 @@ Client::send_service
 
 
 
-### \Malamute\Client::recv_picture()
-
-```
-mixed Malamute\Client::\Malamute\Client::recv_picture()($picture)
-```
-
-Client::recv_picture
-
-...
-
-* Visibility: **public**
-
-#### Arguments
-
-* $picture **mixed**
-
-
-
-### \Malamute\Client::recv_string()
-
-```
-mixed Malamute\Client::\Malamute\Client::recv_string()()
-```
-
-Client::recv_string
-
-...
-
-* Visibility: **public**
-
-
-
 ### \Malamute\Client::recv()
 
 ```
