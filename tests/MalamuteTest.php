@@ -49,7 +49,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
 
         $manager = new ProcessManager();
 
-        $msg_count = 50;
+        $msg_count = 10;
 
         $endpoint = self::$broker_endpoint;
 
@@ -77,7 +77,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
             return ($msg_count == $processed) ? "OK" : "KO";
         });
 
-        sleep(8);
+        sleep(5);
 
         $client->receive();
         $result = $client->getResult();

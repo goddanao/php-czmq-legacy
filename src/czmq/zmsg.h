@@ -504,9 +504,6 @@ public:
     }
 
     Php::Value __toString() {
-
-        zsys_info("casting to string?");
-
         if(zmsg_size(zmsg_handle()) == 0)
             return "";
 
