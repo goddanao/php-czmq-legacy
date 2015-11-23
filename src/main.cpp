@@ -62,6 +62,7 @@ extern "C" {
 
         // ZMonitor
         Php::Class<ZMonitor> zmonitor = ZMonitor::php_register();
+        zmonitor.implements(izsocket);
 
         // ZSocket
         Php::Class<ZSocket> zsocket = ZSocket::php_register();
