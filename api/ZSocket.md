@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZSocket::__construct(mixed $socket_type, mixed $endpoint)
+    mixed ZSocket::__construct($socket_type, $endpoint)
 
 ZSocket::__construct
 
@@ -31,8 +31,8 @@ ZSocket::__construct
 
 
 #### Arguments
-* $socket_type **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $socket_type **mixed**
+* $endpoint **mixed**
 
 
 
@@ -64,36 +64,23 @@ ZSocket::set_unbounded
 
 ### bind
 
-    mixed ZSocket::bind(string $endpoint)
+    mixed ZSocket::bind($endpoint)
 
 ZSocket::bind
 
-Bind a socket to a formatted endpoint. For tcp:// endpoints, supports
-ephemeral ports, if you specify the port number as '*'. By default
-zsock uses the IANA designated range from C000 (49152) to FFFF (65535).
-To override this range, follow the '*' with '[first-last]'. Either or
-both first and last may be empty. To bind to a random port within the
-range, use '!' in place of '*'.
-
-Examples:
-    tcp://127.0.0.1:*           bind to first free port from C000 up
-    tcp://127.0.0.1:!           bind to random port from C000 to FFFF
-    tcp://127.0.0.1:*[60000-]   bind to first free port from 60000 up
-    tcp://127.0.0.1:![-60000]   bind to random port from C000 to 60000
-    tcp://127.0.0.1:![55000-55999]
-                                bind to random port from 55000 to 55999
+...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;Endpoint.&lt;/p&gt;
+* $endpoint **mixed**
 
 
 
 ### unbind
 
-    mixed ZSocket::unbind(mixed $endpoint)
+    mixed ZSocket::unbind($endpoint)
 
 ZSocket::unbind
 
@@ -103,13 +90,13 @@ ZSocket::unbind
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **mixed**
 
 
 
 ### connect
 
-    mixed ZSocket::connect(mixed $endpoint)
+    mixed ZSocket::connect($endpoint)
 
 ZSocket::connect
 
@@ -119,13 +106,13 @@ ZSocket::connect
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **mixed**
 
 
 
 ### disconnect
 
-    mixed ZSocket::disconnect(mixed $endpoint)
+    mixed ZSocket::disconnect($endpoint)
 
 ZSocket::disconnect
 
@@ -135,13 +122,13 @@ ZSocket::disconnect
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **mixed**
 
 
 
 ### attach
 
-    mixed ZSocket::attach(mixed $endpoints, mixed $serverish)
+    mixed ZSocket::attach($endpoints, $serverish)
 
 ZSocket::attach
 
@@ -151,14 +138,14 @@ ZSocket::attach
 
 
 #### Arguments
-* $endpoints **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $serverish **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoints **mixed**
+* $serverish **mixed**
 
 
 
 ### signal
 
-    mixed ZSocket::signal(mixed $byte)
+    mixed ZSocket::signal($byte)
 
 ZSocket::signal
 
@@ -168,7 +155,7 @@ ZSocket::signal
 
 
 #### Arguments
-* $byte **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $byte **mixed**
 
 
 
@@ -200,27 +187,27 @@ ZSocket::flush
 
 ### send
 
-    mixed ZSocket::send(\FileMq\ZMsg $zmsg)
+    mixed ZSocket::send($zmsg)
 
 ZSocket::send
 
-Send a ZMsg.
+...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $zmsg **FileMq\ZMsg**
+* $zmsg **mixed**
 
 
 
 ### recv
 
-    \FileMq\ZMsg ZSocket::recv()
+    mixed ZSocket::recv()
 
 ZSocket::recv
 
-Recieve a ZMsg.
+...
 
 * Visibility: **public**
 
@@ -229,7 +216,7 @@ Recieve a ZMsg.
 
 ### send_string
 
-    mixed ZSocket::send_string(string $value)
+    mixed ZSocket::send_string($value)
 
 ZSocket::send_string
 
@@ -239,13 +226,13 @@ ZSocket::send_string
 
 
 #### Arguments
-* $value **string** - &lt;p&gt;...&lt;/p&gt;
+* $value **mixed**
 
 
 
 ### recv_string
 
-    string ZSocket::recv_string()
+    mixed ZSocket::recv_string()
 
 ZSocket::recv_string
 
@@ -258,7 +245,7 @@ ZSocket::recv_string
 
 ### send_picture
 
-    mixed ZSocket::send_picture(mixed $picture)
+    mixed ZSocket::send_picture($picture)
 
 ZSocket::send_picture
 
@@ -268,13 +255,13 @@ ZSocket::send_picture
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **mixed**
 
 
 
 ### recv_picture
 
-    mixed ZSocket::recv_picture(string $picture)
+    mixed ZSocket::recv_picture($picture)
 
 ZSocket::recv_picture
 
@@ -284,7 +271,7 @@ ZSocket::recv_picture
 
 
 #### Arguments
-* $picture **string** - &lt;p&gt;...&lt;/p&gt;
+* $picture **mixed**
 
 
 
@@ -485,11 +472,11 @@ ZSocket::get_options
 
 ### get_fd
 
-    integer IZDescriptor::get_fd()
+    mixed IZDescriptor::get_fd()
 
 IZDescriptor::get_fd
 
-Get the underlying File Descriptor.
+...
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)
@@ -499,11 +486,11 @@ Get the underlying File Descriptor.
 
 ### get_socket
 
-    \FileMq\ZSocket IZSocket::get_socket()
+    mixed IZSocket::get_socket()
 
 IZSocket::get_socket
 
-Get the underlying ZSocket.
+...
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)

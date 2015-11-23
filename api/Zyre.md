@@ -63,7 +63,7 @@ Stop node, this signals to other peers that this node will go away. This is poli
 
 ### recv
 
-    \FileMq\ZMsg Zyre::recv()
+    \ZMsg Zyre::recv()
 
 Zyre::recv
 
@@ -390,11 +390,11 @@ Send message to a named group.
 
 ### get_fd
 
-    integer IZDescriptor::get_fd()
+    mixed IZDescriptor::get_fd()
 
 IZDescriptor::get_fd
 
-Get the underlying File Descriptor.
+...
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)
@@ -404,11 +404,11 @@ Get the underlying File Descriptor.
 
 ### get_socket
 
-    \FileMq\ZSocket IZSocket::get_socket()
+    mixed IZSocket::get_socket()
 
 IZSocket::get_socket
 
-Get the underlying ZSocket.
+...
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)

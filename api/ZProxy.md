@@ -73,7 +73,7 @@ ZProxy::resume
 
 ### recv
 
-    \FileMq\ZMsg ZProxy::recv()
+    \ZMsg ZProxy::recv()
 
 ZProxy::recv
 
@@ -136,11 +136,11 @@ ZProxy::set_capture
 
 ### get_fd
 
-    integer IZDescriptor::get_fd()
+    mixed IZDescriptor::get_fd()
 
 IZDescriptor::get_fd
 
-Get the underlying File Descriptor.
+...
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)
@@ -150,11 +150,11 @@ Get the underlying File Descriptor.
 
 ### get_socket
 
-    \FileMq\ZSocket IZSocket::get_socket()
+    mixed IZSocket::get_socket()
 
 IZSocket::get_socket
 
-Get the underlying ZSocket.
+...
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)

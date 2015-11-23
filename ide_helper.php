@@ -337,7 +337,7 @@ class ZUdp implements \IZDescriptor {
    * ZUdp::recv
    *
    * Recieve a ZMsg.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -432,7 +432,7 @@ class ZMsg {
   /**
    * ZMsg::send
    *
-   * Send a ZMsg
+   * ...
   */
   public function send() {}
 
@@ -558,7 +558,7 @@ class ZLoop {
    * ZLoop::add
    *
    * ...
-   * @param IZDescriptor$socket ...
+   * @param \IZDescriptor $socket ...
    * @param mixed$mode ... (optional)
   */
   public function add($socket = null, $mode) {}
@@ -567,7 +567,7 @@ class ZLoop {
    * ZLoop::remove
    *
    * ...
-   * @param IZDescriptor$socket ...
+   * @param \IZDescriptor$socket ...
   */
   public function remove($socket = null) {}
 
@@ -614,7 +614,7 @@ class ZPoll {
    * ZPoll::add
    *
    * ...
-   * @param IZDescriptor$socket ...
+   * @param \IZDescriptor$socket ...
    * @param mixed$mode ... (optional)
   */
   public function add($socket = null, $mode) {}
@@ -623,7 +623,7 @@ class ZPoll {
    * ZPoll::has
    *
    * ...
-   * @param IZDescriptor$socket ...
+   * @param \IZDescriptor$socket ...
   */
   public function has($socket = null) {}
 
@@ -631,7 +631,7 @@ class ZPoll {
    * ZPoll::remove
    *
    * ...
-   * @param IZDescriptor$socket ...
+   * @param \IZDescriptor$socket ...
   */
   public function remove($socket = null) {}
 
@@ -853,7 +853,7 @@ class ZMonitor implements \IZSocket, \IZDescriptor {
    * ZMonitor::__construct
    *
    * ...
-   * @param IZSocket$socket ...
+   * @param \IZSocket$socket ...
   */
   public function __construct($socket = null) {}
 
@@ -883,7 +883,7 @@ class ZMonitor implements \IZSocket, \IZDescriptor {
    * ZMonitor::recv
    *
    * Recieve a ZMsg.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -899,7 +899,7 @@ class ZMonitor implements \IZSocket, \IZDescriptor {
    * ZMonitor::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -916,8 +916,7 @@ interface IZDescriptor {
   /**
    * IZDescriptor::get_fd
    *
-   * Get the underlying File Descriptor.
-   * @return int
+   * ...
   */
   public function get_fd() ;
 
@@ -934,16 +933,14 @@ interface IZSocket extends \IZDescriptor {
   /**
    * IZSocket::get_socket
    *
-   * Get the underlying ZSocket.
-   * @return ZSocket
+   * ...
   */
   public function get_socket() ;
 
   /**
    * IZSocket::get_fd
    *
-   * Get the underlying File Descriptor.
-   * @return int
+   * ...
   */
   public function get_fd() ;
 
@@ -961,8 +958,8 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::__construct
    *
    * ...
-   * @param mixed $socket_type ...
-   * @param mixed $endpoint ... (optional)
+   * @param mixed$socket_type ...
+   * @param mixed$endpoint ... (optional)
   */
   public function __construct($socket_type, $endpoint) {}
 
@@ -983,26 +980,8 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ZSocket::bind
    *
-   * Bind a socket to a formatted endpoint. For tcp:// endpoints, supports
-   * ephemeral ports, if you specify the port number as '*'. By default
-   * zsock uses the IANA designated range from C000 (49152) to FFFF (65535).
-   * To override this range, follow the '*' with '[first-last]'. Either or
-   * both first and last may be empty. To bind to a random port within the
-   * range, use '!' in place of '*'.
-   *
-   * Examples:
-   *     tcp://127.0.0.1:*           bind to first free port from C000 up
-   *     tcp://127.0.0.1:!           bind to random port from C000 to FFFF
-   *     tcp://127.0.0.1:*[60000-]   bind to first free port from 60000 up
-   *     tcp://127.0.0.1:![-60000]   bind to random port from C000 to 60000
-   *     tcp://127.0.0.1:![55000-55999]
-   *                                 bind to random port from 55000 to 55999
-   * @param string $endpoint Endpoint.
-   * @return mixed On success, returns the actual port number used, for tcp:// endpoints,
-   * and 0 for other transports. On failure, returns -1. Note that when using
-   * ephemeral ports, a port may be reused by different services without
-   * clients being aware. Protocols that run on ephemeral ports should take
-   * this into account.
+   * ...
+   * @param mixed$endpoint ...
   */
   public function bind($endpoint) {}
 
@@ -1010,7 +989,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::unbind
    *
    * ...
-   * @param mixed $endpoint ...
+   * @param mixed$endpoint ...
   */
   public function unbind($endpoint) {}
 
@@ -1018,7 +997,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::connect
    *
    * ...
-   * @param mixed $endpoint ...
+   * @param mixed$endpoint ...
   */
   public function connect($endpoint) {}
 
@@ -1026,7 +1005,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::disconnect
    *
    * ...
-   * @param mixed $endpoint ...
+   * @param mixed$endpoint ...
   */
   public function disconnect($endpoint) {}
 
@@ -1034,8 +1013,8 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::attach
    *
    * ...
-   * @param mixed $endpoints ...
-   * @param mixed $serverish ... (optional)
+   * @param mixed$endpoints ...
+   * @param mixed$serverish ... (optional)
   */
   public function attach($endpoints, $serverish) {}
 
@@ -1043,7 +1022,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::signal
    *
    * ...
-   * @param mixed $byte ...
+   * @param mixed$byte ...
   */
   public function signal($byte) {}
 
@@ -1064,16 +1043,15 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ZSocket::send
    *
-   * Send a ZMsg.
-   * @param ZMsg $zmsg  
+   * ...
+   * @param ZMsg$zmsg ...
   */
   public function send($zmsg) {}
 
   /**
    * ZSocket::recv
    *
-   * Recieve a ZMsg.
-   * @return ZMsg
+   * ...
   */
   public function recv() {}
 
@@ -1081,7 +1059,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::send_string
    *
    * ...
-   * @param string $value ...
+   * @param mixed$value ...
   */
   public function send_string($value) {}
 
@@ -1089,7 +1067,6 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::recv_string
    *
    * ...
-   * @return string
   */
   public function recv_string() {}
 
@@ -1097,7 +1074,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::send_picture
    *
    * ...
-   * @param mixed $picture ...
+   * @param mixed$picture ...
   */
   public function send_picture($picture) {}
 
@@ -1105,7 +1082,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::recv_picture
    *
    * ...
-   * @param string $picture ...
+   * @param mixed$picture ...
   */
   public function recv_picture($picture) {}
 
@@ -1210,16 +1187,14 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ZSocket::get_fd
    *
-   * Get the underlying File Descriptor.
-   * @return int
+   * ...
   */
   public function get_fd() {}
 
   /**
    * ZSocket::get_socket
    *
-   * Get the underlying ZSocket.
-   * @return ZSocket
+   * ...
   */
   public function get_socket() {}
 
@@ -1916,7 +1891,7 @@ class ZProxy implements \IZSocket, \IZDescriptor {
    * ZProxy::recv
    *
    * Recieve a ZMsg.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -1958,7 +1933,7 @@ class ZProxy implements \IZSocket, \IZDescriptor {
    * ZProxy::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2029,7 +2004,7 @@ class ZBeacon implements \IZSocket, \IZDescriptor {
    * ZBeacon::recv
    *
    * Recieve a ZMsg.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -2045,7 +2020,7 @@ class ZBeacon implements \IZSocket, \IZDescriptor {
    * ZBeacon::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2082,7 +2057,7 @@ class ZAuth implements \IZSocket, \IZDescriptor {
    * ZAuth::recv
    *
    * Recieve a ZMsg.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -2129,7 +2104,7 @@ class ZAuth implements \IZSocket, \IZDescriptor {
    * ZAuth::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2210,7 +2185,7 @@ class ZGossip implements \IZSocket, \IZDescriptor {
    * ZGossip::recv
    *
    * Recieve a ZMsg.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -2226,7 +2201,7 @@ class ZGossip implements \IZSocket, \IZDescriptor {
    * ZGossip::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2266,7 +2241,7 @@ class Zyre implements \IZSocket, \IZDescriptor {
    * Zyre::recv
    *
    * Receive next message from network. The message may be a control message (ENTER, EXIT, JOIN, LEAVE) or data (WHISPER, SHOUT). Returns ZMsg object, or NULL if interrupted.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -2457,7 +2432,7 @@ class Zyre implements \IZSocket, \IZDescriptor {
    * Zyre::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2513,7 +2488,7 @@ class ZInotify implements \IZDescriptor {
    * ZInotify::recv
    *
    * Recieve a ZMsg.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -2689,7 +2664,7 @@ class Broker implements \IZSocket, \IZDescriptor {
    * Broker::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2746,7 +2721,7 @@ class Worker implements \IZSocket, \IZDescriptor {
    * Worker::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2779,7 +2754,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::recv
    *
    * Recieve a ZMsg.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -2811,7 +2786,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2876,7 +2851,7 @@ class Broker implements \IZSocket, \IZDescriptor {
    * Broker::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2920,7 +2895,7 @@ class Worker implements \IZSocket, \IZDescriptor {
    * Worker::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2967,7 +2942,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -3038,7 +3013,7 @@ class Broker implements \IZSocket, \IZDescriptor {
    * Broker::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -3098,7 +3073,7 @@ class Worker implements \IZSocket, \IZDescriptor {
    * Worker::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -3215,7 +3190,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::recv
    *
    * Recieve a ZMsg.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -3231,7 +3206,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -3291,7 +3266,7 @@ class Producer implements \IZSocket, \IZDescriptor {
    * Producer::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -3359,7 +3334,7 @@ class Consumer implements \IZSocket, \IZDescriptor {
    * Consumer::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -3439,7 +3414,7 @@ class Server implements \IZSocket, \IZDescriptor {
    * Server::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -3447,7 +3422,7 @@ class Server implements \IZSocket, \IZDescriptor {
    * Server::recv
    *
    * Recieve a ZMsg.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -3498,7 +3473,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::recv
    *
    * Recieve a ZMsg.
-   * @return ZMsg
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -3514,7 +3489,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::get_socket
    *
    * Get the underlying ZSocket.
-   * @return ZSocket
+   * @return \ZSocket
   */
   public function get_socket() {}
 
