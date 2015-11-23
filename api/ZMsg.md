@@ -155,7 +155,7 @@ ZMsg::pop_string
 
 ZMsg::send
 
-...
+Send a ZMsg
 
 * Visibility: **public**
 

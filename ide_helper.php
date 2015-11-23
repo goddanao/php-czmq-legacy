@@ -246,7 +246,8 @@ class ZSys {
   /**
    * ZSys::libmdp_version
    *
-   * ...
+   * Return Majordomo Protocol version
+   * @return string
   */
   static public function libmdp_version() {}
 
@@ -261,7 +262,8 @@ class ZSys {
   /**
    * ZSys::libfmq_version
    *
-   * ...
+   * Return FileMq version
+   * @return string
   */
   static public function libfmq_version() {}
 
@@ -327,14 +329,14 @@ class ZUdp implements \IZDescriptor {
   /**
    * ZUdp::send
    *
-   * Send a ZMsg over Udp
+   * Send a ZMsg.
   */
   public function send() {}
 
   /**
    * ZUdp::recv
    *
-   * Recieve ZMsg over Udp
+   * Recieve a ZMsg.
    * @return ZMsg
   */
   public function recv() {}
@@ -342,7 +344,8 @@ class ZUdp implements \IZDescriptor {
   /**
    * ZUdp::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
@@ -429,7 +432,7 @@ class ZMsg {
   /**
    * ZMsg::send
    *
-   * ...
+   * Send a ZMsg
   */
   public function send() {}
 
@@ -831,7 +834,7 @@ class ZCertStore {
  *
  * ...
  */
-class ZMonitor {
+class ZMonitor implements \IZSocket, \IZDescriptor {
   const EVT_CONNECTED = "CONNECTED";
   const EVT_CONNECT_DELAYED = "CONNECT_DELAYED";
   const EVT_CONNECT_RETRIED = "CONNECT_RETRIED";
@@ -850,8 +853,9 @@ class ZMonitor {
    * ZMonitor::__construct
    *
    * ...
+   * @param IZSocket$socket ...
   */
-  public function __construct() {}
+  public function __construct($socket = null) {}
 
   /**
    * ZMonitor::set_verbose
@@ -878,21 +882,24 @@ class ZMonitor {
   /**
    * ZMonitor::recv
    *
-   * ...
+   * Recieve a ZMsg.
+   * @return ZMsg
   */
   public function recv() {}
 
   /**
    * ZMonitor::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * ZMonitor::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -909,7 +916,8 @@ interface IZDescriptor {
   /**
    * IZDescriptor::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() ;
 
@@ -926,14 +934,16 @@ interface IZSocket extends \IZDescriptor {
   /**
    * IZSocket::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() ;
 
   /**
    * IZSocket::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() ;
 
@@ -1054,15 +1064,16 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ZSocket::send
    *
-   * ...
-   * @param mixed $zmsg ...
+   * Send a ZMsg.
+   * @param ZMsg $zmsg  
   */
   public function send($zmsg) {}
 
   /**
    * ZSocket::recv
    *
-   * ...
+   * Recieve a ZMsg.
+   * @return ZMsg
   */
   public function recv() {}
 
@@ -1070,7 +1081,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::send_string
    *
    * ...
-   * @param mixed $value ...
+   * @param string $value ...
   */
   public function send_string($value) {}
 
@@ -1078,6 +1089,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::recv_string
    *
    * ...
+   * @return string
   */
   public function recv_string() {}
 
@@ -1093,7 +1105,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::recv_picture
    *
    * ...
-   * @param mixed $picture ...
+   * @param string $picture ...
   */
   public function recv_picture($picture) {}
 
@@ -1198,14 +1210,16 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ZSocket::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * ZSocket::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -1901,7 +1915,8 @@ class ZProxy implements \IZSocket, \IZDescriptor {
   /**
    * ZProxy::recv
    *
-   * ...
+   * Recieve a ZMsg.
+   * @return ZMsg
   */
   public function recv() {}
 
@@ -1934,14 +1949,16 @@ class ZProxy implements \IZSocket, \IZDescriptor {
   /**
    * ZProxy::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * ZProxy::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -2011,21 +2028,24 @@ class ZBeacon implements \IZSocket, \IZDescriptor {
   /**
    * ZBeacon::recv
    *
-   * ...
+   * Recieve a ZMsg.
+   * @return ZMsg
   */
   public function recv() {}
 
   /**
    * ZBeacon::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * ZBeacon::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -2061,7 +2081,8 @@ class ZAuth implements \IZSocket, \IZDescriptor {
   /**
    * ZAuth::recv
    *
-   * ...
+   * Recieve a ZMsg.
+   * @return ZMsg
   */
   public function recv() {}
 
@@ -2099,14 +2120,16 @@ class ZAuth implements \IZSocket, \IZDescriptor {
   /**
    * ZAuth::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * ZAuth::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -2186,21 +2209,24 @@ class ZGossip implements \IZSocket, \IZDescriptor {
   /**
    * ZGossip::recv
    *
-   * ...
+   * Recieve a ZMsg.
+   * @return ZMsg
   */
   public function recv() {}
 
   /**
    * ZGossip::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * ZGossip::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -2422,14 +2448,16 @@ class Zyre implements \IZSocket, \IZDescriptor {
   /**
    * Zyre::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Zyre::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -2484,7 +2512,8 @@ class ZInotify implements \IZDescriptor {
   /**
    * ZInotify::recv
    *
-   * ...
+   * Recieve a ZMsg.
+   * @return ZMsg
   */
   public function recv() {}
 
@@ -2509,6 +2538,7 @@ class ZStdIn implements \IZDescriptor {
    * ZStdIn::recv
    *
    * ...
+   * @return string
   */
   public function recv() {}
 
@@ -2540,6 +2570,7 @@ class ZStdOut implements \IZDescriptor {
    * ZStdOut::recv
    *
    * ...
+   * @return string
   */
   public function recv() {}
 
@@ -2571,6 +2602,7 @@ class ZStdErr implements \IZDescriptor {
    * ZStdErr::recv
    *
    * ...
+   * @return string
   */
   public function recv() {}
 
@@ -2648,14 +2680,16 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * Broker::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Broker::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -2703,14 +2737,16 @@ class Worker implements \IZSocket, \IZDescriptor {
   /**
    * Worker::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Worker::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -2742,7 +2778,8 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * Client::recv
    *
-   * ...
+   * Recieve a ZMsg.
+   * @return ZMsg
   */
   public function recv() {}
 
@@ -2765,14 +2802,16 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * Client::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Client::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -2828,14 +2867,16 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * Broker::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Broker::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -2870,14 +2911,16 @@ class Worker implements \IZSocket, \IZDescriptor {
   /**
    * Worker::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Worker::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -2915,14 +2958,16 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * Client::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Client::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -2984,14 +3029,16 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * Broker::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Broker::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -3034,21 +3081,24 @@ class Worker implements \IZSocket, \IZDescriptor {
   /**
    * Worker::get_client
    *
-   * ...
+   * Get the underlying Malamute Client.
+   * @return Malamute\Client
   */
   public function get_client() {}
 
   /**
    * Worker::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Worker::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -3164,21 +3214,24 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * Client::recv
    *
-   * ...
+   * Recieve a ZMsg.
+   * @return ZMsg
   */
   public function recv() {}
 
   /**
    * Client::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Client::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -3221,21 +3274,24 @@ class Producer implements \IZSocket, \IZDescriptor {
   /**
    * Producer::get_client
    *
-   * ...
+   * Get the underlying Malamute Client.
+   * @return Malamute\Client
   */
   public function get_client() {}
 
   /**
    * Producer::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Producer::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -3286,21 +3342,24 @@ class Consumer implements \IZSocket, \IZDescriptor {
   /**
    * Consumer::get_client
    *
-   * ...
+   * Get the underlying Malamute Client.
+   * @return Malamute\Client
   */
   public function get_client() {}
 
   /**
    * Consumer::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Consumer::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
@@ -3371,21 +3430,24 @@ class Server implements \IZSocket, \IZDescriptor {
   /**
    * Server::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Server::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 
   /**
    * Server::recv
    *
-   * ...
+   * Recieve a ZMsg.
+   * @return ZMsg
   */
   public function recv() {}
 
@@ -3435,21 +3497,24 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * Client::recv
    *
-   * ...
+   * Recieve a ZMsg.
+   * @return ZMsg
   */
   public function recv() {}
 
   /**
    * Client::get_fd
    *
-   * ...
+   * Get the underlying File Descriptor.
+   * @return int
   */
   public function get_fd() {}
 
   /**
    * Client::get_socket
    *
-   * ...
+   * Get the underlying ZSocket.
+   * @return ZSocket
   */
   public function get_socket() {}
 

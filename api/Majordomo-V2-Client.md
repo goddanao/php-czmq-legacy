@@ -50,11 +50,11 @@ Client::set_verbose
 
 ### recv
 
-    mixed Majordomo\V2\Client::recv()
+    \FileMq\ZMsg Majordomo\V2\Client::recv()
 
 Client::recv
 
-...
+Recieve a ZMsg.
 
 * Visibility: **public**
 
@@ -95,11 +95,11 @@ Client::call_async
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 IZDescriptor::get_fd
 
-...
+Get the underlying File Descriptor.
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)
@@ -109,11 +109,11 @@ IZDescriptor::get_fd
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \FileMq\ZSocket IZSocket::get_socket()
 
 IZSocket::get_socket
 
-...
+Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)

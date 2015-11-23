@@ -626,11 +626,11 @@ Return Zyre version
 
 ### libmdp_version
 
-    mixed ZSys::libmdp_version()
+    string ZSys::libmdp_version()
 
 ZSys::libmdp_version
 
-...
+Return Majordomo Protocol version
 
 * Visibility: **public**
 * This method is **static**.
@@ -654,11 +654,11 @@ Return Malamute version
 
 ### libfmq_version
 
-    mixed ZSys::libfmq_version()
+    string ZSys::libfmq_version()
 
 ZSys::libfmq_version
 
-...
+Return FileMq version
 
 * Visibility: **public**
 * This method is **static**.

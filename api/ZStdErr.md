@@ -21,7 +21,7 @@ Methods
 
 ### recv
 
-    mixed ZStdErr::recv()
+    string ZStdErr::recv()
 
 ZStdErr::recv
 
@@ -47,11 +47,11 @@ ZStdErr::send
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 IZDescriptor::get_fd
 
-...
+Get the underlying File Descriptor.
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)

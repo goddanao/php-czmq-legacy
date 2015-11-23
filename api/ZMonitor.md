@@ -8,7 +8,7 @@ ZMonitor
 
 * Class name: ZMonitor
 * Namespace: 
-
+* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md)
 
 
 Constants
@@ -119,7 +119,7 @@ Methods
 
 ### __construct
 
-    mixed ZMonitor::__construct()
+    mixed ZMonitor::__construct($socket)
 
 ZMonitor::__construct
 
@@ -127,6 +127,9 @@ ZMonitor::__construct
 
 * Visibility: **public**
 
+
+#### Arguments
+* $socket **mixed**
 
 
 
@@ -174,11 +177,11 @@ ZMonitor::start
 
 ### recv
 
-    mixed ZMonitor::recv()
+    \FileMq\ZMsg ZMonitor::recv()
 
 ZMonitor::recv
 
-...
+Recieve a ZMsg.
 
 * Visibility: **public**
 
@@ -187,26 +190,28 @@ ZMonitor::recv
 
 ### get_fd
 
-    mixed ZMonitor::get_fd()
+    integer IZDescriptor::get_fd()
 
-ZMonitor::get_fd
+IZDescriptor::get_fd
 
-...
+Get the underlying File Descriptor.
 
 * Visibility: **public**
+* This method is defined by [IZDescriptor](IZDescriptor.md)
 
 
 
 
 ### get_socket
 
-    mixed ZMonitor::get_socket()
+    \FileMq\ZSocket IZSocket::get_socket()
 
-ZMonitor::get_socket
+IZSocket::get_socket
 
-...
+Get the underlying ZSocket.
 
 * Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
 
 
 

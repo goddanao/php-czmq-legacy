@@ -200,27 +200,27 @@ ZSocket::flush
 
 ### send
 
-    mixed ZSocket::send(mixed $zmsg)
+    mixed ZSocket::send(\FileMq\ZMsg $zmsg)
 
 ZSocket::send
 
-...
+Send a ZMsg.
 
 * Visibility: **public**
 
 
 #### Arguments
-* $zmsg **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $zmsg **FileMq\ZMsg**
 
 
 
 ### recv
 
-    mixed ZSocket::recv()
+    \FileMq\ZMsg ZSocket::recv()
 
 ZSocket::recv
 
-...
+Recieve a ZMsg.
 
 * Visibility: **public**
 
@@ -229,7 +229,7 @@ ZSocket::recv
 
 ### send_string
 
-    mixed ZSocket::send_string(mixed $value)
+    mixed ZSocket::send_string(string $value)
 
 ZSocket::send_string
 
@@ -239,13 +239,13 @@ ZSocket::send_string
 
 
 #### Arguments
-* $value **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $value **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### recv_string
 
-    mixed ZSocket::recv_string()
+    string ZSocket::recv_string()
 
 ZSocket::recv_string
 
@@ -274,7 +274,7 @@ ZSocket::send_picture
 
 ### recv_picture
 
-    mixed ZSocket::recv_picture(mixed $picture)
+    mixed ZSocket::recv_picture(string $picture)
 
 ZSocket::recv_picture
 
@@ -284,7 +284,7 @@ ZSocket::recv_picture
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -485,11 +485,11 @@ ZSocket::get_options
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 IZDescriptor::get_fd
 
-...
+Get the underlying File Descriptor.
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)
@@ -499,11 +499,11 @@ IZDescriptor::get_fd
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \FileMq\ZSocket IZSocket::get_socket()
 
 IZSocket::get_socket
 
-...
+Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
