@@ -106,8 +106,6 @@ public:
 
     Php::Value bind(Php::Parameters &param) {
         int result = zsock_bind(zsock_handle(), param[0].stringValue().c_str());
-    //	if(_verbose)
-    //		zsys_info("binded ep: %s [%d]", param[0].stringValue().c_str(), result);
         return (result == -1 ? false : (result == 0 ? true : result));
     }
 
@@ -116,10 +114,7 @@ public:
     }
 
     Php::Value connect(Php::Parameters &param) {
-        int result = zsock_connect(zsock_handle(), param[0].stringValue().c_str());
-    //	if(_verbose)
-    //    	zsys_info("connected ep: %s [%d]", param[0].stringValue().c_str(), result);
-        return (result == 0);
+        return (zsock_connect(zsock_handle(), param[0].stringValue().c_str()) == 0);
     }
 
     Php::Value disconnect(Php::Parameters &param) {

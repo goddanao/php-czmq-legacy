@@ -147,7 +147,6 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
                 $service_client->connect();
                 $service_client->send_service('my_worker', 'mywork', json_encode(['gino' => 'pino']), 30000);
                 $rcv = $service_client->recv();
-                $rcv->dump();
                 return $rcv == "mydata" ? "OK" : "KO";
             });
 

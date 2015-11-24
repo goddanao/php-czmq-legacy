@@ -1,5 +1,5 @@
 {
-    "name": "goddanao/php-czmq",
+    "name": "goddanao/php-czmq-examples",
     "description": "",
     "keywords": [""],
     "authors": [{
@@ -11,7 +11,10 @@
     },
     "require-dev": {
         "kriswallsmith/spork": "*",
-        "evert/phpdoc-md" : "~0.1.1"
+        "react/stream": "^0.4",
+        "react/event-loop": "^0.4",
+        "react/promise": "^2.0",
+        "icicleio/react-adapter": "^0.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

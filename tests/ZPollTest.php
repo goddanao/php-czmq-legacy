@@ -8,8 +8,7 @@ class ZPollTest extends \PHPUnit_Framework_TestCase {
     private $rep;
     private $req;
 
-    protected function setUp()
-    {
+    protected function setUp() {
         $endpoint = "ipc:///tmp/push_pull_test";
         $this->sock_pull = new ZSocket(ZSys::SOCKET_PULL, '@' . $endpoint);
         $this->sock_push = new ZSocket(ZSys::SOCKET_PUSH, '>' . $endpoint);
@@ -22,7 +21,7 @@ class ZPollTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotNull($this->poller);
     }
 
-    public function test_add_socket() { // ZSocket , ZActor , ZHandle
+    public function test_add_socket() {
         $this->poller = new ZPoll();
         $this->poller->add($this->sock_push, ZSys::POLL_OUT);
         $this->poller->add($this->sock_pull); // default POLL_IN
@@ -57,7 +56,7 @@ class ZPollTest extends \PHPUnit_Framework_TestCase {
         $this->poller = new ZPoll();
         $this->poller->add($this->rep);
         $this->req->send_picture('s', 'hello!');
-        $res = $this->poller->poll(1000);
+        $res = $this->poller->poll(500);
         $res_i = $this->poller->has_input($this->rep);
         $this->assertTrue($res, "poll");
         $this->assertTrue($res_i, "has events in");
@@ -66,9 +65,8 @@ class ZPollTest extends \PHPUnit_Framework_TestCase {
     public function test_has_events_out() {
         $this->poller = new ZPoll();
         $this->poller->add($this->sock_push, ZSys::POLL_OUT);
-        $this->poller->add($this->sock_pull);
         $this->sock_push->send_picture('s', 'hello!');
-        $res   = $this->poller->poll(1000);
+        $res   = $this->poller->poll(500);
         $res_o = $this->poller->has_output($this->sock_push);
         $this->assertTrue($res, "poll");
         $this->assertTrue($res_o, "has events out");
