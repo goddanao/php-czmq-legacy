@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 
+LIBSODIUM_DIR="${TRAVIS_BUILD_DIR}/travis/cache/libsodium/v${LIBSODIUM_VERSION}"
+CZMQ_DIR="${TRAVIS_BUILD_DIR}/travis/cache/czmq/${CZMQ_VERSION}"
+
 install_libsodium() {
+    local cache_dir=$LIBSODIUM_DIR
+
+    if test -d $cache_dir
+    then
+        return
+    fi
+
     pushd /tmp
 
     git clone https://github.com/jedisct1/libsodium
@@ -17,6 +27,14 @@ install_libsodium() {
 }
 
 install_zeromq() {
+    local version=$ZEROMQ_VERSION
+    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${version}"
+    local with_libsodium=""
+
+    if test -d $cache_dir
+    then
+        return
+    fi
 
     pushd /tmp
 
@@ -40,10 +58,12 @@ install_zeromq() {
         git clone https://github.com/zeromq/zeromq4-x
         cd zeromq4-x
         git checkout "tags/${version}"
+
+        with_libsodium="--with-libsodium=${LIBSODIUM_DIR}"
         ;;
     esac
     ./autogen.sh
-    ./configure
+    PKG_CONFIG_PATH="${LIBSODIUM_DIR}/lib/pkgconfig" ./configure $with_libsodium
     make -j 8
     sudo make install
     sudo ldconfig
@@ -53,6 +73,14 @@ install_zeromq() {
 }
 
 install_czmq() {
+  local zeromq_version=$ZEROMQ_VERSION
+  local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
+  local cache_dir=$CZMQ_DIR
+
+  if test -d $cache_dir
+  then
+      return
+  fi
 
   pushd /tmp
 
@@ -68,6 +96,7 @@ install_czmq() {
 
   popd # pushd /tmp
 }
+
 
 install_zyre() {
 
@@ -85,10 +114,16 @@ install_zyre() {
 
   popd # pushd /tmp
 }
+
 install_libsodium
 install_zeromq
 install_czmq
 install_zyre
+
+# Build, check, and install the version of ZYRE given by ZYRE_REPO
+git clone git://github.com/zeromq/zyre.git &&
+( cd zyre; ./autogen.sh && ./configure &&
+    make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
 
 # Build, check, and install the version of MALAMUTE given by MALAMUTE_REPO
 git clone git://github.com/zeromq/majordomo.git &&
