@@ -120,11 +120,6 @@ install_zeromq
 install_czmq
 install_zyre
 
-# Build, check, and install the version of ZYRE given by ZYRE_REPO
-git clone git://github.com/zeromq/zyre.git &&
-( cd zyre; ./autogen.sh && ./configure &&
-    make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
-
 # Build, check, and install the version of MALAMUTE given by MALAMUTE_REPO
 git clone git://github.com/zeromq/majordomo.git &&
 ( cd majordomo; ./autogen.sh && ./configure &&
