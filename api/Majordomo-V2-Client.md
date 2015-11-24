@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Majordomo\V2\Client::__construct($broker_endpoint)
+    mixed Majordomo\V2\Client::__construct(mixed $broker_endpoint)
 
 Client::__construct
 
@@ -31,7 +31,7 @@ Client::__construct
 
 
 #### Arguments
-* $broker_endpoint **mixed**
+* $broker_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -63,7 +63,7 @@ Recieve a ZMsg.
 
 ### call
 
-    mixed Majordomo\V2\Client::call($service_name)
+    mixed Majordomo\V2\Client::call(mixed $service_name)
 
 Client::call
 
@@ -73,13 +73,13 @@ Client::call
 
 
 #### Arguments
-* $service_name **mixed**
+* $service_name **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### call_async
 
-    mixed Majordomo\V2\Client::call_async($service_name)
+    mixed Majordomo\V2\Client::call_async(mixed $service_name)
 
 Client::call_async
 
@@ -89,7 +89,7 @@ Client::call_async
 
 
 #### Arguments
-* $service_name **mixed**
+* $service_name **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

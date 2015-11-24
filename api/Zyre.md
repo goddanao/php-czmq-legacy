@@ -177,7 +177,7 @@ the bind was successful.
 
 ### set_port
 
-    mixed Zyre::set_port($port)
+    mixed Zyre::set_port(integer $port)
 
 Zyre::set_port
 
@@ -187,13 +187,13 @@ Set UDP beacon discovery port; defaults to 5670, this call overrides that so you
 
 
 #### Arguments
-* $port **mixed**
+* $port **integer** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set_interface
 
-    mixed Zyre::set_interface($interface)
+    mixed Zyre::set_interface(string $interface)
 
 Zyre::set_interface
 
@@ -205,13 +205,13 @@ specify which one you want to use, or strange things can happen.
 
 
 #### Arguments
-* $interface **mixed**
+* $interface **string**
 
 
 
 ### set_interval
 
-    mixed Zyre::set_interval($interval)
+    mixed Zyre::set_interval(integer $interval)
 
 Zyre::set_interval
 
@@ -221,7 +221,7 @@ Set UDP beacon discovery interval, in milliseconds. Default is instant beacon ex
 
 
 #### Arguments
-* $interval **mixed**
+* $interval **integer** - &lt;p&gt;...&lt;/p&gt;
 
 
 

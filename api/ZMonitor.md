@@ -119,7 +119,7 @@ Methods
 
 ### __construct
 
-    mixed ZMonitor::__construct($socket)
+    mixed ZMonitor::__construct(\IZSocket $socket)
 
 ZMonitor::__construct
 
@@ -129,7 +129,7 @@ ZMonitor::__construct
 
 
 #### Arguments
-* $socket **mixed**
+* $socket **[IZSocket](IZSocket.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -148,7 +148,7 @@ ZMonitor::set_verbose
 
 ### listen
 
-    mixed ZMonitor::listen($event)
+    mixed ZMonitor::listen(mixed $event)
 
 ZMonitor::listen
 
@@ -158,7 +158,7 @@ ZMonitor::listen
 
 
 #### Arguments
-* $event **mixed**
+* $event **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

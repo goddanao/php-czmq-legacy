@@ -100,6 +100,26 @@ Php::Value ZSocket::get_type() {
     return zsock_type(zsock_handle());
 }
 
+Php::Value ZSocket::get_socket_type() {
+    switch(zsock_type(zsock_handle())) {
+        case ZMQ_PUB : return "pub";
+        case ZMQ_SUB : return "sub";
+        case ZMQ_REQ : return "req";
+        case ZMQ_REP : return "rep";
+        case ZMQ_DEALER : return "dealer";
+        case ZMQ_ROUTER : return "router";
+        case ZMQ_PUSH : return "push";
+        case ZMQ_PULL : return "pull";
+        case ZMQ_XPUB : return "xpub";
+        case ZMQ_XSUB : return "xsub";
+        case ZMQ_PAIR : return "pair";
+        case ZMQ_STREAM : return "stream";
+        default:
+            return nullptr;
+    };
+}
+
+
 Php::Value ZSocket::get_sndhwm() {
     return zsock_sndhwm(zsock_handle());
 }

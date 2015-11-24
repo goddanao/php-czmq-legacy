@@ -73,7 +73,7 @@ Broker::get_status
 
 ### set_capture
 
-    mixed Majordomo\V1\Broker::set_capture($socket_endpoint)
+    mixed Majordomo\V1\Broker::set_capture(mixed $socket_endpoint)
 
 Broker::set_capture
 
@@ -83,7 +83,7 @@ Broker::set_capture
 
 
 #### Arguments
-* $socket_endpoint **mixed**
+* $socket_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

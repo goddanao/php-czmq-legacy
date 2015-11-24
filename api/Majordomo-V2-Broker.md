@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Majordomo\V2\Broker::__construct($endpoint, $verbose)
+    mixed Majordomo\V2\Broker::__construct(mixed $endpoint, mixed $verbose)
 
 Broker::__construct
 
@@ -31,8 +31,8 @@ Broker::__construct
 
 
 #### Arguments
-* $endpoint **mixed**
-* $verbose **mixed**
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 

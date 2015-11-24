@@ -37,7 +37,7 @@ Php::Value ZHandle::recv_string(Php::Parameters &param) {
 Php::Value ZHandle::send(Php::Parameters &param) {
     Php::Value p(param[0]);
     zmsg_t *czmsg = ZMsg::msg_from_param(&p);
-    return zmsg_send(&czmsg, get_socket());
+    return (zmsg_send(&czmsg, get_socket()) == 0);
 }
 
 Php::Value ZHandle::recv(Php::Parameters &param) {

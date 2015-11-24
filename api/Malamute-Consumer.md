@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Malamute\Consumer::__construct($endpoint, $stream)
+    mixed Malamute\Consumer::__construct(mixed $endpoint, mixed $stream)
 
 Consumer::__construct
 
@@ -31,14 +31,14 @@ Consumer::__construct
 
 
 #### Arguments
-* $endpoint **mixed**
-* $stream **mixed**
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set_timeout
 
-    mixed Malamute\Consumer::set_timeout($timeout)
+    mixed Malamute\Consumer::set_timeout(mixed $timeout)
 
 Consumer::set_timeout
 
@@ -48,13 +48,13 @@ Consumer::set_timeout
 
 
 #### Arguments
-* $timeout **mixed**
+* $timeout **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### header
 
-    mixed Malamute\Consumer::header($header)
+    mixed Malamute\Consumer::header(mixed $header)
 
 Consumer::header
 
@@ -64,13 +64,13 @@ Consumer::header
 
 
 #### Arguments
-* $header **mixed**
+* $header **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### run
 
-    mixed Malamute\Consumer::run($pattern, callable $callback)
+    mixed Malamute\Consumer::run(mixed $pattern, callable $callback)
 
 Consumer::run
 
@@ -80,7 +80,7 @@ Consumer::run
 
 
 #### Arguments
-* $pattern **mixed**
+* $pattern **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 

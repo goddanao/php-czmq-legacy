@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed FileMq\Client::__construct($endpoint, $local_path, $timeout)
+    mixed FileMq\Client::__construct(mixed $endpoint, mixed $local_path, mixed $timeout)
 
 Client::__construct
 
@@ -31,15 +31,15 @@ Client::__construct
 
 
 #### Arguments
-* $endpoint **mixed**
-* $local_path **mixed**
-* $timeout **mixed**
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $local_path **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $timeout **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### set_timeout
 
-    mixed FileMq\Client::set_timeout($timeout)
+    mixed FileMq\Client::set_timeout(mixed $timeout)
 
 Client::set_timeout
 
@@ -49,7 +49,7 @@ Client::set_timeout
 
 
 #### Arguments
-* $timeout **mixed**
+* $timeout **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -68,7 +68,7 @@ Client::connect
 
 ### subscribe
 
-    mixed FileMq\Client::subscribe($remote_path)
+    mixed FileMq\Client::subscribe(mixed $remote_path)
 
 Client::subscribe
 
@@ -78,7 +78,7 @@ Client::subscribe
 
 
 #### Arguments
-* $remote_path **mixed**
+* $remote_path **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

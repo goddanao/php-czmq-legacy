@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Majordomo\V2\Worker::__construct($name, $broker_endpoint, callable $callback)
+    mixed Majordomo\V2\Worker::__construct(mixed $name, mixed $broker_endpoint, callable $callback)
 
 Worker::__construct
 
@@ -31,8 +31,8 @@ Worker::__construct
 
 
 #### Arguments
-* $name **mixed**
-* $broker_endpoint **mixed**
+* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $broker_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 

@@ -559,7 +559,7 @@ class ZLoop {
    *
    * ...
    * @param \IZDescriptor $socket ...
-   * @param mixed$mode ... (optional)
+   * @param mixed $mode ... (optional)
   */
   public function add($socket = null, $mode) {}
 
@@ -567,7 +567,7 @@ class ZLoop {
    * ZLoop::remove
    *
    * ...
-   * @param \IZDescriptor$socket ...
+   * @param \IZDescriptor $socket ...
   */
   public function remove($socket = null) {}
 
@@ -582,7 +582,7 @@ class ZLoop {
    * ZLoop::remove_timer
    *
    * ...
-   * @param mixed$timer_id ...
+   * @param mixed $timer_id ...
   */
   public function remove_timer($timer_id) {}
 
@@ -614,8 +614,8 @@ class ZPoll {
    * ZPoll::add
    *
    * ...
-   * @param \IZDescriptor$socket ...
-   * @param mixed$mode ... (optional)
+   * @param \IZDescriptor $socket ...
+   * @param mixed $mode ... (optional)
   */
   public function add($socket = null, $mode) {}
 
@@ -623,7 +623,7 @@ class ZPoll {
    * ZPoll::has
    *
    * ...
-   * @param \IZDescriptor$socket ...
+   * @param \IZDescriptor $socket ...
   */
   public function has($socket = null) {}
 
@@ -631,7 +631,7 @@ class ZPoll {
    * ZPoll::remove
    *
    * ...
-   * @param \IZDescriptor$socket ...
+   * @param \IZDescriptor $socket ...
   */
   public function remove($socket = null) {}
 
@@ -853,7 +853,7 @@ class ZMonitor implements \IZSocket, \IZDescriptor {
    * ZMonitor::__construct
    *
    * ...
-   * @param \IZSocket$socket ...
+   * @param \IZSocket $socket ...
   */
   public function __construct($socket = null) {}
 
@@ -868,7 +868,7 @@ class ZMonitor implements \IZSocket, \IZDescriptor {
    * ZMonitor::listen
    *
    * ...
-   * @param mixed$event ...
+   * @param mixed $event ...
   */
   public function listen($event) {}
 
@@ -958,8 +958,8 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::__construct
    *
    * ...
-   * @param mixed$socket_type ...
-   * @param mixed$endpoint ... (optional)
+   * @param mixed $socket_type ...
+   * @param mixed $endpoint ... (optional)
   */
   public function __construct($socket_type, $endpoint) {}
 
@@ -981,7 +981,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::bind
    *
    * ...
-   * @param mixed$endpoint ...
+   * @param mixed $endpoint ...
   */
   public function bind($endpoint) {}
 
@@ -989,7 +989,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::unbind
    *
    * ...
-   * @param mixed$endpoint ...
+   * @param mixed $endpoint ...
   */
   public function unbind($endpoint) {}
 
@@ -997,7 +997,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::connect
    *
    * ...
-   * @param mixed$endpoint ...
+   * @param mixed $endpoint ...
   */
   public function connect($endpoint) {}
 
@@ -1005,7 +1005,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::disconnect
    *
    * ...
-   * @param mixed$endpoint ...
+   * @param mixed $endpoint ...
   */
   public function disconnect($endpoint) {}
 
@@ -1013,8 +1013,8 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::attach
    *
    * ...
-   * @param mixed$endpoints ...
-   * @param mixed$serverish ... (optional)
+   * @param mixed $endpoints ...
+   * @param mixed $serverish ... (optional)
   */
   public function attach($endpoints, $serverish) {}
 
@@ -1022,7 +1022,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::signal
    *
    * ...
-   * @param mixed$byte ...
+   * @param mixed $byte ...
   */
   public function signal($byte) {}
 
@@ -1041,12 +1041,18 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function flush() {}
 
   /**
+   * ZSocket::get_socket_type
+   *
+   * ...
+  */
+  public function get_socket_type() {}
+
+  /**
    * ZSocket::send
    *
    * ...
-   * @param ZMsg$zmsg ...
   */
-  public function send($zmsg) {}
+  public function send() {}
 
   /**
    * ZSocket::recv
@@ -1059,7 +1065,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::send_string
    *
    * ...
-   * @param mixed$value ...
+   * @param mixed $value ...
   */
   public function send_string($value) {}
 
@@ -1074,7 +1080,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::send_picture
    *
    * ...
-   * @param mixed$picture ...
+   * @param mixed $picture ...
   */
   public function send_picture($picture) {}
 
@@ -1082,7 +1088,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::recv_picture
    *
    * ...
-   * @param mixed$picture ...
+   * @param mixed $picture ...
   */
   public function recv_picture($picture) {}
 
@@ -1090,92 +1096,105 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ZSocket::pub
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function pub() {}
+  static public function pub($endpoint) {}
 
   /**
    * ZSocket::sub
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function sub() {}
+  static public function sub($endpoint) {}
 
   /**
    * ZSocket::rep
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function rep() {}
+  static public function rep($endpoint) {}
 
   /**
    * ZSocket::req
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function req() {}
+  static public function req($endpoint) {}
 
   /**
    * ZSocket::dealer
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function dealer() {}
+  static public function dealer($endpoint) {}
 
   /**
    * ZSocket::router
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function router() {}
+  static public function router($endpoint) {}
 
   /**
    * ZSocket::push
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function push() {}
+  static public function push($endpoint) {}
 
   /**
    * ZSocket::pull
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function pull() {}
+  static public function pull($endpoint) {}
 
   /**
    * ZSocket::xpub
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function xpub() {}
+  static public function xpub($endpoint) {}
 
   /**
    * ZSocket::xsub
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function xsub() {}
+  static public function xsub($endpoint) {}
 
   /**
    * ZSocket::xreq
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function xreq() {}
+  static public function xreq($endpoint) {}
 
   /**
    * ZSocket::xrep
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function xrep() {}
+  static public function xrep($endpoint) {}
 
   /**
    * ZSocket::stream
    *
    * ...
+   * @param mixed $endpoint ... (optional)
   */
-  static public function stream() {}
+  static public function stream($endpoint) {}
 
   /**
    * ZSocket::get_options
@@ -2136,7 +2155,7 @@ class ZGossip implements \IZSocket, \IZDescriptor {
    * ZGossip::configure
    *
    * ...
-   * @param mixed$filename ...
+   * @param mixed $filename ...
   */
   public function configure($filename) {}
 
@@ -2144,7 +2163,7 @@ class ZGossip implements \IZSocket, \IZDescriptor {
    * ZGossip::bind
    *
    * ...
-   * @param mixed$endpoint ...
+   * @param mixed $endpoint ...
   */
   public function bind($endpoint) {}
 
@@ -2152,7 +2171,7 @@ class ZGossip implements \IZSocket, \IZDescriptor {
    * ZGossip::connect
    *
    * ...
-   * @param mixed$endpoint ...
+   * @param mixed $endpoint ...
   */
   public function connect($endpoint) {}
 
@@ -2160,8 +2179,8 @@ class ZGossip implements \IZSocket, \IZDescriptor {
    * ZGossip::set
    *
    * ...
-   * @param mixed$property ...
-   * @param mixed$value ...
+   * @param mixed $property ...
+   * @param mixed $value ...
   */
   public function set($property, $value) {}
 
@@ -2169,8 +2188,8 @@ class ZGossip implements \IZSocket, \IZDescriptor {
    * ZGossip::publish
    *
    * ...
-   * @param mixed$property ...
-   * @param mixed$value ...
+   * @param mixed $property ...
+   * @param mixed $value ...
   */
   public function publish($property, $value) {}
 
@@ -2310,7 +2329,7 @@ class Zyre implements \IZSocket, \IZDescriptor {
    * Zyre::set_port
    *
    * Set UDP beacon discovery port; defaults to 5670, this call overrides that so you can create independent clusters on the same network, for e.g. development vs. production. Has no effect after node start.
-   * @param int$port ...
+   * @param int $port ...
   */
   public function set_port($port) {}
 
@@ -2320,7 +2339,7 @@ class Zyre implements \IZSocket, \IZDescriptor {
    * Set network interface for UDP beacons. If you do not set this, CZMQ will
    * choose an interface for you. On boxes with several interfaces you should
    * specify which one you want to use, or strange things can happen.
-   * @param string$interface  
+   * @param string $interface  
   */
   public function set_interface($interface) {}
 
@@ -2328,7 +2347,7 @@ class Zyre implements \IZSocket, \IZDescriptor {
    * Zyre::set_interval
    *
    * Set UDP beacon discovery interval, in milliseconds. Default is instant beacon exploration followed by pinging every 1,000 msecs.
-   * @param int$interval ...
+   * @param int $interval ...
   */
   public function set_interval($interval) {}
 
@@ -2612,8 +2631,8 @@ class Broker implements \IZSocket, \IZDescriptor {
    * Broker::__construct
    *
    * ...
-   * @param mixed$endpoint ... (optional)
-   * @param mixed$verbose ... (optional)
+   * @param mixed $endpoint ... (optional)
+   * @param mixed $verbose ... (optional)
   */
   public function __construct($endpoint, $verbose) {}
 
@@ -2682,8 +2701,8 @@ class Worker implements \IZSocket, \IZDescriptor {
    * Worker::__construct
    *
    * ...
-   * @param mixed$name ...
-   * @param mixed$broker_endpoint ...
+   * @param mixed $name ...
+   * @param mixed $broker_endpoint ...
    * @param callable $callback ...
   */
   public function __construct($name, $broker_endpoint, $callback) {}
@@ -2739,7 +2758,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::__construct
    *
    * ...
-   * @param mixed$broker_endpoint ...
+   * @param mixed $broker_endpoint ...
   */
   public function __construct($broker_endpoint) {}
 
@@ -2762,7 +2781,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::call
    *
    * ...
-   * @param mixed$service_name ...
+   * @param mixed $service_name ...
   */
   public function call($service_name) {}
 
@@ -2770,7 +2789,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::call_async
    *
    * ...
-   * @param mixed$service_name ...
+   * @param mixed $service_name ...
   */
   public function call_async($service_name) {}
 
@@ -2835,7 +2854,7 @@ class Broker implements \IZSocket, \IZDescriptor {
    * Broker::set_capture
    *
    * ...
-   * @param mixed$socket_endpoint ...
+   * @param mixed $socket_endpoint ...
   */
   public function set_capture($socket_endpoint) {}
 
@@ -2869,9 +2888,9 @@ class Worker implements \IZSocket, \IZDescriptor {
    * Worker::__construct
    *
    * ...
-   * @param mixed$broker_endpoint ...
-   * @param mixed$name ...
-   * @param mixed$verbose ... (optional)
+   * @param mixed $broker_endpoint ...
+   * @param mixed $name ...
+   * @param mixed $verbose ... (optional)
   */
   public function __construct($broker_endpoint, $name, $verbose) {}
 
@@ -3031,9 +3050,9 @@ class Worker implements \IZSocket, \IZDescriptor {
    * Worker::__construct
    *
    * ...
-   * @param mixed$endpoint ...
-   * @param mixed$address ...
-   * @param mixed$pattern ... (optional)
+   * @param mixed $endpoint ...
+   * @param mixed $address ...
+   * @param mixed $pattern ... (optional)
   */
   public function __construct($endpoint, $address, $pattern) {}
 
@@ -3041,7 +3060,7 @@ class Worker implements \IZSocket, \IZDescriptor {
    * Worker::set_timeout
    *
    * ...
-   * @param mixed$timeout ...
+   * @param mixed $timeout ...
   */
   public function set_timeout($timeout) {}
 
@@ -3091,9 +3110,9 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::__construct
    *
    * ...
-   * @param mixed$endpoint ...
-   * @param mixed$address ... (optional)
-   * @param mixed$timeout ... (optional)
+   * @param mixed $endpoint ...
+   * @param mixed $address ... (optional)
+   * @param mixed $timeout ... (optional)
   */
   public function __construct($endpoint, $address, $timeout) {}
 
@@ -3108,9 +3127,9 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::connect
    *
    * ...
-   * @param mixed$endpoint ... (optional)
-   * @param mixed$address ... (optional)
-   * @param mixed$timeout ... (optional)
+   * @param mixed $endpoint ... (optional)
+   * @param mixed $address ... (optional)
+   * @param mixed $timeout ... (optional)
   */
   public function connect($endpoint, $address, $timeout) {}
 
@@ -3132,7 +3151,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::set_producer
    *
    * ...
-   * @param mixed$stream ...
+   * @param mixed $stream ...
   */
   public function set_producer($stream) {}
 
@@ -3140,8 +3159,8 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::set_worker
    *
    * ...
-   * @param mixed$address ...
-   * @param mixed$patern ...
+   * @param mixed $address ...
+   * @param mixed $patern ...
   */
   public function set_worker($address, $patern) {}
 
@@ -3149,8 +3168,8 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::set_consumer
    *
    * ...
-   * @param mixed$stream ...
-   * @param mixed$patern ...
+   * @param mixed $stream ...
+   * @param mixed $patern ...
   */
   public function set_consumer($stream, $patern) {}
 
@@ -3158,7 +3177,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::send_stream
    *
    * ...
-   * @param mixed$subject ...
+   * @param mixed $subject ...
   */
   public function send_stream($subject) {}
 
@@ -3166,11 +3185,11 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::send_mailbox
    *
    * ...
-   * @param mixed$address ...
-   * @param mixed$payload ... (optional)
-   * @param mixed$timeout ... (optional)
-   * @param mixed$subject ... (optional)
-   * @param mixed$tracker ... (optional)
+   * @param mixed $address ...
+   * @param mixed $payload ... (optional)
+   * @param mixed $timeout ... (optional)
+   * @param mixed $subject ... (optional)
+   * @param mixed $tracker ... (optional)
   */
   public function send_mailbox($address, $payload, $timeout, $subject, $tracker) {}
 
@@ -3178,11 +3197,11 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::send_service
    *
    * ...
-   * @param mixed$address ...
-   * @param mixed$subject ...
-   * @param mixed$payload ... (optional)
-   * @param mixed$timeout ... (optional)
-   * @param mixed$tracker ... (optional)
+   * @param mixed $address ...
+   * @param mixed $subject ...
+   * @param mixed $payload ... (optional)
+   * @param mixed $timeout ... (optional)
+   * @param mixed $tracker ... (optional)
   */
   public function send_service($address, $subject, $payload, $timeout, $tracker) {}
 
@@ -3224,8 +3243,8 @@ class Producer implements \IZSocket, \IZDescriptor {
    * Producer::__construct
    *
    * ...
-   * @param mixed$endpoint ...
-   * @param mixed$stream ...
+   * @param mixed $endpoint ...
+   * @param mixed $stream ...
   */
   public function __construct($endpoint, $stream) {}
 
@@ -3233,7 +3252,7 @@ class Producer implements \IZSocket, \IZDescriptor {
    * Producer::set_timeout
    *
    * ...
-   * @param mixed$timeout ...
+   * @param mixed $timeout ...
   */
   public function set_timeout($timeout) {}
 
@@ -3241,7 +3260,7 @@ class Producer implements \IZSocket, \IZDescriptor {
    * Producer::run
    *
    * ...
-   * @param mixed$subject ...
+   * @param mixed $subject ...
    * @param callable $callback ...
   */
   public function run($subject, $callback) {}
@@ -3284,8 +3303,8 @@ class Consumer implements \IZSocket, \IZDescriptor {
    * Consumer::__construct
    *
    * ...
-   * @param mixed$endpoint ...
-   * @param mixed$stream ...
+   * @param mixed $endpoint ...
+   * @param mixed $stream ...
   */
   public function __construct($endpoint, $stream) {}
 
@@ -3293,7 +3312,7 @@ class Consumer implements \IZSocket, \IZDescriptor {
    * Consumer::set_timeout
    *
    * ...
-   * @param mixed$timeout ...
+   * @param mixed $timeout ...
   */
   public function set_timeout($timeout) {}
 
@@ -3301,7 +3320,7 @@ class Consumer implements \IZSocket, \IZDescriptor {
    * Consumer::header
    *
    * ...
-   * @param mixed$header ... (optional)
+   * @param mixed $header ... (optional)
   */
   public function header($header) {}
 
@@ -3309,7 +3328,7 @@ class Consumer implements \IZSocket, \IZDescriptor {
    * Consumer::run
    *
    * ...
-   * @param mixed$pattern ...
+   * @param mixed $pattern ...
    * @param callable $callback ...
   */
   public function run($pattern, $callback) {}
@@ -3397,8 +3416,8 @@ class Server implements \IZSocket, \IZDescriptor {
    * Server::publish
    *
    * ...
-   * @param mixed$local_path ...
-   * @param mixed$alias ...
+   * @param mixed $local_path ...
+   * @param mixed $alias ...
   */
   public function publish($local_path, $alias) {}
 
@@ -3440,9 +3459,9 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::__construct
    *
    * ...
-   * @param mixed$endpoint ...
-   * @param mixed$local_path ...
-   * @param mixed$timeout ... (optional)
+   * @param mixed $endpoint ...
+   * @param mixed $local_path ...
+   * @param mixed $timeout ... (optional)
   */
   public function __construct($endpoint, $local_path, $timeout) {}
 
@@ -3450,7 +3469,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::set_timeout
    *
    * ...
-   * @param mixed$timeout ...
+   * @param mixed $timeout ...
   */
   public function set_timeout($timeout) {}
 
@@ -3465,7 +3484,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * Client::subscribe
    *
    * ...
-   * @param mixed$remote_path ...
+   * @param mixed $remote_path ...
   */
   public function subscribe($remote_path) {}
 

@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Malamute\Worker::__construct($endpoint, $address, $pattern)
+    mixed Malamute\Worker::__construct(mixed $endpoint, mixed $address, mixed $pattern)
 
 Worker::__construct
 
@@ -31,15 +31,15 @@ Worker::__construct
 
 
 #### Arguments
-* $endpoint **mixed**
-* $address **mixed**
-* $pattern **mixed**
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $address **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $pattern **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### set_timeout
 
-    mixed Malamute\Worker::set_timeout($timeout)
+    mixed Malamute\Worker::set_timeout(mixed $timeout)
 
 Worker::set_timeout
 
@@ -49,7 +49,7 @@ Worker::set_timeout
 
 
 #### Arguments
-* $timeout **mixed**
+* $timeout **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Majordomo\V1\Worker::__construct($broker_endpoint, $name, $verbose)
+    mixed Majordomo\V1\Worker::__construct(mixed $broker_endpoint, mixed $name, mixed $verbose)
 
 Worker::__construct
 
@@ -31,9 +31,9 @@ Worker::__construct
 
 
 #### Arguments
-* $broker_endpoint **mixed**
-* $name **mixed**
-* $verbose **mixed**
+* $broker_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 

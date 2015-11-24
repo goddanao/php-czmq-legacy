@@ -86,7 +86,7 @@ ZLoop::stop
 
 ### add
 
-    mixed ZLoop::add($socket, $mode)
+    mixed ZLoop::add(\IZDescriptor $socket, mixed $mode)
 
 ZLoop::add
 
@@ -96,14 +96,14 @@ ZLoop::add
 
 
 #### Arguments
-* $socket **mixed**
-* $mode **mixed**
+* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $mode **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### remove
 
-    mixed ZLoop::remove($socket)
+    mixed ZLoop::remove(\IZDescriptor $socket)
 
 ZLoop::remove
 
@@ -113,7 +113,7 @@ ZLoop::remove
 
 
 #### Arguments
-* $socket **mixed**
+* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -132,7 +132,7 @@ ZLoop::add_timer
 
 ### remove_timer
 
-    mixed ZLoop::remove_timer($timer_id)
+    mixed ZLoop::remove_timer(mixed $timer_id)
 
 ZLoop::remove_timer
 
@@ -142,7 +142,7 @@ ZLoop::remove_timer
 
 
 #### Arguments
-* $timer_id **mixed**
+* $timer_id **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

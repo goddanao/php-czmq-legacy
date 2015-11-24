@@ -48,19 +48,19 @@ public:
     ZSocket(zsock_t *handle, bool owned) : ZHandle(handle, owned, "zsock"), Php::Base() {}
     zsock_t *zsock_handle() const { return (zsock_t *) get_handle(); }
 
-    static Php::Value pub(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("pub", param[0].stringValue().c_str()), true)); }
-    static Php::Value sub(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("sub", param[0].stringValue().c_str()), true)); }
-    static Php::Value rep(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("rep", param[0].stringValue().c_str()), true)); }
-    static Php::Value req(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("req", param[0].stringValue().c_str()), true)); }
-    static Php::Value dealer(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("dealer", param[0].stringValue().c_str()), true)); }
-    static Php::Value router(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("router", param[0].stringValue().c_str()), true)); }
-    static Php::Value push(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("push", param[0].stringValue().c_str()), true)); }
-    static Php::Value pull(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("pull", param[0].stringValue().c_str()), true)); }
-    static Php::Value xpub(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("xpub", param[0].stringValue().c_str()), true)); }
-    static Php::Value xsub(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("xsub", param[0].stringValue().c_str()), true)); }
-    static Php::Value xreq(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("xreq", param[0].stringValue().c_str()), true)); }
-    static Php::Value xrep(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("xrep", param[0].stringValue().c_str()), true)); }
-    static Php::Value stream(Php::Parameters &param) { return Php::Object("ZSocket", new ZSocket(new_socket("stream",  param[0].stringValue().c_str()), true)); }
+    static Php::Value pub(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("pub", ep), true)); }
+    static Php::Value sub(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("sub", ep), true)); }
+    static Php::Value rep(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("rep", ep), true)); }
+    static Php::Value req(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("req", ep), true)); }
+    static Php::Value dealer(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("dealer", ep), true)); }
+    static Php::Value router(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("router", ep), true)); }
+    static Php::Value push(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("push", ep), true)); }
+    static Php::Value pull(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("pull", ep), true)); }
+    static Php::Value xpub(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("xpub", ep), true)); }
+    static Php::Value xsub(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("xsub", ep), true)); }
+    static Php::Value xreq(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("xreq", ep), true)); }
+    static Php::Value xrep(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("xrep", ep), true)); }
+    static Php::Value stream(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("stream",  ep), true)); }
 
 
 //    static Php::Value __callStatic (const char *name, Php::Parameters &params) {
@@ -143,6 +143,8 @@ public:
     void flush() {
         zsock_flush(zsock_handle());
     }
+
+    Php::Value get_socket_type();
 
     Php::Value get_options() {
         Php::Value result;
@@ -540,8 +542,10 @@ public:
     	o.method("wait", &ZSocket::wait);
     	o.method("flush", &ZSocket::flush);
 
+    	o.method("get_socket_type", &ZSocket::get_socket_type);
+
         o.method("send", &ZSocket::send, {
-            Php::ByRef("zmsg", "ZMsg", false, true)
+            // Php::ByRef("zmsg", "ZMsg", false, true)
         });
     	o.method("recv", &ZSocket::recv);
         o.method("send_string", &ZSocket::send_string, {
@@ -556,19 +560,45 @@ public:
         });
 
     	// static accessors
-        o.method("pub", &ZSocket::pub);
-    	o.method("sub", &ZSocket::sub);
-    	o.method("rep", &ZSocket::rep);
-    	o.method("req", &ZSocket::req);
-    	o.method("dealer", &ZSocket::dealer);
-    	o.method("router", &ZSocket::router);
-    	o.method("push", &ZSocket::push);
-    	o.method("pull", &ZSocket::pull);
-    	o.method("xpub", &ZSocket::xpub);
-    	o.method("xsub", &ZSocket::xsub);
-    	o.method("xreq", &ZSocket::xreq);
-    	o.method("xrep", &ZSocket::xrep);
-    	o.method("stream", &ZSocket::stream);
+        o.method("pub", &ZSocket::pub, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("sub", &ZSocket::sub, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("rep", &ZSocket::rep, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("req", &ZSocket::req, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("dealer", &ZSocket::dealer, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("router", &ZSocket::router, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("push", &ZSocket::push, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("pull", &ZSocket::pull, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("xpub", &ZSocket::xpub, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("xsub", &ZSocket::xsub, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("xreq", &ZSocket::xreq, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("xrep", &ZSocket::xrep, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("stream", &ZSocket::stream, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
 
     	// Options
 

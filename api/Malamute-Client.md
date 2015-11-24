@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Malamute\Client::__construct($endpoint, $address, $timeout)
+    mixed Malamute\Client::__construct(mixed $endpoint, mixed $address, mixed $timeout)
 
 Client::__construct
 
@@ -31,9 +31,9 @@ Client::__construct
 
 
 #### Arguments
-* $endpoint **mixed**
-* $address **mixed**
-* $timeout **mixed**
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $address **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $timeout **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -52,7 +52,7 @@ Client::set_verbose
 
 ### connect
 
-    mixed Malamute\Client::connect($endpoint, $address, $timeout)
+    mixed Malamute\Client::connect(mixed $endpoint, mixed $address, mixed $timeout)
 
 Client::connect
 
@@ -62,9 +62,9 @@ Client::connect
 
 
 #### Arguments
-* $endpoint **mixed**
-* $address **mixed**
-* $timeout **mixed**
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $address **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $timeout **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -96,7 +96,7 @@ Client::content
 
 ### set_producer
 
-    mixed Malamute\Client::set_producer($stream)
+    mixed Malamute\Client::set_producer(mixed $stream)
 
 Client::set_producer
 
@@ -106,13 +106,13 @@ Client::set_producer
 
 
 #### Arguments
-* $stream **mixed**
+* $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set_worker
 
-    mixed Malamute\Client::set_worker($address, $patern)
+    mixed Malamute\Client::set_worker(mixed $address, mixed $patern)
 
 Client::set_worker
 
@@ -122,14 +122,14 @@ Client::set_worker
 
 
 #### Arguments
-* $address **mixed**
-* $patern **mixed**
+* $address **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $patern **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set_consumer
 
-    mixed Malamute\Client::set_consumer($stream, $patern)
+    mixed Malamute\Client::set_consumer(mixed $stream, mixed $patern)
 
 Client::set_consumer
 
@@ -139,14 +139,14 @@ Client::set_consumer
 
 
 #### Arguments
-* $stream **mixed**
-* $patern **mixed**
+* $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $patern **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### send_stream
 
-    mixed Malamute\Client::send_stream($subject)
+    mixed Malamute\Client::send_stream(mixed $subject)
 
 Client::send_stream
 
@@ -156,13 +156,13 @@ Client::send_stream
 
 
 #### Arguments
-* $subject **mixed**
+* $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### send_mailbox
 
-    mixed Malamute\Client::send_mailbox($address, $payload, $timeout, $subject, $tracker)
+    mixed Malamute\Client::send_mailbox(mixed $address, mixed $payload, mixed $timeout, mixed $subject, mixed $tracker)
 
 Client::send_mailbox
 
@@ -172,17 +172,17 @@ Client::send_mailbox
 
 
 #### Arguments
-* $address **mixed**
-* $payload **mixed**
-* $timeout **mixed**
-* $subject **mixed**
-* $tracker **mixed**
+* $address **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $payload **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $timeout **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $subject **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $tracker **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### send_service
 
-    mixed Malamute\Client::send_service($address, $subject, $payload, $timeout, $tracker)
+    mixed Malamute\Client::send_service(mixed $address, mixed $subject, mixed $payload, mixed $timeout, mixed $tracker)
 
 Client::send_service
 
@@ -192,11 +192,11 @@ Client::send_service
 
 
 #### Arguments
-* $address **mixed**
-* $subject **mixed**
-* $payload **mixed**
-* $timeout **mixed**
-* $tracker **mixed**
+* $address **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $payload **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $timeout **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $tracker **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 

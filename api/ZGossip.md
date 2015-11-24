@@ -47,7 +47,7 @@ Enable verbose logging of commands and activity.
 
 ### configure
 
-    mixed ZGossip::configure($filename)
+    mixed ZGossip::configure(mixed $filename)
 
 ZGossip::configure
 
@@ -57,13 +57,13 @@ ZGossip::configure
 
 
 #### Arguments
-* $filename **mixed**
+* $filename **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### bind
 
-    mixed ZGossip::bind($endpoint)
+    mixed ZGossip::bind(mixed $endpoint)
 
 ZGossip::bind
 
@@ -73,13 +73,13 @@ ZGossip::bind
 
 
 #### Arguments
-* $endpoint **mixed**
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### connect
 
-    mixed ZGossip::connect($endpoint)
+    mixed ZGossip::connect(mixed $endpoint)
 
 ZGossip::connect
 
@@ -89,13 +89,13 @@ ZGossip::connect
 
 
 #### Arguments
-* $endpoint **mixed**
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set
 
-    mixed ZGossip::set($property, $value)
+    mixed ZGossip::set(mixed $property, mixed $value)
 
 ZGossip::set
 
@@ -105,14 +105,14 @@ ZGossip::set
 
 
 #### Arguments
-* $property **mixed**
-* $value **mixed**
+* $property **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $value **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### publish
 
-    mixed ZGossip::publish($property, $value)
+    mixed ZGossip::publish(mixed $property, mixed $value)
 
 ZGossip::publish
 
@@ -122,8 +122,8 @@ ZGossip::publish
 
 
 #### Arguments
-* $property **mixed**
-* $value **mixed**
+* $property **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $value **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

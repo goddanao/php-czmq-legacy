@@ -99,7 +99,7 @@ Server::bind
 
 ### publish
 
-    mixed FileMq\Server::publish($local_path, $alias)
+    mixed FileMq\Server::publish(mixed $local_path, mixed $alias)
 
 Server::publish
 
@@ -109,8 +109,8 @@ Server::publish
 
 
 #### Arguments
-* $local_path **mixed**
-* $alias **mixed**
+* $local_path **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $alias **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

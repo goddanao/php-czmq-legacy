@@ -34,7 +34,7 @@ ZPoll::set_verbose
 
 ### add
 
-    mixed ZPoll::add($socket, $mode)
+    mixed ZPoll::add(\IZDescriptor $socket, mixed $mode)
 
 ZPoll::add
 
@@ -44,14 +44,14 @@ ZPoll::add
 
 
 #### Arguments
-* $socket **mixed**
-* $mode **mixed**
+* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $mode **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### has
 
-    mixed ZPoll::has($socket)
+    mixed ZPoll::has(\IZDescriptor $socket)
 
 ZPoll::has
 
@@ -61,13 +61,13 @@ ZPoll::has
 
 
 #### Arguments
-* $socket **mixed**
+* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### remove
 
-    mixed ZPoll::remove($socket)
+    mixed ZPoll::remove(\IZDescriptor $socket)
 
 ZPoll::remove
 
@@ -77,7 +77,7 @@ ZPoll::remove
 
 
 #### Arguments
-* $socket **mixed**
+* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 

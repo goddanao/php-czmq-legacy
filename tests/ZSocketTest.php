@@ -76,21 +76,19 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
 
     public function test_create_sockets_static()
     {
-        // $this->assertNotNull(ZSocket::pair("inproc://tesinproc"));
-        $socket = ZSocket::rep("ipc:///tmp/test");
-        $this->assertNotNull($socket);
-//        $this->assertNotNull(ZSocket::req("ipc:///tmp/test"));
-//        $this->assertNotNull(ZSocket::push("ipc:///tmp/test"));
-//        $this->assertNotNull(ZSocket::pull("ipc:///tmp/test"));
-//        $this->assertNotNull(ZSocket::pub("ipc:///tmp/test"));
-//        $this->assertNotNull(ZSocket::sub("ipc:///tmp/test"));
-//        $this->assertNotNull(ZSocket::router("ipc:///tmp/test"));
-//        $this->assertNotNull(ZSocket::dealer("ipc:///tmp/test"));
-//        $this->assertNotNull(ZSocket::xpub("ipc:///tmp/test"));
-//        $this->assertNotNull(ZSocket::xsub("ipc:///tmp/test"));
-//        $this->assertNotNull(ZSocket::xrep("ipc:///tmp/test"));
-//        $this->assertNotNull(ZSocket::xreq("ipc:///tmp/test"));
-//        $this->assertNotNull(ZSocket::stream("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::rep("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::req("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::push("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::pull("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::pub("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::sub("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::router("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::dealer("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::xpub("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::xsub("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::xrep("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::xreq("ipc:///tmp/test"));
+        $this->assertNotNull(ZSocket::stream("ipc:///tmp/test"));
     }
 
     public function test_get_options()

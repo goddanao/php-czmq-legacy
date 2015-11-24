@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZSocket::__construct($socket_type, $endpoint)
+    mixed ZSocket::__construct(mixed $socket_type, mixed $endpoint)
 
 ZSocket::__construct
 
@@ -31,8 +31,8 @@ ZSocket::__construct
 
 
 #### Arguments
-* $socket_type **mixed**
-* $endpoint **mixed**
+* $socket_type **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -64,7 +64,7 @@ ZSocket::set_unbounded
 
 ### bind
 
-    mixed ZSocket::bind($endpoint)
+    mixed ZSocket::bind(mixed $endpoint)
 
 ZSocket::bind
 
@@ -74,13 +74,13 @@ ZSocket::bind
 
 
 #### Arguments
-* $endpoint **mixed**
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### unbind
 
-    mixed ZSocket::unbind($endpoint)
+    mixed ZSocket::unbind(mixed $endpoint)
 
 ZSocket::unbind
 
@@ -90,13 +90,13 @@ ZSocket::unbind
 
 
 #### Arguments
-* $endpoint **mixed**
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### connect
 
-    mixed ZSocket::connect($endpoint)
+    mixed ZSocket::connect(mixed $endpoint)
 
 ZSocket::connect
 
@@ -106,13 +106,13 @@ ZSocket::connect
 
 
 #### Arguments
-* $endpoint **mixed**
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### disconnect
 
-    mixed ZSocket::disconnect($endpoint)
+    mixed ZSocket::disconnect(mixed $endpoint)
 
 ZSocket::disconnect
 
@@ -122,13 +122,13 @@ ZSocket::disconnect
 
 
 #### Arguments
-* $endpoint **mixed**
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### attach
 
-    mixed ZSocket::attach($endpoints, $serverish)
+    mixed ZSocket::attach(mixed $endpoints, mixed $serverish)
 
 ZSocket::attach
 
@@ -138,14 +138,14 @@ ZSocket::attach
 
 
 #### Arguments
-* $endpoints **mixed**
-* $serverish **mixed**
+* $endpoints **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $serverish **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### signal
 
-    mixed ZSocket::signal($byte)
+    mixed ZSocket::signal(mixed $byte)
 
 ZSocket::signal
 
@@ -155,7 +155,7 @@ ZSocket::signal
 
 
 #### Arguments
-* $byte **mixed**
+* $byte **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -185,9 +185,22 @@ ZSocket::flush
 
 
 
+### get_socket_type
+
+    mixed ZSocket::get_socket_type()
+
+ZSocket::get_socket_type
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### send
 
-    mixed ZSocket::send($zmsg)
+    mixed ZSocket::send()
 
 ZSocket::send
 
@@ -195,9 +208,6 @@ ZSocket::send
 
 * Visibility: **public**
 
-
-#### Arguments
-* $zmsg **mixed**
 
 
 
@@ -216,7 +226,7 @@ ZSocket::recv
 
 ### send_string
 
-    mixed ZSocket::send_string($value)
+    mixed ZSocket::send_string(mixed $value)
 
 ZSocket::send_string
 
@@ -226,7 +236,7 @@ ZSocket::send_string
 
 
 #### Arguments
-* $value **mixed**
+* $value **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -245,7 +255,7 @@ ZSocket::recv_string
 
 ### send_picture
 
-    mixed ZSocket::send_picture($picture)
+    mixed ZSocket::send_picture(mixed $picture)
 
 ZSocket::send_picture
 
@@ -255,13 +265,13 @@ ZSocket::send_picture
 
 
 #### Arguments
-* $picture **mixed**
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### recv_picture
 
-    mixed ZSocket::recv_picture($picture)
+    mixed ZSocket::recv_picture(mixed $picture)
 
 ZSocket::recv_picture
 
@@ -271,13 +281,13 @@ ZSocket::recv_picture
 
 
 #### Arguments
-* $picture **mixed**
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### pub
 
-    mixed ZSocket::pub()
+    mixed ZSocket::pub(mixed $endpoint)
 
 ZSocket::pub
 
@@ -287,11 +297,14 @@ ZSocket::pub
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### sub
 
-    mixed ZSocket::sub()
+    mixed ZSocket::sub(mixed $endpoint)
 
 ZSocket::sub
 
@@ -301,11 +314,14 @@ ZSocket::sub
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### rep
 
-    mixed ZSocket::rep()
+    mixed ZSocket::rep(mixed $endpoint)
 
 ZSocket::rep
 
@@ -315,11 +331,14 @@ ZSocket::rep
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### req
 
-    mixed ZSocket::req()
+    mixed ZSocket::req(mixed $endpoint)
 
 ZSocket::req
 
@@ -329,11 +348,14 @@ ZSocket::req
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### dealer
 
-    mixed ZSocket::dealer()
+    mixed ZSocket::dealer(mixed $endpoint)
 
 ZSocket::dealer
 
@@ -343,11 +365,14 @@ ZSocket::dealer
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### router
 
-    mixed ZSocket::router()
+    mixed ZSocket::router(mixed $endpoint)
 
 ZSocket::router
 
@@ -357,11 +382,14 @@ ZSocket::router
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### push
 
-    mixed ZSocket::push()
+    mixed ZSocket::push(mixed $endpoint)
 
 ZSocket::push
 
@@ -371,11 +399,14 @@ ZSocket::push
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### pull
 
-    mixed ZSocket::pull()
+    mixed ZSocket::pull(mixed $endpoint)
 
 ZSocket::pull
 
@@ -385,11 +416,14 @@ ZSocket::pull
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### xpub
 
-    mixed ZSocket::xpub()
+    mixed ZSocket::xpub(mixed $endpoint)
 
 ZSocket::xpub
 
@@ -399,11 +433,14 @@ ZSocket::xpub
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### xsub
 
-    mixed ZSocket::xsub()
+    mixed ZSocket::xsub(mixed $endpoint)
 
 ZSocket::xsub
 
@@ -413,11 +450,14 @@ ZSocket::xsub
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### xreq
 
-    mixed ZSocket::xreq()
+    mixed ZSocket::xreq(mixed $endpoint)
 
 ZSocket::xreq
 
@@ -427,11 +467,14 @@ ZSocket::xreq
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### xrep
 
-    mixed ZSocket::xrep()
+    mixed ZSocket::xrep(mixed $endpoint)
 
 ZSocket::xrep
 
@@ -441,11 +484,14 @@ ZSocket::xrep
 * This method is **static**.
 
 
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### stream
 
-    mixed ZSocket::stream()
+    mixed ZSocket::stream(mixed $endpoint)
 
 ZSocket::stream
 
@@ -454,6 +500,9 @@ ZSocket::stream
 * Visibility: **public**
 * This method is **static**.
 
+
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 

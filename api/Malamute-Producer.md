@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Malamute\Producer::__construct($endpoint, $stream)
+    mixed Malamute\Producer::__construct(mixed $endpoint, mixed $stream)
 
 Producer::__construct
 
@@ -31,14 +31,14 @@ Producer::__construct
 
 
 #### Arguments
-* $endpoint **mixed**
-* $stream **mixed**
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set_timeout
 
-    mixed Malamute\Producer::set_timeout($timeout)
+    mixed Malamute\Producer::set_timeout(mixed $timeout)
 
 Producer::set_timeout
 
@@ -48,13 +48,13 @@ Producer::set_timeout
 
 
 #### Arguments
-* $timeout **mixed**
+* $timeout **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### run
 
-    mixed Malamute\Producer::run($subject, callable $callback)
+    mixed Malamute\Producer::run(mixed $subject, callable $callback)
 
 Producer::run
 
@@ -64,7 +64,7 @@ Producer::run
 
 
 #### Arguments
-* $subject **mixed**
+* $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
