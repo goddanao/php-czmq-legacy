@@ -20,8 +20,8 @@ install_libsodium() {
     ./autogen.sh
     ./configure
     make -j 8
-    make install
-    ldconfig
+    sudo make install
+    sudo ldconfig
     cd ..
 
     popd # pushd /tmp
@@ -71,8 +71,8 @@ install_zeromq() {
     ./autogen.sh
     PKG_CONFIG_PATH="${LIBSODIUM_DIR}/lib/pkgconfig" ./configure $with_libsodium
     make -j 8
-    make install
-    ldconfig
+    sudo make install
+    sudo ldconfig
     cd ..
 
     popd # pushd /tmp
@@ -101,8 +101,8 @@ install_czmq() {
   ./autogen.sh
   ./configure
   make -j 8
-  make install
-  ldconfig
+  sudo make install
+  sudo ldconfig
   cd ..
 
   popd # pushd /tmp
