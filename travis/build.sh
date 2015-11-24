@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-LIBSODIUM_VERSION="1.0.3"
-CZMQ_VERSION="v2.2.0"
-
 LIBSODIUM_DIR="${TRAVIS_BUILD_DIR}/travis/cache/libsodium/v${LIBSODIUM_VERSION}"
 CZMQ_DIR="${TRAVIS_BUILD_DIR}/travis/cache/czmq/${CZMQ_VERSION}"
 
@@ -36,7 +33,7 @@ install_libsodium() {
 #
 #     1 - The version of ØMQ to install, in the form "vx.y.z"
 install_zeromq() {
-    local version=$1
+    local version=$ZEROMQ_VERSION
     local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${version}"
     local with_libsodium=""
 
@@ -87,7 +84,7 @@ install_zeromq() {
 #
 #     1 - The version of ØMQ that was installed
 install_czmq() {
-  local zeromq_version=$1
+  local zeromq_version=$ZEROMQ_VERSION
   local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
   local cache_dir=$CZMQ_DIR
 
@@ -114,13 +111,9 @@ install_czmq() {
   popd # pushd /tmp
 }
 
-
-zeromq_version=$1
-build_dir=/tmp/build
-
 install_libsodium
-install_zeromq $zeromq_version
-install_czmq $zeromq_version
+install_zeromq
+install_czmq
 
 # Build, check, and install the version of ZYRE given by ZYRE_REPO
 git clone git://github.com/zeromq/zyre.git &&
