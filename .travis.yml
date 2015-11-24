@@ -6,10 +6,9 @@ php:
   - 5.6
 
 env:
-  - ZEROMQ_VERSION=v3.2.5 WITH_CZMQ=true
-  - ZEROMQ_VERSION=v4.0.7 WITH_CZMQ=true
-  - ZEROMQ_VERSION=v4.1.2 WITH_CZMQ=true
-  - ZEROMQ_VERSION=v4.0.7 WITH_CZMQ=true
+  - ZEROMQ_VERSION=v3.2.5
+  - ZEROMQ_VERSION=v4.0.7
+  - ZEROMQ_VERSION=v4.1.2
 
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
@@ -21,4 +20,4 @@ install:
   - sudo apt-get install -qq git g++-4.8 uuid-dev build-essential autoconf php5-dev valgrind gdb
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 
-script: travis/build.sh $ZEROMQ_VERSION $WITH_CZMQ
+script: ./travis/build.sh $ZEROMQ_VERSION

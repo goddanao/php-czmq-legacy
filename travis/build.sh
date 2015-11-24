@@ -24,6 +24,7 @@ install_libsodium() {
     ./configure --prefix=$cache_dir
     make -j 8
     make install
+    ldconfig
     cd ..
 
     popd # pushd /tmp
@@ -74,6 +75,7 @@ install_zeromq() {
     PKG_CONFIG_PATH="${LIBSODIUM_DIR}/lib/pkgconfig" ./configure --prefix=$cache_dir $with_libsodium
     make -j 8
     make install
+    ldconfig
     cd ..
 
     popd # pushd /tmp
@@ -106,6 +108,7 @@ install_czmq() {
     --with-libsodium=$LIBSODIUM_DIR
   make -j 8
   make install
+  ldconfig
   cd ..
 
   popd # pushd /tmp
@@ -113,16 +116,11 @@ install_czmq() {
 
 
 zeromq_version=$1
-with_czmq=$2
 build_dir=/tmp/build
 
 install_libsodium
 install_zeromq $zeromq_version
-
-if [ "x${with_czmq}" = "xtrue" ]
-then
-    install_czmq $zeromq_version
-fi
+install_czmq $zeromq_version
 
 # Build, check, and install the version of ZYRE given by ZYRE_REPO
 git clone git://github.com/zeromq/zyre.git &&
