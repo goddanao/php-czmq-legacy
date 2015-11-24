@@ -18,7 +18,7 @@ install_libsodium() {
     cd libsodium
     git checkout "tags/${LIBSODIUM_VERSION}"
     ./autogen.sh
-    ./configure --prefix=$cache_dir
+    ./configure
     make -j 8
     make install
     ldconfig
@@ -69,7 +69,7 @@ install_zeromq() {
         ;;
     esac
     ./autogen.sh
-    PKG_CONFIG_PATH="${LIBSODIUM_DIR}/lib/pkgconfig" ./configure --prefix=$cache_dir $with_libsodium
+    PKG_CONFIG_PATH="${LIBSODIUM_DIR}/lib/pkgconfig" ./configure $with_libsodium
     make -j 8
     make install
     ldconfig
@@ -99,10 +99,7 @@ install_czmq() {
   cd czmq
   git checkout "tags/${CZMQ_VERSION}"
   ./autogen.sh
-  ./configure \
-    --prefix=$cache_dir \
-    --with-libzmq=$zeromq_dir \
-    --with-libsodium=$LIBSODIUM_DIR
+  ./configure
   make -j 8
   make install
   ldconfig
