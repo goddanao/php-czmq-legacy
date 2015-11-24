@@ -23,7 +23,7 @@ Methods
 
     mixed Majordomo\V2\Client::__construct(mixed $broker_endpoint)
 
-Client::__construct
+
 
 ...
 
@@ -39,7 +39,7 @@ Client::__construct
 
     mixed Majordomo\V2\Client::set_verbose()
 
-Client::set_verbose
+
 
 ...
 
@@ -52,9 +52,9 @@ Client::set_verbose
 
     \ZMsg Majordomo\V2\Client::recv()
 
-Client::recv
-
 Recieve a ZMsg.
+
+
 
 * Visibility: **public**
 
@@ -65,7 +65,7 @@ Recieve a ZMsg.
 
     mixed Majordomo\V2\Client::call(mixed $service_name)
 
-Client::call
+
 
 ...
 
@@ -81,7 +81,7 @@ Client::call
 
     mixed Majordomo\V2\Client::call_async(mixed $service_name)
 
-Client::call_async
+
 
 ...
 
@@ -97,7 +97,7 @@ Client::call_async
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -111,7 +111,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

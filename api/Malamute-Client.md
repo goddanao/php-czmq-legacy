@@ -23,7 +23,7 @@ Methods
 
     mixed Malamute\Client::__construct(mixed $endpoint, mixed $address, mixed $timeout)
 
-Client::__construct
+
 
 ...
 
@@ -41,7 +41,7 @@ Client::__construct
 
     mixed Malamute\Client::set_verbose()
 
-Client::set_verbose
+
 
 ...
 
@@ -54,7 +54,7 @@ Client::set_verbose
 
     mixed Malamute\Client::connect(mixed $endpoint, mixed $address, mixed $timeout)
 
-Client::connect
+
 
 ...
 
@@ -72,7 +72,7 @@ Client::connect
 
     mixed Malamute\Client::header()
 
-Client::header
+
 
 ...
 
@@ -85,7 +85,7 @@ Client::header
 
     mixed Malamute\Client::content()
 
-Client::content
+
 
 ...
 
@@ -98,7 +98,7 @@ Client::content
 
     mixed Malamute\Client::set_producer(mixed $stream)
 
-Client::set_producer
+
 
 ...
 
@@ -114,7 +114,7 @@ Client::set_producer
 
     mixed Malamute\Client::set_worker(mixed $address, mixed $patern)
 
-Client::set_worker
+
 
 ...
 
@@ -131,7 +131,7 @@ Client::set_worker
 
     mixed Malamute\Client::set_consumer(mixed $stream, mixed $patern)
 
-Client::set_consumer
+
 
 ...
 
@@ -148,7 +148,7 @@ Client::set_consumer
 
     mixed Malamute\Client::send_stream(mixed $subject)
 
-Client::send_stream
+
 
 ...
 
@@ -164,7 +164,7 @@ Client::send_stream
 
     mixed Malamute\Client::send_mailbox(mixed $address, mixed $payload, mixed $timeout, mixed $subject, mixed $tracker)
 
-Client::send_mailbox
+
 
 ...
 
@@ -184,7 +184,7 @@ Client::send_mailbox
 
     mixed Malamute\Client::send_service(mixed $address, mixed $subject, mixed $payload, mixed $timeout, mixed $tracker)
 
-Client::send_service
+
 
 ...
 
@@ -204,9 +204,9 @@ Client::send_service
 
     \ZMsg Malamute\Client::recv()
 
-Client::recv
-
 Recieve a ZMsg.
+
+
 
 * Visibility: **public**
 
@@ -217,7 +217,7 @@ Recieve a ZMsg.
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -231,7 +231,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

@@ -49,7 +49,7 @@ Methods
 
     mixed ZAuth::__construct()
 
-ZAuth::__construct
+
 
 
 
@@ -62,10 +62,10 @@ ZAuth::__construct
 
     mixed ZAuth::set_verbose()
 
-ZAuth::set_verbose
-
 Enable verbose logging of commands and activity. Verbose logging can help
 debug non-trivial authentication policies
+
+
 
 * Visibility: **public**
 
@@ -76,9 +76,9 @@ debug non-trivial authentication policies
 
     \ZMsg ZAuth::recv()
 
-ZAuth::recv
-
 Recieve a ZMsg.
+
+
 
 * Visibility: **public**
 
@@ -89,14 +89,14 @@ Recieve a ZMsg.
 
     mixed ZAuth::allow(string $ip)
 
-ZAuth::allow
-
 Allow (whitelist) a list of IP addresses. For NULL, all clients from
 these addresses will be accepted. For PLAIN and CURVE, they will be
 allowed to continue with authentication. You can call this method
 multiple times to whitelist more IP addresses. If you whitelist one
 or nmore addresses, any non-whitelisted addresses are treated as
 blacklisted
+
+
 
 * Visibility: **public**
 
@@ -110,12 +110,12 @@ blacklisted
 
     mixed ZAuth::deny(string $ip)
 
-ZAuth::deny
-
 Deny (blacklist) a list of IP addresses. For all security mechanisms,
 this rejects the connection without any further authentication. Use
 either a whitelist, or a blacklist, not not both. If you define both
 a whitelist and a blacklist, only the whitelist takes effect
+
+
 
 * Visibility: **public**
 
@@ -129,7 +129,7 @@ a whitelist and a blacklist, only the whitelist takes effect
 
     mixed ZAuth::configure()
 
-ZAuth::configure
+
 
 
 
@@ -142,7 +142,7 @@ ZAuth::configure
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -156,7 +156,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

@@ -23,7 +23,7 @@ Methods
 
     mixed ZMsg::__construct()
 
-ZMsg::__construct
+
 
 ...
 
@@ -36,7 +36,7 @@ ZMsg::__construct
 
     mixed ZMsg::append_picture()
 
-ZMsg::append_picture
+
 
 ...
 
@@ -49,7 +49,7 @@ ZMsg::append_picture
 
     mixed ZMsg::prepend_picture()
 
-ZMsg::prepend_picture
+
 
 ...
 
@@ -62,7 +62,7 @@ ZMsg::prepend_picture
 
     mixed ZMsg::pop_picture()
 
-ZMsg::pop_picture
+
 
 ...
 
@@ -75,7 +75,7 @@ ZMsg::pop_picture
 
     mixed ZMsg::append()
 
-ZMsg::append
+
 
 ...
 
@@ -88,7 +88,7 @@ ZMsg::append
 
     mixed ZMsg::prepend()
 
-ZMsg::prepend
+
 
 ...
 
@@ -101,7 +101,7 @@ ZMsg::prepend
 
     mixed ZMsg::pop()
 
-ZMsg::pop
+
 
 ...
 
@@ -114,7 +114,7 @@ ZMsg::pop
 
     mixed ZMsg::append_string()
 
-ZMsg::append_string
+
 
 ...
 
@@ -127,7 +127,7 @@ ZMsg::append_string
 
     mixed ZMsg::prepend_string()
 
-ZMsg::prepend_string
+
 
 ...
 
@@ -140,7 +140,7 @@ ZMsg::prepend_string
 
     mixed ZMsg::pop_string()
 
-ZMsg::pop_string
+
 
 ...
 
@@ -153,7 +153,7 @@ ZMsg::pop_string
 
     mixed ZMsg::send()
 
-ZMsg::send
+
 
 ...
 
@@ -166,7 +166,7 @@ ZMsg::send
 
     mixed ZMsg::remove()
 
-ZMsg::remove
+
 
 ...
 
@@ -179,7 +179,7 @@ ZMsg::remove
 
     mixed ZMsg::first()
 
-ZMsg::first
+
 
 ...
 
@@ -192,7 +192,7 @@ ZMsg::first
 
     mixed ZMsg::next()
 
-ZMsg::next
+
 
 ...
 
@@ -205,7 +205,7 @@ ZMsg::next
 
     mixed ZMsg::last()
 
-ZMsg::last
+
 
 ...
 
@@ -218,7 +218,7 @@ ZMsg::last
 
     mixed ZMsg::get_size()
 
-ZMsg::get_size
+
 
 ...
 
@@ -231,7 +231,7 @@ ZMsg::get_size
 
     mixed ZMsg::get_content_size()
 
-ZMsg::get_content_size
+
 
 ...
 
@@ -244,7 +244,7 @@ ZMsg::get_content_size
 
     mixed ZMsg::dump()
 
-ZMsg::dump
+
 
 ...
 

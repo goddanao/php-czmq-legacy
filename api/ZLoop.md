@@ -23,7 +23,7 @@ Methods
 
     mixed ZLoop::__construct()
 
-ZLoop::__construct
+
 
 ...
 
@@ -36,7 +36,7 @@ ZLoop::__construct
 
     mixed ZLoop::set_verbose()
 
-ZLoop::set_verbose
+
 
 ...
 
@@ -49,7 +49,7 @@ ZLoop::set_verbose
 
     mixed ZLoop::set_max_timers()
 
-ZLoop::set_max_timers
+
 
 ...
 
@@ -62,7 +62,7 @@ ZLoop::set_max_timers
 
     mixed ZLoop::start()
 
-ZLoop::start
+
 
 ...
 
@@ -75,7 +75,7 @@ ZLoop::start
 
     mixed ZLoop::stop()
 
-ZLoop::stop
+
 
 ...
 
@@ -88,7 +88,7 @@ ZLoop::stop
 
     mixed ZLoop::add(\IZDescriptor $socket, mixed $mode)
 
-ZLoop::add
+
 
 ...
 
@@ -105,7 +105,7 @@ ZLoop::add
 
     mixed ZLoop::remove(\IZDescriptor $socket)
 
-ZLoop::remove
+
 
 ...
 
@@ -121,7 +121,7 @@ ZLoop::remove
 
     mixed ZLoop::add_timer()
 
-ZLoop::add_timer
+
 
 ...
 
@@ -134,7 +134,7 @@ ZLoop::add_timer
 
     mixed ZLoop::remove_timer(mixed $timer_id)
 
-ZLoop::remove_timer
+
 
 ...
 
@@ -150,7 +150,7 @@ ZLoop::remove_timer
 
     mixed ZLoop::ignore_interrupts()
 
-ZLoop::ignore_interrupts
+
 
 ...
 

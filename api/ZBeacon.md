@@ -23,7 +23,7 @@ Methods
 
     mixed ZBeacon::__construct()
 
-ZBeacon::__construct
+
 
 ...
 
@@ -36,7 +36,7 @@ ZBeacon::__construct
 
     mixed ZBeacon::set_verbose()
 
-ZBeacon::set_verbose
+
 
 ...
 
@@ -49,7 +49,7 @@ ZBeacon::set_verbose
 
     mixed ZBeacon::set_port(mixed $port)
 
-ZBeacon::set_port
+
 
 ...
 
@@ -65,7 +65,7 @@ ZBeacon::set_port
 
     mixed ZBeacon::subscribe(mixed $filter)
 
-ZBeacon::subscribe
+
 
 ...
 
@@ -81,7 +81,7 @@ ZBeacon::subscribe
 
     mixed ZBeacon::unsubscribe()
 
-ZBeacon::unsubscribe
+
 
 ...
 
@@ -94,7 +94,7 @@ ZBeacon::unsubscribe
 
     mixed ZBeacon::publish(mixed $data, mixed $interval)
 
-ZBeacon::publish
+
 
 ...
 
@@ -111,7 +111,7 @@ ZBeacon::publish
 
     mixed ZBeacon::silence()
 
-ZBeacon::silence
+
 
 ...
 
@@ -124,9 +124,9 @@ ZBeacon::silence
 
     \ZMsg ZBeacon::recv()
 
-ZBeacon::recv
-
 Recieve a ZMsg.
+
+
 
 * Visibility: **public**
 
@@ -137,7 +137,7 @@ Recieve a ZMsg.
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -151,7 +151,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

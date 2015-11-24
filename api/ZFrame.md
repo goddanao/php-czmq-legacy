@@ -23,7 +23,7 @@ Methods
 
     mixed ZFrame::__construct()
 
-ZFrame::__construct
+
 
 ...
 
@@ -36,7 +36,7 @@ ZFrame::__construct
 
     mixed ZFrame::dump()
 
-ZFrame::dump
+
 
 ...
 

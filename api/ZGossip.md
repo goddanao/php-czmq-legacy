@@ -23,7 +23,7 @@ Methods
 
     mixed ZGossip::__construct()
 
-ZGossip::__construct
+
 
 
 
@@ -36,9 +36,9 @@ ZGossip::__construct
 
     mixed ZGossip::set_verbose()
 
-ZGossip::set_verbose
-
 Enable verbose logging of commands and activity.
+
+
 
 * Visibility: **public**
 
@@ -49,7 +49,7 @@ Enable verbose logging of commands and activity.
 
     mixed ZGossip::configure(mixed $filename)
 
-ZGossip::configure
+
 
 ...
 
@@ -65,7 +65,7 @@ ZGossip::configure
 
     mixed ZGossip::bind(mixed $endpoint)
 
-ZGossip::bind
+
 
 ...
 
@@ -81,7 +81,7 @@ ZGossip::bind
 
     mixed ZGossip::connect(mixed $endpoint)
 
-ZGossip::connect
+
 
 ...
 
@@ -97,7 +97,7 @@ ZGossip::connect
 
     mixed ZGossip::set(mixed $property, mixed $value)
 
-ZGossip::set
+
 
 ...
 
@@ -114,7 +114,7 @@ ZGossip::set
 
     mixed ZGossip::publish(mixed $property, mixed $value)
 
-ZGossip::publish
+
 
 ...
 
@@ -131,7 +131,7 @@ ZGossip::publish
 
     mixed ZGossip::count()
 
-ZGossip::count
+
 
 ...
 
@@ -144,9 +144,9 @@ ZGossip::count
 
     \ZMsg ZGossip::recv()
 
-ZGossip::recv
-
 Recieve a ZMsg.
+
+
 
 * Visibility: **public**
 
@@ -157,7 +157,7 @@ Recieve a ZMsg.
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -171,7 +171,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

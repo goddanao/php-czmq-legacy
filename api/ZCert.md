@@ -23,7 +23,7 @@ Methods
 
     mixed ZCert::__construct(mixed $filename)
 
-ZCert::__construct
+
 
 ...
 
@@ -39,7 +39,7 @@ ZCert::__construct
 
     mixed ZCert::get_public_key()
 
-ZCert::get_public_key
+
 
 ...
 
@@ -52,7 +52,7 @@ ZCert::get_public_key
 
     mixed ZCert::get_secret_key()
 
-ZCert::get_secret_key
+
 
 ...
 
@@ -65,7 +65,7 @@ ZCert::get_secret_key
 
     mixed ZCert::get_public_key_txt()
 
-ZCert::get_public_key_txt
+
 
 ...
 
@@ -78,7 +78,7 @@ ZCert::get_public_key_txt
 
     mixed ZCert::get_secret_key_txt()
 
-ZCert::get_secret_key_txt
+
 
 ...
 
@@ -91,7 +91,7 @@ ZCert::get_secret_key_txt
 
     mixed ZCert::get_meta(mixed $name)
 
-ZCert::get_meta
+
 
 ...
 
@@ -107,7 +107,7 @@ ZCert::get_meta
 
     mixed ZCert::get_meta_keys()
 
-ZCert::get_meta_keys
+
 
 ...
 
@@ -120,7 +120,7 @@ ZCert::get_meta_keys
 
     mixed ZCert::set_meta(mixed $name, mixed $value)
 
-ZCert::set_meta
+
 
 ...
 
@@ -137,7 +137,7 @@ ZCert::set_meta
 
     mixed ZCert::save(mixed $filename)
 
-ZCert::save
+
 
 ...
 
@@ -153,7 +153,7 @@ ZCert::save
 
     mixed ZCert::save_public(mixed $filename)
 
-ZCert::save_public
+
 
 ...
 
@@ -169,7 +169,7 @@ ZCert::save_public
 
     mixed ZCert::save_secret(mixed $filename)
 
-ZCert::save_secret
+
 
 ...
 
@@ -185,7 +185,7 @@ ZCert::save_secret
 
     mixed ZCert::apply()
 
-ZCert::apply
+
 
 ...
 
@@ -198,7 +198,7 @@ ZCert::apply
 
     mixed ZCert::dump()
 
-ZCert::dump
+
 
 ...
 

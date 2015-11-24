@@ -23,7 +23,7 @@ Methods
 
     mixed FileMq\Client::__construct(mixed $endpoint, mixed $local_path, mixed $timeout)
 
-Client::__construct
+
 
 ...
 
@@ -41,7 +41,7 @@ Client::__construct
 
     mixed FileMq\Client::set_timeout(mixed $timeout)
 
-Client::set_timeout
+
 
 ...
 
@@ -57,7 +57,7 @@ Client::set_timeout
 
     mixed FileMq\Client::connect()
 
-Client::connect
+
 
 ...
 
@@ -70,7 +70,7 @@ Client::connect
 
     mixed FileMq\Client::subscribe(mixed $remote_path)
 
-Client::subscribe
+
 
 ...
 
@@ -86,9 +86,9 @@ Client::subscribe
 
     \ZMsg FileMq\Client::recv()
 
-Client::recv
-
 Recieve a ZMsg.
+
+
 
 * Visibility: **public**
 
@@ -99,7 +99,7 @@ Recieve a ZMsg.
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -113,7 +113,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

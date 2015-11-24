@@ -209,7 +209,7 @@ Methods
 
     mixed ZInotify::watch()
 
-ZInotify::watch
+
 
 ...
 
@@ -222,7 +222,7 @@ ZInotify::watch
 
     mixed ZInotify::remove()
 
-ZInotify::remove
+
 
 ...
 
@@ -235,9 +235,9 @@ ZInotify::remove
 
     \ZMsg ZInotify::recv()
 
-ZInotify::recv
-
 Recieve a ZMsg.
+
+
 
 * Visibility: **public**
 
@@ -248,7 +248,7 @@ Recieve a ZMsg.
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 

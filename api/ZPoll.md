@@ -23,7 +23,7 @@ Methods
 
     mixed ZPoll::set_verbose()
 
-ZPoll::set_verbose
+
 
 ...
 
@@ -36,7 +36,7 @@ ZPoll::set_verbose
 
     mixed ZPoll::add(\IZDescriptor $socket, mixed $mode)
 
-ZPoll::add
+
 
 ...
 
@@ -53,7 +53,7 @@ ZPoll::add
 
     mixed ZPoll::has(\IZDescriptor $socket)
 
-ZPoll::has
+
 
 ...
 
@@ -69,7 +69,7 @@ ZPoll::has
 
     mixed ZPoll::remove(\IZDescriptor $socket)
 
-ZPoll::remove
+
 
 ...
 
@@ -85,7 +85,7 @@ ZPoll::remove
 
     mixed ZPoll::check_for()
 
-ZPoll::check_for
+
 
 ...
 
@@ -98,7 +98,7 @@ ZPoll::check_for
 
     mixed ZPoll::events()
 
-ZPoll::events
+
 
 ...
 
@@ -111,7 +111,7 @@ ZPoll::events
 
     mixed ZPoll::poll()
 
-ZPoll::poll
+
 
 ...
 
@@ -124,7 +124,7 @@ ZPoll::poll
 
     mixed ZPoll::has_input()
 
-ZPoll::has_input
+
 
 ...
 
@@ -137,7 +137,7 @@ ZPoll::has_input
 
     mixed ZPoll::has_output()
 
-ZPoll::has_output
+
 
 ...
 
@@ -150,7 +150,7 @@ ZPoll::has_output
 
     mixed ZPoll::has_error()
 
-ZPoll::has_error
+
 
 ...
 

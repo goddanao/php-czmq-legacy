@@ -23,7 +23,7 @@ Methods
 
     mixed Malamute\Broker::__construct()
 
-Broker::__construct
+
 
 ...
 
@@ -36,7 +36,7 @@ Broker::__construct
 
     mixed Malamute\Broker::set_verbose()
 
-Broker::set_verbose
+
 
 ...
 
@@ -49,7 +49,7 @@ Broker::set_verbose
 
     mixed Malamute\Broker::bind()
 
-Broker::bind
+
 
 ...
 
@@ -62,7 +62,7 @@ Broker::bind
 
     mixed Malamute\Broker::load_config()
 
-Broker::load_config
+
 
 ...
 
@@ -75,7 +75,7 @@ Broker::load_config
 
     mixed Malamute\Broker::save_config()
 
-Broker::save_config
+
 
 ...
 
@@ -88,7 +88,7 @@ Broker::save_config
 
     mixed Malamute\Broker::set_config()
 
-Broker::set_config
+
 
 ...
 
@@ -101,7 +101,7 @@ Broker::set_config
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -115,7 +115,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

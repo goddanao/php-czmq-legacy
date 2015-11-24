@@ -121,7 +121,7 @@ Methods
 
     mixed ZMonitor::__construct(\IZSocket $socket)
 
-ZMonitor::__construct
+
 
 ...
 
@@ -137,7 +137,7 @@ ZMonitor::__construct
 
     mixed ZMonitor::set_verbose()
 
-ZMonitor::set_verbose
+
 
 ...
 
@@ -150,7 +150,7 @@ ZMonitor::set_verbose
 
     mixed ZMonitor::listen(mixed $event)
 
-ZMonitor::listen
+
 
 ...
 
@@ -166,7 +166,7 @@ ZMonitor::listen
 
     mixed ZMonitor::start()
 
-ZMonitor::start
+
 
 ...
 
@@ -179,9 +179,9 @@ ZMonitor::start
 
     \ZMsg ZMonitor::recv()
 
-ZMonitor::recv
-
 Recieve a ZMsg.
+
+
 
 * Visibility: **public**
 
@@ -192,7 +192,7 @@ Recieve a ZMsg.
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -206,7 +206,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

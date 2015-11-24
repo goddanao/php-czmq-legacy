@@ -23,7 +23,7 @@ Methods
 
     mixed FileMq\Server::__construct()
 
-Server::__construct
+
 
 ...
 
@@ -36,7 +36,7 @@ Server::__construct
 
     mixed FileMq\Server::set_verbose()
 
-Server::set_verbose
+
 
 ...
 
@@ -49,7 +49,7 @@ Server::set_verbose
 
     mixed FileMq\Server::load_config()
 
-Server::load_config
+
 
 ...
 
@@ -62,7 +62,7 @@ Server::load_config
 
     mixed FileMq\Server::set_config()
 
-Server::set_config
+
 
 ...
 
@@ -75,7 +75,7 @@ Server::set_config
 
     mixed FileMq\Server::save_config()
 
-Server::save_config
+
 
 ...
 
@@ -88,7 +88,7 @@ Server::save_config
 
     mixed FileMq\Server::bind()
 
-Server::bind
+
 
 ...
 
@@ -101,7 +101,7 @@ Server::bind
 
     mixed FileMq\Server::publish(mixed $local_path, mixed $alias)
 
-Server::publish
+
 
 ...
 
@@ -118,7 +118,7 @@ Server::publish
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -132,7 +132,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 
@@ -146,9 +146,9 @@ IZSocket::get_socket
 
     \ZMsg FileMq\Server::recv()
 
-Server::recv
-
 Recieve a ZMsg.
+
+
 
 * Visibility: **public**
 

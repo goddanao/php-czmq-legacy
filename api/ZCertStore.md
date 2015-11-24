@@ -23,7 +23,7 @@ Methods
 
     mixed ZCertStore::__construct(mixed $certificates_dir)
 
-ZCertStore::__construct
+
 
 ...
 
@@ -39,7 +39,7 @@ ZCertStore::__construct
 
     mixed ZCertStore::lookup(mixed $pubkey)
 
-ZCertStore::lookup
+
 
 ...
 
@@ -55,7 +55,7 @@ ZCertStore::lookup
 
     mixed ZCertStore::insert(mixed $cert)
 
-ZCertStore::insert
+
 
 ...
 
@@ -71,7 +71,7 @@ ZCertStore::insert
 
     mixed ZCertStore::dump()
 
-ZCertStore::dump
+
 
 ...
 

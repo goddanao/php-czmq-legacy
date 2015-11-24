@@ -23,7 +23,7 @@ Methods
 
     mixed Majordomo\V1\Worker::__construct(mixed $broker_endpoint, mixed $name, mixed $verbose)
 
-Worker::__construct
+
 
 ...
 
@@ -41,7 +41,7 @@ Worker::__construct
 
     mixed Majordomo\V1\Worker::run(callable $callback)
 
-Worker::run
+
 
 ...
 
@@ -57,7 +57,7 @@ Worker::run
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -71,7 +71,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

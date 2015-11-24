@@ -23,7 +23,7 @@ Methods
 
     mixed Malamute\Consumer::__construct(mixed $endpoint, mixed $stream)
 
-Consumer::__construct
+
 
 ...
 
@@ -40,7 +40,7 @@ Consumer::__construct
 
     mixed Malamute\Consumer::set_timeout(mixed $timeout)
 
-Consumer::set_timeout
+
 
 ...
 
@@ -56,7 +56,7 @@ Consumer::set_timeout
 
     mixed Malamute\Consumer::header(mixed $header)
 
-Consumer::header
+
 
 ...
 
@@ -72,7 +72,7 @@ Consumer::header
 
     mixed Malamute\Consumer::run(mixed $pattern, callable $callback)
 
-Consumer::run
+
 
 ...
 
@@ -89,9 +89,9 @@ Consumer::run
 
     \FileMq\Malamute\Client Malamute\Consumer::get_client()
 
-Consumer::get_client
-
 Get the underlying Malamute Client.
+
+
 
 * Visibility: **public**
 
@@ -102,7 +102,7 @@ Get the underlying Malamute Client.
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -116,7 +116,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

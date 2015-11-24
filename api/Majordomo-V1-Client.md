@@ -23,7 +23,7 @@ Methods
 
     mixed Majordomo\V1\Client::__construct()
 
-Client::__construct
+
 
 ...
 
@@ -36,7 +36,7 @@ Client::__construct
 
     mixed Majordomo\V1\Client::call()
 
-Client::call
+
 
 ...
 
@@ -49,7 +49,7 @@ Client::call
 
     mixed Majordomo\V1\Client::call_async()
 
-Client::call_async
+
 
 ...
 
@@ -62,7 +62,7 @@ Client::call_async
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -76,7 +76,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

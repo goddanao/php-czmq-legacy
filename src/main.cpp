@@ -13,7 +13,6 @@ extern "C" {
         // Initialize zmq global context and defaults
         extension.onStartup([]() {
             zsys_init ();               //  Earliest initialization
-            zsys_set_logsystem (true);  //  Send logging to system facility as well as stdout
             zsys_set_pipehwm (0);
             zsys_set_sndhwm (0);
             zsys_set_rcvhwm (0);
@@ -34,8 +33,8 @@ extern "C" {
         Php::Interface izdescriptor("IZDescriptor");
         izdescriptor.method("get_fd");
         Php::Interface izsocket("IZSocket");
-        izsocket.method("get_socket");
         izsocket.extends(izdescriptor);
+        izsocket.method("get_socket");
 
     // CZMQ
 

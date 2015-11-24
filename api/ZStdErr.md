@@ -23,7 +23,7 @@ Methods
 
     string ZStdErr::recv()
 
-ZStdErr::recv
+
 
 ...
 
@@ -36,7 +36,7 @@ ZStdErr::recv
 
     mixed ZStdErr::send()
 
-ZStdErr::send
+
 
 ...
 
@@ -49,7 +49,7 @@ ZStdErr::send
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 

@@ -23,7 +23,7 @@ Methods
 
     mixed Majordomo\V1\Broker::__construct()
 
-Broker::__construct
+
 
 ...
 
@@ -36,7 +36,7 @@ Broker::__construct
 
     mixed Majordomo\V1\Broker::bind()
 
-Broker::bind
+
 
 ...
 
@@ -49,7 +49,7 @@ Broker::bind
 
     mixed Majordomo\V1\Broker::set_verbose()
 
-Broker::set_verbose
+
 
 ...
 
@@ -62,7 +62,7 @@ Broker::set_verbose
 
     mixed Majordomo\V1\Broker::get_status()
 
-Broker::get_status
+
 
 ...
 
@@ -75,7 +75,7 @@ Broker::get_status
 
     mixed Majordomo\V1\Broker::set_capture(mixed $socket_endpoint)
 
-Broker::set_capture
+
 
 ...
 
@@ -91,7 +91,7 @@ Broker::set_capture
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -105,7 +105,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

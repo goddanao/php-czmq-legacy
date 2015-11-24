@@ -23,7 +23,7 @@ Methods
 
     mixed ZProxy::__construct()
 
-ZProxy::__construct
+
 
 ...
 
@@ -36,7 +36,7 @@ ZProxy::__construct
 
     mixed ZProxy::set_verbose()
 
-ZProxy::set_verbose
+
 
 ...
 
@@ -49,7 +49,7 @@ ZProxy::set_verbose
 
     mixed ZProxy::pause()
 
-ZProxy::pause
+
 
 ...
 
@@ -62,7 +62,7 @@ ZProxy::pause
 
     mixed ZProxy::resume()
 
-ZProxy::resume
+
 
 ...
 
@@ -75,9 +75,9 @@ ZProxy::resume
 
     \ZMsg ZProxy::recv()
 
-ZProxy::recv
-
 Recieve a ZMsg.
+
+
 
 * Visibility: **public**
 
@@ -88,7 +88,7 @@ Recieve a ZMsg.
 
     mixed ZProxy::set_frontend(mixed $socket_type, mixed $socket_endpoint)
 
-ZProxy::set_frontend
+
 
 ...
 
@@ -105,7 +105,7 @@ ZProxy::set_frontend
 
     mixed ZProxy::set_backend(mixed $socket_type, mixed $socket_endpoint)
 
-ZProxy::set_backend
+
 
 ...
 
@@ -122,7 +122,7 @@ ZProxy::set_backend
 
     mixed ZProxy::set_capture(mixed $socket_endpoint)
 
-ZProxy::set_capture
+
 
 ...
 
@@ -138,7 +138,7 @@ ZProxy::set_capture
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -152,7 +152,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

@@ -23,7 +23,7 @@ Methods
 
     mixed Malamute\Producer::__construct(mixed $endpoint, mixed $stream)
 
-Producer::__construct
+
 
 ...
 
@@ -40,7 +40,7 @@ Producer::__construct
 
     mixed Malamute\Producer::set_timeout(mixed $timeout)
 
-Producer::set_timeout
+
 
 ...
 
@@ -56,7 +56,7 @@ Producer::set_timeout
 
     mixed Malamute\Producer::run(mixed $subject, callable $callback)
 
-Producer::run
+
 
 ...
 
@@ -73,9 +73,9 @@ Producer::run
 
     \FileMq\Malamute\Client Malamute\Producer::get_client()
 
-Producer::get_client
-
 Get the underlying Malamute Client.
+
+
 
 * Visibility: **public**
 
@@ -86,7 +86,7 @@ Get the underlying Malamute Client.
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
@@ -100,7 +100,7 @@ IZDescriptor::get_fd
 
     mixed IZSocket::get_socket()
 
-IZSocket::get_socket
+
 
 ...
 

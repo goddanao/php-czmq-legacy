@@ -23,7 +23,7 @@ Methods
 
     mixed ZUdp::__construct(string $interface, integer $port, boolean $routable)
 
-ZUdp::__construct
+
 
 
 
@@ -41,9 +41,9 @@ ZUdp::__construct
 
     mixed ZUdp::set_verbose()
 
-ZUdp::set_verbose
-
 Verbose logging
+
+
 
 * Visibility: **public**
 
@@ -54,9 +54,9 @@ Verbose logging
 
     mixed ZUdp::send()
 
-ZUdp::send
-
 Send a ZMsg.
+
+
 
 * Visibility: **public**
 
@@ -67,9 +67,9 @@ Send a ZMsg.
 
     \ZMsg ZUdp::recv()
 
-ZUdp::recv
-
 Recieve a ZMsg.
+
+
 
 * Visibility: **public**
 
@@ -80,7 +80,7 @@ Recieve a ZMsg.
 
     mixed IZDescriptor::get_fd()
 
-IZDescriptor::get_fd
+
 
 ...
 
