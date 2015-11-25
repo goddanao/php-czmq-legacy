@@ -188,14 +188,37 @@ install_phpcpp() {
 
 
 
-install_libsodium
-install_zeromq
-install_czmq
-install_zyre
-install_majordomo
-install_malamute
-install_filemq
-install_phpcpp
+#install_libsodium
+#install_zeromq
+#install_czmq
+#install_zyre
+#install_majordomo
+#install_malamute
+#install_filemq
+#install_phpcpp
+
+
+git clone git://github.com/jedisct1/libsodium.git
+git clone git://github.com/zeromq/libzmq.git
+git clone git://github.com/zeromq/czmq.git
+git clone git://github.com/zeromq/zyre.git
+git clone git://github.com/zeromq/majordomo.git
+git clone git://github.com/zeromq/filemq.git
+git clone git://github.com/zeromq/malamute.git
+for project in libsodium libzmq czmq zyre majordomo filemq malamute; do
+    cd $project
+    ./autogen.sh
+    ./configure && make check
+    sudo make install
+    sudo ldconfig
+    cd ..
+done
+git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git
+cd PHP-CPP
+make
+sudo make install
+sudo ldconfig
+cd ..
 
 # Build and install PHP-CZMQ
 (make -j8 VERBOSE=1 && sudo make install && sudo ldconfig) || exit 1
