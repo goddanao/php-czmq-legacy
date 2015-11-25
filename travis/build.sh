@@ -1,24 +1,25 @@
 #!/usr/bin/env bash
 
-LIBSODIUM_DIR="${TRAVIS_BUILD_DIR}/travis/cache/libsodium/v${LIBSODIUM_VERSION}"
+# Cache dirs
+LIBSODIUM_DIR="${TRAVIS_BUILD_DIR}/travis/cache/libsodium/${LIBSODIUM_VERSION}"
+ZEROMQ_DIR="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${ZEROMQ_VERSION}"
 CZMQ_DIR="${TRAVIS_BUILD_DIR}/travis/cache/czmq/${CZMQ_VERSION}"
+ZYRE_DIR="${TRAVIS_BUILD_DIR}/travis/cache/zyre/${ZYRE_VERSION}"
+MAJORDOMO_DIR="${TRAVIS_BUILD_DIR}/travis/cache/majordomo/${MAJORDOMO_VERSION}"
+MALAMUTE_DIR="${TRAVIS_BUILD_DIR}/travis/cache/malamute/${MALAMUTE_VERSION}"
+FILEMQ_DIR="${TRAVIS_BUILD_DIR}/travis/cache/filemq/${FILEMQ_VERSION}"
 
 # Installs libsodium.
 install_libsodium() {
-    local cache_dir=$LIBSODIUM_DIR
-
-    if test -d $cache_dir
-    then
-        return
-    fi
-
     pushd /tmp
 
     git clone https://github.com/jedisct1/libsodium
     cd libsodium
-    git checkout "tags/${LIBSODIUM_VERSION}"
+    if [ $LIBSODIUM_VERSION != "master" ]; then
+        git checkout "tags/${LIBSODIUM_VERSION}"
+    fi
     ./autogen.sh
-    ./configure --prefix=$cache_dir
+    ./configure --prefix=$LIBSODIUM_DIR
     make -j 8
     sudo make install
     sudo ldconfig
@@ -33,18 +34,11 @@ install_libsodium() {
 #
 #     1 - The version of ØMQ to install, in the form "vx.y.z"
 install_zeromq() {
-    local version=$ZEROMQ_VERSION
-    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${version}"
     local with_libsodium=""
-
-    if test -d $cache_dir
-    then
-        return
-    fi
 
     pushd /tmp
 
-    case $version in
+    case $ZEROMQ_VERSION in
     v2.2.0)
         wget http://download.zeromq.org/zeromq-2.2.0.tar.gz
         tar -xf zeromq-2.2.0.tar.gz
@@ -53,23 +47,29 @@ install_zeromq() {
     v3*)
         git clone https://github.com/zeromq/zeromq3-x
         cd zeromq3-x
-        git checkout "tags/${version}"
+        if [ $ZEROMQ_VERSION != "master" ]; then
+            git checkout "tags/${ZEROMQ_VERSION}"
+        fi
         ;;
     v4.1*)
         git clone https://github.com/zeromq/zeromq4-1
         cd zeromq4-1
-        git checkout "tags/${version}"
+        if [ $ZEROMQ_VERSION != "master" ]; then
+            git checkout "tags/${ZEROMQ_VERSION}"
+        fi
         ;;
     v4*)
         git clone https://github.com/zeromq/zeromq4-x
         cd zeromq4-x
-        git checkout "tags/${version}"
+        if [ $ZEROMQ_VERSION != "master" ]; then
+            git checkout "tags/${ZEROMQ_VERSION}"
+        fi
 
         with_libsodium="--with-libsodium=${LIBSODIUM_DIR}"
         ;;
     esac
     ./autogen.sh
-    PKG_CONFIG_PATH="${LIBSODIUM_DIR}/lib/pkgconfig" ./configure --prefix=$cache_dir $with_libsodium
+    PKG_CONFIG_PATH="${LIBSODIUM_DIR}/lib/pkgconfig" ./configure --prefix=$ZEROMQ_DIR $with_libsodium
     make -j 8
     sudo make install
     sudo ldconfig
@@ -78,30 +78,20 @@ install_zeromq() {
     popd # pushd /tmp
 }
 
-# Installs CZMQ.
-#
-# Parameters:
-#
-#     1 - The version of ØMQ that was installed
 install_czmq() {
-  local zeromq_version=$ZEROMQ_VERSION
-  local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
-  local cache_dir=$CZMQ_DIR
 
-  if test -d $cache_dir
-  then
-      return
-  fi
 
   pushd /tmp
 
   git clone https://github.com/zeromq/czmq
   cd czmq
-  git checkout "tags/${CZMQ_VERSION}"
+  if [ $CZMQ_VERSION != "master" ]; then
+        git checkout "tags/${CZMQ_VERSION}"
+  fi
   ./autogen.sh
   ./configure \
-    --prefix=$cache_dir \
-    --with-libzmq=$zeromq_dir \
+    --prefix=$CZMQ_DIR \
+    --with-libzmq=$ZEROMQ_DIR \
     --with-libsodium=$LIBSODIUM_DIR
   make -j 8
   sudo make install
@@ -113,24 +103,20 @@ install_czmq() {
 
 
 install_zyre() {
-    local zeromq_version=$ZEROMQ_VERSION
-    local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
-    local czmq_version=$CZMQ_VERSION
-    local czmq_dir=$CZMQ_DIR
-    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/zyre/${ZYRE_VERSION}"
-
 
   pushd /tmp
 
   git clone https://github.com/zeromq/zyre
   cd zyre
-  # git checkout "tags/${ZYRE_VERSION}"
+  if [ $ZYRE_VERSION != "master" ]; then
+        git checkout "tags/${ZYRE_VERSION}"
+  fi
   ./autogen.sh
   ./configure \
-    --prefix=$cache_dir \
-    --with-libzmq=$zeromq_dir \
-    --with-libczmq=$czmq_dir \
-    --with-libsodium=$LIBSODIUM_DIR
+    --prefix=$ZYRE_DIR \
+    --with-libsodium=$LIBSODIUM_DIR \
+    --with-libzmq=$ZEROMQ_DIR \
+    --with-libczmq=$CZMQ_DIR
   make -j 8
   sudo make install
   sudo ldconfig
@@ -141,23 +127,20 @@ install_zyre() {
 
 
 install_majordomo() {
-    local zeromq_version=$ZEROMQ_VERSION
-    local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
-    local czmq_version=$CZMQ_VERSION
-    local czmq_dir=$CZMQ_DIR
-    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/majordomo/${MAJORDOMO_VERSION}"
 
   pushd /tmp
 
   git clone https://github.com/zeromq/majordomo
   cd majordomo
-  # git checkout "tags/${MAJORDOMO_VERSION}"
+  if [ $MAJORDOMO_VERSION != "master" ]; then
+        git checkout "tags/${MAJORDOMO_VERSION}"
+  fi
   ./autogen.sh
   ./configure \
-    --prefix=$cache_dir \
-    --with-libzmq=$zeromq_dir \
-    --with-libczmq=$czmq_dir \
-    --with-libsodium=$LIBSODIUM_DIR
+    --prefix=$MAJORDOMO_DIR \
+    --with-libsodium=$LIBSODIUM_DIR \
+    --with-libzmq=$ZEROMQ_DIR \
+    --with-libczmq=$CZMQ_DIR
   make -j 8
   sudo make install
   sudo ldconfig
@@ -168,23 +151,20 @@ install_majordomo() {
 
 
 install_malamute() {
-    local zeromq_version=$ZEROMQ_VERSION
-    local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
-    local czmq_version=$CZMQ_VERSION
-    local czmq_dir=$CZMQ_DIR
-    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/malamute/${MALAMUTE_VERSION}"
 
   pushd /tmp
 
   git clone https://github.com/zeromq/malamute
   cd malamute
-  # git checkout "tags/${MALAMUTE_VERSION}"
+  if [ $MALAMUTE_VERSION != "master" ]; then
+        git checkout "tags/${MALAMUTE_VERSION}"
+  fi
   ./autogen.sh
   ./configure \
-    --prefix=$cache_dir \
-    --with-libzmq=$zeromq_dir \
-    --with-libczmq=$czmq_dir \
-    --with-libsodium=$LIBSODIUM_DIR
+    --prefix=$MALAMUTE_DIR \
+    --with-libsodium=$LIBSODIUM_DIR \
+    --with-libzmq=$ZEROMQ_DIR \
+    --with-libczmq=$CZMQ_DIR
   make -j 8
   sudo make install
   sudo ldconfig
@@ -195,23 +175,20 @@ install_malamute() {
 
 
 install_filemq() {
-    local zeromq_version=$ZEROMQ_VERSION
-    local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
-    local czmq_version=$CZMQ_VERSION
-    local czmq_dir=$CZMQ_DIR
-    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/filemq/${FILEMQ_VERSION}"
 
   pushd /tmp
 
   git clone https://github.com/zeromq/filemq
   cd filemq
-  # git checkout "tags/${FILEMQ_VERSION}"
+  if [ $FILEMQ_VERSION != "master" ]; then
+        git checkout "tags/${FILEMQ_VERSION}"
+  fi
   ./autogen.sh
   ./configure \
-    --prefix=$cache_dir \
-    --with-libzmq=$zeromq_dir \
-    --with-libczmq=$czmq_dir \
-    --with-libsodium=$LIBSODIUM_DIR
+    --prefix=$FILEMQ_DIR \
+    --with-libsodium=$LIBSODIUM_DIR \
+    --with-libzmq=$ZEROMQ_DIR \
+    --with-libczmq=$CZMQ_DIR
   make -j 8
   sudo make install
   sudo ldconfig
@@ -226,7 +203,9 @@ install_phpcpp() {
 
   git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP
   cd PHP-CPP
-  # git checkout "tags/${PHPCPP_VERSION}"
+  if [ $PHPCPP_VERSION != "master" ]; then
+        git checkout "tags/${PHPCPP_VERSION}"
+  fi
   # ./autogen.sh
   # ./configure
   make -j 8
