@@ -27,13 +27,7 @@ install_libsodium() {
 
 install_zeromq() {
     local version=$ZEROMQ_VERSION
-    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${version}"
     local with_libsodium=""
-
-    if test -d $cache_dir
-    then
-        return
-    fi
 
     pushd /tmp
 
@@ -72,13 +66,6 @@ install_zeromq() {
 }
 
 install_czmq() {
-  local zeromq_version=$ZEROMQ_VERSION
-  local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
-
-  if test -d $cache_dir
-  then
-      return
-  fi
 
   pushd /tmp
 
