@@ -104,7 +104,7 @@ install_zyre() {
 
   git clone https://github.com/zeromq/zyre
   cd zyre
-  git checkout "tags/${ZYRE_VERSION}"
+  # git checkout "tags/${ZYRE_VERSION}"
   ./autogen.sh
   ./configure
   make -j 8
@@ -173,7 +173,7 @@ install_phpcpp() {
 
   pushd /tmp
 
-  git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git
+  git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP
   cd PHP-CPP
   # git checkout "tags/${PHP-CPP_VERSION}"
   # ./autogen.sh
