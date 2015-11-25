@@ -11,7 +11,6 @@ public:
     ZMonitor() : ZHandle(), Php::Base() {}
     zactor_t *zmonitor_handle() const { return (zactor_t *) get_handle(); }
 
-
     void __construct(Php::Parameters &param) {
         ZHandle  *zh = dynamic_cast<ZHandle *> (param[0].implementation());
         if(zh) {

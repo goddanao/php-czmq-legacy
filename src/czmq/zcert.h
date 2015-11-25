@@ -10,7 +10,6 @@ public:
     ZCert(zcert_t *handle, bool owned) : ZHandle(handle, owned, "zcert"), Php::Base() {}
     zcert_t *zcert_handle() const { return (zcert_t *) get_handle(); }
 
-
     void __construct(Php::Parameters &param) {
         if(param.size() == 0)
             set_handle(zcert_new (), true, "zcert");

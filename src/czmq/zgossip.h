@@ -11,7 +11,6 @@ public:
     ZGossip() : ZHandle(), Php::Base() {}
     zactor_t *zgossip_handle() const { return (zactor_t *) get_handle(); }
 
-
     void __construct(Php::Parameters &param) {
         set_handle(zactor_new(zgossip, NULL), true, "zactor");
     }
@@ -69,6 +68,16 @@ public:
             zstr_free(&status);
 
         return result;
+    }
+
+    Php::Value recv(Php::Parameters &param) {
+        zmsg_t *msg = zmsg_recv (get_socket());
+        if(!msg)
+            return nullptr;
+        char *deliver = zmsg_popstr(msg);
+        assert(streq("DELIVER", deliver));
+        zstr_free(&deliver);
+        return Php::Object("ZMsg", new ZMsg(msg, true));
     }
 
     static Php::Class<ZGossip> php_register() {

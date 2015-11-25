@@ -9,7 +9,6 @@ public:
     ZMsg(zmsg_t *handle, bool owned) : ZHandle(handle, owned, "zmsg"), Php::Base() {}
     zmsg_t *zmsg_handle() const { return (zmsg_t *) get_handle(); }
 
-
     static zmsg_t *msg_from_object(Php::Value *param) {
         zmsg_t *zmsg = nullptr;
 
@@ -36,23 +35,22 @@ public:
         else
         if(param->isObject())
             zmsg = msg_from_object(param);
-//        else
-//        if(param->isArray()) {
-//            zmsg = zmsg_new ();
-//            std::vector<std::string> keys = Php::array_keys(param);
-//            for (auto &key : keys) {
-//                Php::Value item = param[key];
-//                if(item.isString()) {
-//                    zmsg_pushstr (zmsg, item.stringValue().c_str());
-//                }
-//                else
-//                if(item.isObject()) {
-//                    zmsg_t *zmsg_dup = msg_from_object(&item);
-//                    if(zmsg_dup)
-//                        zmsg_addmsg(zmsg, &zmsg_dup);
-//                }
-//            }
-//        }
+        else
+        if(param->isArray()) {
+            zmsg = zmsg_new ();
+            for (auto &iter : *param) {
+                Php::Value item = iter.second;
+                if(item.isString()) {
+                    zmsg_pushstr (zmsg, item.stringValue().c_str());
+                }
+                else
+                if(item.isObject()) {
+                    zmsg_t *zmsg_dup = msg_from_object(&item);
+                    if(zmsg_dup)
+                        zmsg_addmsg(zmsg, &zmsg_dup);
+                }
+            }
+        }
         return zmsg;
     }
 

@@ -197,7 +197,7 @@ install_phpcpp() {
 #install_filemq
 #install_phpcpp
 
-
+pushd /tmp
 git clone git://github.com/jedisct1/libsodium.git
 git clone git://github.com/zeromq/libzmq.git
 git clone git://github.com/zeromq/czmq.git
@@ -220,6 +220,7 @@ sudo make install
 sudo ldconfig
 cd ..
 
+popd
 # Build and install PHP-CZMQ
 (make -j8 VERBOSE=1 && sudo make install && sudo ldconfig) || exit 1
 

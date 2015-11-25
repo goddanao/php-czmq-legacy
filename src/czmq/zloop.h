@@ -99,7 +99,7 @@ public:
 
         bool valid = ((param.size() > 1) && (param[0].isObject() || param[0].isNumeric())) && (param[1].isCallable());
 
-        SOCKET fd = INVALID_SOCKET;
+        int fd = INVALID_SOCKET;
         zsock_t *socket = NULL;
 
         if(valid && param[0].isObject()) {
@@ -129,7 +129,7 @@ public:
         // Pollitem
         short event = (param.size() > 2) ? (short) param[2].numericValue() : ZMQ_POLLIN;
         zmq_pollitem_t item { socket, fd, event, 0 };
-        zloop_poller( zloop_handle(), &item, cb_events, data);
+        zloop_poller(zloop_handle(), &item, cb_events, data);
 
         if(param.size() > 3 && param[3].boolValue())
             zloop_poller_set_tolerant(zloop_handle(), &item);
@@ -138,7 +138,7 @@ public:
     void remove(Php::Parameters &param) {
         bool valid = param.size() > 0;
 
-        SOCKET fd = INVALID_SOCKET;
+        int fd = INVALID_SOCKET;
         zsock_t *socket = NULL;
 
         if(valid && param[0].isObject()) {

@@ -23,16 +23,14 @@ class ZGossipTest extends \PHPUnit_Framework_TestCase {
         $gossip1->publish("hello", "world");
 
         $msg = $gossip2->recv();
-        $msg = $msg->pop_picture("sss");
-        $this->assertEquals($msg[0], "DELIVER");
-        $this->assertEquals($msg[1], "hello");
-        $this->assertEquals($msg[2], "world");
+        $msg = $msg->pop_picture("ss");
+        $this->assertEquals($msg[0], "hello");
+        $this->assertEquals($msg[1], "world");
 
         $msg = $gossip3->recv();
-        $msg = $msg->pop_picture("sss");
-        $this->assertEquals($msg[0], "DELIVER");
-        $this->assertEquals($msg[1], "hello");
-        $this->assertEquals($msg[2], "world");
+        $msg = $msg->pop_picture("ss");
+        $this->assertEquals($msg[0], "hello");
+        $this->assertEquals($msg[1], "world");
 
     }
 

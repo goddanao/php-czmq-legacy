@@ -5,7 +5,9 @@
 class ZProxy : public ZHandle, public Php::Base {
 private:
     bool _verbose = false;
+
 public:
+
     ZProxy() : ZHandle(), Php::Base() {}
     zactor_t *zproxy_handle() const { return (zactor_t *) get_handle(); }
 
