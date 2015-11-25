@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 LIBSODIUM_DIR="${TRAVIS_BUILD_DIR}/travis/cache/libsodium/v${LIBSODIUM_VERSION}"
+CZMQ_DIR="${TRAVIS_BUILD_DIR}/travis/cache/czmq/${CZMQ_VERSION}"
 
+# Installs libsodium.
 install_libsodium() {
     local cache_dir=$LIBSODIUM_DIR
 
@@ -16,7 +18,7 @@ install_libsodium() {
     cd libsodium
     git checkout "tags/${LIBSODIUM_VERSION}"
     ./autogen.sh
-    ./configure
+    ./configure --prefix=$cache_dir
     make -j 8
     sudo make install
     sudo ldconfig
@@ -25,9 +27,20 @@ install_libsodium() {
     popd # pushd /tmp
 }
 
+# Installs the specified version of ØMQ.
+#
+# Parameters:
+#
+#     1 - The version of ØMQ to install, in the form "vx.y.z"
 install_zeromq() {
     local version=$ZEROMQ_VERSION
+    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${version}"
     local with_libsodium=""
+
+    if test -d $cache_dir
+    then
+        return
+    fi
 
     pushd /tmp
 
@@ -56,7 +69,7 @@ install_zeromq() {
         ;;
     esac
     ./autogen.sh
-    PKG_CONFIG_PATH="${LIBSODIUM_DIR}/lib/pkgconfig" ./configure $with_libsodium
+    PKG_CONFIG_PATH="${LIBSODIUM_DIR}/lib/pkgconfig" ./configure --prefix=$cache_dir $with_libsodium
     make -j 8
     sudo make install
     sudo ldconfig
@@ -65,7 +78,20 @@ install_zeromq() {
     popd # pushd /tmp
 }
 
+# Installs CZMQ.
+#
+# Parameters:
+#
+#     1 - The version of ØMQ that was installed
 install_czmq() {
+  local zeromq_version=$ZEROMQ_VERSION
+  local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
+  local cache_dir=$CZMQ_DIR
+
+  if test -d $cache_dir
+  then
+      return
+  fi
 
   pushd /tmp
 
@@ -73,7 +99,10 @@ install_czmq() {
   cd czmq
   git checkout "tags/${CZMQ_VERSION}"
   ./autogen.sh
-  ./configure
+  ./configure \
+    --prefix=$cache_dir \
+    --with-libzmq=$zeromq_dir \
+    --with-libsodium=$LIBSODIUM_DIR
   make -j 8
   sudo make install
   sudo ldconfig
