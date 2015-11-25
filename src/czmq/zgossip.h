@@ -31,9 +31,9 @@ public:
             result = port;
         }
         if(command)
-            free(command);
+            zstr_free(&command);
         if(port_str)
-            free(port_str);
+            zstr_free(&port_str);
         return result.isNull() ? nullptr : result;
     }
 
@@ -56,11 +56,18 @@ public:
     Php::Value count() {
         zstr_sendx (zgossip_handle(), "STATUS", NULL);
         char *command, *status;
+        Php::Value result;
+
         zstr_recvx (zgossip_handle(), &command, &status, NULL);
-        assert (streq (command, "STATUS"));
-        Php::Value result = status;
-        free(command);
-        free(status);
+        if(command) {
+            assert (streq (command, "STATUS"));
+            zstr_free(&command);
+            result = status;
+        }
+
+        if(status)
+            zstr_free(&status);
+
         return result;
     }
 

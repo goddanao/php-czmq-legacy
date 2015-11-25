@@ -9,7 +9,7 @@ Php::Value ZSocket::get_tos() {
 Php::Value ZSocket::get_zap_domain() {
     char *zap_domain = zsock_zap_domain(zsock_handle());
     Php::Value result = zap_domain;
-    free(zap_domain);
+    zstr_free(&zap_domain);
     return result;
 }
 
@@ -24,14 +24,14 @@ Php::Value ZSocket::get_plain_server() {
 Php::Value ZSocket::get_plain_username() {
     char *plain_username = zsock_plain_username(zsock_handle());
     Php::Value result = plain_username;
-    free(plain_username);
+    zstr_free(&plain_username);
     return result;
 }
 
 Php::Value ZSocket::get_plain_password() {
     char *plain_password = zsock_plain_password(zsock_handle());
     Php::Value result = plain_password;
-    free(plain_password);
+    zstr_free(&plain_password);
     return result;
 }
 
@@ -42,21 +42,21 @@ Php::Value ZSocket::get_curve_server() {
 Php::Value ZSocket::get_curve_publickey() {
     char *curve_publickey = zsock_curve_publickey(zsock_handle());
     Php::Value result = curve_publickey;
-    free(curve_publickey);
+    zstr_free(&curve_publickey);
     return result;
 }
 
 Php::Value ZSocket::get_curve_secretkey() {
     char *curve_secretkey = zsock_curve_secretkey(zsock_handle());
     Php::Value result = curve_secretkey;
-    free(curve_secretkey);
+    zstr_free(&curve_secretkey);
     return result;
 }
 
 Php::Value ZSocket::get_curve_serverkey() {
     char *curve_serverkey = zsock_curve_serverkey(zsock_handle());
     Php::Value result = curve_serverkey;
-    free(curve_serverkey);
+    zstr_free(&curve_serverkey);
     return result;
 }
 
@@ -71,14 +71,14 @@ Php::Value ZSocket::get_gssapi_plaintext() {
 Php::Value ZSocket::get_gssapi_principal() {
     char *gssapi_principal = zsock_gssapi_principal(zsock_handle());
     Php::Value result = gssapi_principal;
-    free(gssapi_principal);
+    zstr_free(&gssapi_principal);
     return result;
 }
 
 Php::Value ZSocket::get_gssapi_service_principal() {
     char *gssapi_service_principal = zsock_gssapi_service_principal(zsock_handle());
     Php::Value result = gssapi_service_principal;
-    free(gssapi_service_principal);
+    zstr_free(&gssapi_service_principal);
     return result;
 }
 
@@ -135,7 +135,7 @@ Php::Value ZSocket::get_affinity() {
 Php::Value ZSocket::get_identity() {
     char *identity = zsock_identity(zsock_handle());
     Php::Value result = identity;
-    free(identity);
+    zstr_free(&identity);
     return result;
 }
 
@@ -206,7 +206,7 @@ Php::Value ZSocket::get_tcp_keepalive_intvl() {
 Php::Value ZSocket::get_tcp_accept_filter() {
     char *tcp_accept_filter = zsock_tcp_accept_filter(zsock_handle());
     Php::Value result = tcp_accept_filter;
-    free(tcp_accept_filter);
+    zstr_free(&tcp_accept_filter);
     return result;
 }
 
@@ -225,7 +225,7 @@ Php::Value ZSocket::get_events() {
 Php::Value ZSocket::get_last_endpoint() {
     char *last_endpoint = zsock_last_endpoint(zsock_handle());
     Php::Value result = last_endpoint;
-    free(last_endpoint);
+    zstr_free(&last_endpoint);
     return result;
 }
 

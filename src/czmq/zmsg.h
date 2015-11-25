@@ -344,50 +344,50 @@ public:
             if (*picture == 'i') {
                 char *string = zmsg_popstr (msg);
                 result[idx++] = (int) atol(string);
-                free (string);
+                zstr_free (&string);
             }
             else
             if (*picture == '1') {
                 char *string = zmsg_popstr (msg);
                 result[idx++] = (int16_t) atoi (string);
-                free (string);
+                zstr_free (&string);
             }
             else
             if (*picture == '2') {
                 char *string = zmsg_popstr (msg);
                 result[idx++] = (int16_t) atol (string);
-                free (string);
+                zstr_free (&string);
             }
             else
             if (*picture == '4') {
                 char *string = zmsg_popstr (msg);
                 result[idx++] = (int32_t) atol (string);
-                free (string);
+                zstr_free (&string);
             }
             else
             if (*picture == '8') {
                 char *string = zmsg_popstr (msg);
                 result[idx++] = (int64_t) atoll (string);
-                free (string);
+                zstr_free (&string);
             }
             else
             if (*picture == 'u') {  //  Deprecated, use 4 or 8 instead
                 char *string = zmsg_popstr (msg);
                 result[idx++] = (int64_t) atoll (string);
-                free (string);
+                zstr_free (&string);
             }
             else
             if (*picture == 's') {
                 char *string = zmsg_popstr (msg);
                 std::string sub = string;
                 result[idx++] = sub.substr(0,255);
-                free (string);
+                zstr_free (&string);
             }
             else
             if (*picture == 'S') {
                 char *string = zmsg_popstr (msg);
                 result[idx++] = string;
-                free (string);
+                zstr_free (&string);
             }
             else
             if (*picture == 'b') {
@@ -514,7 +514,7 @@ public:
         char *string = zmsg_popstr (zmsg_handle());
         if(string) {
             std::string sub = string;
-            free (string);
+            zstr_free (&string);
             return sub;
         }
         return nullptr;

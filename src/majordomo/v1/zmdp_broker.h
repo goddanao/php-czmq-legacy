@@ -341,7 +341,7 @@ s_broker_worker_msg (broker_t *self, zframe_t *sender, zmsg_t *msg)
     zframe_t *command = zmsg_pop (msg);
     char *identity = zframe_strhex (sender);
     int worker_ready = (zhash_lookup (self->workers, identity) != NULL);
-    free (identity);
+    zstr_free (&identity);
     worker_t *worker = s_worker_require (self, sender);
 
     if (zframe_streq (command, MDPW_READY)) {
@@ -425,7 +425,7 @@ s_broker_client_msg (broker_t *self, zframe_t *sender, zmsg_t *msg)
             service_t *service =
                 (service_t *) zhash_lookup (self->services, name);
             return_code = (char *) (service && service->workers? "200": "404");
-            free (name);
+            zstr_free (&name);
         }
         else
         // The filter service that can be used to manipulate
@@ -454,7 +454,7 @@ s_broker_client_msg (broker_t *self, zframe_t *sender, zmsg_t *msg)
             zframe_destroy (&operation);
             zframe_destroy (&service_frame);
             zframe_destroy (&command_frame);
-            free (command_str);
+            zstr_free (&command_str);
             //  Add an empty frame; it will be replaced by the return code.
             zmsg_pushstr (msg, "");
         }
@@ -476,7 +476,7 @@ s_broker_client_msg (broker_t *self, zframe_t *sender, zmsg_t *msg)
             zframe_t *cmd_frame = zmsg_first (msg);
             char *cmd = zframe_strdup (cmd_frame);
             enabled = s_service_is_command_enabled (service, cmd);
-            free (cmd);
+            zstr_free (&cmd);
         }
 
         //  Forward the message to the worker.
@@ -549,7 +549,7 @@ s_service_require (broker_t *self, zframe_t *service_frame)
             zclock_log ("I: added service: %s", name);
     }
     else
-        free (name);
+        zstr_free (&name);
 
     return service;
 }
@@ -569,12 +569,12 @@ s_service_destroy (void *argument)
     char *command = (char *) zlist_first (service->blacklist);
     while (command) {
         zlist_remove (service->blacklist, command);
-        free (command);
+        zstr_free (&command);
     }
     zlist_destroy (&service->requests);
     zlist_destroy (&service->waiting);
     zlist_destroy (&service->blacklist);
-    free (service->name);
+    zstr_free (&service->name);
     free (service);
 }
 
@@ -607,7 +607,7 @@ s_service_enable_command (service_t *self, const char *command)
         item = (char *) zlist_next (self->blacklist);
     if (item) {
         zlist_remove (self->blacklist, item);
-        free (item);
+        zstr_free (&item);
     }
 }
 
@@ -655,7 +655,7 @@ s_worker_require (broker_t *self, zframe_t *address)
             zclock_log ("I: registering new worker: %s", identity);
     }
     else
-        free (identity);
+        zstr_free (&identity);
     return worker;
 }
 
@@ -685,7 +685,7 @@ s_worker_destroy (void *argument)
 {
     worker_t *self = (worker_t *) argument;
     zframe_destroy (&self->address);
-    free (self->identity);
+    zstr_free (&self->identity);
     free (self);
 }
 

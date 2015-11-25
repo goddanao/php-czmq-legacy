@@ -21,7 +21,7 @@ public:
         zsock_send (zbeacon_handle(), "si", "CONFIGURE", port_number);
         char *port =  zstr_recv (zbeacon_handle());
         Php::Value result = port;
-        free(port);
+        zstr_free(&port);
         return result;
     }
 
