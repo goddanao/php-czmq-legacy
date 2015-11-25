@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed FileMq\Server::__construct()
+    \FileMq\Server FileMq\Server::__construct()
 
 
 

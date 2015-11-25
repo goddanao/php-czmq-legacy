@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZUdp::__construct(string $interface, integer $port, boolean $routable)
+    \ZUdp ZUdp::__construct(string $interface, integer $port, boolean $routable)
 
 
 

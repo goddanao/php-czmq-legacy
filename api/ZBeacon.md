@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZBeacon::__construct()
+    \ZBeacon ZBeacon::__construct()
 
 
 

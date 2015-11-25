@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZLoop::__construct()
+    \ZLoop ZLoop::__construct()
 
 
 

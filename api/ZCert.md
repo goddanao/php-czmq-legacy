@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZCert::__construct(mixed $filename)
+    \ZCert ZCert::__construct(mixed $filename)
 
 
 

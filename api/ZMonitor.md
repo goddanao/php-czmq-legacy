@@ -119,7 +119,7 @@ Methods
 
 ### __construct
 
-    mixed ZMonitor::__construct(\IZSocket $socket)
+    \ZMonitor ZMonitor::__construct(\IZSocket $socket)
 
 
 

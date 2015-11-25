@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Majordomo\V1\Broker::__construct()
+    \Majordomo\V1\Broker Majordomo\V1\Broker::__construct()
 
 
 

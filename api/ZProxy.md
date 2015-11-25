@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZProxy::__construct()
+    \ZProxy ZProxy::__construct()
 
 
 

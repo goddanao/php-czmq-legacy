@@ -101,9 +101,12 @@ extern "C" {
 
     // ZYRE
 
+        Php::Namespace zyre_ns("Zyre");
+
         // Zyre
         Php::Class<Zyre> zyre = Zyre::php_register();
         zyre.implements(izsocket);
+        zyre_ns.add(std::move(zyre));
 
     // MAJORDOMO
 
@@ -215,7 +218,7 @@ extern "C" {
         extension.add(std::move(_stderr));
 
         // zyre
-        extension.add(std::move(zyre));
+        extension.add(std::move(zyre_ns));
         // majordomo
         extension.add(std::move(mdp_ns));
         // malamute

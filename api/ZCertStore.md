@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZCertStore::__construct(mixed $certificates_dir)
+    \ZCertStore ZCertStore::__construct(mixed $certificates_dir)
 
 
 

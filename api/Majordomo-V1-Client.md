@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Majordomo\V1\Client::__construct()
+    \Majordomo\V1\Client Majordomo\V1\Client::__construct()
 
 
 

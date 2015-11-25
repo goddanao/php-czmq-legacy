@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Malamute\Consumer::__construct(mixed $endpoint, mixed $stream)
+    \Malamute\Consumer Malamute\Consumer::__construct(mixed $endpoint, mixed $stream)
 
 
 
@@ -87,7 +87,7 @@ Methods
 
 ### get_client
 
-    \FileMq\Malamute\Client Malamute\Consumer::get_client()
+    \Malamute\Client Malamute\Consumer::get_client()
 
 Get the underlying Malamute Client.
 

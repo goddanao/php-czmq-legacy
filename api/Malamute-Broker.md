@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Malamute\Broker::__construct()
+    \Malamute\Broker Malamute\Broker::__construct()
 
 
 

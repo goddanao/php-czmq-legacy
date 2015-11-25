@@ -17,11 +17,12 @@ API Index
 * [ZBeacon](ZBeacon.md)
 * [ZAuth](ZAuth.md)
 * [ZGossip](ZGossip.md)
-* [Zyre](Zyre.md)
 * [ZInotify](ZInotify.md)
 * [ZStdIn](ZStdIn.md)
 * [ZStdOut](ZStdOut.md)
 * [ZStdErr](ZStdErr.md)
+* Zyre
+    * [Zyre](Zyre-Zyre.md)
 * Majordomo
     * Majordomo\V2
         * [Broker](Majordomo-V2-Broker.md)

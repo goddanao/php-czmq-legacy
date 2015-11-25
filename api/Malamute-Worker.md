@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Malamute\Worker::__construct(mixed $endpoint, mixed $address, mixed $pattern)
+    \Malamute\Worker Malamute\Worker::__construct(mixed $endpoint, mixed $address, mixed $pattern)
 
 
 
@@ -71,7 +71,7 @@ Methods
 
 ### get_client
 
-    \FileMq\Malamute\Client Malamute\Worker::get_client()
+    \Malamute\Client Malamute\Worker::get_client()
 
 Get the underlying Malamute Client.
 

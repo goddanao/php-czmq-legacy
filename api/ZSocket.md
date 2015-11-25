@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZSocket::__construct(mixed $socket_type, mixed $endpoint)
+    \ZSocket ZSocket::__construct(mixed $socket_type, mixed $endpoint)
 
 
 

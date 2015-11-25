@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZFrame::__construct()
+    \ZFrame ZFrame::__construct()
 
 
 
@@ -42,5 +42,37 @@ Methods
 
 * Visibility: **public**
 
+
+
+
+### pack
+
+    mixed ZFrame::pack(mixed $format)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $format **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### unpack
+
+    mixed ZFrame::unpack(mixed $format)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $format **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 

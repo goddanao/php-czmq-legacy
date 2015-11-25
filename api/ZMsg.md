@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZMsg::__construct()
+    \ZMsg ZMsg::__construct()
 
 
 

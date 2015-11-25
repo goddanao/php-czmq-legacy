@@ -47,7 +47,7 @@ Methods
 
 ### __construct
 
-    mixed ZAuth::__construct()
+    \ZAuth ZAuth::__construct()
 
 
 

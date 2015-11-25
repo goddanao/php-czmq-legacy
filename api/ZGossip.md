@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed ZGossip::__construct()
+    \ZGossip ZGossip::__construct()
 
 
 

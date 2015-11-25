@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed Malamute\Client::__construct(mixed $endpoint, mixed $address, mixed $timeout)
+    \Malamute\Client Malamute\Client::__construct(mixed $endpoint, mixed $address, mixed $timeout)
 
 
 

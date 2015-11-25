@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    mixed FileMq\Client::__construct(mixed $endpoint, mixed $local_path, mixed $timeout)
+    \FileMq\Client FileMq\Client::__construct(mixed $endpoint, mixed $local_path, mixed $timeout)
 
 
 
