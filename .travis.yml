@@ -16,7 +16,7 @@ before_install:
   - composer self-update
 
 install:
-  - sudo apt-get install -qq git g++-4.8 uuid-dev build-essential autoconf php5-dev valgrind gdb
+  - sudo apt-get install -qq git g++-4.8 uuid-dev build-essential autoconf php5-dev
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 
 script: ./travis/build.sh

@@ -124,7 +124,7 @@ install_malamute() {
   pushd /tmp
 
   git clone https://github.com/zeromq/malamute
-  cd majordomo
+  cd malamute
   # git checkout "tags/${MALAMUTE_VERSION}"
   ./autogen.sh
   ./configure
@@ -142,7 +142,7 @@ install_filemq() {
   pushd /tmp
 
   git clone https://github.com/zeromq/filemq
-  cd majordomo
+  cd filemq
   # git checkout "tags/${FILEMQ_VERSION}"
   ./autogen.sh
   ./configure
