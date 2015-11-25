@@ -115,32 +115,90 @@ install_zyre() {
   popd # pushd /tmp
 }
 
+
+install_majordomo() {
+
+  pushd /tmp
+
+  git clone https://github.com/zeromq/majordomo
+  cd majordomo
+  # git checkout "tags/${MAJORDOMO_VERSION}"
+  ./autogen.sh
+  ./configure
+  make -j 8
+  sudo make install
+  sudo ldconfig
+  cd ..
+
+  popd # pushd /tmp
+}
+
+
+install_malamute() {
+
+  pushd /tmp
+
+  git clone https://github.com/zeromq/malamute
+  cd majordomo
+  # git checkout "tags/${MALAMUTE_VERSION}"
+  ./autogen.sh
+  ./configure
+  make -j 8
+  sudo make install
+  sudo ldconfig
+  cd ..
+
+  popd # pushd /tmp
+}
+
+
+install_filemq() {
+
+  pushd /tmp
+
+  git clone https://github.com/zeromq/filemq
+  cd majordomo
+  # git checkout "tags/${FILEMQ_VERSION}"
+  ./autogen.sh
+  ./configure
+  make -j 8
+  sudo make install
+  sudo ldconfig
+  cd ..
+
+  popd # pushd /tmp
+}
+
+install_phpcpp() {
+
+  pushd /tmp
+
+  git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git
+  cd PHP-CPP
+  # git checkout "tags/${PHP-CPP_VERSION}"
+  # ./autogen.sh
+  # ./configure
+  make -j 8
+  sudo make install
+  sudo ldconfig
+  cd ..
+
+  popd # pushd /tmp
+}
+
+
+
 install_libsodium
 install_zeromq
 install_czmq
 install_zyre
-
-# Build, check, and install the version of MALAMUTE given by MALAMUTE_REPO
-git clone git://github.com/zeromq/majordomo.git &&
-( cd majordomo; ./autogen.sh && ./configure &&
-    make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
-
-# Build, check, and install the version of MALAMUTE given by MALAMUTE_REPO
-git clone git://github.com/zeromq/malamute.git &&
-( cd malamute; ./autogen.sh && ./configure &&
-    make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
-
-# Build, check, and install the version of FILEMQ given by FILEMQ_REPO
-git clone git://github.com/zeromq/filemq.git &&
-( cd filemq; ./autogen.sh && ./configure &&
-    make -j4 check && make -j4 &&  sudo make install && sudo ldconfig && cd ..) || exit 1
-
-# Build and install PHP-CPP (-b 'v1.5' --single-branch --depth 1)
-git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git &&
-( cd PHP-CPP; make -j4 && sudo make install && sudo ldconfig && cd ..) || exit 1
+install_majordomo
+install_malamute
+install_filemq
+install_phpcpp
 
 # Build and install PHP-CZMQ
-(make -j4 VERBOSE=1 && sudo make install && sudo ldconfig) || exit 1
+(make -j8 VERBOSE=1 && sudo make install && sudo ldconfig) || exit 1
 
 # Install the extension in the current phpenv
 (cp php-czmq.so `php-config --extension-dir` && echo "extension=php-czmq.so" >> `php-config --prefix`/etc/php.ini) || exit 1
