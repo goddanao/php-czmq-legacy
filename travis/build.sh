@@ -91,8 +91,7 @@ install_czmq() {
   ./autogen.sh
   ./configure \
     --prefix=$CZMQ_DIR \
-    --with-libzmq=$ZEROMQ_DIR \
-    --with-libsodium=$LIBSODIUM_DIR
+    --with-libzmq=$ZEROMQ_DIR
   make -j 8
   sudo make install
   sudo ldconfig
@@ -114,8 +113,6 @@ install_zyre() {
   ./autogen.sh
   ./configure \
     --prefix=$ZYRE_DIR \
-    --with-libsodium=$LIBSODIUM_DIR \
-    --with-libzmq=$ZEROMQ_DIR \
     --with-libczmq=$CZMQ_DIR
   make -j 8
   sudo make install
@@ -138,8 +135,6 @@ install_majordomo() {
   ./autogen.sh
   ./configure \
     --prefix=$MAJORDOMO_DIR \
-    --with-libsodium=$LIBSODIUM_DIR \
-    --with-libzmq=$ZEROMQ_DIR \
     --with-libczmq=$CZMQ_DIR
   make -j 8
   sudo make install
@@ -162,8 +157,6 @@ install_malamute() {
   ./autogen.sh
   ./configure \
     --prefix=$MALAMUTE_DIR \
-    --with-libsodium=$LIBSODIUM_DIR \
-    --with-libzmq=$ZEROMQ_DIR \
     --with-libczmq=$CZMQ_DIR
   make -j 8
   sudo make install
@@ -186,8 +179,6 @@ install_filemq() {
   ./autogen.sh
   ./configure \
     --prefix=$FILEMQ_DIR \
-    --with-libsodium=$LIBSODIUM_DIR \
-    --with-libzmq=$ZEROMQ_DIR \
     --with-libczmq=$CZMQ_DIR
   make -j 8
   sudo make install
