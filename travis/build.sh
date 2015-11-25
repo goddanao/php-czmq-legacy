@@ -141,6 +141,11 @@ install_zyre() {
 
 
 install_majordomo() {
+    local zeromq_version=$ZEROMQ_VERSION
+    local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
+    local czmq_version=$CZMQ_VERSION
+    local czmq_dir=$CZMQ_DIR
+    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/majordomo/${MAJORDOMO_VERSION}"
 
   pushd /tmp
 
@@ -163,6 +168,11 @@ install_majordomo() {
 
 
 install_malamute() {
+    local zeromq_version=$ZEROMQ_VERSION
+    local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
+    local czmq_version=$CZMQ_VERSION
+    local czmq_dir=$CZMQ_DIR
+    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/malamute/${MALAMUTE_VERSION}"
 
   pushd /tmp
 
@@ -185,6 +195,11 @@ install_malamute() {
 
 
 install_filemq() {
+    local zeromq_version=$ZEROMQ_VERSION
+    local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
+    local czmq_version=$CZMQ_VERSION
+    local czmq_dir=$CZMQ_DIR
+    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/filemq/${FILEMQ_VERSION}"
 
   pushd /tmp
 
