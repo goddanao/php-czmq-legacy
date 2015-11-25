@@ -90,7 +90,6 @@ install_czmq() {
   fi
   ./autogen.sh
   ./configure \
-    --prefix=$CZMQ_DIR \
     --with-libzmq=$ZEROMQ_DIR
   make -j 8
   sudo make install
@@ -112,8 +111,7 @@ install_zyre() {
   fi
   ./autogen.sh
   ./configure \
-    --prefix=$ZYRE_DIR \
-    --with-libczmq=$CZMQ_DIR
+    --prefix=$ZYRE_DIR
   make -j 8
   sudo make install
   sudo ldconfig
@@ -134,8 +132,7 @@ install_majordomo() {
   fi
   ./autogen.sh
   ./configure \
-    --prefix=$MAJORDOMO_DIR \
-    --with-libczmq=$CZMQ_DIR
+    --prefix=$MAJORDOMO_DIR
   make -j 8
   sudo make install
   sudo ldconfig
@@ -156,8 +153,7 @@ install_malamute() {
   fi
   ./autogen.sh
   ./configure \
-    --prefix=$MALAMUTE_DIR \
-    --with-libczmq=$CZMQ_DIR
+    --prefix=$MALAMUTE_DIR
   make -j 8
   sudo make install
   sudo ldconfig
@@ -178,8 +174,7 @@ install_filemq() {
   fi
   ./autogen.sh
   ./configure \
-    --prefix=$FILEMQ_DIR \
-    --with-libczmq=$CZMQ_DIR
+    --prefix=$FILEMQ_DIR
   make -j 8
   sudo make install
   sudo ldconfig
