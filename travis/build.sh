@@ -113,6 +113,12 @@ install_czmq() {
 
 
 install_zyre() {
+    local zeromq_version=$ZEROMQ_VERSION
+    local zeromq_dir="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${zeromq_version}"
+    local czmq_version=$CZMQ_VERSION
+    local czmq_dir=$CZMQ_DIR
+    local cache_dir="${TRAVIS_BUILD_DIR}/travis/cache/zyre/${ZYRE_VERSION}"
+
 
   pushd /tmp
 
@@ -120,7 +126,11 @@ install_zyre() {
   cd zyre
   # git checkout "tags/${ZYRE_VERSION}"
   ./autogen.sh
-  ./configure
+  ./configure \
+    --prefix=$cache_dir \
+    --with-libzmq=$zeromq_dir \
+    --with-libczmq=$czmq_dir \
+    --with-libsodium=$LIBSODIUM_DIR
   make -j 8
   sudo make install
   sudo ldconfig
@@ -138,7 +148,11 @@ install_majordomo() {
   cd majordomo
   # git checkout "tags/${MAJORDOMO_VERSION}"
   ./autogen.sh
-  ./configure
+  ./configure \
+    --prefix=$cache_dir \
+    --with-libzmq=$zeromq_dir \
+    --with-libczmq=$czmq_dir \
+    --with-libsodium=$LIBSODIUM_DIR
   make -j 8
   sudo make install
   sudo ldconfig
@@ -156,7 +170,11 @@ install_malamute() {
   cd malamute
   # git checkout "tags/${MALAMUTE_VERSION}"
   ./autogen.sh
-  ./configure
+  ./configure \
+    --prefix=$cache_dir \
+    --with-libzmq=$zeromq_dir \
+    --with-libczmq=$czmq_dir \
+    --with-libsodium=$LIBSODIUM_DIR
   make -j 8
   sudo make install
   sudo ldconfig
@@ -174,7 +192,11 @@ install_filemq() {
   cd filemq
   # git checkout "tags/${FILEMQ_VERSION}"
   ./autogen.sh
-  ./configure
+  ./configure \
+    --prefix=$cache_dir \
+    --with-libzmq=$zeromq_dir \
+    --with-libczmq=$czmq_dir \
+    --with-libsodium=$LIBSODIUM_DIR
   make -j 8
   sudo make install
   sudo ldconfig
