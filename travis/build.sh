@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-# Cache dirs
-#LIBSODIUM_DIR="${TRAVIS_BUILD_DIR}/travis/cache/libsodium/${LIBSODIUM_VERSION}"
-#ZEROMQ_DIR="${TRAVIS_BUILD_DIR}/travis/cache/zeromq/${ZEROMQ_VERSION}"
-#CZMQ_DIR="${TRAVIS_BUILD_DIR}/travis/cache/czmq/${CZMQ_VERSION}"
-#ZYRE_DIR="${TRAVIS_BUILD_DIR}/travis/cache/zyre/${ZYRE_VERSION}"
-#MAJORDOMO_DIR="${TRAVIS_BUILD_DIR}/travis/cache/majordomo/${MAJORDOMO_VERSION}"
-#MALAMUTE_DIR="${TRAVIS_BUILD_DIR}/travis/cache/malamute/${MALAMUTE_VERSION}"
-#FILEMQ_DIR="${TRAVIS_BUILD_DIR}/travis/cache/filemq/${FILEMQ_VERSION}"
+#ZEROMQ_HASH=6e064f9f757af466b007b59c4ea4e19de0568548
+#LIBSODIUM_HASH=""
+#CZMQ_HASH=8bbab31200ba629cafacb9027d1b5f2b01c383f0
+#ZYRE_HASH=3691e3f51c33ed5d7b9d8c9f01f1511b5205f805
+#
+#FILEMQ_VERSION=master FILEMQ_HASH="" PHPCPP_VERSION=master PHPCPP_HASH=""
+#  - ZEROMQ_VERSION=v4.2.0 ZEROMQ_HASH=6e064f9f757af466b007b59c4ea4e19de0568548 LIBSODIUM_VERSION=1.0.3 LIBSODIUM_HASH="" CZMQ_VERSION=v3.0.2 CZMQ_HASH="" ZYRE_VERSION=v1.1.0 ZYRE_HASH="" MAJORDOMO_VERSION=master MAJORDOMO_HASH="" MALAMUTE_VERSION=master MALAMUTE_HASH="" FILEMQ_VERSION=master FILEMQ_HASH="" PHPCPP_VERSION=master PHPCPP_HASH=""
+
 
 # Installs libsodium.
 install_libsodium() {
@@ -15,13 +15,15 @@ install_libsodium() {
 
     git clone https://github.com/jedisct1/libsodium
     cd libsodium
+
     if [ $LIBSODIUM_VERSION != "master" ]; then
-        git checkout "tags/${LIBSODIUM_VERSION}"
-    else
-        if [ $LIBSODIUM_HASH != "" ]; then
-            git reset --hard $LIBSODIUM_HASH
+        if [ ${#LIBSODIUM_VERSION} == 40 ]; then
+            git reset --hard $LIBSODIUM_VERSION
+        else
+            git checkout "tags/${LIBSODIUM_VERSION}"
         fi
     fi
+
     ./autogen.sh
     ./configure
     make -j 8
@@ -47,21 +49,25 @@ install_zeromq() {
         cd zeromq3-x
         git checkout "tags/${ZEROMQ_VERSION}"
         ;;
+    v4.0*)
+        git clone https://github.com/zeromq/zeromq4-x
+        cd zeromq4-x
+        git checkout "tags/${ZEROMQ_VERSION}"
+       ;;
     v4.1*)
         git clone https://github.com/zeromq/zeromq4-1
         cd zeromq4-1
         git checkout "tags/${ZEROMQ_VERSION}"
         ;;
-    v4*)
-        git clone https://github.com/zeromq/zeromq4-x
-        cd zeromq4-x
-        git checkout "tags/${ZEROMQ_VERSION}"
-       ;;
-    master*)
+    *)
         git clone https://github.com/zeromq/libzmq
         cd libzmq
-        if [ $ZEROMQ_HASH != "" ]; then
-            git reset --hard $ZEROMQ_HASH
+        if [ $ZEROMQ_VERSION != "master" ]; then
+            if [ ${#ZEROMQ_VERSION} == 40 ]; then
+                git reset --hard $ZEROMQ_VERSION
+            else
+                git checkout "tags/${ZEROMQ_VERSION}"
+            fi
         fi
         ;;
     esac
@@ -81,13 +87,15 @@ install_czmq() {
 
   git clone https://github.com/zeromq/czmq
   cd czmq
+
   if [ $CZMQ_VERSION != "master" ]; then
+      if [ ${#CZMQ_VERSION} == 40 ]; then
+        git reset --hard $CZMQ_VERSION
+      else
         git checkout "tags/${CZMQ_VERSION}"
-  else
-    if [ $CZMQ_HASH != "" ]; then
-        git reset --hard $CZMQ_HASH
-    fi
+      fi
   fi
+
   ./autogen.sh
   ./configure
   make -j 8
@@ -105,13 +113,15 @@ install_zyre() {
 
   git clone https://github.com/zeromq/zyre
   cd zyre
+
   if [ $ZYRE_VERSION != "master" ]; then
+      if [ ${#ZYRE_VERSION} == 40 ]; then
+        git reset --hard $ZYRE_VERSION
+      else
         git checkout "tags/${ZYRE_VERSION}"
-  else
-    if [ $ZYRE_HASH != "" ]; then
-        git reset --hard $ZYRE_HASH
-    fi
+      fi
   fi
+
   ./autogen.sh
   ./configure
   make -j 8
@@ -129,13 +139,15 @@ install_majordomo() {
 
   git clone https://github.com/zeromq/majordomo
   cd majordomo
+
   if [ $MAJORDOMO_VERSION != "master" ]; then
+      if [ ${#MAJORDOMO_VERSION} == 40 ]; then
+        git reset --hard $MAJORDOMO_VERSION
+      else
         git checkout "tags/${MAJORDOMO_VERSION}"
-  else
-        if [ $MAJORDOMO_HASH != "" ]; then
-            git reset --hard $MAJORDOMO_HASH
-        fi
+      fi
   fi
+
   ./autogen.sh
   ./configure
   make -j 8
@@ -153,12 +165,13 @@ install_malamute() {
 
   git clone https://github.com/zeromq/malamute
   cd malamute
+
   if [ $MALAMUTE_VERSION != "master" ]; then
+      if [ ${#MALAMUTE_VERSION} == 40 ]; then
+        git reset --hard $MALAMUTE_VERSION
+      else
         git checkout "tags/${MALAMUTE_VERSION}"
-  else
-        if [ $MALAMUTE_HASH != "" ]; then
-            git reset --hard $MALAMUTE_HASH
-        fi
+      fi
   fi
   ./autogen.sh
   ./configure
@@ -177,13 +190,15 @@ install_filemq() {
 
   git clone https://github.com/zeromq/filemq
   cd filemq
+
   if [ $FILEMQ_VERSION != "master" ]; then
+      if [ ${#FILEMQ_VERSION} == 40 ]; then
+        git reset --hard $FILEMQ_VERSION
+      else
         git checkout "tags/${FILEMQ_VERSION}"
-  else
-        if [ $FILEMQ_HASH != "" ]; then
-            git reset --hard $FILEMQ_HASH
-        fi
+      fi
   fi
+
   ./autogen.sh
   ./configure
   make -j 8
@@ -200,13 +215,15 @@ install_phpcpp() {
 
   git clone https://github.com/CopernicaMarketingSoftware/PHP-CPP
   cd PHP-CPP
+
   if [ $PHPCPP_VERSION != "master" ]; then
+      if [ ${#PHPCPP_VERSION} == 40 ]; then
+        git reset --hard $PHPCPP_VERSION
+      else
         git checkout "tags/${PHPCPP_VERSION}"
-  else
-        if [ $PHPCPP_HASH != "" ]; then
-            git reset --hard $PHPCPP_HASH
-        fi
+      fi
   fi
+
   make -j 8
   sudo make install
   sudo ldconfig
@@ -221,7 +238,12 @@ install_zeromq
 install_czmq
 install_zyre
 install_majordomo
-install_malamute
+
+# Malamute works only in v4.2.0 wich is current dev/master
+if [ ${#ZEROMQ_VERSION} == 40 ]; then
+    install_malamute
+fi
+
 install_filemq
 install_phpcpp
 
@@ -235,4 +257,3 @@ composer update
 
 # Run PhpUnit tests
 $(which phpunit) -dzend.enable_gc=0
-
