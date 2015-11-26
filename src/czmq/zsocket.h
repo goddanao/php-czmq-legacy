@@ -27,6 +27,8 @@ private:
        else if(strcmp(name,"xrep") == 0)   type = ZMQ_ROUTER; // socket = zsock_new_router(endpoint);
        else if(strcmp(name,"pair") == 0)   type = ZMQ_PAIR; // socket = zsock_new_pair(endpoint);
        else if(strcmp(name,"stream") == 0) type = ZMQ_STREAM; // socket = zsock_new_stream(endpoint);
+       else if(strcmp(name,"server") == 0) type = ZMQ_SERVER; // socket = zsock_new_server(endpoint);
+       else if(strcmp(name,"client") == 0) type = ZMQ_CLIENT; // socket = zsock_new_client(endpoint);
        else
            throw Php::Exception("Can't create socket");
 
@@ -61,6 +63,8 @@ public:
     static Php::Value xreq(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("xreq", ep), true)); }
     static Php::Value xrep(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("xrep", ep), true)); }
     static Php::Value stream(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("stream",  ep), true)); }
+    static Php::Value server(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("server",  ep), true)); }
+    static Php::Value client(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("client",  ep), true)); }
 
 
 //    static Php::Value __callStatic (const char *name, Php::Parameters &params) {
@@ -592,6 +596,12 @@ public:
             Php::ByVal("endpoint", Php::Type::String, false)
         });
     	o.method("stream", &ZSocket::stream, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("server", &ZSocket::server, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+    	o.method("client", &ZSocket::client, {
             Php::ByVal("endpoint", Php::Type::String, false)
         });
 

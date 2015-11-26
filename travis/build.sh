@@ -87,6 +87,9 @@ install_czmq() {
   cd czmq
   if [ $CZMQ_VERSION != "master" ]; then
         git checkout "tags/${CZMQ_VERSION}"
+  else
+    if [ $CZMQ_HASH != "" ]; then
+        git reset --hard $CZMQ_HASH
   fi
   ./autogen.sh
   ./configure \

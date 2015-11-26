@@ -202,6 +202,8 @@ public:
         o.constant("SOCKET_XREQ", "xreq");
         o.constant("SOCKET_PAIR", "pair");
         o.constant("SOCKET_STREAM", "stream");
+        o.constant("SOCKET_SERVER", "server");
+        o.constant("SOCKET_CLIENT", "client");
 
         // Const - Event Type
         o.constant("EVENT_CLOSED", ZMQ_EVENT_CLOSED);
