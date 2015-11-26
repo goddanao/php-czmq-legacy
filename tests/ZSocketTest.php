@@ -54,7 +54,12 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
 
     public function test_create_sockets()
     {
-        $socket_types = ['pair', 'rep', 'req', 'push', 'pull', 'pub', 'sub', 'router', 'dealer', 'xpub', 'xsub', 'xrep', 'xreq', 'stream', 'server', 'client'];
+        $socket_types = ['pair', 'rep', 'req', 'push', 'pull', 'pub', 'sub', 'router', 'dealer', 'xpub', 'xsub', 'xrep', 'xreq', 'stream'];
+        if (preg_match('/4\.2*/', ZSys::libzmq_version())) {
+            $socket_types[] = "server";
+            $socket_types[] = "client";
+        }
+
         $result = true;
         foreach ($socket_types as $socket_type) {
             $socket = new ZSocket($socket_type);
@@ -89,6 +94,10 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull(ZSocket::xrep("ipc:///tmp/test"));
         $this->assertNotNull(ZSocket::xreq("ipc:///tmp/test"));
         $this->assertNotNull(ZSocket::stream("ipc:///tmp/test"));
+
+        if (!preg_match('/4\.2*/', ZSys::libzmq_version()))
+            return;
+
         $this->assertNotNull(ZSocket::server("ipc:///tmp/test"));
         $this->assertNotNull(ZSocket::client("ipc:///tmp/test"));
     }

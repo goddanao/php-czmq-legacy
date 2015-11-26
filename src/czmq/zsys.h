@@ -184,8 +184,14 @@ public:
         o.method("libczmq_version", &ZSys::libczmq_version);
         o.method("libzyre_version", &ZSys::libzyre_version);
         o.method("libmdp_version", &ZSys::libmdp_version);
-        o.method("libmlm_version", &ZSys::libmlm_version);
         o.method("libfmq_version", &ZSys::libfmq_version);
+
+        #if (ZMQ_VERSION_MAJOR == 4)
+        #if (ZMQ_VERSION_MINOR >= 2)
+            o.method("libmlm_version", &ZSys::libmlm_version);
+        #endif
+        #endif
+
 
         // Logging ...
         o.method("info", &ZSys::info, { Php::ByVal("message", Php::Type::String, true) });
@@ -208,8 +214,13 @@ public:
         o.constant("SOCKET_XREQ", "xreq");
         o.constant("SOCKET_PAIR", "pair");
         o.constant("SOCKET_STREAM", "stream");
+
+    #if (ZMQ_VERSION_MAJOR == 4)
+    #if (ZMQ_VERSION_MINOR >= 2)
         o.constant("SOCKET_SERVER", "server");
         o.constant("SOCKET_CLIENT", "client");
+   #endif
+   #endif
 
         // Const - Event Type
         o.constant("EVENT_CLOSED", ZMQ_EVENT_CLOSED);
