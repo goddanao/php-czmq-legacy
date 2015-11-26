@@ -28,11 +28,6 @@ install_libsodium() {
     popd # pushd /tmp
 }
 
-# Installs the specified version of ØMQ.
-#
-# Parameters:
-#
-#     1 - The version of ØMQ to install, in the form "vx.y.z"
 install_zeromq() {
     local with_libsodium=""
 
@@ -112,11 +107,13 @@ install_zyre() {
   cd zyre
   if [ $ZYRE_VERSION != "master" ]; then
         git checkout "tags/${ZYRE_VERSION}"
+  else
+    if [ $ZYRE_HASH != "" ]; then
+        git reset --hard $ZYRE_HASH
+    fi
   fi
   ./autogen.sh
-  ./configure \
-    --prefix=$ZYRE_DIR
-    --with-libczmq=$(shell cat /etc/ld.so.conf.d/libc.conf | grep /usr)
+  ./configure
   make -j 8
   sudo make install
   sudo ldconfig
@@ -136,9 +133,7 @@ install_majordomo() {
         git checkout "tags/${MAJORDOMO_VERSION}"
   fi
   ./autogen.sh
-  ./configure \
-    --prefix=$MAJORDOMO_DIR
-    --with-libczmq=$(shell cat /etc/ld.so.conf.d/libc.conf | grep /usr)
+  ./configure
   make -j 8
   sudo make install
   sudo ldconfig
@@ -158,9 +153,7 @@ install_malamute() {
         git checkout "tags/${MALAMUTE_VERSION}"
   fi
   ./autogen.sh
-  ./configure \
-    --prefix=$MALAMUTE_DIR
-    --with-libczmq=$(shell cat /etc/ld.so.conf.d/libc.conf | grep /usr)
+  ./configure
   make -j 8
   sudo make install
   sudo ldconfig
@@ -180,9 +173,7 @@ install_filemq() {
         git checkout "tags/${FILEMQ_VERSION}"
   fi
   ./autogen.sh
-  ./configure \
-    --prefix=$FILEMQ_DIR
-    --with-libczmq=$(shell cat /etc/ld.so.conf.d/libc.conf | grep /usr)
+  ./configure
   make -j 8
   sudo make install
   sudo ldconfig
