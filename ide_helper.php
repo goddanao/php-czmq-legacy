@@ -22,6 +22,8 @@ class ZSys {
   const SOCKET_XREQ = "xreq";
   const SOCKET_PAIR = "pair";
   const SOCKET_STREAM = "stream";
+  const SOCKET_SERVER = "server";
+  const SOCKET_CLIENT = "client";
   const EVENT_CLOSED = 128;
   const EVENT_CONNECTED = 1;
   const EVENT_CONNECT_DELAYED = 2;
@@ -324,12 +326,12 @@ class ZUdp implements \IZDescriptor {
 /**
  * ZMsg
  *
- * ...
+ * Multipart message handling
  */
 class ZMsg {
 
   /**
-   * ...
+   *  
    * 
    * @return \ZMsg
   */
@@ -390,7 +392,7 @@ class ZMsg {
   public function pop_string() {}
 
   /**
-   * ...
+   * Send a ZMsg
    * 
   */
   public function send() {}
@@ -1087,6 +1089,20 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * @param mixed $endpoint ... (optional)
   */
   static public function stream($endpoint) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $endpoint ... (optional)
+  */
+  static public function server($endpoint) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $endpoint ... (optional)
+  */
+  static public function client($endpoint) {}
 
   /**
    * ...

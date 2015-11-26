@@ -127,6 +127,22 @@ Constants
 
 
 
+### SOCKET_SERVER
+
+    const SOCKET_SERVER = "server"
+
+
+
+
+
+### SOCKET_CLIENT
+
+    const SOCKET_CLIENT = "client"
+
+
+
+
+
 ### EVENT_CLOSED
 
     const EVENT_CLOSED = 128

@@ -90,6 +90,7 @@ install_czmq() {
   else
     if [ $CZMQ_HASH != "" ]; then
         git reset --hard $CZMQ_HASH
+    fi
   fi
   ./autogen.sh
   ./configure \

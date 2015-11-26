@@ -3,7 +3,7 @@ ZMsg
 
 ZMsg
 
-...
+Multipart message handling
 
 
 * Class name: ZMsg
@@ -25,7 +25,7 @@ Methods
 
 
 
-...
+
 
 * Visibility: **public**
 
@@ -153,9 +153,9 @@ Methods
 
     mixed ZMsg::send()
 
+Send a ZMsg
 
 
-...
 
 * Visibility: **public**
 

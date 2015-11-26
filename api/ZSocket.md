@@ -506,6 +506,40 @@ Methods
 
 
 
+### server
+
+    mixed ZSocket::server(mixed $endpoint)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
+
+
+### client
+
+    mixed ZSocket::client(mixed $endpoint)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
+
+
 ### get_options
 
     mixed ZSocket::get_options()
