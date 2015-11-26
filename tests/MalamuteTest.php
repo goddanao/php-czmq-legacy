@@ -8,6 +8,12 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
     protected static $broker_endpoint = "tcp://127.0.0.1:8990";
     protected static $mg;
 
+    protected function setUp() {
+        if (!preg_match('/4\.2*/', ZSys::libzmq_version()))
+            $this->markTestSkipped("Malamute test skipped since ZMQ version is too low");
+
+    }
+
     public static function setUpBeforeClass() {
         self::$mg = new ProcessManager();
         self::$mg->zombieOkay(true);

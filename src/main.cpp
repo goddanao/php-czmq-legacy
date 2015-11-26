@@ -148,6 +148,9 @@ extern "C" {
 
         mdp_ns.add(std::move(mdp_ns_version2));
 
+#if (ZMQ_VERSION_MAJOR == 4)
+#if (ZMQ_VERSION_MINOR >= 2)
+
     // MALAMUTE
 
         Php::Namespace mlm_ns("Malamute");
@@ -176,6 +179,9 @@ extern "C" {
         Php::Class<MalamuteConsumer> mlmconsumer = MalamuteConsumer::php_register();
         mlmconsumer.implements(izsocket);
         mlm_ns.add(std::move(mlmconsumer));
+
+#endif
+#endif
 
     // FILEMQ
 
@@ -221,8 +227,14 @@ extern "C" {
         extension.add(std::move(zyre_ns));
         // majordomo
         extension.add(std::move(mdp_ns));
+
+    #if (ZMQ_VERSION_MAJOR == 4)
+    #if (ZMQ_VERSION_MINOR >= 2)
         // malamute
         extension.add(std::move(mlm_ns));
+    #endif
+    #endif
+
         // fmq
         extension.add(std::move(fmq_ns));
 

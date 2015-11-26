@@ -1,5 +1,8 @@
 #pragma once
 
+#if (ZMQ_VERSION_MAJOR == 4)
+#if (ZMQ_VERSION_MINOR >= 2)
+
 #include "../common.h"
 
 class MalamuteBroker : public ZHandle, public Php::Base {
@@ -71,3 +74,6 @@ public:
     }
 
 };
+
+#endif
+#endif

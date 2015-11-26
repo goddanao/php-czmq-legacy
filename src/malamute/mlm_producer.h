@@ -1,5 +1,8 @@
 #pragma once
 
+#if (ZMQ_VERSION_MAJOR == 4)
+#if (ZMQ_VERSION_MINOR >= 2)
+
 #include "mlm_client.h"
 
 class MalamuteProducer   : public ZHandle, public Php::Base {
@@ -70,3 +73,6 @@ public:
     }
 
 };
+
+#endif
+#endif
