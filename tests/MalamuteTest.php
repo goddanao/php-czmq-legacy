@@ -15,6 +15,9 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
     }
 
     public static function setUpBeforeClass() {
+        if (!preg_match('/4\.2*/', ZSys::libzmq_version()))
+            return;
+
         self::$mg = new ProcessManager();
         self::$mg->zombieOkay(true);
         self::$mg->fork(function(){
@@ -26,6 +29,9 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
     }
 
     public static function tearDownAfterClass() {
+        if (!preg_match('/4\.2*/', ZSys::libzmq_version()))
+            return;
+
         self::$mg->killAll();
     }
 
