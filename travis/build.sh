@@ -62,6 +62,10 @@ install_zeromq() {
 
         with_libsodium="--with-libsodium=${LIBSODIUM_DIR}"
         ;;
+    master*)
+        git clone https://github.com/zeromq/libzmq
+        cd libzmq
+    ;;
     esac
     ./autogen.sh
     PKG_CONFIG_PATH="${LIBSODIUM_DIR}/lib/pkgconfig" ./configure --prefix=$ZEROMQ_DIR $with_libsodium
