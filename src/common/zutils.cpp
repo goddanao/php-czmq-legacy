@@ -37,7 +37,6 @@ std::vector<std::string> explode(const std::string& str, const char delimiter)
   return elements;
 }
 
-// definition
 std::string implode(std::vector<std::string> & elements, char delimiter)
 {
   std::string full;
