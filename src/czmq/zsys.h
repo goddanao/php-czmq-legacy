@@ -21,10 +21,16 @@ public:
         return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
     }
 
+#if (ZMQ_VERSION_MAJOR == 4)
+#if (ZMQ_VERSION_MINOR >= 2)
+
     static Php::Value libmlm_version() {
         int major = MALAMUTE_VERSION_MAJOR, minor = MALAMUTE_VERSION_MINOR, patch = MALAMUTE_VERSION_PATCH;
         return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
     }
+
+#endif
+#endif
 
     static Php::Value libmdp_version() {
         int major = MAJORDOMO_VERSION_MAJOR, minor = MAJORDOMO_VERSION_MINOR, patch = MAJORDOMO_VERSION_PATCH;
