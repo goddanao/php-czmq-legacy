@@ -242,6 +242,9 @@ install_majordomo
 # Malamute works only in v4.2.0 wich is current dev/master
 if [ ${#ZEROMQ_VERSION} == 40 ]; then
     install_malamute
+    export LINKER_DEPENDENCIES="-lphpcpp -lzmq -lczmq -lzyre -lmajordomo -lfilemq -lmlm"
+else
+    export LINKER_DEPENDENCIES="-lphpcpp -lzmq -lczmq -lzyre -lmajordomo -lfilemq"
 fi
 
 install_filemq
