@@ -73,7 +73,6 @@ install_zeromq() {
 
 install_czmq() {
 
-
   pushd /tmp
 
   git clone https://github.com/zeromq/czmq
@@ -197,7 +196,6 @@ install_phpcpp() {
 }
 
 
-
 install_libsodium
 install_zeromq
 install_czmq
@@ -206,32 +204,6 @@ install_majordomo
 install_malamute
 install_filemq
 install_phpcpp
-
-#pushd /tmp
-#git clone git://github.com/jedisct1/libsodium.git
-#git clone git://github.com/zeromq/libzmq.git
-#git clone git://github.com/zeromq/czmq.git
-#git clone git://github.com/zeromq/zyre.git
-#git clone git://github.com/zeromq/majordomo.git
-#git clone git://github.com/zeromq/filemq.git
-#git clone git://github.com/zeromq/malamute.git
-#for project in libsodium libzmq czmq zyre majordomo filemq malamute; do
-#    cd $project
-#    ./autogen.sh
-#    ./configure && make check
-#    sudo make install
-#    sudo ldconfig
-#    cd ..
-#done
-#git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git
-#cd PHP-CPP
-#make
-#sudo make install
-#sudo ldconfig
-#cd ..
-#
-#popd
-
 
 # Build and install PHP-CZMQ
 (make -j8 VERBOSE=1 && sudo make install && sudo ldconfig) || exit 1
@@ -242,9 +214,5 @@ install_phpcpp
 composer update
 
 # Run PhpUnit tests
-php -dzend.enable_gc=0 $(which phpunit)
-
-# Detect Memory Leaks
-# USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 valgrind --log-file=./czmq.log php ~/.phpenv/versions/$(phpenv version-name)/bin/phpunit
-# USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 gdb php ~/.phpenv/versions/$(phpenv version-name)/bin/phpunit
+$(which phpunit) -dzend.enable_gc=0
 
