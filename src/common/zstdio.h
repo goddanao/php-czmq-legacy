@@ -16,7 +16,7 @@ public:
 
     Php::Value send(Php::Parameters &param) {
         const char *pointer = param[0].rawValue();
-        write(get_fd(), pointer, param[0].size());
+        return (write(get_fd(), pointer, param[0].size()) == param[0].size());
     }
 
 	static Php::Class<ZStdIn> php_register() {
@@ -44,7 +44,7 @@ public:
 
     Php::Value send(Php::Parameters &param) {
         const char *pointer = param[0].rawValue();
-        write(get_fd(), pointer, param[0].size());
+        return (write(get_fd(), pointer, param[0].size()) == param[0].size());
     }
 
 	static Php::Class<ZStdOut> php_register() {
@@ -72,7 +72,7 @@ public:
 
     Php::Value send(Php::Parameters &param) {
         const char *pointer = param[0].rawValue();
-        write(get_fd(), pointer, param[0].size());
+        return (write(get_fd(), pointer, param[0].size()) == param[0].size());
     }
 
 	static Php::Class<ZStdErr> php_register() {

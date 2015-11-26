@@ -12,7 +12,7 @@ private:
 public:
 
     FileMqClient() : ZHandle(), Php::Base() {}
-    FileMqClient(mlm_client_t *handle, bool owned) : ZHandle(handle, owned, "fmq_client"), Php::Base() {}
+    FileMqClient(fmq_client_t *handle, bool owned) : ZHandle(handle, owned, "fmq_client"), Php::Base() {}
     fmq_client_t *fmq_client_handle() const { return (fmq_client_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
