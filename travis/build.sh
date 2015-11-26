@@ -17,6 +17,10 @@ install_libsodium() {
     cd libsodium
     if [ $LIBSODIUM_VERSION != "master" ]; then
         git checkout "tags/${LIBSODIUM_VERSION}"
+    else
+        if [ $LIBSODIUM_HASH != "" ]; then
+            git reset --hard $LIBSODIUM_HASH
+        fi
     fi
     ./autogen.sh
     ./configure
@@ -127,6 +131,10 @@ install_majordomo() {
   cd majordomo
   if [ $MAJORDOMO_VERSION != "master" ]; then
         git checkout "tags/${MAJORDOMO_VERSION}"
+  else
+        if [ $MAJORDOMO_HASH != "" ]; then
+            git reset --hard $MAJORDOMO_HASH
+        fi
   fi
   ./autogen.sh
   ./configure
@@ -147,6 +155,10 @@ install_malamute() {
   cd malamute
   if [ $MALAMUTE_VERSION != "master" ]; then
         git checkout "tags/${MALAMUTE_VERSION}"
+  else
+        if [ $MALAMUTE_HASH != "" ]; then
+            git reset --hard $MALAMUTE_HASH
+        fi
   fi
   ./autogen.sh
   ./configure
@@ -167,6 +179,10 @@ install_filemq() {
   cd filemq
   if [ $FILEMQ_VERSION != "master" ]; then
         git checkout "tags/${FILEMQ_VERSION}"
+  else
+        if [ $FILEMQ_HASH != "" ]; then
+            git reset --hard $FILEMQ_HASH
+        fi
   fi
   ./autogen.sh
   ./configure
@@ -186,6 +202,10 @@ install_phpcpp() {
   cd PHP-CPP
   if [ $PHPCPP_VERSION != "master" ]; then
         git checkout "tags/${PHPCPP_VERSION}"
+  else
+        if [ $PHPCPP_HASH != "" ]; then
+            git reset --hard $PHPCPP_HASH
+        fi
   fi
   make -j 8
   sudo make install
