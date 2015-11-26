@@ -116,6 +116,7 @@ install_zyre() {
   ./autogen.sh
   ./configure \
     --prefix=$ZYRE_DIR
+    --with-libczmq=$(shell cat /etc/ld.so.conf.d/libc.conf | grep /usr)
   make -j 8
   sudo make install
   sudo ldconfig
@@ -137,6 +138,7 @@ install_majordomo() {
   ./autogen.sh
   ./configure \
     --prefix=$MAJORDOMO_DIR
+    --with-libczmq=$(shell cat /etc/ld.so.conf.d/libc.conf | grep /usr)
   make -j 8
   sudo make install
   sudo ldconfig
@@ -158,6 +160,7 @@ install_malamute() {
   ./autogen.sh
   ./configure \
     --prefix=$MALAMUTE_DIR
+    --with-libczmq=$(shell cat /etc/ld.so.conf.d/libc.conf | grep /usr)
   make -j 8
   sudo make install
   sudo ldconfig
@@ -179,6 +182,7 @@ install_filemq() {
   ./autogen.sh
   ./configure \
     --prefix=$FILEMQ_DIR
+    --with-libczmq=$(shell cat /etc/ld.so.conf.d/libc.conf | grep /usr)
   make -j 8
   sudo make install
   sudo ldconfig

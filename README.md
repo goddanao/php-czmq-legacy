@@ -40,4 +40,5 @@ sudo ldconfig
 cd ..
 ```
 ## Usage
+ZeroMq brings 
 still to come... Take a look at the api, examples, php tests.
