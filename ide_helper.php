@@ -523,14 +523,14 @@ class ZLoop {
    * @param \IZDescriptor $socket ...
    * @param mixed $mode ... (optional)
   */
-  public function add($socket = null, $mode) {}
+  public function add(\IZDescriptor $socket, $mode) {}
 
   /**
    * ...
    * 
    * @param \IZDescriptor $socket ...
   */
-  public function remove($socket = null) {}
+  public function remove(\IZDescriptor $socket) {}
 
   /**
    * ...
@@ -573,21 +573,21 @@ class ZPoll {
    * @param \IZDescriptor $socket ...
    * @param mixed $mode ... (optional)
   */
-  public function add($socket = null, $mode) {}
+  public function add(\IZDescriptor $socket = null, $mode) {}
 
   /**
    * ...
    * 
    * @param \IZDescriptor $socket ...
   */
-  public function has($socket = null) {}
+  public function has(\IZDescriptor $socket = null) {}
 
   /**
    * ...
    * 
    * @param \IZDescriptor $socket ...
   */
-  public function remove($socket = null) {}
+  public function remove(\IZDescriptor $socket = null) {}
 
   /**
    * ...
@@ -751,7 +751,7 @@ class ZCertStore {
    * 
    * @param mixed $cert ...
   */
-  public function insert($cert) {}
+  public function insert(\ZCert $cert) {}
 
   /**
    * ...
@@ -788,7 +788,7 @@ class ZMonitor implements \IZSocket, \IZDescriptor {
    * @param \IZSocket $socket ...
    * @return \ZMonitor
   */
-  public function __construct($socket = null) {}
+  public function __construct(\IZSocket $socket = null) {}
 
   /**
    * ...

@@ -173,11 +173,11 @@ public:
         o.method("start", &ZLoop::start);
         o.method("stop", &ZLoop::stop);
         o.method("add", &ZLoop::add, {
-            Php::ByVal("socket", "IZDescriptor", true),
+            Php::ByVal("socket", "IZDescriptor", false, true),
             Php::ByVal("mode", Php::Type::Numeric, false)
         });
         o.method("remove", &ZLoop::remove, {
-            Php::ByVal("socket", "IZDescriptor", true)
+            Php::ByVal("socket", "IZDescriptor", false, true)
         });
         o.method("add_timer", &ZLoop::add_timer);
         o.method("remove_timer", &ZLoop::remove_timer, {
