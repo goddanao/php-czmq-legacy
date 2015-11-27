@@ -2,7 +2,7 @@
 
 #include "zframe.h"
 
-class ZMsg  : public ZHandle, public Php::Base, public Php::Countable {
+class ZMsg  : public ZHandle, public Php::Base, public Php::Countable, public Php::ArrayAccess {
 public:
 
     ZMsg() : ZHandle(), Php::Base() {}
@@ -134,7 +134,7 @@ public:
                 zmsg_addstrf (msg, "%u" , (uint16_t) (int) param[picture_idx++]);
             else
             if (*picture == '4') // PRIu32
-                zmsg_addstrf (msg, "%lu" , (uint32_t) (int) param[picture_idx++]);
+                zmsg_addstrf (msg, "%u" , (uint32_t) (int) param[picture_idx++]);
             else
             if (*picture == '8') // PRIu64
                 zmsg_addstrf (msg, "%lu" , (uint64_t) (long) param[picture_idx++]);
@@ -242,7 +242,7 @@ public:
                 zmsg_pushstrf (msg, "%u" , (uint16_t) (int) param[picture_idx--]);
             else
             if (*picture == '4') // PRIu32
-                zmsg_pushstrf (msg, "%lu" , (uint32_t) (int) param[picture_idx--]);
+                zmsg_pushstrf (msg, "%u" , (uint32_t) (int) param[picture_idx--]);
             else
             if (*picture == '8') // PRIu64
                 zmsg_pushstrf (msg, "%lu" , (uint64_t) (long) param[picture_idx--]);
@@ -553,6 +553,85 @@ public:
     virtual long count() override
     {
         return zmsg_size(zmsg_handle());
+    }
+
+ /**
+     *  Method from the Php::ArrayAccess interface that is
+     *  called to check if a certain key exists in the map
+     *  @param  key
+     *  @return bool
+     */
+    virtual bool offsetExists(const Php::Value &key) override
+    {
+        return key.isNumeric() && zmsg_size(zmsg_handle()) > key.numericValue();
+    }
+
+    /**
+     *  Set a member
+     *  @param  key
+     *  @param  value
+     */
+    virtual void offsetSet(const Php::Value &key, const Php::Value &value) override
+    {
+        if(!(key.isNumeric() && zmsg_size(zmsg_handle()) > key.numericValue()))
+            return;
+
+        zframe_t *frame = zmsg_first(zmsg_handle());
+        int count = key.numericValue();
+        while(count && frame) {
+            frame = zmsg_next(zmsg_handle());
+            count--;
+        }
+        if(frame) {
+            Php::Value val = value;
+            zmsg_t *msg = msg_from_param(&val);
+            if(msg) {
+                zframe_t *repl = zmsg_first(msg);
+                if(repl)
+                    zframe_reset(frame, zframe_data(repl), zframe_size(repl));
+                zmsg_destroy(&msg);
+            }
+        }
+    }
+
+    /**
+     *  Retrieve a member
+     *  @param  key
+     *  @return value
+     */
+    virtual Php::Value offsetGet(const Php::Value &key) override
+    {
+        if(!(key.isNumeric() && zmsg_size(zmsg_handle()) > key.numericValue()))
+            return nullptr;
+
+        zframe_t *frame = zmsg_first(zmsg_handle());
+        int count = key.numericValue();
+        while(count && frame) {
+            frame = zmsg_next(zmsg_handle());
+            count--;
+        }
+        return Php::Object("ZFrame", new ZFrame(zframe_dup(frame), true));
+    }
+
+    /**
+     *  Remove a member
+     *  @param key
+     */
+    virtual void offsetUnset(const Php::Value &key) override
+    {
+        if(!(key.isNumeric() && zmsg_size(zmsg_handle()) > key.numericValue()))
+            return;
+
+        zframe_t *frame = zmsg_first(zmsg_handle());
+        int count = key.numericValue();
+        while(count && frame) {
+            frame = zmsg_next(zmsg_handle());
+            count--;
+        }
+        if(frame) {
+            zmsg_remove(zmsg_handle(), frame);
+            zframe_destroy(&frame);
+        }
     }
 
     static Php::Class<ZMsg> php_register() {
