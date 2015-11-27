@@ -86,11 +86,13 @@ public:
      static Php::Class<MajordomoBrokerV1> php_register() {
         Php::Class<MajordomoBrokerV1> o("Broker");
         o.method("__construct", &MajordomoBrokerV1::__construct);
-        o.method("bind", &MajordomoBrokerV1::bind);
+        o.method("bind", &MajordomoBrokerV1::bind, {
+            Php::ByVal("endpoint", Php::Type::String, true)
+        });
         o.method("set_verbose", &MajordomoBrokerV1::set_verbose);
         o.method("get_status", &MajordomoBrokerV1::get_status);
         o.method("set_capture", &MajordomoBrokerV1::set_capture, {
-            Php::ByVal("socket_endpoint", Php::Type::String, true)
+            Php::ByVal("endpoint", Php::Type::String, true)
         });
 
         // IZSocket intf support

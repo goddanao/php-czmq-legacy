@@ -30,7 +30,7 @@ public:
         zstr_sendx (zmonitor_handle(), "LISTEN", param[0].stringValue().c_str(), NULL);
     }
 
-    void start(Php::Parameters &param) {
+    void start() {
         zstr_send (zmonitor_handle(), "START");
         zsock_wait(zmonitor_handle());
     }
@@ -38,7 +38,7 @@ public:
     static Php::Class<ZMonitor> php_register() {
         Php::Class<ZMonitor> o("ZMonitor");
         o.method("__construct", &ZMonitor::__construct, {
-          Php::ByVal("socket", "IZSocket", true)
+            Php::ByRef("socket", "IZSocket", false, true)
         });
         o.method("set_verbose", &ZMonitor::set_verbose);
         o.method("listen", &ZMonitor::listen, {

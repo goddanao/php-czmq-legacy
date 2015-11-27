@@ -53,8 +53,13 @@ public:
 	static Php::Class<ZInotify> php_register() {
         Php::Class<ZInotify> o("ZInotify");
 
-        o.method("watch", &ZInotify::watch);
-        o.method("remove", &ZInotify::remove);
+        o.method("watch", &ZInotify::watch, {
+            Php::ByVal("file", Php::Type::String, true),
+            Php::ByVal("events", Php::Type::Numeric, true)
+        });
+        o.method("remove", &ZInotify::remove, {
+            Php::ByVal("watch_id", Php::Type::Numeric, true)
+        });
         o.method("recv", &ZInotify::recv);
 
         o.constant("IN_ACCESS", IN_ACCESS);

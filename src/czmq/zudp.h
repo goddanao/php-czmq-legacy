@@ -25,13 +25,10 @@ public:
         if(INVALID_SOCKET == socket)
             throw Php::Exception("ZUdp can't create UDP Socket");
 
-        //
-
         in_addr_t bind_to = 0;
         in_addr_t send_to = 0;
 
         if (streq (iface, "*")) {
-            // zsys_info("binding .... * ");
             //  Wildcard means bind to INADDR_ANY and send to INADDR_BROADCAST
             bind_to = INADDR_ANY;
             send_to = INADDR_BROADCAST;
@@ -100,7 +97,7 @@ public:
         zmsg_t *zmsg = ZMsg::msg_from_param(&p);
         zframe_t *frame = nullptr;
 
-        if(zmsg != nullptr) {
+        if(zmsg) {
             frame = zmsg_pop (zmsg);
             while(frame && (rc != -1)) {
                 rc = zsys_udp_send(zudp_handle(), frame, &broadcast);

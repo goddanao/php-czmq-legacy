@@ -169,17 +169,23 @@ public:
 
         o.method("__construct", &ZLoop::__construct);
         o.method("set_verbose", &ZLoop::set_verbose);
-        o.method("set_max_timers", &ZLoop::set_max_timers);
+        o.method("set_max_timers", &ZLoop::set_max_timers, {
+            Php::ByVal("max_timers", Php::Type::Numeric, true)
+        });
         o.method("start", &ZLoop::start);
         o.method("stop", &ZLoop::stop);
         o.method("add", &ZLoop::add, {
-            Php::ByVal("socket", "IZDescriptor", false, true),
+            Php::ByRef("socket", "IZDescriptor", false, true),
             Php::ByVal("mode", Php::Type::Numeric, false)
         });
         o.method("remove", &ZLoop::remove, {
-            Php::ByVal("socket", "IZDescriptor", false, true)
+            Php::ByRef("socket", "IZDescriptor", false, true)
         });
-        o.method("add_timer", &ZLoop::add_timer);
+        o.method("add_timer", &ZLoop::add_timer, {
+           Php::ByVal("timeout", Php::Type::Numeric, true),
+           Php::ByVal("callback", Php::Type::Callable, true),
+           Php::ByVal("repeat", Php::Type::Numeric, false)
+       });
         o.method("remove_timer", &ZLoop::remove_timer, {
             Php::ByVal("timer_id", Php::Type::Numeric, true)
         });

@@ -243,8 +243,8 @@ Php::Value ZSocket::get_last_endpoint() {
 
 #if (ZMQ_VERSION_MAJOR == 4)
 
-void ZSocket::set_tos(Php::Parameters &param) {
-    zsock_set_tos(zsock_handle(), param[0].numericValue());
+void ZSocket::set_tos(const Php::Value &value) {
+    zsock_set_tos(zsock_handle(), value.numericValue());
 }
 
 void ZSocket::set_router_handover(Php::Parameters &param) {
@@ -271,72 +271,72 @@ void ZSocket::set_conflate(Php::Parameters &param) {
     zsock_set_conflate(zsock_handle(), param[0].numericValue());
 }
 
-void ZSocket::set_zap_domain(Php::Parameters &param) {
-    zsock_set_zap_domain(zsock_handle(), param[0].stringValue().c_str());
+void ZSocket::set_zap_domain(const Php::Value &value) {
+    zsock_set_zap_domain(zsock_handle(), value.stringValue().c_str());
 }
 
-void ZSocket::set_plain_server(Php::Parameters &param) {
-    zsock_set_plain_server(zsock_handle(), param[0].numericValue());
+void ZSocket::set_plain_server(const Php::Value &value) {
+    zsock_set_plain_server(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_plain_username(Php::Parameters &param) {
-    zsock_set_plain_username(zsock_handle(), param[0].stringValue().c_str());
+void ZSocket::set_plain_username(const Php::Value &value) {
+    zsock_set_plain_username(zsock_handle(), value.stringValue().c_str());
 }
 
-void ZSocket::set_plain_password(Php::Parameters &param) {
-    zsock_set_plain_password(zsock_handle(), param[0].stringValue().c_str());
+void ZSocket::set_plain_password(const Php::Value &value) {
+    zsock_set_plain_password(zsock_handle(), value.stringValue().c_str());
 }
 
-void ZSocket::set_curve_server(Php::Parameters &param) {
-    zsock_set_curve_server(zsock_handle(), param[0].numericValue());
+void ZSocket::set_curve_server(const Php::Value &value) {
+    zsock_set_curve_server(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_curve_publickey(Php::Parameters &param) {
-    zsock_set_curve_publickey(zsock_handle(), param[0].stringValue().c_str());
+void ZSocket::set_curve_publickey(const Php::Value &value) {
+    zsock_set_curve_publickey(zsock_handle(), value.stringValue().c_str());
 }
 
 void ZSocket::set_curve_publickey_bin(Php::Parameters &param) {
     zsock_set_curve_publickey_bin(zsock_handle(), (byte *) param[0].rawValue());
 }
 
-void ZSocket::set_curve_secretkey(Php::Parameters &param) {
-    zsock_set_curve_secretkey(zsock_handle(), param[0].stringValue().c_str());
+void ZSocket::set_curve_secretkey(const Php::Value &value) {
+    zsock_set_curve_secretkey(zsock_handle(), value.stringValue().c_str());
 }
 
 void ZSocket::set_curve_secretkey_bin(Php::Parameters &param) {
     zsock_set_curve_secretkey_bin(zsock_handle(), (byte *) param[0].rawValue());
 }
 
-void ZSocket::set_curve_serverkey(Php::Parameters &param) {
-    zsock_set_curve_serverkey(zsock_handle(), param[0].stringValue().c_str());
+void ZSocket::set_curve_serverkey(const Php::Value &value) {
+    zsock_set_curve_serverkey(zsock_handle(), value.stringValue().c_str());
 }
 
 void ZSocket::set_curve_serverkey_bin(Php::Parameters &param) {
     zsock_set_curve_serverkey_bin(zsock_handle(), (byte *) param[0].rawValue());
 }
 
-void ZSocket::set_gssapi_server(Php::Parameters &param) {
-    zsock_set_gssapi_server(zsock_handle(), param[0].numericValue());
+void ZSocket::set_gssapi_server(const Php::Value &value) {
+    zsock_set_gssapi_server(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_gssapi_plaintext(Php::Parameters &param) {
-    zsock_set_gssapi_plaintext(zsock_handle(), param[0].numericValue());
+void ZSocket::set_gssapi_plaintext(const Php::Value &value) {
+    zsock_set_gssapi_plaintext(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_gssapi_principal(Php::Parameters &param) {
-    zsock_set_gssapi_principal(zsock_handle(), param[0].stringValue().c_str());
+void ZSocket::set_gssapi_principal(const Php::Value &value) {
+    zsock_set_gssapi_principal(zsock_handle(), value.stringValue().c_str());
 }
 
-void ZSocket::set_gssapi_service_principal(Php::Parameters &param) {
-    zsock_set_gssapi_service_principal(zsock_handle(), param[0].stringValue().c_str());
+void ZSocket::set_gssapi_service_principal(const Php::Value &value) {
+    zsock_set_gssapi_service_principal(zsock_handle(), value.stringValue().c_str());
 }
 
-void ZSocket::set_ipv6(Php::Parameters &param) {
-    zsock_set_ipv6(zsock_handle(), param[0].numericValue());
+void ZSocket::set_ipv6(const Php::Value &value) {
+    zsock_set_ipv6(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_immediate(Php::Parameters &param) {
-    zsock_set_immediate(zsock_handle(), param[0].numericValue());
+void ZSocket::set_immediate(const Php::Value &value) {
+    zsock_set_immediate(zsock_handle(), value.numericValue());
 }
 
 #endif
@@ -345,24 +345,24 @@ void ZSocket::set_router_raw(Php::Parameters &param) {
     zsock_set_router_raw(zsock_handle(), param[0].numericValue());
 }
 
-void ZSocket::set_ipv4only(Php::Parameters &param) {
-    zsock_set_ipv4only(zsock_handle(), param[0].numericValue());
+void ZSocket::set_ipv4only(const Php::Value &value) {
+    zsock_set_ipv4only(zsock_handle(), value.numericValue());
 }
 
 void ZSocket::set_delay_attach_on_connect(Php::Parameters &param) {
     zsock_set_delay_attach_on_connect(zsock_handle(), param[0].numericValue());
 }
 
-void ZSocket::set_sndhwm(Php::Parameters &param) {
-    zsock_set_sndhwm(zsock_handle(), param[0].numericValue());
+void ZSocket::set_sndhwm(const Php::Value &value) {
+    zsock_set_sndhwm(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_rcvhwm(Php::Parameters &param) {
-    zsock_set_rcvhwm(zsock_handle(), param[0].numericValue());
+void ZSocket::set_rcvhwm(const Php::Value &value) {
+    zsock_set_rcvhwm(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_affinity(Php::Parameters &param) {
-    zsock_set_affinity(zsock_handle(), param[0].numericValue());
+void ZSocket::set_affinity(const Php::Value &value) {
+    zsock_set_affinity(zsock_handle(), value.numericValue());
 }
 
 void ZSocket::set_subscribe(Php::Parameters &param) {
@@ -373,78 +373,78 @@ void ZSocket::set_unsubscribe(Php::Parameters &param) {
     zsock_set_unsubscribe(zsock_handle(), param[0].stringValue().c_str());
 }
 
-void ZSocket::set_identity(Php::Parameters &param) {
-    zsock_set_identity(zsock_handle(), param[0].stringValue().c_str());
+void ZSocket::set_identity(const Php::Value &value) {
+    zsock_set_identity(zsock_handle(), value.stringValue().c_str());
 }
 
-void ZSocket::set_rate(Php::Parameters &param) {
-    zsock_set_rate(zsock_handle(), param[0].numericValue());
+void ZSocket::set_rate(const Php::Value &value) {
+    zsock_set_rate(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_recovery_ivl(Php::Parameters &param) {
-    zsock_set_recovery_ivl(zsock_handle(), param[0].numericValue());
+void ZSocket::set_recovery_ivl(const Php::Value &value) {
+    zsock_set_recovery_ivl(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_sndbuf(Php::Parameters &param) {
-    zsock_set_sndbuf(zsock_handle(), param[0].numericValue());
+void ZSocket::set_sndbuf(const Php::Value &value) {
+    zsock_set_sndbuf(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_rcvbuf(Php::Parameters &param) {
-    zsock_set_rcvbuf(zsock_handle(), param[0].numericValue());
+void ZSocket::set_rcvbuf(const Php::Value &value) {
+    zsock_set_rcvbuf(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_linger(Php::Parameters &param) {
-    zsock_set_linger(zsock_handle(), param[0].numericValue());
+void ZSocket::set_linger(const Php::Value &value) {
+    zsock_set_linger(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_reconnect_ivl(Php::Parameters &param) {
-    zsock_set_reconnect_ivl(zsock_handle(), param[0].numericValue());
+void ZSocket::set_reconnect_ivl(const Php::Value &value) {
+    zsock_set_reconnect_ivl(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_reconnect_ivl_max(Php::Parameters &param) {
-    zsock_set_reconnect_ivl_max(zsock_handle(), param[0].numericValue());
+void ZSocket::set_reconnect_ivl_max(const Php::Value &value) {
+    zsock_set_reconnect_ivl_max(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_backlog(Php::Parameters &param) {
-    zsock_set_backlog(zsock_handle(), param[0].numericValue());
+void ZSocket::set_backlog(const Php::Value &value) {
+    zsock_set_backlog(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_maxmsgsize(Php::Parameters &param) {
-    zsock_set_maxmsgsize(zsock_handle(), param[0].numericValue());
+void ZSocket::set_maxmsgsize(const Php::Value &value) {
+    zsock_set_maxmsgsize(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_multicast_hops(Php::Parameters &param) {
-    zsock_set_multicast_hops(zsock_handle(), param[0].numericValue());
+void ZSocket::set_multicast_hops(const Php::Value &value) {
+    zsock_set_multicast_hops(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_rcvtimeo(Php::Parameters &param) {
-    zsock_set_rcvtimeo(zsock_handle(), param[0].numericValue());
+void ZSocket::set_rcvtimeo(const Php::Value &value) {
+    zsock_set_rcvtimeo(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_sndtimeo(Php::Parameters &param) {
-    zsock_set_sndtimeo(zsock_handle(), param[0].numericValue());
+void ZSocket::set_sndtimeo(const Php::Value &value) {
+    zsock_set_sndtimeo(zsock_handle(), value.numericValue());
 }
 
 void ZSocket::set_xpub_verbose(Php::Parameters &param) {
     zsock_set_xpub_verbose(zsock_handle(), param[0].numericValue());
 }
 
-void ZSocket::set_tcp_keepalive(Php::Parameters &param) {
-    zsock_set_tcp_keepalive(zsock_handle(), param[0].numericValue());
+void ZSocket::set_tcp_keepalive(const Php::Value &value) {
+    zsock_set_tcp_keepalive(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_tcp_keepalive_idle(Php::Parameters &param) {
-    zsock_set_tcp_keepalive_idle(zsock_handle(), param[0].numericValue());
+void ZSocket::set_tcp_keepalive_idle(const Php::Value &value) {
+    zsock_set_tcp_keepalive_idle(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_tcp_keepalive_cnt(Php::Parameters &param) {
-    zsock_set_tcp_keepalive_cnt(zsock_handle(), param[0].numericValue());
+void ZSocket::set_tcp_keepalive_cnt(const Php::Value &value) {
+    zsock_set_tcp_keepalive_cnt(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_tcp_keepalive_intvl(Php::Parameters &param) {
-    zsock_set_tcp_keepalive_intvl(zsock_handle(), param[0].numericValue());
+void ZSocket::set_tcp_keepalive_intvl(const Php::Value &value) {
+    zsock_set_tcp_keepalive_intvl(zsock_handle(), value.numericValue());
 }
 
-void ZSocket::set_tcp_accept_filter(Php::Parameters &param) {
-    zsock_set_tcp_accept_filter(zsock_handle(), param[0].stringValue().c_str());
+void ZSocket::set_tcp_accept_filter(const Php::Value &value) {
+    zsock_set_tcp_accept_filter(zsock_handle(), value.stringValue().c_str());
 }

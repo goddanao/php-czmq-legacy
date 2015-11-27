@@ -25,10 +25,7 @@ public:
         zsock_wait (zproxy_handle());
     }
 
-    void set_verbose(Php::Parameters &param) {
-        _verbose = param.size() > 0 ? param[0].boolValue() : true;
-        if(!_verbose)
-            return;
+    void set_verbose() {
         zstr_sendx (zproxy_handle(), "VERBOSE", NULL);
         zsock_wait (zproxy_handle());
     }
@@ -69,15 +66,15 @@ public:
         o.method("recv", &ZProxy::recv);
 
         o.method("set_frontend", &ZProxy::set_frontend, {
-            Php::ByVal("socket_type", Php::Type::String, true),
-            Php::ByVal("socket_endpoint", Php::Type::String, true)
+            Php::ByVal("type", Php::Type::String, true),
+            Php::ByVal("endpoint", Php::Type::String, true)
         });
         o.method("set_backend", &ZProxy::set_backend, {
-            Php::ByVal("socket_type", Php::Type::String, true),
-            Php::ByVal("socket_endpoint", Php::Type::String, true)
+            Php::ByVal("type", Php::Type::String, true),
+            Php::ByVal("endpoint", Php::Type::String, true)
         });
         o.method("set_capture", &ZProxy::set_capture, {
-            Php::ByVal("socket_endpoint", Php::Type::String, true)
+            Php::ByVal("endpoint", Php::Type::String, true)
         });
 
         // IZSocket intf support

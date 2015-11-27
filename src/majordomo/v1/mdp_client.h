@@ -118,7 +118,6 @@ public:
 		    zmsg_t *reply = recv (NULL, NULL);
             if(reply)
                 return Php::Object("Zmsg", new ZMsg(reply, true));
-
         }
 
         return nullptr;
@@ -143,8 +142,14 @@ public:
     static Php::Class<MajordomoClientV1> php_register() {
         Php::Class<MajordomoClientV1> o("Client");
         o.method("__construct", &MajordomoClientV1::__construct);
-        o.method("call", &MajordomoClientV1::call);
-        o.method("call_async", &MajordomoClientV1::call_async);
+        o.method("call", &MajordomoClientV1::call, {
+            Php::ByVal("service", Php::Type::String, true),
+            Php::ByVal("data", Php::Type::String, false)
+        });
+        o.method("call_async", &MajordomoClientV1::call_async, {
+             Php::ByVal("service", Php::Type::String, true),
+             Php::ByVal("data", Php::Type::String, false)
+        });
 
         // IZSocket intf support
 		o.method("get_fd", &MajordomoClientV1::get_fd);

@@ -130,7 +130,9 @@ public:
             Php::ByVal("filename", Php::Type::String, true)
         });
 
-        o.method("apply", &ZCert::apply);
+        o.method("apply", &ZCert::apply, {
+            Php::ByRef("socket", "IZSocket", false, true)
+        });
 
         o.method("dump", &ZCert::dump);
 

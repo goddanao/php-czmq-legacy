@@ -69,7 +69,10 @@ public:
         o.method("deny", &ZAuth::deny, {
              Php::ByVal("ip", Php::Type::String, true)
          });
-        o.method("configure", &ZAuth::configure);
+        o.method("configure", &ZAuth::configure, {
+            Php::ByVal("mode", Php::Type::String, true),
+            Php::ByVal("path", Php::Type::String, false)
+        });
 
         // IZSocket
         o.method("get_fd", &ZAuth::get_fd);

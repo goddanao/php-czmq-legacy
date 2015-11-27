@@ -22,7 +22,9 @@ public:
 	static Php::Class<ZStdIn> php_register() {
         Php::Class<ZStdIn> o("ZStdIn");
         o.method("recv", &ZStdIn::recv);
-        o.method("send", &ZStdIn::send);
+        o.method("send", &ZStdIn::send, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
         // IZSocket intf support
         o.method("get_fd", &ZStdIn::get_fd);
         return o;
@@ -50,7 +52,9 @@ public:
 	static Php::Class<ZStdOut> php_register() {
         Php::Class<ZStdOut> o("ZStdOut");
         o.method("recv", &ZStdOut::recv);
-        o.method("send", &ZStdOut::send);
+        o.method("send", &ZStdOut::send, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
         // IZSocket intf support
         o.method("get_fd", &ZStdOut::get_fd);
         return o;
@@ -78,7 +82,10 @@ public:
 	static Php::Class<ZStdErr> php_register() {
         Php::Class<ZStdErr> o("ZStdErr");
         o.method("recv", &ZStdErr::recv);
-        o.method("send", &ZStdErr::send);
+        o.method("send", &ZStdErr::send, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+
         // IZSocket intf support
         o.method("get_fd", &ZStdErr::get_fd);
         return o;

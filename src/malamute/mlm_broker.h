@@ -61,10 +61,20 @@ public:
         Php::Class<MalamuteBroker> o("Broker");
         o.method("__construct", &MalamuteBroker::__construct);
         o.method("set_verbose", &MalamuteBroker::set_verbose);
-        o.method("bind", &MalamuteBroker::bind);
-        o.method("load_config", &MalamuteBroker::load_config);
-        o.method("save_config", &MalamuteBroker::save_config);
-        o.method("set_config", &MalamuteBroker::set_config);
+
+        o.method("bind", &MalamuteBroker::bind, {
+          Php::ByVal("endpoint", Php::Type::String, true)
+        });
+        o.method("load_config", &MalamuteBroker::load_config, {
+            Php::ByVal("filename", Php::Type::String, true)
+        });
+        o.method("save_config", &MalamuteBroker::save_config, {
+            Php::ByVal("filename", Php::Type::String, true)
+        });
+        o.method("set_config", &MalamuteBroker::set_config, {
+            Php::ByVal("key", Php::Type::String, true),
+            Php::ByVal("value", Php::Type::String, true)
+        });
 
          // IZSocket intf support
         o.method("get_fd", &MalamuteBroker::get_fd);

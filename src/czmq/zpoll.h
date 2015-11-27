@@ -196,23 +196,42 @@ public:
 
         Php::Class<ZPoll> o("ZPoll");
 
-        o.method("set_verbose", &ZPoll::set_verbose);
+        o.method("set_verbose", &ZPoll::set_verbose, {
+            Php::ByVal("verbose", Php::Type::Bool, false)
+        });
+
         o.method("add", &ZPoll::add, {
-            Php::ByVal("socket", "IZDescriptor", true),
+            Php::ByRef("socket", "IZDescriptor", false, true),
             Php::ByVal("mode", Php::Type::Numeric, false)
         });
         o.method("has", &ZPoll::has, {
-               Php::ByVal("socket", "IZDescriptor", true)
-           });
+               Php::ByRef("socket", "IZDescriptor", false, true)
+        });
         o.method("remove", &ZPoll::remove, {
-             Php::ByVal("socket", "IZDescriptor", true)
-         });
-        o.method("check_for", &ZPoll::check_for);
-        o.method("events", &ZPoll::events);
-        o.method("poll", &ZPoll::poll);
-        o.method("has_input", &ZPoll::has_input);
-        o.method("has_output", &ZPoll::has_output);
-        o.method("has_error", &ZPoll::has_error);
+             Php::ByRef("socket", "IZDescriptor", false, true)
+        });
+        o.method("check_for", &ZPoll::check_for, {
+            Php::ByRef("socket", "IZDescriptor", false, true),
+            Php::ByVal("event", Php::Type::Numeric, false)
+        });
+
+        o.method("events", &ZPoll::events, {
+            Php::ByRef("socket", "IZDescriptor", false, true)
+        });
+
+        o.method("poll", &ZPoll::poll, {
+            Php::ByVal("timeout", Php::Type::Numeric, false)
+        });
+
+        o.method("has_input", &ZPoll::has_input, {
+            Php::ByRef("socket", "IZDescriptor", false, true)
+        });
+        o.method("has_output", &ZPoll::has_output, {
+            Php::ByRef("socket", "IZDescriptor", false, true)
+        });
+        o.method("has_error", &ZPoll::has_error, {
+            Php::ByRef("socket", "IZDescriptor", false, true)
+        });
 
         return o;
 

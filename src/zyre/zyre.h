@@ -75,9 +75,10 @@ public:
         return result;
     }
 
-
 	void set_port(Php::Parameters &param) { zyre_set_port(zyre_handle(), param[0].numericValue()); }
+
 	void set_interface(Php::Parameters &param) { zyre_set_interface(zyre_handle(), param[0].stringValue().c_str()); }
+
 	void set_interval(Php::Parameters &param) { zyre_set_interval(zyre_handle(), param[0].numericValue()); }
 
 

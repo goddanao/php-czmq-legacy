@@ -121,8 +121,7 @@ public:
     }
 
     Php::Value bind(Php::Parameters &param) {
-        std::string ep = param[0].stringValue();
-        int result = zsock_bind(zsock_handle(), ep.c_str());
+        int result = zsock_bind(zsock_handle(), param[0].stringValue().c_str());
         return (result == -1 ? false : (result == 0 ? true : result));
     }
 
@@ -302,7 +301,7 @@ public:
 
     // Set Socket Options
 
-    void set_tos(Php::Parameters &param) ;
+    void set_tos(const Php::Value &value) ;
 
     void set_router_handover(Php::Parameters &param) ;
 
@@ -316,93 +315,93 @@ public:
 
     void set_conflate(Php::Parameters &param) ;
 
-    void set_zap_domain(Php::Parameters &param) ;
+    void set_zap_domain(const Php::Value &value) ;
 
-    void set_plain_server(Php::Parameters &param) ;
+    void set_plain_server(const Php::Value &value) ;
 
-    void set_plain_username(Php::Parameters &param) ;
+    void set_plain_username(const Php::Value &value) ;
 
-    void set_plain_password(Php::Parameters &param) ;
+    void set_plain_password(const Php::Value &value) ;
 
-    void set_curve_server(Php::Parameters &param) ;
+    void set_curve_server(const Php::Value &value) ;
 
-    void set_curve_publickey(Php::Parameters &param) ;
+    void set_curve_publickey(const Php::Value &value) ;
 
     void set_curve_publickey_bin(Php::Parameters &param) ;
 
-    void set_curve_secretkey(Php::Parameters &param) ;
+    void set_curve_secretkey(const Php::Value &value) ;
 
     void set_curve_secretkey_bin(Php::Parameters &param) ;
 
-    void set_curve_serverkey(Php::Parameters &param) ;
+    void set_curve_serverkey(const Php::Value &value) ;
 
     void set_curve_serverkey_bin(Php::Parameters &param) ;
 
-    void set_gssapi_server(Php::Parameters &param) ;
+    void set_gssapi_server(const Php::Value &value) ;
 
-    void set_gssapi_plaintext(Php::Parameters &param) ;
+    void set_gssapi_plaintext(const Php::Value &value) ;
 
-    void set_gssapi_principal(Php::Parameters &param) ;
+    void set_gssapi_principal(const Php::Value &value) ;
 
-    void set_gssapi_service_principal(Php::Parameters &param) ;
+    void set_gssapi_service_principal(const Php::Value &value) ;
 
-    void set_ipv6(Php::Parameters &param) ;
+    void set_ipv6(const Php::Value &value) ;
 
-    void set_immediate(Php::Parameters &param) ;
+    void set_immediate(const Php::Value &value) ;
 
     void set_router_raw(Php::Parameters &param) ;
 
-    void set_ipv4only(Php::Parameters &param) ;
+    void set_ipv4only(const Php::Value &value) ;
 
     void set_delay_attach_on_connect(Php::Parameters &param) ;
 
-    void set_sndhwm(Php::Parameters &param) ;
+    void set_sndhwm(const Php::Value &value) ;
 
-    void set_rcvhwm(Php::Parameters &param) ;
+    void set_rcvhwm(const Php::Value &value) ;
 
-    void set_affinity(Php::Parameters &param) ;
+    void set_affinity(const Php::Value &value) ;
 
     void set_subscribe(Php::Parameters &param) ;
 
     void set_unsubscribe(Php::Parameters &param) ;
 
-    void set_identity(Php::Parameters &param) ;
+    void set_identity(const Php::Value &value) ;
 
-    void set_rate(Php::Parameters &param) ;
+    void set_rate(const Php::Value &value) ;
 
-    void set_recovery_ivl(Php::Parameters &param) ;
+    void set_recovery_ivl(const Php::Value &value) ;
 
-    void set_sndbuf(Php::Parameters &param) ;
+    void set_sndbuf(const Php::Value &value) ;
 
-    void set_rcvbuf(Php::Parameters &param) ;
+    void set_rcvbuf(const Php::Value &value) ;
 
-    void set_linger(Php::Parameters &param) ;
+    void set_linger(const Php::Value &value) ;
 
-    void set_reconnect_ivl(Php::Parameters &param) ;
+    void set_reconnect_ivl(const Php::Value &value) ;
 
-    void set_reconnect_ivl_max(Php::Parameters &param) ;
+    void set_reconnect_ivl_max(const Php::Value &value) ;
 
-    void set_backlog(Php::Parameters &param) ;
+    void set_backlog(const Php::Value &value) ;
 
-    void set_maxmsgsize(Php::Parameters &param) ;
+    void set_maxmsgsize(const Php::Value &value) ;
 
-    void set_multicast_hops(Php::Parameters &param) ;
+    void set_multicast_hops(const Php::Value &value) ;
 
-    void set_rcvtimeo(Php::Parameters &param) ;
+    void set_rcvtimeo(const Php::Value &value) ;
 
-    void set_sndtimeo(Php::Parameters &param) ;
+    void set_sndtimeo(const Php::Value &value) ;
 
     void set_xpub_verbose(Php::Parameters &param) ;
 
-    void set_tcp_keepalive(Php::Parameters &param) ;
+    void set_tcp_keepalive(const Php::Value &value) ;
 
-    void set_tcp_keepalive_idle(Php::Parameters &param) ;
+    void set_tcp_keepalive_idle(const Php::Value &value) ;
 
-    void set_tcp_keepalive_cnt(Php::Parameters &param) ;
+    void set_tcp_keepalive_cnt(const Php::Value &value) ;
 
-    void set_tcp_keepalive_intvl(Php::Parameters &param) ;
+    void set_tcp_keepalive_intvl(const Php::Value &value) ;
 
-    void set_tcp_accept_filter(Php::Parameters &param) ;
+    void set_tcp_accept_filter(const Php::Value &value) ;
 
 #endif
 
@@ -467,57 +466,57 @@ public:
 
     void set_router_raw(Php::Parameters &param) ;
 
-    void set_ipv4only(Php::Parameters &param) ;
+    void set_ipv4only(const Php::Value &value) ;
 
     void set_delay_attach_on_connect(Php::Parameters &param) ;
 
-    void set_sndhwm(Php::Parameters &param) ;
+    void set_sndhwm(const Php::Value &value) ;
 
-    void set_rcvhwm(Php::Parameters &param) ;
+    void set_rcvhwm(const Php::Value &value) ;
 
-    void set_affinity(Php::Parameters &param) ;
+    void set_affinity(const Php::Value &value) ;
 
     void set_subscribe(Php::Parameters &param) ;
 
     void set_unsubscribe(Php::Parameters &param) ;
 
-    void set_identity(Php::Parameters &param) ;
+    void set_identity(const Php::Value &value) ;
 
-    void set_rate(Php::Parameters &param) ;
+    void set_rate(const Php::Value &value) ;
 
     void set_recovery_ivl(Php::Parameters &param) ;
 
-    void set_sndbuf(Php::Parameters &param) ;
+    void set_sndbuf(const Php::Value &value) ;
 
-    void set_rcvbuf(Php::Parameters &param) ;
+    void set_rcvbuf(const Php::Value &value) ;
 
-    void set_linger(Php::Parameters &param) ;
+    void set_linger(const Php::Value &value) ;
 
-    void set_reconnect_ivl(Php::Parameters &param) ;
+    void set_reconnect_ivl(const Php::Value &value) ;
 
-    void set_reconnect_ivl_max(Php::Parameters &param) ;
+    void set_reconnect_ivl_max(const Php::Value &value) ;
 
-    void set_backlog(Php::Parameters &param) ;
+    void set_backlog(const Php::Value &value) ;
 
-    void set_maxmsgsize(Php::Parameters &param) ;
+    void set_maxmsgsize(const Php::Value &value) ;
 
-    void set_multicast_hops(Php::Parameters &param) ;
+    void set_multicast_hops(const Php::Value &value) ;
 
-    void set_rcvtimeo(Php::Parameters &param) ;
+    void set_rcvtimeo(const Php::Value &value) ;
 
-    void set_sndtimeo(Php::Parameters &param) ;
+    void set_sndtimeo(const Php::Value &value) ;
 
     void set_xpub_verbose(Php::Parameters &param) ;
 
-    void set_tcp_keepalive(Php::Parameters &param) ;
+    void set_tcp_keepalive(const Php::Value &value) ;
 
-    void set_tcp_keepalive_idle(Php::Parameters &param) ;
+    void set_tcp_keepalive_idle(const Php::Value &value) ;
 
-    void set_tcp_keepalive_cnt(Php::Parameters &param) ;
+    void set_tcp_keepalive_cnt(const Php::Value &value) ;
 
-    void set_tcp_keepalive_intvl(Php::Parameters &param) ;
+    void set_tcp_keepalive_intvl(const Php::Value &value) ;
 
-    void set_tcp_accept_filter(Php::Parameters &param) ;
+    void set_tcp_accept_filter(const Php::Value &value) ;
 
 #endif
 
@@ -557,11 +556,11 @@ public:
     	o.method("get_socket_type", &ZSocket::get_socket_type);
 
         o.method("send", &ZSocket::send, {
-            // Php::ByRef("zmsg", "ZMsg", false, true)
+            Php::ByVal("data", Php::Type::String, true)
         });
     	o.method("recv", &ZSocket::recv);
         o.method("send_string", &ZSocket::send_string, {
-            Php::ByVal("value", Php::Type::String, true)
+            Php::ByVal("data", Php::Type::String, true)
         });
         o.method("recv_string", &ZSocket::recv_string);
         o.method("send_picture", &ZSocket::send_picture, {
@@ -636,156 +635,101 @@ public:
 
 #if (ZMQ_VERSION_MAJOR == 4)
 
-    	o.method("get_tos", &ZSocket::get_tos);
-    	o.method("get_zap_domain", &ZSocket::get_zap_domain);
-    	o.method("get_mechanism", &ZSocket::get_mechanism);
-    	o.method("get_plain_server", &ZSocket::get_plain_server);
-    	o.method("get_plain_username", &ZSocket::get_plain_username);
-    	o.method("get_plain_password", &ZSocket::get_plain_password);
-    	o.method("get_curve_server", &ZSocket::get_curve_server);
-    	o.method("get_curve_publickey", &ZSocket::get_curve_publickey);
-    	o.method("get_curve_secretkey", &ZSocket::get_curve_secretkey);
-    	o.method("get_curve_serverkey", &ZSocket::get_curve_serverkey);
-    	o.method("get_gssapi_server", &ZSocket::get_gssapi_server);
-    	o.method("get_gssapi_plaintext", &ZSocket::get_gssapi_plaintext);
-    	o.method("get_gssapi_principal", &ZSocket::get_gssapi_principal);
-    	o.method("get_gssapi_service_principal", &ZSocket::get_gssapi_service_principal);
-    	o.method("get_ipv6", &ZSocket::get_ipv6);
-    	o.method("get_immediate", &ZSocket::get_immediate);
-    	o.method("get_ipv4only", &ZSocket::get_ipv4only);
-    	o.method("get_type", &ZSocket::get_type);
-    	o.method("get_sndhwm", &ZSocket::get_sndhwm);
-    	o.method("get_rcvhwm", &ZSocket::get_rcvhwm);
-    	o.method("get_affinity", &ZSocket::get_affinity);
-    	o.method("get_identity", &ZSocket::get_identity);
-    	o.method("get_rate", &ZSocket::get_rate);
-    	o.method("get_recovery_ivl", &ZSocket::get_recovery_ivl);
-    	o.method("get_sndbuf", &ZSocket::get_sndbuf);
-    	o.method("get_rcvbuf", &ZSocket::get_rcvbuf);
-    	o.method("get_linger", &ZSocket::get_linger);
-    	o.method("get_reconnect_ivl", &ZSocket::get_reconnect_ivl);
-    	o.method("get_reconnect_ivl_max", &ZSocket::get_reconnect_ivl_max);
-    	o.method("get_backlog", &ZSocket::get_backlog);
-    	o.method("get_maxmsgsize", &ZSocket::get_maxmsgsize);
-    	o.method("get_multicast_hops", &ZSocket::get_multicast_hops);
-    	o.method("get_rcvtimeo", &ZSocket::get_rcvtimeo);
-    	o.method("get_sndtimeo", &ZSocket::get_sndtimeo);
-    	o.method("get_tcp_keepalive", &ZSocket::get_tcp_keepalive);
-    	o.method("get_tcp_keepalive_idle", &ZSocket::get_tcp_keepalive_idle);
-    	o.method("get_tcp_keepalive_cnt", &ZSocket::get_tcp_keepalive_cnt);
-    	o.method("get_tcp_keepalive_intvl", &ZSocket::get_tcp_keepalive_intvl);
-    	o.method("get_tcp_accept_filter", &ZSocket::get_tcp_accept_filter);
-    	o.method("get_rcvmore", &ZSocket::get_rcvmore);
-    	o.method("get_events", &ZSocket::get_events);
-    	o.method("get_last_endpoint", &ZSocket::get_last_endpoint);
-    	o.method("set_tos", &ZSocket::set_tos);
+        o.property("tos", &ZSocket::get_tos, &ZSocket::set_tos);
+        o.property("zap_domain", &ZSocket::get_zap_domain, &ZSocket::set_zap_domain);
+        o.property("mechanism", &ZSocket::get_mechanism);
+        o.property("plain_server", &ZSocket::get_plain_server, &ZSocket::set_plain_server);
+        o.property("plain_username", &ZSocket::get_plain_username, &ZSocket::set_plain_username);
+        o.property("plain_password", &ZSocket::get_plain_password, &ZSocket::set_plain_password);
+        o.property("curve_server", &ZSocket::get_curve_server, &ZSocket::set_curve_server);
+        o.property("curve_publickey", &ZSocket::get_curve_publickey, &ZSocket::set_curve_publickey);
+        o.property("curve_secretkey", &ZSocket::get_curve_secretkey, &ZSocket::set_curve_secretkey);
+        o.property("curve_serverkey", &ZSocket::get_curve_serverkey, &ZSocket::set_curve_serverkey);
+        o.property("gssapi_server", &ZSocket::get_gssapi_server, &ZSocket::set_gssapi_server);
+        o.property("gssapi_plaintext", &ZSocket::get_gssapi_plaintext, &ZSocket::set_gssapi_plaintext);
+        o.property("gssapi_principal", &ZSocket::get_gssapi_principal, &ZSocket::set_gssapi_principal);
+        o.property("gssapi_service_principal", &ZSocket::get_gssapi_service_principal, &ZSocket::set_gssapi_service_principal);
+        o.property("ipv6", &ZSocket::get_ipv6, &ZSocket::set_ipv6);
+        o.property("immediate", &ZSocket::get_immediate, &ZSocket::set_immediate);
+        o.property("ipv4only", &ZSocket::get_ipv4only, &ZSocket::set_ipv4only);
+        o.property("type", &ZSocket::get_type);
+        o.property("sndhwm", &ZSocket::get_sndhwm, &ZSocket::set_sndhwm);
+        o.property("rcvhwm", &ZSocket::get_rcvhwm, &ZSocket::set_rcvhwm);
+        o.property("affinity", &ZSocket::get_affinity, &ZSocket::set_affinity);
+        o.property("identity", &ZSocket::get_identity, &ZSocket::set_identity);
+        o.property("rate", &ZSocket::get_rate, &ZSocket::set_rate);
+        o.property("recovery_ivl", &ZSocket::get_recovery_ivl, &ZSocket::set_recovery_ivl);
+        o.property("sndbuf", &ZSocket::get_sndbuf, &ZSocket::set_sndbuf);
+        o.property("rcvbuf", &ZSocket::get_rcvbuf, &ZSocket::set_rcvbuf);
+        o.property("linger", &ZSocket::get_linger, &ZSocket::set_linger);
+        o.property("reconnect_ivl", &ZSocket::get_reconnect_ivl, &ZSocket::set_reconnect_ivl);
+        o.property("reconnect_ivl_max", &ZSocket::get_reconnect_ivl_max, &ZSocket::set_reconnect_ivl_max);
+        o.property("backlog", &ZSocket::get_backlog, &ZSocket::set_backlog);
+        o.property("maxmsgsize", &ZSocket::get_maxmsgsize, &ZSocket::set_maxmsgsize);
+        o.property("multicast_hops", &ZSocket::get_multicast_hops, &ZSocket::set_multicast_hops);
+        o.property("rcvtimeo", &ZSocket::get_rcvtimeo, &ZSocket::set_rcvtimeo);
+        o.property("sndtimeo", &ZSocket::get_sndtimeo, &ZSocket::set_sndtimeo);
+        o.property("tcp_keepalive", &ZSocket::get_tcp_keepalive, &ZSocket::set_tcp_keepalive);
+        o.property("tcp_keepalive_idle", &ZSocket::get_tcp_keepalive_idle, &ZSocket::set_tcp_keepalive_idle);
+        o.property("tcp_keepalive_cnt", &ZSocket::get_tcp_keepalive_cnt, &ZSocket::set_tcp_keepalive_cnt);
+        o.property("tcp_keepalive_intvl", &ZSocket::get_tcp_keepalive_intvl, &ZSocket::set_tcp_keepalive_intvl);
+        o.property("tcp_accept_filter", &ZSocket::get_tcp_accept_filter, &ZSocket::set_tcp_accept_filter);
+        o.property("rcvmore", &ZSocket::get_rcvmore);
+        o.property("events", &ZSocket::get_events);
+        o.property("last_endpoint", &ZSocket::get_last_endpoint);
+
     	o.method("set_router_handover", &ZSocket::set_router_handover);
     	o.method("set_router_mandatory", &ZSocket::set_router_mandatory);
     	o.method("set_probe_router", &ZSocket::set_probe_router);
     	o.method("set_req_relaxed", &ZSocket::set_req_relaxed);
     	o.method("set_req_correlate", &ZSocket::set_req_correlate);
     	o.method("set_conflate", &ZSocket::set_conflate);
-    	o.method("set_zap_domain", &ZSocket::set_zap_domain);
-    	o.method("set_plain_server", &ZSocket::set_plain_server);
-    	o.method("set_plain_username", &ZSocket::set_plain_username);
-    	o.method("set_plain_password", &ZSocket::set_plain_password);
-    	o.method("set_curve_server", &ZSocket::set_curve_server);
-    	o.method("set_curve_publickey", &ZSocket::set_curve_publickey);
     	o.method("set_curve_publickey_bin", &ZSocket::set_curve_publickey_bin);
-    	o.method("set_curve_secretkey", &ZSocket::set_curve_secretkey);
     	o.method("set_curve_secretkey_bin", &ZSocket::set_curve_secretkey_bin);
-    	o.method("set_curve_serverkey", &ZSocket::set_curve_serverkey);
     	o.method("set_curve_serverkey_bin", &ZSocket::set_curve_serverkey_bin);
-    	o.method("set_gssapi_server", &ZSocket::set_gssapi_server);
-    	o.method("set_gssapi_plaintext", &ZSocket::set_gssapi_plaintext);
-    	o.method("set_gssapi_principal", &ZSocket::set_gssapi_principal);
-    	o.method("set_gssapi_service_principal", &ZSocket::set_gssapi_service_principal);
-    	o.method("set_ipv6", &ZSocket::set_ipv6);
-    	o.method("set_immediate", &ZSocket::set_immediate);
     	o.method("set_router_raw", &ZSocket::set_router_raw);
-    	o.method("set_ipv4only", &ZSocket::set_ipv4only);
     	o.method("set_delay_attach_on_connect", &ZSocket::set_delay_attach_on_connect);
-    	o.method("set_sndhwm", &ZSocket::set_sndhwm);
-    	o.method("set_rcvhwm", &ZSocket::set_rcvhwm);
-    	o.method("set_affinity", &ZSocket::set_affinity);
     	o.method("set_subscribe", &ZSocket::set_subscribe);
     	o.method("set_unsubscribe", &ZSocket::set_unsubscribe);
-    	o.method("set_identity", &ZSocket::set_identity);
-    	o.method("set_rate", &ZSocket::set_rate);
-    	o.method("set_recovery_ivl", &ZSocket::set_recovery_ivl);
-    	o.method("set_sndbuf", &ZSocket::set_sndbuf);
-    	o.method("set_rcvbuf", &ZSocket::set_rcvbuf);
-    	o.method("set_linger", &ZSocket::set_linger);
-    	o.method("set_reconnect_ivl", &ZSocket::set_reconnect_ivl);
-    	o.method("set_reconnect_ivl_max", &ZSocket::set_reconnect_ivl_max);
-    	o.method("set_backlog", &ZSocket::set_backlog);
-    	o.method("set_maxmsgsize", &ZSocket::set_maxmsgsize);
-    	o.method("set_multicast_hops", &ZSocket::set_multicast_hops);
-    	o.method("set_rcvtimeo", &ZSocket::set_rcvtimeo);
-    	o.method("set_sndtimeo", &ZSocket::set_sndtimeo);
     	o.method("set_xpub_verbose", &ZSocket::set_xpub_verbose);
-    	o.method("set_tcp_keepalive", &ZSocket::set_tcp_keepalive);
-    	o.method("set_tcp_keepalive_idle", &ZSocket::set_tcp_keepalive_idle);
-    	o.method("set_tcp_keepalive_cnt", &ZSocket::set_tcp_keepalive_cnt);
-    	o.method("set_tcp_keepalive_intvl", &ZSocket::set_tcp_keepalive_intvl);
-    	o.method("set_tcp_accept_filter", &ZSocket::set_tcp_accept_filter);
+
 #endif
 
 #if (ZMQ_VERSION_MAJOR == 3)
 
-    	o.method("get_ipv4only", &ZSocket::get_ipv4only);
-    	o.method("get_type", &ZSocket::get_type);
-    	o.method("get_sndhwm", &ZSocket::get_sndhwm);
-    	o.method("get_rcvhwm", &ZSocket::get_rcvhwm);
-    	o.method("get_affinity", &ZSocket::get_affinity);
-    	o.method("get_identity", &ZSocket::get_identity);
-    	o.method("get_rate", &ZSocket::get_rate);
-    	o.method("get_recovery_ivl", &ZSocket::get_recovery_ivl);
-    	o.method("get_sndbuf", &ZSocket::get_sndbuf);
-    	o.method("get_rcvbuf", &ZSocket::get_rcvbuf);
-    	o.method("get_linger", &ZSocket::get_linger);
-    	o.method("get_reconnect_ivl", &ZSocket::get_reconnect_ivl);
-    	o.method("get_reconnect_ivl_max", &ZSocket::get_reconnect_ivl_max);
-    	o.method("get_backlog", &ZSocket::get_backlog);
-    	o.method("get_maxmsgsize", &ZSocket::get_maxmsgsize);
-    	o.method("get_multicast_hops", &ZSocket::get_multicast_hops);
-    	o.method("get_rcvtimeo", &ZSocket::get_rcvtimeo);
-    	o.method("get_sndtimeo", &ZSocket::get_sndtimeo);
-    	o.method("get_tcp_keepalive", &ZSocket::get_tcp_keepalive);
-    	o.method("get_tcp_keepalive_idle", &ZSocket::get_tcp_keepalive_idle);
-    	o.method("get_tcp_keepalive_cnt", &ZSocket::get_tcp_keepalive_cnt);
-    	o.method("get_tcp_keepalive_intvl", &ZSocket::get_tcp_keepalive_intvl);
-    	o.method("get_tcp_accept_filter", &ZSocket::get_tcp_accept_filter);
-    	o.method("get_rcvmore", &ZSocket::get_rcvmore);
-    	o.method("get_events", &ZSocket::get_events);
-    	o.method("get_last_endpoint", &ZSocket::get_last_endpoint);
-    	o.method("set_router_raw", &ZSocket::set_router_raw);
-    	o.method("set_ipv4only", &ZSocket::set_ipv4only);
-    	o.method("set_delay_attach_on_connect", &ZSocket::set_delay_attach_on_connect);
-    	o.method("set_sndhwm", &ZSocket::set_sndhwm);
-    	o.method("set_rcvhwm", &ZSocket::set_rcvhwm);
-    	o.method("set_affinity", &ZSocket::set_affinity);
-    	o.method("set_subscribe", &ZSocket::set_subscribe);
-    	o.method("set_unsubscribe", &ZSocket::set_unsubscribe);
-    	o.method("set_identity", &ZSocket::set_identity);
-    	o.method("set_rate", &ZSocket::set_rate);
-    	o.method("set_recovery_ivl", &ZSocket::set_recovery_ivl);
-    	o.method("set_sndbuf", &ZSocket::set_sndbuf);
-    	o.method("set_rcvbuf", &ZSocket::set_rcvbuf);
-    	o.method("set_linger", &ZSocket::set_linger);
-    	o.method("set_reconnect_ivl", &ZSocket::set_reconnect_ivl);
-    	o.method("set_reconnect_ivl_max", &ZSocket::set_reconnect_ivl_max);
-    	o.method("set_backlog", &ZSocket::set_backlog);
-    	o.method("set_maxmsgsize", &ZSocket::set_maxmsgsize);
-    	o.method("set_multicast_hops", &ZSocket::set_multicast_hops);
-    	o.method("set_rcvtimeo", &ZSocket::set_rcvtimeo);
-    	o.method("set_sndtimeo", &ZSocket::set_sndtimeo);
-    	o.method("set_xpub_verbose", &ZSocket::set_xpub_verbose);
-    	o.method("set_tcp_keepalive", &ZSocket::set_tcp_keepalive);
-    	o.method("set_tcp_keepalive_idle", &ZSocket::set_tcp_keepalive_idle);
-    	o.method("set_tcp_keepalive_cnt", &ZSocket::set_tcp_keepalive_cnt);
-    	o.method("set_tcp_keepalive_intvl", &ZSocket::set_tcp_keepalive_intvl);
-    	o.method("set_tcp_accept_filter", &ZSocket::set_tcp_accept_filter);
+        o.property("ipv4only", &ZSocket::get_ipv4only, &ZSocket::set_ipv4only);
+        o.property("type", &ZSocket::get_type);
+        o.property("sndhwm", &ZSocket::get_sndhwm, &ZSocket::set_sndhwm);
+        o.property("rcvhwm", &ZSocket::get_rcvhwm, &ZSocket::set_rcvhwm);
+        o.property("affinity", &ZSocket::get_affinity, &ZSocket::set_affinity);
+        o.property("identity", &ZSocket::get_identity, &ZSocket::set_identity);
+        o.property("rate", &ZSocket::get_rate, &ZSocket::set_rate);
+        o.property("recovery_ivl", &ZSocket::get_recovery_ivl, &ZSocket::set_recovery_ivl);
+        o.property("sndbuf", &ZSocket::get_sndbuf, &ZSocket::set_sndbuf);
+        o.property("rcvbuf", &ZSocket::get_rcvbuf, &ZSocket::set_rcvbuf);
+        o.property("linger", &ZSocket::get_linger, &ZSocket::set_linger);
+        o.property("reconnect_ivl", &ZSocket::get_reconnect_ivl, &ZSocket::set_reconnect_ivl);
+        o.property("reconnect_ivl_max", &ZSocket::get_reconnect_ivl_max, &ZSocket::set_reconnect_ivl_max);
+        o.property("backlog", &ZSocket::get_backlog, &ZSocket::set_backlog);
+        o.property("maxmsgsize", &ZSocket::get_maxmsgsize, &ZSocket::set_maxmsgsize);
+        o.property("multicast_hops", &ZSocket::get_multicast_hops, &ZSocket::set_multicast_hops);
+        o.property("rcvtimeo", &ZSocket::get_rcvtimeo, &ZSocket::set_rcvtimeo);
+        o.property("sndtimeo", &ZSocket::get_sndtimeo, &ZSocket::set_sndtimeo);
+        o.property("tcp_keepalive", &ZSocket::get_tcp_keepalive, &ZSocket::set_tcp_keepalive);
+        o.property("tcp_keepalive_idle", &ZSocket::get_tcp_keepalive_idle, &ZSocket::set_tcp_keepalive_idle);
+        o.property("tcp_keepalive_cnt", &ZSocket::get_tcp_keepalive_cnt, &ZSocket::set_tcp_keepalive_cnt);
+        o.property("tcp_keepalive_intvl", &ZSocket::get_tcp_keepalive_intvl, &ZSocket::set_tcp_keepalive_intvl);
+        o.property("tcp_accept_filter", &ZSocket::get_tcp_accept_filter, &ZSocket::set_tcp_accept_filter);
+        o.property("rcvmore", &ZSocket::get_rcvmore);
+        o.property("events", &ZSocket::get_events);
+        o.property("last_endpoint", &ZSocket::get_last_endpoint);
+
+        o.method("set_router_raw", &ZSocket::set_router_raw);
+        o.method("set_delay_attach_on_connect", &ZSocket::set_delay_attach_on_connect);
+        o.method("set_subscribe", &ZSocket::set_subscribe);
+        o.method("set_unsubscribe", &ZSocket::set_unsubscribe);
+        o.method("set_xpub_verbose", &ZSocket::set_xpub_verbose);
+
 #endif
 
 

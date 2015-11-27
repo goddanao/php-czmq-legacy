@@ -30,7 +30,7 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
     public function test_zap_domain_allow_all() {
         $auth = new ZAuth();
         $this->reset_sockets();
-        $this->server->set_zap_domain("global");
+        $this->server->zap_domain = "global";
         $this->assertTrue($this->can_connect());
     }
 
@@ -38,7 +38,7 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
     public function test_zap_domain_deny_localhost() {
         $auth = new ZAuth();
         $this->reset_sockets();
-        $this->server->set_zap_domain("global");
+        $this->server->zap_domain = "global";
         $auth->deny("127.0.0.1");
         $this->assertFalse($this->can_connect());
     }
@@ -47,7 +47,7 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
         $auth = new ZAuth();
 
         $this->reset_sockets();
-        $this->server->set_zap_domain("global");
+        $this->server->zap_domain = "global";
         $auth->allow("127.0.0.1");
         $this->assertTrue($this->can_connect());
     }
@@ -57,9 +57,9 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
 
         // PLAIN
         $this->reset_sockets();
-        $this->server->set_plain_server(true);
-        $this->client->set_plain_username("admin");
-        $this->client->set_plain_password("password");
+        $this->server->plain_server = true;
+        $this->client->plain_username = "admin";
+        $this->client->plain_password ="password";
         $this->assertFalse($this->can_connect());
     }
 
@@ -69,10 +69,10 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
         // PLAIN WITH PW
         $this->reset_sockets();
         file_put_contents(static::cert_dir ."/passwords", "admin=password");
-        $this->server->set_plain_server(true);
+        $this->server->plain_server = true;
         $auth->configure(ZAuth::AUTH_PLAIN, static::cert_dir ."/passwords");
-        $this->client->set_plain_username("admin");
-        $this->client->set_plain_password("password");
+        $this->client->plain_username = "admin";
+        $this->client->plain_password = "password";
         $this->assertTrue($this->can_connect());
     }
 
@@ -81,10 +81,10 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
 
         // PLAIN WITH PW ERROR
         $this->reset_sockets();
-        $this->server->set_plain_server(true);
+        $this->server->plain_server = true;
         $auth->configure(ZAuth::AUTH_PLAIN, static::cert_dir ."/passwords");
-        $this->client->set_plain_username("admin");
-        $this->client->set_plain_password("bogus");
+        $this->client->plain_username = "admin";
+        $this->client->plain_password = "bogus";
         $this->assertFalse($this->can_connect());
     }
 
@@ -101,16 +101,16 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
             //  Test without setting-up any authentication
             $server_cert->apply($this->server);
             $client_cert->apply($this->client);
-            $this->server->set_curve_server(true);
-            $this->client->set_curve_serverkey($server_key);
+            $this->server->curve_server = true;
+            $this->client->curve_serverkey = $server_key;
             $this->assertFalse($this->can_connect());
             $this->reset_sockets();
 
             //  Test CURVE_ALLOW_ANY
             $server_cert->apply($this->server);
             $client_cert->apply($this->client);
-            $this->server->set_curve_server(true);
-            $this->client->set_curve_serverkey($server_key);
+            $this->server->curve_server = true;
+            $this->client->curve_serverkey = $server_key;
             $auth->configure(ZAuth::AUTH_CURVE, "*");
             $this->assertTrue($this->can_connect());
             $this->reset_sockets();
@@ -118,8 +118,8 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
             //  Test full client authentication using certificates
             $server_cert->apply($this->server);
             $client_cert->apply($this->client);
-            $this->server->set_curve_server(true);
-            $this->client->set_curve_serverkey($server_key);
+            $this->server->curve_server = true;
+            $this->client->curve_serverkey = $server_key;
             $client_cert->save_public(static::cert_dir ."/mycert.txt");
             $auth->configure(ZAuth::AUTH_CURVE, static::cert_dir);
             $this->assertTrue($this->can_connect());
@@ -131,7 +131,7 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
     private function reset_sockets() {
         $this->server = new ZSocket(ZSys::SOCKET_PUSH);
         $this->client = new ZSocket(ZSys::SOCKET_PULL);
-        $this->client->set_rcvtimeo(500);
+        $this->client->rcvtimeo = 500;
     }
 
     private function can_connect() {

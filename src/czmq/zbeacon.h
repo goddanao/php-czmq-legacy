@@ -19,10 +19,13 @@ public:
     Php::Value set_port(Php::Parameters &param) {
         int port_number = param[0].numericValue();
         zsock_send (zbeacon_handle(), "si", "CONFIGURE", port_number);
-        char *port =  zstr_recv (zbeacon_handle());
-        Php::Value result = port;
-        zstr_free(&port);
-        return result;
+        char *hostname =  zstr_recv (zbeacon_handle());
+        if(*hostname) {
+            Php::Value result = hostname;
+            zstr_free(&hostname);
+            return result;
+        }
+        return false;
     }
 
     void subscribe(Php::Parameters &param) {

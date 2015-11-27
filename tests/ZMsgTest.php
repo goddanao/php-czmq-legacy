@@ -16,16 +16,16 @@ class ZMsgTest extends \PHPUnit_Framework_TestCase {
         $msg->prepend_string("Frame1");
         $msg->prepend_string("Frame0");
 
-        // countable interface
+        // Countable interface
         $this->assertEquals(count($msg), 4);
 
+        // ArrayAccess interface
         $this->assertTrue($msg[0] == "Frame0");
         $this->assertTrue($msg[1] == "Frame1");
 
         $msg[3] = "test";
         unset($msg[2]);
 
-        // countable interface
         $this->assertEquals(count($msg), 3);
         $this->assertTrue($msg[2] == "test");
 

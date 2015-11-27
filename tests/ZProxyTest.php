@@ -19,11 +19,11 @@ class ZProxyTest extends \PHPUnit_Framework_TestCase {
 
         $this->pull = new ZSocket(ZSys::SOCKET_PULL);
         $this->pull->connect("ipc:///tmp/backend");
-        $this->pull->set_rcvtimeo(500);
+        $this->pull->rcvtimeo = 500;
 
         $this->capture = new ZSocket(ZSys::SOCKET_PULL);
         $this->capture->bind("ipc:///tmp/capture");
-        $this->capture->set_rcvtimeo(500);
+        $this->capture->rcvtimeo = 500;
     }
 
     public function test_send_recv() {

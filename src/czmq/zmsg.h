@@ -638,21 +638,42 @@ public:
         Php::Class<ZMsg> o("ZMsg");
         o.method("__construct", &ZMsg::__construct);
 
-        o.method("append_picture", &ZMsg::append_picture);
-        o.method("prepend_picture", &ZMsg::prepend_picture);
-        o.method("pop_picture", &ZMsg::pop_picture);
+        o.method("append_picture", &ZMsg::append_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        o.method("prepend_picture", &ZMsg::prepend_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        o.method("pop_picture", &ZMsg::pop_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
 
-        o.method("append", &ZMsg::append);
-        o.method("prepend", &ZMsg::prepend);
+        o.method("append", &ZMsg::append, {
+            Php::ByRef("frame", "ZFrame", false, true)
+        });
+
+        o.method("prepend", &ZMsg::prepend, {
+            Php::ByRef("frame", "ZFrame", false, true)
+        });
+
         o.method("pop", &ZMsg::pop);
 
-        o.method("append_string", &ZMsg::append_string);
-        o.method("prepend_string", &ZMsg::prepend_string);
+        o.method("append_string", &ZMsg::append_string, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o.method("prepend_string", &ZMsg::prepend_string, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
         o.method("pop_string", &ZMsg::pop_string);
 
-        o.method("send", &ZMsg::send);
+        o.method("send", &ZMsg::send, {
+            Php::ByRef("socket", "IZSocket", false, true)
+        });
 
-        o.method("remove", &ZMsg::remove);
+        o.method("remove", &ZMsg::remove, {
+            Php::ByRef("frame", "ZFrame", false, true)
+        });
+
         o.method("first", &ZMsg::first);
         o.method("next", &ZMsg::next);
         o.method("last", &ZMsg::last);
