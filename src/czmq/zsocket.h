@@ -72,7 +72,7 @@ public:
 
     #if (ZMQ_VERSION_MAJOR == 4)
     #if (ZMQ_VERSION_MINOR >= 2)
-       
+
     static Php::Value server(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("server",  ep), true)); }
     static Php::Value client(Php::Parameters &param) { const char *ep = param.size() > 0 ? param[0].stringValue().c_str() : NULL; return Php::Object("ZSocket", new ZSocket(new_socket("client",  ep), true)); }
 
@@ -121,7 +121,8 @@ public:
     }
 
     Php::Value bind(Php::Parameters &param) {
-        int result = zsock_bind(zsock_handle(), param[0].stringValue().c_str());
+        std::string ep = param[0].stringValue();
+        int result = zsock_bind(zsock_handle(), ep.c_str());
         return (result == -1 ? false : (result == 0 ? true : result));
     }
 

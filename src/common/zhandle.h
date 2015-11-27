@@ -204,9 +204,6 @@ public:
         else
         if(_type == "fd")
             close(_fd);
-        else
-          ;
-
 
         _handle = nullptr;
         _fd = -1;
