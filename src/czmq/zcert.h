@@ -11,7 +11,7 @@ public:
     zcert_t *zcert_handle() const { return (zcert_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
-        if(param.size() == 0)
+        if(param.size() == 0 || param[0].isNull())
             set_handle(zcert_new (), true, "zcert");
         else
             set_handle(zcert_load(param[0].stringValue().c_str()), true, "zcert");

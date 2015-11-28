@@ -61,10 +61,19 @@ public:
             Php::ByVal("verbose", Php::Type::Bool, false)
         });
         o.method("set_verbose", &MajordomoBrokerV2::set_verbose);
-        o.method("load_config", &MajordomoBrokerV2::load_config);
-        o.method("save_config", &MajordomoBrokerV2::save_config);
-        o.method("set_config", &MajordomoBrokerV2::set_config);
-        o.method("bind", &MajordomoBrokerV2::bind);
+        o.method("bind", &MajordomoBrokerV2::bind, {
+          Php::ByVal("endpoint", Php::Type::String, true)
+        });
+        o.method("load_config", &MajordomoBrokerV2::load_config, {
+            Php::ByVal("filename", Php::Type::String, true)
+        });
+        o.method("save_config", &MajordomoBrokerV2::save_config, {
+            Php::ByVal("filename", Php::Type::String, true)
+        });
+        o.method("set_config", &MajordomoBrokerV2::set_config, {
+            Php::ByVal("key", Php::Type::String, true),
+            Php::ByVal("value", Php::Type::String, true)
+        });
 
 		// IZSocket intf support
         o.method("get_fd", &MajordomoBrokerV2::get_fd);

@@ -237,14 +237,15 @@ public:
         o.constant("EVENT_ALL", ZMQ_EVENT_ALL);
 
         // Const - Poll Type
+        o.constant("POLL_WAIT_FOREVER", -1);
         o.constant("POLL_NONE", 0);
         o.constant("POLL_IN", ZMQ_POLLIN);
         o.constant("POLL_OUT", ZMQ_POLLOUT);
         o.constant("POLL_ERR", ZMQ_POLLERR);
 
-        #ifdef ZMQ_POLLPRI
+    #ifdef ZMQ_POLLPRI
         o.constant("POLL_PRI", ZMQ_POLLPRI);
-        #endif
+    #endif
 
         return o;
 

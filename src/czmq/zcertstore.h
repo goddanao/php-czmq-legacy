@@ -9,7 +9,7 @@ public:
     zcertstore_t *zcertstore_handle() const { return (zcertstore_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
-        if(param.size() == 0)
+        if(param.size() == 0 || param[0].isNull())
             set_handle(zcertstore_new (NULL), true, "zcertstore");
         else
             set_handle(zcertstore_new(param[0].stringValue().c_str()), true, "zcertstore");
@@ -47,7 +47,7 @@ public:
         });
 
         o.method("insert", &ZCertStore::insert, {
-            Php::ByVal("cert", "ZCert", false, true)
+            Php::ByRef("cert", "ZCert", false, true)
         });
 
          o.method("dump", &ZCertStore::dump);
