@@ -3,7 +3,7 @@ FileMq\Client
 
 Client
 
-...
+FileMQ Client
 
 
 * Class name: Client
@@ -21,25 +21,25 @@ Methods
 
 ### __construct
 
-    \FileMq\Client FileMq\Client::__construct(mixed $endpoint, mixed $local_path, mixed $timeout)
+    \FileMq\Client FileMq\Client::__construct(string $endpoint, string $local_path, integer $timeout)
+
+Create e new instance.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $local_path **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $timeout **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;FileMQ Server endpoint.&lt;/p&gt;
+* $local_path **string** - &lt;p&gt;Local folder to sync with server.&lt;/p&gt;
+* $timeout **integer** - &lt;p&gt;Connect timeout. 0 means infinite. (optional)&lt;/p&gt;
 
 
 
 ### set_timeout
 
-    mixed FileMq\Client::set_timeout(mixed $timeout)
+    mixed FileMq\Client::set_timeout(integer $timeout)
 
 
 
@@ -49,7 +49,7 @@ Methods
 
 
 #### Arguments
-* $timeout **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $timeout **integer** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -68,7 +68,7 @@ Methods
 
 ### subscribe
 
-    mixed FileMq\Client::subscribe(mixed $remote_path)
+    mixed FileMq\Client::subscribe(string $remote_path)
 
 
 
@@ -78,7 +78,7 @@ Methods
 
 
 #### Arguments
-* $remote_path **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $remote_path **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -97,7 +97,7 @@ Recieve a ZMsg.
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -111,7 +111,7 @@ Recieve a ZMsg.
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

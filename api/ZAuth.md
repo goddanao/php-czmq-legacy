@@ -127,7 +127,7 @@ a whitelist and a blacklist, only the whitelist takes effect
 
 ### configure
 
-    mixed ZAuth::configure()
+    mixed ZAuth::configure(string $mode, string $path)
 
 
 
@@ -136,11 +136,15 @@ a whitelist and a blacklist, only the whitelist takes effect
 * Visibility: **public**
 
 
+#### Arguments
+* $mode **string** - &lt;p&gt;...&lt;/p&gt;
+* $path **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -154,7 +158,7 @@ a whitelist and a blacklist, only the whitelist takes effect
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

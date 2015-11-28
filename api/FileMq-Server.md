@@ -45,61 +45,25 @@ Methods
 
 
 
-### load_config
-
-    mixed FileMq\Server::load_config()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_config
-
-    mixed FileMq\Server::set_config()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### save_config
-
-    mixed FileMq\Server::save_config()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### bind
 
-    mixed FileMq\Server::bind()
+    mixed FileMq\Server::bind(string $endpoint)
+
+FileMQ Server endpoint to bind.
 
 
-
-...
 
 * Visibility: **public**
 
 
+#### Arguments
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
-### publish
 
-    mixed FileMq\Server::publish(mixed $local_path, mixed $alias)
+### load_config
+
+    mixed FileMq\Server::load_config(string $filename)
 
 
 
@@ -109,14 +73,63 @@ Methods
 
 
 #### Arguments
-* $local_path **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $alias **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $filename **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### save_config
+
+    mixed FileMq\Server::save_config(string $filename)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $filename **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### set_config
+
+    mixed FileMq\Server::set_config(string $key, string $value)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $key **string** - &lt;p&gt;...&lt;/p&gt;
+* $value **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### publish
+
+    mixed FileMq\Server::publish(string $local_path, string $alias)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $local_path **string** - &lt;p&gt;...&lt;/p&gt;
+* $alias **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -130,7 +143,7 @@ Methods
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

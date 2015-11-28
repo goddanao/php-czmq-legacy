@@ -34,7 +34,7 @@ Methods
 
 ### bind
 
-    mixed Majordomo\V1\Broker::bind()
+    mixed Majordomo\V1\Broker::bind(string $endpoint)
 
 
 
@@ -42,6 +42,9 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -73,7 +76,7 @@ Methods
 
 ### set_capture
 
-    mixed Majordomo\V1\Broker::set_capture(mixed $socket_endpoint)
+    mixed Majordomo\V1\Broker::set_capture(string $endpoint)
 
 
 
@@ -83,13 +86,13 @@ Methods
 
 
 #### Arguments
-* $socket_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -103,7 +106,7 @@ Methods
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

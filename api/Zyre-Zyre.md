@@ -37,7 +37,7 @@ Creates a new Zyre node. Note that until you start the node it is silent and inv
 
 ### start
 
-    mixed Zyre\Zyre::start()
+    boolean Zyre\Zyre::start()
 
 Start node, after setting header values. When you start a node it begins discovery and connection.
 
@@ -307,7 +307,7 @@ Set verbose mode; this tells the node to log all traffic as well as all major ev
 
 ### set_header
 
-    mixed Zyre\Zyre::set_header(string $name, mixed $value)
+    mixed Zyre\Zyre::set_header(string $name, string $value)
 
 Set node header; these are provided to other nodes during discovery and come in each ENTER message.
 
@@ -318,7 +318,7 @@ Set node header; these are provided to other nodes during discovery and come in 
 
 #### Arguments
 * $name **string** - &lt;p&gt;...&lt;/p&gt;
-* $value **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $value **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -390,7 +390,7 @@ Send message to a named group.
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -404,7 +404,7 @@ Send message to a named group.
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

@@ -86,7 +86,7 @@ Recieve a ZMsg.
 
 ### set_frontend
 
-    mixed ZProxy::set_frontend(mixed $socket_type, mixed $socket_endpoint)
+    mixed ZProxy::set_frontend(string $type, string $endpoint)
 
 
 
@@ -96,14 +96,14 @@ Recieve a ZMsg.
 
 
 #### Arguments
-* $socket_type **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $socket_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $type **string** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set_backend
 
-    mixed ZProxy::set_backend(mixed $socket_type, mixed $socket_endpoint)
+    mixed ZProxy::set_backend(string $type, string $endpoint)
 
 
 
@@ -113,14 +113,14 @@ Recieve a ZMsg.
 
 
 #### Arguments
-* $socket_type **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $socket_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $type **string** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set_capture
 
-    mixed ZProxy::set_capture(mixed $socket_endpoint)
+    mixed ZProxy::set_capture(string $endpoint)
 
 
 
@@ -130,13 +130,13 @@ Recieve a ZMsg.
 
 
 #### Arguments
-* $socket_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -150,7 +150,7 @@ Recieve a ZMsg.
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

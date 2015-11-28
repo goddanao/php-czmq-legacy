@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Majordomo\V1\Worker Majordomo\V1\Worker::__construct(mixed $broker_endpoint, mixed $name, mixed $verbose)
+    \Majordomo\V1\Worker Majordomo\V1\Worker::__construct(string $broker_endpoint, string $name, boolean $verbose)
 
 
 
@@ -31,9 +31,9 @@ Methods
 
 
 #### Arguments
-* $broker_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $broker_endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+* $name **string** - &lt;p&gt;...&lt;/p&gt;
+* $verbose **boolean** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -55,7 +55,7 @@ Methods
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -69,7 +69,7 @@ Methods
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

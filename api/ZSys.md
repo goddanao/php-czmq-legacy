@@ -239,6 +239,14 @@ Constants
 
 
 
+### POLL_WAIT_FOREVER
+
+    const POLL_WAIT_FOREVER = -1
+
+
+
+
+
 ### POLL_NONE
 
     const POLL_NONE = 0
@@ -648,11 +656,11 @@ Return Majordomo Protocol version
 
 
 
-### libmlm_version
+### libfmq_version
 
-    string ZSys::libmlm_version()
+    string ZSys::libfmq_version()
 
-Return Malamute version
+Return FileMq version
 
 
 
@@ -662,11 +670,11 @@ Return Malamute version
 
 
 
-### libfmq_version
+### libmlm_version
 
-    string ZSys::libfmq_version()
+    string ZSys::libmlm_version()
 
-Return FileMq version
+Return Malamute version
 
 
 

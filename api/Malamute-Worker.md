@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Malamute\Worker Malamute\Worker::__construct(mixed $endpoint, mixed $address, mixed $pattern)
+    \Malamute\Worker Malamute\Worker::__construct(string $endpoint, string $address, string $pattern)
 
 
 
@@ -31,15 +31,15 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $address **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $pattern **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+* $address **string** - &lt;p&gt;...&lt;/p&gt;
+* $pattern **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### set_timeout
 
-    mixed Malamute\Worker::set_timeout(mixed $timeout)
+    mixed Malamute\Worker::set_timeout(integer $timeout)
 
 
 
@@ -49,7 +49,7 @@ Methods
 
 
 #### Arguments
-* $timeout **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $timeout **integer** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -84,7 +84,7 @@ Get the underlying Malamute Client.
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -98,7 +98,7 @@ Get the underlying Malamute Client.
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

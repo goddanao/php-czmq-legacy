@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Malamute\Consumer Malamute\Consumer::__construct(mixed $endpoint, mixed $stream)
+    \Malamute\Consumer Malamute\Consumer::__construct(string $endpoint, string $stream)
 
 
 
@@ -31,14 +31,14 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+* $stream **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set_timeout
 
-    mixed Malamute\Consumer::set_timeout(mixed $timeout)
+    mixed Malamute\Consumer::set_timeout(integer $timeout)
 
 
 
@@ -48,13 +48,13 @@ Methods
 
 
 #### Arguments
-* $timeout **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $timeout **integer** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### header
 
-    mixed Malamute\Consumer::header(mixed $header)
+    mixed Malamute\Consumer::header(string $header)
 
 
 
@@ -64,13 +64,13 @@ Methods
 
 
 #### Arguments
-* $header **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $header **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### run
 
-    mixed Malamute\Consumer::run(mixed $pattern, callable $callback)
+    mixed Malamute\Consumer::run(string $pattern, callable $callback)
 
 
 
@@ -80,7 +80,7 @@ Methods
 
 
 #### Arguments
-* $pattern **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $pattern **string** - &lt;p&gt;...&lt;/p&gt;
 * $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
@@ -100,7 +100,7 @@ Get the underlying Malamute Client.
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -114,7 +114,7 @@ Get the underlying Malamute Client.
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

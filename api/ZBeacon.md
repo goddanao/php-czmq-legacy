@@ -47,23 +47,23 @@ Methods
 
 ### set_port
 
-    mixed ZBeacon::set_port(mixed $port)
+    string ZBeacon::set_port(integer $port)
+
+Configure Udp port number. Return hostname or false if cannot bind.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $port **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $port **integer** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### subscribe
 
-    mixed ZBeacon::subscribe(mixed $filter)
+    mixed ZBeacon::subscribe(string $filter)
 
 
 
@@ -73,7 +73,7 @@ Methods
 
 
 #### Arguments
-* $filter **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $filter **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -92,7 +92,7 @@ Methods
 
 ### publish
 
-    mixed ZBeacon::publish(mixed $data, mixed $interval)
+    mixed ZBeacon::publish(string $data, integer $interval)
 
 
 
@@ -102,8 +102,8 @@ Methods
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $interval **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $data **string** - &lt;p&gt;...&lt;/p&gt;
+* $interval **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -135,7 +135,7 @@ Recieve a ZMsg.
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -149,7 +149,7 @@ Recieve a ZMsg.
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

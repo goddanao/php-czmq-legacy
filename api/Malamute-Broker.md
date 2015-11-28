@@ -47,7 +47,7 @@ Methods
 
 ### bind
 
-    mixed Malamute\Broker::bind()
+    mixed Malamute\Broker::bind(string $endpoint)
 
 
 
@@ -55,12 +55,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### load_config
 
-    mixed Malamute\Broker::load_config()
+    mixed Malamute\Broker::load_config(string $filename)
 
 
 
@@ -68,12 +71,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $filename **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### save_config
 
-    mixed Malamute\Broker::save_config()
+    mixed Malamute\Broker::save_config(string $filename)
 
 
 
@@ -81,12 +87,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $filename **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set_config
 
-    mixed Malamute\Broker::set_config()
+    mixed Malamute\Broker::set_config(string $key, string $value)
 
 
 
@@ -95,11 +104,15 @@ Methods
 * Visibility: **public**
 
 
+#### Arguments
+* $key **string** - &lt;p&gt;...&lt;/p&gt;
+* $value **string** - &lt;p&gt;...&lt;/p&gt;
+
 
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -113,7 +126,7 @@ Methods
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

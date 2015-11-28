@@ -47,7 +47,7 @@ Enable verbose logging of commands and activity.
 
 ### configure
 
-    mixed ZGossip::configure(mixed $filename)
+    mixed ZGossip::configure(string $filename)
 
 
 
@@ -57,13 +57,13 @@ Enable verbose logging of commands and activity.
 
 
 #### Arguments
-* $filename **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $filename **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### bind
 
-    mixed ZGossip::bind(mixed $endpoint)
+    mixed ZGossip::bind(string $endpoint)
 
 
 
@@ -73,13 +73,13 @@ Enable verbose logging of commands and activity.
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### connect
 
-    mixed ZGossip::connect(mixed $endpoint)
+    mixed ZGossip::connect(string $endpoint)
 
 
 
@@ -89,13 +89,13 @@ Enable verbose logging of commands and activity.
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set
 
-    mixed ZGossip::set(mixed $property, mixed $value)
+    mixed ZGossip::set(string $property, string $value)
 
 
 
@@ -105,14 +105,14 @@ Enable verbose logging of commands and activity.
 
 
 #### Arguments
-* $property **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $value **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $property **string** - &lt;p&gt;...&lt;/p&gt;
+* $value **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### publish
 
-    mixed ZGossip::publish(mixed $property, mixed $value)
+    mixed ZGossip::publish(string $property, string $value)
 
 
 
@@ -122,8 +122,8 @@ Enable verbose logging of commands and activity.
 
 
 #### Arguments
-* $property **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $value **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $property **string** - &lt;p&gt;...&lt;/p&gt;
+* $value **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -155,7 +155,7 @@ Recieve a ZMsg.
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -169,7 +169,7 @@ Recieve a ZMsg.
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

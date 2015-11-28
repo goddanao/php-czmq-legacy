@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Majordomo\V2\Broker Majordomo\V2\Broker::__construct(mixed $endpoint, mixed $verbose)
+    \Majordomo\V2\Broker Majordomo\V2\Broker::__construct(string $endpoint, boolean $verbose)
 
 
 
@@ -31,8 +31,8 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
-* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $verbose **boolean** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -49,9 +49,9 @@ Methods
 
 
 
-### load_config
+### bind
 
-    mixed Majordomo\V2\Broker::load_config()
+    mixed Majordomo\V2\Broker::bind(string $endpoint)
 
 
 
@@ -59,12 +59,31 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### load_config
+
+    mixed Majordomo\V2\Broker::load_config(string $filename)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $filename **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### save_config
 
-    mixed Majordomo\V2\Broker::save_config()
+    mixed Majordomo\V2\Broker::save_config(string $filename)
 
 
 
@@ -72,12 +91,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $filename **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### set_config
 
-    mixed Majordomo\V2\Broker::set_config()
+    mixed Majordomo\V2\Broker::set_config(string $key, string $value)
 
 
 
@@ -86,24 +108,15 @@ Methods
 * Visibility: **public**
 
 
-
-
-### bind
-
-    mixed Majordomo\V2\Broker::bind()
-
-
-
-...
-
-* Visibility: **public**
-
+#### Arguments
+* $key **string** - &lt;p&gt;...&lt;/p&gt;
+* $value **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -117,7 +130,7 @@ Methods
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

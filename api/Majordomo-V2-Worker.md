@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Majordomo\V2\Worker Majordomo\V2\Worker::__construct(mixed $name, mixed $broker_endpoint, callable $callback)
+    \Majordomo\V2\Worker Majordomo\V2\Worker::__construct(string $name, string $broker_endpoint, callable $callback)
 
 
 
@@ -31,8 +31,8 @@ Methods
 
 
 #### Arguments
-* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $broker_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $name **string** - &lt;p&gt;...&lt;/p&gt;
+* $broker_endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 * $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
@@ -78,7 +78,7 @@ Methods
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -92,7 +92,7 @@ Methods
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

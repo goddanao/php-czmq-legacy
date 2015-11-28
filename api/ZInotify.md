@@ -207,7 +207,7 @@ Methods
 
 ### watch
 
-    mixed ZInotify::watch()
+    integer ZInotify::watch(string $file, integer $events)
 
 
 
@@ -215,12 +215,16 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $file **string** - &lt;p&gt;...&lt;/p&gt;
+* $events **integer** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### remove
 
-    mixed ZInotify::remove()
+    mixed ZInotify::remove(integer $watch_id)
 
 
 
@@ -228,6 +232,9 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $watch_id **integer** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -246,7 +253,7 @@ Recieve a ZMsg.
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 

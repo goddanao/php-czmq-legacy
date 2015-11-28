@@ -148,7 +148,7 @@ Methods
 
 ### listen
 
-    mixed ZMonitor::listen(mixed $event)
+    mixed ZMonitor::listen(integer $event)
 
 
 
@@ -158,7 +158,7 @@ Methods
 
 
 #### Arguments
-* $event **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $event **integer** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -190,7 +190,7 @@ Recieve a ZMsg.
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -204,7 +204,7 @@ Recieve a ZMsg.
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

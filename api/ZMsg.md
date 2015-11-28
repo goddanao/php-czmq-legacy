@@ -34,7 +34,7 @@ Methods
 
 ### append_picture
 
-    mixed ZMsg::append_picture()
+    mixed ZMsg::append_picture(string $picture)
 
 
 
@@ -42,12 +42,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $picture **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### prepend_picture
 
-    mixed ZMsg::prepend_picture()
+    mixed ZMsg::prepend_picture(string $picture)
 
 
 
@@ -55,12 +58,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $picture **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### pop_picture
 
-    mixed ZMsg::pop_picture()
+    array ZMsg::pop_picture(string $picture)
 
 
 
@@ -68,12 +74,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $picture **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### append
 
-    mixed ZMsg::append()
+    mixed ZMsg::append(\ZFrame $frame)
 
 
 
@@ -81,12 +90,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $frame **[ZFrame](ZFrame.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### prepend
 
-    mixed ZMsg::prepend()
+    mixed ZMsg::prepend(\ZFrame $frame)
 
 
 
@@ -95,11 +107,14 @@ Methods
 * Visibility: **public**
 
 
+#### Arguments
+* $frame **[ZFrame](ZFrame.md)** - &lt;p&gt;...&lt;/p&gt;
+
 
 
 ### pop
 
-    mixed ZMsg::pop()
+    \ZFrame ZMsg::pop()
 
 
 
@@ -112,7 +127,7 @@ Methods
 
 ### append_string
 
-    mixed ZMsg::append_string()
+    mixed ZMsg::append_string(string $data)
 
 
 
@@ -120,12 +135,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $data **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### prepend_string
 
-    mixed ZMsg::prepend_string()
+    mixed ZMsg::prepend_string(string $data)
 
 
 
@@ -134,11 +152,14 @@ Methods
 * Visibility: **public**
 
 
+#### Arguments
+* $data **string** - &lt;p&gt;...&lt;/p&gt;
+
 
 
 ### pop_string
 
-    mixed ZMsg::pop_string()
+    string ZMsg::pop_string()
 
 
 
@@ -151,7 +172,7 @@ Methods
 
 ### send
 
-    mixed ZMsg::send()
+    mixed ZMsg::send(\IZSocket $socket)
 
 Send a ZMsg
 
@@ -160,11 +181,14 @@ Send a ZMsg
 * Visibility: **public**
 
 
+#### Arguments
+* $socket **[IZSocket](IZSocket.md)** - &lt;p&gt;...&lt;/p&gt;
+
 
 
 ### remove
 
-    mixed ZMsg::remove()
+    mixed ZMsg::remove(\ZFrame $frame)
 
 
 
@@ -173,11 +197,14 @@ Send a ZMsg
 * Visibility: **public**
 
 
+#### Arguments
+* $frame **[ZFrame](ZFrame.md)** - &lt;p&gt;...&lt;/p&gt;
+
 
 
 ### first
 
-    mixed ZMsg::first()
+    \ZFrame ZMsg::first()
 
 
 
@@ -190,7 +217,7 @@ Send a ZMsg
 
 ### next
 
-    mixed ZMsg::next()
+    \ZFrame ZMsg::next()
 
 
 
@@ -203,7 +230,7 @@ Send a ZMsg
 
 ### last
 
-    mixed ZMsg::last()
+    \ZFrame ZMsg::last()
 
 
 
@@ -216,7 +243,7 @@ Send a ZMsg
 
 ### get_size
 
-    mixed ZMsg::get_size()
+    integer ZMsg::get_size()
 
 
 
@@ -229,7 +256,7 @@ Send a ZMsg
 
 ### get_content_size
 
-    mixed ZMsg::get_content_size()
+    integer ZMsg::get_content_size()
 
 
 

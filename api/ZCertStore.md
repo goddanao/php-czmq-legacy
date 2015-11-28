@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \ZCertStore ZCertStore::__construct(mixed $certificates_dir)
+    \ZCertStore ZCertStore::__construct(string $certificates_dir)
 
 
 
@@ -31,13 +31,13 @@ Methods
 
 
 #### Arguments
-* $certificates_dir **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $certificates_dir **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### lookup
 
-    mixed ZCertStore::lookup(mixed $pubkey)
+    \ZCert ZCertStore::lookup(string $pubkey)
 
 
 
@@ -47,13 +47,13 @@ Methods
 
 
 #### Arguments
-* $pubkey **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $pubkey **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### insert
 
-    mixed ZCertStore::insert(mixed $cert)
+    mixed ZCertStore::insert(\ZCert $cert)
 
 
 
@@ -63,7 +63,7 @@ Methods
 
 
 #### Arguments
-* $cert **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $cert **[ZCert](ZCert.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 

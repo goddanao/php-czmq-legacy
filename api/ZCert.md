@@ -3,7 +3,7 @@ ZCert
 
 ZCert
 
-...
+Certificate Holder Class
 
 
 * Class name: ZCert
@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \ZCert ZCert::__construct(mixed $filename)
+    \ZCert ZCert::__construct(string $filename)
 
 
 
@@ -31,17 +31,17 @@ Methods
 
 
 #### Arguments
-* $filename **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $filename **string** - &lt;p&gt;Certificate filename. (optional)&lt;/p&gt;
 
 
 
 ### get_public_key
 
-    mixed ZCert::get_public_key()
+    string ZCert::get_public_key()
+
+Return the public key.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -50,11 +50,11 @@ Methods
 
 ### get_secret_key
 
-    mixed ZCert::get_secret_key()
+    string ZCert::get_secret_key()
+
+Return the secret key.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -63,11 +63,11 @@ Methods
 
 ### get_public_key_txt
 
-    mixed ZCert::get_public_key_txt()
+    string ZCert::get_public_key_txt()
+
+Return the public key.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -76,11 +76,11 @@ Methods
 
 ### get_secret_key_txt
 
-    mixed ZCert::get_secret_key_txt()
+    string ZCert::get_secret_key_txt()
+
+Return the secret key.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -89,7 +89,7 @@ Methods
 
 ### get_meta
 
-    mixed ZCert::get_meta(mixed $name)
+    string ZCert::get_meta(string $name)
 
 
 
@@ -99,13 +99,13 @@ Methods
 
 
 #### Arguments
-* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $name **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### get_meta_keys
 
-    mixed ZCert::get_meta_keys()
+    array ZCert::get_meta_keys()
 
 
 
@@ -118,7 +118,7 @@ Methods
 
 ### set_meta
 
-    mixed ZCert::set_meta(mixed $name, mixed $value)
+    mixed ZCert::set_meta(string $name, string $value)
 
 
 
@@ -128,14 +128,14 @@ Methods
 
 
 #### Arguments
-* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $value **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $name **string** - &lt;p&gt;...&lt;/p&gt;
+* $value **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### save
 
-    mixed ZCert::save(mixed $filename)
+    mixed ZCert::save(string $filename)
 
 
 
@@ -145,13 +145,13 @@ Methods
 
 
 #### Arguments
-* $filename **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $filename **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### save_public
 
-    mixed ZCert::save_public(mixed $filename)
+    mixed ZCert::save_public(string $filename)
 
 
 
@@ -161,13 +161,13 @@ Methods
 
 
 #### Arguments
-* $filename **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $filename **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### save_secret
 
-    mixed ZCert::save_secret(mixed $filename)
+    mixed ZCert::save_secret(string $filename)
 
 
 
@@ -177,13 +177,13 @@ Methods
 
 
 #### Arguments
-* $filename **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $filename **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### apply
 
-    mixed ZCert::apply()
+    mixed ZCert::apply(\IZSocket $socket)
 
 
 
@@ -191,6 +191,9 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $socket **[IZSocket](IZSocket.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 

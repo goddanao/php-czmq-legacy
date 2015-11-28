@@ -34,7 +34,7 @@ Methods
 
 ### call
 
-    mixed Majordomo\V1\Client::call()
+    mixed Majordomo\V1\Client::call(string $service, array|string|\ZFrame|\ZMsg $data)
 
 
 
@@ -42,12 +42,16 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $service **string** - &lt;p&gt;...&lt;/p&gt;
+* $data **array|string|[ZFrame](ZFrame.md)|[ZMsg](ZMsg.md)** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### call_async
 
-    mixed Majordomo\V1\Client::call_async()
+    mixed Majordomo\V1\Client::call_async(string $service, array|string|\ZFrame|\ZMsg $data)
 
 
 
@@ -56,11 +60,15 @@ Methods
 * Visibility: **public**
 
 
+#### Arguments
+* $service **string** - &lt;p&gt;...&lt;/p&gt;
+* $data **array|string|[ZFrame](ZFrame.md)|[ZMsg](ZMsg.md)** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -74,7 +82,7 @@ Methods
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

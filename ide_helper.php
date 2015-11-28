@@ -36,6 +36,7 @@ class ZSys {
   const EVENT_DISCONNECTED = 512;
   const EVENT_MONITOR_STOPPED = 1024;
   const EVENT_ALL = 65535;
+  const POLL_WAIT_FOREVER = -1;
   const POLL_NONE = 0;
   const POLL_IN = 1;
   const POLL_OUT = 2;
@@ -233,18 +234,18 @@ class ZSys {
   static public function libmdp_version() {}
 
   /**
-   * Return Malamute version
-   * 
-   * @return string
-  */
-  static public function libmlm_version() {}
-
-  /**
    * Return FileMq version
    * 
    * @return string
   */
   static public function libfmq_version() {}
+
+  /**
+   * Return Malamute version
+   * 
+   * @return string
+  */
+  static public function libmlm_version() {}
 
   /**
    * Log message as Info
@@ -292,7 +293,7 @@ class ZUdp implements \IZDescriptor {
    * @param bool $routable uses multicast (not yet implemented), else uses broadcast (default) (optional)
    * @return \ZUdp
   */
-  public function __construct($interface, $port, $routable) {}
+  public function __construct($interface = null, $port = 5670, $routable = false) {}
 
   /**
    * Verbose logging
@@ -340,96 +341,113 @@ class ZMsg {
   /**
    * ...
    * 
+   * @param string $picture ...
   */
-  public function append_picture() {}
+  public function append_picture($picture) {}
 
   /**
    * ...
    * 
+   * @param string $picture ...
   */
-  public function prepend_picture() {}
+  public function prepend_picture($picture) {}
 
   /**
    * ...
    * 
+   * @param string $picture ...
+   * @return array
   */
-  public function pop_picture() {}
+  public function pop_picture($picture) {}
 
   /**
    * ...
    * 
+   * @param \ZFrame $frame ...
   */
-  public function append() {}
+  public function append(\ZFrame $frame) {}
 
   /**
    * ...
    * 
+   * @param \ZFrame $frame ...
   */
-  public function prepend() {}
+  public function prepend(\ZFrame $frame) {}
 
   /**
    * ...
    * 
+   * @return \ZFrame
   */
   public function pop() {}
 
   /**
    * ...
    * 
+   * @param string $data ...
   */
-  public function append_string() {}
+  public function append_string($data) {}
 
   /**
    * ...
    * 
+   * @param string $data ...
   */
-  public function prepend_string() {}
+  public function prepend_string($data) {}
 
   /**
    * ...
    * 
+   * @return string
   */
   public function pop_string() {}
 
   /**
    * Send a ZMsg
    * 
+   * @param \IZSocket $socket ...
   */
-  public function send() {}
+  public function send(\IZSocket $socket) {}
 
   /**
    * ...
    * 
+   * @param \ZFrame $frame ...
   */
-  public function remove() {}
+  public function remove(\ZFrame $frame) {}
 
   /**
    * ...
    * 
+   * @return \ZFrame
   */
   public function first() {}
 
   /**
    * ...
    * 
+   * @return \ZFrame
   */
   public function next() {}
 
   /**
    * ...
    * 
+   * @return \ZFrame
   */
   public function last() {}
 
   /**
    * ...
    * 
+   * @return int
   */
   public function get_size() {}
 
   /**
    * ...
    * 
+   * @return int
   */
   public function get_content_size() {}
 
@@ -465,14 +483,14 @@ class ZFrame {
   /**
    * ...
    * 
-   * @param mixed $format ...
+   * @param string $format ...
   */
   public function pack($format) {}
 
   /**
    * ...
    * 
-   * @param mixed $format ...
+   * @param string $format ...
   */
   public function unpack($format) {}
 
@@ -502,8 +520,9 @@ class ZLoop {
   /**
    * ...
    * 
+   * @param int $max_timers ...
   */
-  public function set_max_timers() {}
+  public function set_max_timers($max_timers) {}
 
   /**
    * ...
@@ -521,9 +540,9 @@ class ZLoop {
    * ...
    * 
    * @param \IZDescriptor $socket ...
-   * @param mixed $mode ... (optional)
+   * @param int $mode ... (optional)
   */
-  public function add(\IZDescriptor $socket, $mode) {}
+  public function add(\IZDescriptor $socket, $mode = \ZSys::POLL_IN) {}
 
   /**
    * ...
@@ -533,15 +552,19 @@ class ZLoop {
   public function remove(\IZDescriptor $socket) {}
 
   /**
-   * ...
+   * Add a repeating timer with a callback. Return a timer_id.
    * 
+   * @param int $timeout Timeout ms.
+   * @param callable $callback The callaback.
+   * @param int $repeat How many times the timer will repeat. (optional)
+   * @return int
   */
-  public function add_timer() {}
+  public function add_timer($timeout, callable $callback, $repeat = 1) {}
 
   /**
-   * ...
+   * Remove the timer 
    * 
-   * @param mixed $timer_id ...
+   * @param int $timer_id The timer_id returned form add_timer.
   */
   public function remove_timer($timer_id) {}
 
@@ -564,66 +587,77 @@ class ZPoll {
   /**
    * ...
    * 
+   * @param bool $verbose ... (optional)
   */
-  public function set_verbose() {}
+  public function set_verbose($verbose) {}
 
   /**
    * ...
    * 
    * @param \IZDescriptor $socket ...
-   * @param mixed $mode ... (optional)
+   * @param int $mode ... (optional)
   */
-  public function add(\IZDescriptor $socket = null, $mode) {}
-
-  /**
-   * ...
-   * 
-   * @param \IZDescriptor $socket ...
-  */
-  public function has(\IZDescriptor $socket = null) {}
+  public function add(\IZDescriptor $socket, $mode = \ZSys::POLL_IN) {}
 
   /**
    * ...
    * 
    * @param \IZDescriptor $socket ...
   */
-  public function remove(\IZDescriptor $socket = null) {}
+  public function has(\IZDescriptor $socket) {}
 
   /**
    * ...
    * 
+   * @param \IZDescriptor $socket ...
   */
-  public function check_for() {}
+  public function remove(\IZDescriptor $socket) {}
 
   /**
    * ...
    * 
+   * @param \IZDescriptor $socket ...
+   * @param int $event ... (optional)
   */
-  public function events() {}
+  public function check_for(\IZDescriptor $socket, $event = \ZSys::POLL_IN) {}
 
   /**
    * ...
    * 
+   * @param \IZDescriptor $socket ...
   */
-  public function poll() {}
+  public function events(\IZDescriptor $socket) {}
 
   /**
    * ...
    * 
+   * @param int $timeout ... (optional)
   */
-  public function has_input() {}
+  public function poll($timeout = \ZSys::POLL_WAIT_FOREVER) {}
 
   /**
    * ...
    * 
+   * @param \IZDescriptor $socket ...
+   * @return bool
   */
-  public function has_output() {}
+  public function has_input(\IZDescriptor $socket) {}
 
   /**
    * ...
    * 
+   * @param \IZDescriptor $socket ...
+   * @return bool
   */
-  public function has_error() {}
+  public function has_output(\IZDescriptor $socket) {}
+
+  /**
+   * ...
+   * 
+   * @param \IZDescriptor $socket ...
+   * @return bool
+  */
+  public function has_error(\IZDescriptor $socket) {}
 
 }
 
@@ -631,89 +665,96 @@ class ZPoll {
 /**
  * ZCert
  *
- * ...
+ * Certificate Holder Class
  */
 class ZCert {
 
   /**
    * ...
    * 
-   * @param mixed $filename ... (optional)
+   * @param string $filename Certificate filename. (optional)
    * @return \ZCert
   */
-  public function __construct($filename) {}
+  public function __construct($filename = null) {}
 
   /**
-   * ...
+   * Return the public key.
    * 
+   * @return string
   */
   public function get_public_key() {}
 
   /**
-   * ...
+   * Return the secret key.
    * 
+   * @return string
   */
   public function get_secret_key() {}
 
   /**
-   * ...
+   * Return the public key.
    * 
+   * @return string
   */
   public function get_public_key_txt() {}
 
   /**
-   * ...
+   * Return the secret key.
    * 
+   * @return string
   */
   public function get_secret_key_txt() {}
 
   /**
    * ...
    * 
-   * @param mixed $name ...
+   * @param string $name ...
+   * @return string
   */
   public function get_meta($name) {}
 
   /**
    * ...
    * 
+   * @return array
   */
   public function get_meta_keys() {}
 
   /**
    * ...
    * 
-   * @param mixed $name ...
-   * @param mixed $value ...
+   * @param string $name ...
+   * @param string $value ...
   */
   public function set_meta($name, $value) {}
 
   /**
    * ...
    * 
-   * @param mixed $filename ...
+   * @param string $filename ...
   */
   public function save($filename) {}
 
   /**
    * ...
    * 
-   * @param mixed $filename ...
+   * @param string $filename ...
   */
   public function save_public($filename) {}
 
   /**
    * ...
    * 
-   * @param mixed $filename ...
+   * @param string $filename ...
   */
   public function save_secret($filename) {}
 
   /**
    * ...
    * 
+   * @param \IZSocket $socket ...
   */
-  public function apply() {}
+  public function apply(\IZSocket $socket) {}
 
   /**
    * ...
@@ -734,22 +775,23 @@ class ZCertStore {
   /**
    * ...
    * 
-   * @param mixed $certificates_dir ... (optional)
+   * @param string $certificates_dir ... (optional)
    * @return \ZCertStore
   */
-  public function __construct($certificates_dir) {}
+  public function __construct($certificates_dir = null) {}
 
   /**
    * ...
    * 
-   * @param mixed $pubkey ...
+   * @param string $pubkey ...
+   * @return \ZCert
   */
   public function lookup($pubkey) {}
 
   /**
    * ...
    * 
-   * @param mixed $cert ...
+   * @param \ZCert $cert ...
   */
   public function insert(\ZCert $cert) {}
 
@@ -788,7 +830,7 @@ class ZMonitor implements \IZSocket, \IZDescriptor {
    * @param \IZSocket $socket ...
    * @return \ZMonitor
   */
-  public function __construct(\IZSocket $socket = null) {}
+  public function __construct(\IZSocket $socket) {}
 
   /**
    * ...
@@ -799,7 +841,7 @@ class ZMonitor implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param int $event ...
   */
   public function listen($event) {}
 
@@ -843,6 +885,7 @@ interface IZDescriptor {
   /**
    * ...
    * 
+   * @return int
   */
   public function get_fd() ;
 
@@ -859,12 +902,14 @@ interface IZSocket extends \IZDescriptor {
   /**
    * ...
    * 
+   * @return \ZSocket
   */
   public function get_socket() ;
 
   /**
    * ...
    * 
+   * @return int
   */
   public function get_fd() ;
 
@@ -881,8 +926,8 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $socket_type ...
-   * @param mixed $endpoint ... (optional)
+   * @param string $socket_type ...
+   * @param string $endpoint ... (optional)
    * @return \ZSocket
   */
   public function __construct($socket_type, $endpoint) {}
@@ -902,43 +947,43 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
+   * @param string $endpoint ...
   */
   public function bind($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
+   * @param string $endpoint ...
   */
   public function unbind($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
+   * @param string $endpoint ...
   */
   public function connect($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
+   * @param string $endpoint ...
   */
   public function disconnect($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoints ...
-   * @param mixed $serverish ... (optional)
+   * @param string $endpoints ...
+   * @param bool $serverish ... (optional)
   */
-  public function attach($endpoints, $serverish) {}
+  public function attach($endpoints, $serverish = false) {}
 
   /**
    * ...
    * 
-   * @param mixed $byte ...
+   * @param int $byte ...
   */
   public function signal($byte) {}
 
@@ -963,8 +1008,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @param string $data ...
   */
-  public function send() {}
+  public function send($data) {}
 
   /**
    * ...
@@ -975,9 +1021,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $value ...
+   * @param string $data ...
   */
-  public function send_string($value) {}
+  public function send_string($data) {}
 
   /**
    * ...
@@ -988,117 +1034,117 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $picture ...
+   * @param string $picture ...
   */
   public function send_picture($picture) {}
 
   /**
    * ...
    * 
-   * @param mixed $picture ...
+   * @param string $picture ...
   */
   public function recv_picture($picture) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function pub($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function sub($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function rep($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function req($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function dealer($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function router($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function push($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function pull($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function xpub($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function xsub($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function xreq($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function xrep($endpoint) {}
 
   /**
-   * ...
+   * Create a ZMQ_STREAM socket.
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint ... (optional)
   */
   static public function stream($endpoint) {}
 
   /**
-   * ...
+   * Create a ZMQ_SERVER socket. (Requires ZMQ > 4.2.0)
    * 
    * @param mixed $endpoint ... (optional)
   */
   static public function server($endpoint) {}
 
   /**
-   * ...
+   * Create a ZMQ_CLIENT socket. (Requires ZMQ > 4.2.0)
    * 
    * @param mixed $endpoint ... (optional)
   */
@@ -1121,264 +1167,6 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * 
   */
   public function get_socket() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_tos() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_zap_domain() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_mechanism() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_plain_server() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_plain_username() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_plain_password() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_curve_server() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_curve_publickey() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_curve_secretkey() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_curve_serverkey() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_gssapi_server() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_gssapi_plaintext() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_gssapi_principal() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_gssapi_service_principal() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_ipv6() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_immediate() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_ipv4only() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_type() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_sndhwm() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_rcvhwm() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_affinity() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_identity() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_rate() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_recovery_ivl() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_sndbuf() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_rcvbuf() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_linger() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_reconnect_ivl() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_reconnect_ivl_max() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_backlog() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_maxmsgsize() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_multicast_hops() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_rcvtimeo() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_sndtimeo() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_tcp_keepalive() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_tcp_keepalive_idle() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_tcp_keepalive_cnt() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_tcp_keepalive_intvl() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_tcp_accept_filter() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_rcvmore() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_events() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_last_endpoint() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_tos() {}
 
   /**
    * ...
@@ -1420,49 +1208,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ...
    * 
   */
-  public function set_zap_domain() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_plain_server() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_plain_username() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_plain_password() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_curve_server() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_curve_publickey() {}
-
-  /**
-   * ...
-   * 
-  */
   public function set_curve_publickey_bin() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_curve_secretkey() {}
 
   /**
    * ...
@@ -1474,49 +1220,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ...
    * 
   */
-  public function set_curve_serverkey() {}
-
-  /**
-   * ...
-   * 
-  */
   public function set_curve_serverkey_bin() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_gssapi_server() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_gssapi_plaintext() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_gssapi_principal() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_gssapi_service_principal() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_ipv6() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_immediate() {}
 
   /**
    * ...
@@ -1528,31 +1232,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ...
    * 
   */
-  public function set_ipv4only() {}
-
-  /**
-   * ...
-   * 
-  */
   public function set_delay_attach_on_connect() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_sndhwm() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_rcvhwm() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_affinity() {}
 
   /**
    * ...
@@ -1570,115 +1250,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ...
    * 
   */
-  public function set_identity() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_rate() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_recovery_ivl() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_sndbuf() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_rcvbuf() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_linger() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_reconnect_ivl() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_reconnect_ivl_max() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_backlog() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_maxmsgsize() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_multicast_hops() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_rcvtimeo() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_sndtimeo() {}
-
-  /**
-   * ...
-   * 
-  */
   public function set_xpub_verbose() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_tcp_keepalive() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_tcp_keepalive_idle() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_tcp_keepalive_cnt() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_tcp_keepalive_intvl() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_tcp_accept_filter() {}
 
 }
 
@@ -1725,25 +1297,25 @@ class ZProxy implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $socket_type ...
-   * @param mixed $socket_endpoint ...
+   * @param string $type ...
+   * @param string $endpoint ...
   */
-  public function set_frontend($socket_type, $socket_endpoint) {}
+  public function set_frontend($type, $endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $socket_type ...
-   * @param mixed $socket_endpoint ...
+   * @param string $type ...
+   * @param string $endpoint ...
   */
-  public function set_backend($socket_type, $socket_endpoint) {}
+  public function set_backend($type, $endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $socket_endpoint ...
+   * @param string $endpoint ...
   */
-  public function set_capture($socket_endpoint) {}
+  public function set_capture($endpoint) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -1783,16 +1355,17 @@ class ZBeacon implements \IZSocket, \IZDescriptor {
   public function set_verbose() {}
 
   /**
-   * ...
+   * Configure Udp port number. Return hostname or false if cannot bind.
    * 
-   * @param mixed $port ...
+   * @param int $port ...
+   * @return string
   */
   public function set_port($port) {}
 
   /**
    * ...
    * 
-   * @param mixed $filter ...
+   * @param string $filter ...
   */
   public function subscribe($filter) {}
 
@@ -1805,8 +1378,8 @@ class ZBeacon implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $data ...
-   * @param mixed $interval ... (optional)
+   * @param string $data ...
+   * @param int $interval ... (optional)
   */
   public function publish($data, $interval) {}
 
@@ -1897,8 +1470,10 @@ class ZAuth implements \IZSocket, \IZDescriptor {
   /**
    *  
    * 
+   * @param string $mode ...
+   * @param string $path ... (optional)
   */
-  public function configure() {}
+  public function configure($mode, $path) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -1940,37 +1515,37 @@ class ZGossip implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $filename ...
+   * @param string $filename ...
   */
   public function configure($filename) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
+   * @param string $endpoint ...
   */
   public function bind($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
+   * @param string $endpoint ...
   */
   public function connect($endpoint) {}
 
   /**
    * ...
    * 
-   * @param mixed $property ...
-   * @param mixed $value ...
+   * @param string $property ...
+   * @param string $value ...
   */
   public function set($property, $value) {}
 
   /**
    * ...
    * 
-   * @param mixed $property ...
-   * @param mixed $value ...
+   * @param string $property ...
+   * @param string $value ...
   */
   public function publish($property, $value) {}
 
@@ -2038,14 +1613,18 @@ class ZInotify implements \IZDescriptor {
   /**
    * ...
    * 
+   * @param string $file ...
+   * @param int $events ...
+   * @return int
   */
-  public function watch() {}
+  public function watch($file, $events) {}
 
   /**
    * ...
    * 
+   * @param int $watch_id ...
   */
-  public function remove() {}
+  public function remove($watch_id) {}
 
   /**
    * Recieve a ZMsg.
@@ -2057,6 +1636,7 @@ class ZInotify implements \IZDescriptor {
   /**
    * ...
    * 
+   * @return int
   */
   public function get_fd() {}
 
@@ -2080,12 +1660,14 @@ class ZStdIn implements \IZDescriptor {
   /**
    * ...
    * 
+   * @param array|string|\ZFrame|\ZMsg $data ...
   */
-  public function send() {}
+  public function send($data) {}
 
   /**
    * ...
    * 
+   * @return int
   */
   public function get_fd() {}
 
@@ -2109,12 +1691,14 @@ class ZStdOut implements \IZDescriptor {
   /**
    * ...
    * 
+   * @param array|string|\ZFrame|\ZMsg $data ...
   */
-  public function send() {}
+  public function send($data) {}
 
   /**
    * ...
    * 
+   * @return int
   */
   public function get_fd() {}
 
@@ -2138,12 +1722,14 @@ class ZStdErr implements \IZDescriptor {
   /**
    * ...
    * 
+   * @param array|string|\ZFrame|\ZMsg $data ...
   */
-  public function send() {}
+  public function send($data) {}
 
   /**
    * ...
    * 
+   * @return int
   */
   public function get_fd() {}
 
@@ -2166,11 +1752,12 @@ class Zyre implements \IZSocket, \IZDescriptor {
    * @param string $name Zyre node name. (optional)
    * @return \Zyre\Zyre
   */
-  public function __construct($name) {}
+  public function __construct($name = null) {}
 
   /**
    * Start node, after setting header values. When you start a node it begins discovery and connection.
    * 
+   * @return bool
   */
   public function start() {}
 
@@ -2308,7 +1895,7 @@ class Zyre implements \IZSocket, \IZDescriptor {
    * Set node header; these are provided to other nodes during discovery and come in each ENTER message.
    * 
    * @param string $name ...
-   * @param mixed $value ...
+   * @param string $value ...
   */
   public function set_header($name, $value) {}
 
@@ -2372,8 +1959,8 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
-   * @param mixed $verbose ... (optional)
+   * @param string $endpoint ... (optional)
+   * @param bool $verbose ... (optional)
    * @return \Majordomo\V2\Broker
   */
   public function __construct($endpoint, $verbose) {}
@@ -2387,26 +1974,31 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @param string $endpoint ...
   */
-  public function load_config() {}
+  public function bind($endpoint) {}
 
   /**
    * ...
    * 
+   * @param string $filename ...
   */
-  public function save_config() {}
+  public function load_config($filename) {}
 
   /**
    * ...
    * 
+   * @param string $filename ...
   */
-  public function set_config() {}
+  public function save_config($filename) {}
 
   /**
    * ...
    * 
+   * @param string $key ...
+   * @param string $value ...
   */
-  public function bind() {}
+  public function set_config($key, $value) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2435,12 +2027,12 @@ class Worker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $name ...
-   * @param mixed $broker_endpoint ...
+   * @param string $name ...
+   * @param string $broker_endpoint ...
    * @param callable $callback ...
    * @return \Majordomo\V2\Worker
   */
-  public function __construct($name, $broker_endpoint, $callback) {}
+  public function __construct($name, $broker_endpoint, callable $callback) {}
 
   /**
    * ...
@@ -2487,7 +2079,7 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $broker_endpoint ...
+   * @param string $broker_endpoint ...
    * @return \Majordomo\V2\Client
   */
   public function __construct($broker_endpoint) {}
@@ -2508,14 +2100,14 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $service_name ...
+   * @param string $service_name ...
   */
   public function call($service_name) {}
 
   /**
    * ...
    * 
-   * @param mixed $service_name ...
+   * @param string $service_name ...
   */
   public function call_async($service_name) {}
 
@@ -2556,8 +2148,9 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @param string $endpoint ...
   */
-  public function bind() {}
+  public function bind($endpoint) {}
 
   /**
    * ...
@@ -2574,9 +2167,9 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $socket_endpoint ...
+   * @param string $endpoint ...
   */
-  public function set_capture($socket_endpoint) {}
+  public function set_capture($endpoint) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2605,9 +2198,9 @@ class Worker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $broker_endpoint ...
-   * @param mixed $name ...
-   * @param mixed $verbose ... (optional)
+   * @param string $broker_endpoint ...
+   * @param string $name ...
+   * @param bool $verbose ... (optional)
    * @return \Majordomo\V1\Worker
   */
   public function __construct($broker_endpoint, $name, $verbose) {}
@@ -2617,7 +2210,7 @@ class Worker implements \IZSocket, \IZDescriptor {
    * 
    * @param callable $callback ...
   */
-  public function run($callback) {}
+  public function run(callable $callback) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2653,14 +2246,18 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @param string $service ...
+   * @param array|string|\ZFrame|\ZMsg $data ... (optional)
   */
-  public function call() {}
+  public function call($service, $data) {}
 
   /**
    * ...
    * 
+   * @param string $service ...
+   * @param array|string|\ZFrame|\ZMsg $data ... (optional)
   */
-  public function call_async() {}
+  public function call_async($service, $data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2705,26 +2302,31 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @param string $endpoint ...
   */
-  public function bind() {}
+  public function bind($endpoint) {}
 
   /**
    * ...
    * 
+   * @param string $filename ...
   */
-  public function load_config() {}
+  public function load_config($filename) {}
 
   /**
    * ...
    * 
+   * @param string $filename ...
   */
-  public function save_config() {}
+  public function save_config($filename) {}
 
   /**
    * ...
    * 
+   * @param string $key ...
+   * @param string $value ...
   */
-  public function set_config() {}
+  public function set_config($key, $value) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2753,9 +2355,9 @@ class Worker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
-   * @param mixed $address ...
-   * @param mixed $pattern ... (optional)
+   * @param string $endpoint ...
+   * @param string $address ...
+   * @param string $pattern ... (optional)
    * @return \Malamute\Worker
   */
   public function __construct($endpoint, $address, $pattern) {}
@@ -2763,7 +2365,7 @@ class Worker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $timeout ...
+   * @param int $timeout ...
   */
   public function set_timeout($timeout) {}
 
@@ -2772,7 +2374,7 @@ class Worker implements \IZSocket, \IZDescriptor {
    * 
    * @param callable $callback ...
   */
-  public function run($callback) {}
+  public function run(callable $callback) {}
 
   /**
    * Get the underlying Malamute Client.
@@ -2808,9 +2410,9 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
-   * @param mixed $address ... (optional)
-   * @param mixed $timeout ... (optional)
+   * @param string $endpoint ...
+   * @param string $address ... (optional)
+   * @param int $timeout ... (optional)
    * @return \Malamute\Client
   */
   public function __construct($endpoint, $address, $timeout) {}
@@ -2824,9 +2426,9 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $endpoint ... (optional)
-   * @param mixed $address ... (optional)
-   * @param mixed $timeout ... (optional)
+   * @param string $endpoint ... (optional)
+   * @param string $address ... (optional)
+   * @param int $timeout ... (optional)
   */
   public function connect($endpoint, $address, $timeout) {}
 
@@ -2845,52 +2447,52 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $stream ...
+   * @param string $stream ...
   */
   public function set_producer($stream) {}
 
   /**
    * ...
    * 
-   * @param mixed $address ...
-   * @param mixed $patern ...
+   * @param string $address ...
+   * @param string $patern ...
   */
   public function set_worker($address, $patern) {}
 
   /**
    * ...
    * 
-   * @param mixed $stream ...
-   * @param mixed $patern ...
+   * @param string $stream ...
+   * @param string $patern ...
   */
   public function set_consumer($stream, $patern) {}
 
   /**
    * ...
    * 
-   * @param mixed $subject ...
+   * @param string $subject ...
   */
   public function send_stream($subject) {}
 
   /**
    * ...
    * 
-   * @param mixed $address ...
+   * @param string $address ...
    * @param mixed $payload ... (optional)
-   * @param mixed $timeout ... (optional)
-   * @param mixed $subject ... (optional)
-   * @param mixed $tracker ... (optional)
+   * @param int $timeout ... (optional)
+   * @param string $subject ... (optional)
+   * @param string $tracker ... (optional)
   */
   public function send_mailbox($address, $payload, $timeout, $subject, $tracker) {}
 
   /**
    * ...
    * 
-   * @param mixed $address ...
-   * @param mixed $subject ...
+   * @param string $address ...
+   * @param string $subject ...
    * @param mixed $payload ... (optional)
-   * @param mixed $timeout ... (optional)
-   * @param mixed $tracker ... (optional)
+   * @param int $timeout ... (optional)
+   * @param string $tracker ... (optional)
   */
   public function send_service($address, $subject, $payload, $timeout, $tracker) {}
 
@@ -2928,8 +2530,8 @@ class Producer implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
-   * @param mixed $stream ...
+   * @param string $endpoint ...
+   * @param string $stream ...
    * @return \Malamute\Producer
   */
   public function __construct($endpoint, $stream) {}
@@ -2937,17 +2539,17 @@ class Producer implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $timeout ...
+   * @param int $timeout ...
   */
   public function set_timeout($timeout) {}
 
   /**
    * ...
    * 
-   * @param mixed $subject ...
+   * @param string $subject ...
    * @param callable $callback ...
   */
-  public function run($subject, $callback) {}
+  public function run($subject, callable $callback) {}
 
   /**
    * Get the underlying Malamute Client.
@@ -2983,8 +2585,8 @@ class Consumer implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
-   * @param mixed $stream ...
+   * @param string $endpoint ...
+   * @param string $stream ...
    * @return \Malamute\Consumer
   */
   public function __construct($endpoint, $stream) {}
@@ -2992,24 +2594,24 @@ class Consumer implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $timeout ...
+   * @param int $timeout ...
   */
   public function set_timeout($timeout) {}
 
   /**
    * ...
    * 
-   * @param mixed $header ... (optional)
+   * @param string $header ... (optional)
   */
   public function header($header) {}
 
   /**
    * ...
    * 
-   * @param mixed $pattern ...
+   * @param string $pattern ...
    * @param callable $callback ...
   */
-  public function run($pattern, $callback) {}
+  public function run($pattern, callable $callback) {}
 
   /**
    * Get the underlying Malamute Client.
@@ -3059,34 +2661,39 @@ class Server implements \IZSocket, \IZDescriptor {
   public function set_verbose() {}
 
   /**
-   * ...
+   * FileMQ Server endpoint to bind.
    * 
+   * @param string $endpoint ...
   */
-  public function load_config() {}
+  public function bind($endpoint) {}
 
   /**
    * ...
    * 
+   * @param string $filename ...
   */
-  public function set_config() {}
+  public function load_config($filename) {}
 
   /**
    * ...
    * 
+   * @param string $filename ...
   */
-  public function save_config() {}
+  public function save_config($filename) {}
 
   /**
    * ...
    * 
+   * @param string $key ...
+   * @param string $value ...
   */
-  public function bind() {}
+  public function set_config($key, $value) {}
 
   /**
    * ...
    * 
-   * @param mixed $local_path ...
-   * @param mixed $alias ...
+   * @param string $local_path ...
+   * @param string $alias ...
   */
   public function publish($local_path, $alias) {}
 
@@ -3117,24 +2724,24 @@ class Server implements \IZSocket, \IZDescriptor {
 /**
  * Client
  *
- * ...
+ * FileMQ Client
  */
 class Client implements \IZSocket, \IZDescriptor {
 
   /**
-   * ...
+   * Create e new instance.
    * 
-   * @param mixed $endpoint ...
-   * @param mixed $local_path ...
-   * @param mixed $timeout ... (optional)
+   * @param string $endpoint FileMQ Server endpoint.
+   * @param string $local_path Local folder to sync with server.
+   * @param int $timeout Connect timeout. 0 means infinite. (optional)
    * @return \FileMq\Client
   */
-  public function __construct($endpoint, $local_path, $timeout) {}
+  public function __construct($endpoint, $local_path, $timeout = 0) {}
 
   /**
    * ...
    * 
-   * @param mixed $timeout ...
+   * @param int $timeout ...
   */
   public function set_timeout($timeout) {}
 
@@ -3147,7 +2754,7 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $remote_path ...
+   * @param string $remote_path ...
   */
   public function subscribe($remote_path) {}
 

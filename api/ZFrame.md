@@ -47,7 +47,7 @@ Methods
 
 ### pack
 
-    mixed ZFrame::pack(mixed $format)
+    mixed ZFrame::pack(string $format)
 
 
 
@@ -57,13 +57,13 @@ Methods
 
 
 #### Arguments
-* $format **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $format **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### unpack
 
-    mixed ZFrame::unpack(mixed $format)
+    mixed ZFrame::unpack(string $format)
 
 
 
@@ -73,6 +73,6 @@ Methods
 
 
 #### Arguments
-* $format **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $format **string** - &lt;p&gt;...&lt;/p&gt;
 
 

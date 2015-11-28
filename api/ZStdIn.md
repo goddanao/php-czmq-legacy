@@ -34,7 +34,7 @@ Methods
 
 ### send
 
-    mixed ZStdIn::send()
+    mixed ZStdIn::send(array|string|\ZFrame|\ZMsg $data)
 
 
 
@@ -43,11 +43,14 @@ Methods
 * Visibility: **public**
 
 
+#### Arguments
+* $data **array|string|[ZFrame](ZFrame.md)|[ZMsg](ZMsg.md)** - &lt;p&gt;...&lt;/p&gt;
+
 
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 

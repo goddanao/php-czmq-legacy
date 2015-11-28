@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Majordomo\V2\Client Majordomo\V2\Client::__construct(mixed $broker_endpoint)
+    \Majordomo\V2\Client Majordomo\V2\Client::__construct(string $broker_endpoint)
 
 
 
@@ -31,7 +31,7 @@ Methods
 
 
 #### Arguments
-* $broker_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $broker_endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -63,7 +63,7 @@ Recieve a ZMsg.
 
 ### call
 
-    mixed Majordomo\V2\Client::call(mixed $service_name)
+    mixed Majordomo\V2\Client::call(string $service_name)
 
 
 
@@ -73,13 +73,13 @@ Recieve a ZMsg.
 
 
 #### Arguments
-* $service_name **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $service_name **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### call_async
 
-    mixed Majordomo\V2\Client::call_async(mixed $service_name)
+    mixed Majordomo\V2\Client::call_async(string $service_name)
 
 
 
@@ -89,13 +89,13 @@ Recieve a ZMsg.
 
 
 #### Arguments
-* $service_name **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $service_name **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -109,7 +109,7 @@ Recieve a ZMsg.
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 

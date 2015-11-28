@@ -21,7 +21,7 @@ Methods
 
 ### set_verbose
 
-    mixed ZPoll::set_verbose()
+    mixed ZPoll::set_verbose(boolean $verbose)
 
 
 
@@ -30,11 +30,14 @@ Methods
 * Visibility: **public**
 
 
+#### Arguments
+* $verbose **boolean** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### add
 
-    mixed ZPoll::add(\IZDescriptor $socket, mixed $mode)
+    mixed ZPoll::add(\IZDescriptor $socket, integer $mode)
 
 
 
@@ -45,7 +48,7 @@ Methods
 
 #### Arguments
 * $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
-* $mode **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $mode **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -83,7 +86,7 @@ Methods
 
 ### check_for
 
-    mixed ZPoll::check_for()
+    mixed ZPoll::check_for(\IZDescriptor $socket, integer $event)
 
 
 
@@ -91,12 +94,16 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $event **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### events
 
-    mixed ZPoll::events()
+    mixed ZPoll::events(\IZDescriptor $socket)
 
 
 
@@ -104,12 +111,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### poll
 
-    mixed ZPoll::poll()
+    mixed ZPoll::poll(integer $timeout)
 
 
 
@@ -117,12 +127,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $timeout **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### has_input
 
-    mixed ZPoll::has_input()
+    boolean ZPoll::has_input(\IZDescriptor $socket)
 
 
 
@@ -130,12 +143,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### has_output
 
-    mixed ZPoll::has_output()
+    boolean ZPoll::has_output(\IZDescriptor $socket)
 
 
 
@@ -143,12 +159,15 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### has_error
 
-    mixed ZPoll::has_error()
+    boolean ZPoll::has_error(\IZDescriptor $socket)
 
 
 
@@ -156,5 +175,8 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
 
 

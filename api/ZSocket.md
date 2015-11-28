@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \ZSocket ZSocket::__construct(mixed $socket_type, mixed $endpoint)
+    \ZSocket ZSocket::__construct(string $socket_type, string $endpoint)
 
 
 
@@ -31,8 +31,8 @@ Methods
 
 
 #### Arguments
-* $socket_type **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $socket_type **string** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -64,7 +64,7 @@ Methods
 
 ### bind
 
-    mixed ZSocket::bind(mixed $endpoint)
+    mixed ZSocket::bind(string $endpoint)
 
 
 
@@ -74,13 +74,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### unbind
 
-    mixed ZSocket::unbind(mixed $endpoint)
+    mixed ZSocket::unbind(string $endpoint)
 
 
 
@@ -90,13 +90,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### connect
 
-    mixed ZSocket::connect(mixed $endpoint)
+    mixed ZSocket::connect(string $endpoint)
 
 
 
@@ -106,13 +106,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### disconnect
 
-    mixed ZSocket::disconnect(mixed $endpoint)
+    mixed ZSocket::disconnect(string $endpoint)
 
 
 
@@ -122,13 +122,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### attach
 
-    mixed ZSocket::attach(mixed $endpoints, mixed $serverish)
+    mixed ZSocket::attach(string $endpoints, boolean $serverish)
 
 
 
@@ -138,14 +138,14 @@ Methods
 
 
 #### Arguments
-* $endpoints **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $serverish **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoints **string** - &lt;p&gt;...&lt;/p&gt;
+* $serverish **boolean** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### signal
 
-    mixed ZSocket::signal(mixed $byte)
+    mixed ZSocket::signal(integer $byte)
 
 
 
@@ -155,7 +155,7 @@ Methods
 
 
 #### Arguments
-* $byte **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $byte **integer** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -200,7 +200,7 @@ Methods
 
 ### send
 
-    mixed ZSocket::send()
+    mixed ZSocket::send(string $data)
 
 
 
@@ -208,6 +208,9 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $data **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -226,7 +229,7 @@ Methods
 
 ### send_string
 
-    mixed ZSocket::send_string(mixed $value)
+    mixed ZSocket::send_string(string $data)
 
 
 
@@ -236,7 +239,7 @@ Methods
 
 
 #### Arguments
-* $value **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -255,7 +258,7 @@ Methods
 
 ### send_picture
 
-    mixed ZSocket::send_picture(mixed $picture)
+    mixed ZSocket::send_picture(string $picture)
 
 
 
@@ -265,13 +268,13 @@ Methods
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### recv_picture
 
-    mixed ZSocket::recv_picture(mixed $picture)
+    mixed ZSocket::recv_picture(string $picture)
 
 
 
@@ -281,13 +284,13 @@ Methods
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### pub
 
-    mixed ZSocket::pub(mixed $endpoint)
+    mixed ZSocket::pub(string $endpoint)
 
 
 
@@ -298,13 +301,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### sub
 
-    mixed ZSocket::sub(mixed $endpoint)
+    mixed ZSocket::sub(string $endpoint)
 
 
 
@@ -315,13 +318,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### rep
 
-    mixed ZSocket::rep(mixed $endpoint)
+    mixed ZSocket::rep(string $endpoint)
 
 
 
@@ -332,13 +335,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### req
 
-    mixed ZSocket::req(mixed $endpoint)
+    mixed ZSocket::req(string $endpoint)
 
 
 
@@ -349,13 +352,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### dealer
 
-    mixed ZSocket::dealer(mixed $endpoint)
+    mixed ZSocket::dealer(string $endpoint)
 
 
 
@@ -366,13 +369,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### router
 
-    mixed ZSocket::router(mixed $endpoint)
+    mixed ZSocket::router(string $endpoint)
 
 
 
@@ -383,13 +386,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### push
 
-    mixed ZSocket::push(mixed $endpoint)
+    mixed ZSocket::push(string $endpoint)
 
 
 
@@ -400,13 +403,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### pull
 
-    mixed ZSocket::pull(mixed $endpoint)
+    mixed ZSocket::pull(string $endpoint)
 
 
 
@@ -417,13 +420,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### xpub
 
-    mixed ZSocket::xpub(mixed $endpoint)
+    mixed ZSocket::xpub(string $endpoint)
 
 
 
@@ -434,13 +437,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### xsub
 
-    mixed ZSocket::xsub(mixed $endpoint)
+    mixed ZSocket::xsub(string $endpoint)
 
 
 
@@ -451,13 +454,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### xreq
 
-    mixed ZSocket::xreq(mixed $endpoint)
+    mixed ZSocket::xreq(string $endpoint)
 
 
 
@@ -468,13 +471,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### xrep
 
-    mixed ZSocket::xrep(mixed $endpoint)
+    mixed ZSocket::xrep(string $endpoint)
 
 
 
@@ -485,24 +488,24 @@ Methods
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### stream
 
-    mixed ZSocket::stream(mixed $endpoint)
+    mixed ZSocket::stream(string $endpoint)
+
+Create a ZMQ_STREAM socket.
 
 
-
-...
 
 * Visibility: **public**
 * This method is **static**.
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -510,9 +513,9 @@ Methods
 
     mixed ZSocket::server(mixed $endpoint)
 
+Create a ZMQ_SERVER socket. (Requires ZMQ > 4.2.0)
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -527,9 +530,9 @@ Methods
 
     mixed ZSocket::client(mixed $endpoint)
 
+Create a ZMQ_CLIENT socket. (Requires ZMQ > 4.2.0)
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -555,7 +558,7 @@ Methods
 
 ### get_fd
 
-    mixed IZDescriptor::get_fd()
+    integer IZDescriptor::get_fd()
 
 
 
@@ -569,7 +572,7 @@ Methods
 
 ### get_socket
 
-    mixed IZSocket::get_socket()
+    \ZSocket IZSocket::get_socket()
 
 
 
@@ -577,565 +580,6 @@ Methods
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
-
-
-
-
-### get_tos
-
-    mixed ZSocket::get_tos()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_zap_domain
-
-    mixed ZSocket::get_zap_domain()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_mechanism
-
-    mixed ZSocket::get_mechanism()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_plain_server
-
-    mixed ZSocket::get_plain_server()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_plain_username
-
-    mixed ZSocket::get_plain_username()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_plain_password
-
-    mixed ZSocket::get_plain_password()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_curve_server
-
-    mixed ZSocket::get_curve_server()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_curve_publickey
-
-    mixed ZSocket::get_curve_publickey()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_curve_secretkey
-
-    mixed ZSocket::get_curve_secretkey()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_curve_serverkey
-
-    mixed ZSocket::get_curve_serverkey()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_gssapi_server
-
-    mixed ZSocket::get_gssapi_server()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_gssapi_plaintext
-
-    mixed ZSocket::get_gssapi_plaintext()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_gssapi_principal
-
-    mixed ZSocket::get_gssapi_principal()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_gssapi_service_principal
-
-    mixed ZSocket::get_gssapi_service_principal()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_ipv6
-
-    mixed ZSocket::get_ipv6()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_immediate
-
-    mixed ZSocket::get_immediate()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_ipv4only
-
-    mixed ZSocket::get_ipv4only()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_type
-
-    mixed ZSocket::get_type()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_sndhwm
-
-    mixed ZSocket::get_sndhwm()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_rcvhwm
-
-    mixed ZSocket::get_rcvhwm()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_affinity
-
-    mixed ZSocket::get_affinity()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_identity
-
-    mixed ZSocket::get_identity()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_rate
-
-    mixed ZSocket::get_rate()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_recovery_ivl
-
-    mixed ZSocket::get_recovery_ivl()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_sndbuf
-
-    mixed ZSocket::get_sndbuf()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_rcvbuf
-
-    mixed ZSocket::get_rcvbuf()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_linger
-
-    mixed ZSocket::get_linger()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_reconnect_ivl
-
-    mixed ZSocket::get_reconnect_ivl()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_reconnect_ivl_max
-
-    mixed ZSocket::get_reconnect_ivl_max()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_backlog
-
-    mixed ZSocket::get_backlog()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_maxmsgsize
-
-    mixed ZSocket::get_maxmsgsize()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_multicast_hops
-
-    mixed ZSocket::get_multicast_hops()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_rcvtimeo
-
-    mixed ZSocket::get_rcvtimeo()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_sndtimeo
-
-    mixed ZSocket::get_sndtimeo()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_tcp_keepalive
-
-    mixed ZSocket::get_tcp_keepalive()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_tcp_keepalive_idle
-
-    mixed ZSocket::get_tcp_keepalive_idle()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_tcp_keepalive_cnt
-
-    mixed ZSocket::get_tcp_keepalive_cnt()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_tcp_keepalive_intvl
-
-    mixed ZSocket::get_tcp_keepalive_intvl()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_tcp_accept_filter
-
-    mixed ZSocket::get_tcp_accept_filter()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_rcvmore
-
-    mixed ZSocket::get_rcvmore()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_events
-
-    mixed ZSocket::get_events()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_last_endpoint
-
-    mixed ZSocket::get_last_endpoint()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_tos
-
-    mixed ZSocket::set_tos()
-
-
-
-...
-
-* Visibility: **public**
 
 
 
@@ -1218,100 +662,9 @@ Methods
 
 
 
-### set_zap_domain
-
-    mixed ZSocket::set_zap_domain()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_plain_server
-
-    mixed ZSocket::set_plain_server()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_plain_username
-
-    mixed ZSocket::set_plain_username()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_plain_password
-
-    mixed ZSocket::set_plain_password()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_curve_server
-
-    mixed ZSocket::set_curve_server()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_curve_publickey
-
-    mixed ZSocket::set_curve_publickey()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### set_curve_publickey_bin
 
     mixed ZSocket::set_curve_publickey_bin()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_curve_secretkey
-
-    mixed ZSocket::set_curve_secretkey()
 
 
 
@@ -1335,100 +688,9 @@ Methods
 
 
 
-### set_curve_serverkey
-
-    mixed ZSocket::set_curve_serverkey()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### set_curve_serverkey_bin
 
     mixed ZSocket::set_curve_serverkey_bin()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_gssapi_server
-
-    mixed ZSocket::set_gssapi_server()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_gssapi_plaintext
-
-    mixed ZSocket::set_gssapi_plaintext()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_gssapi_principal
-
-    mixed ZSocket::set_gssapi_principal()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_gssapi_service_principal
-
-    mixed ZSocket::set_gssapi_service_principal()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_ipv6
-
-    mixed ZSocket::set_ipv6()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_immediate
-
-    mixed ZSocket::set_immediate()
 
 
 
@@ -1452,61 +714,9 @@ Methods
 
 
 
-### set_ipv4only
-
-    mixed ZSocket::set_ipv4only()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### set_delay_attach_on_connect
 
     mixed ZSocket::set_delay_attach_on_connect()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_sndhwm
-
-    mixed ZSocket::set_sndhwm()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_rcvhwm
-
-    mixed ZSocket::set_rcvhwm()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_affinity
-
-    mixed ZSocket::set_affinity()
 
 
 
@@ -1543,243 +753,9 @@ Methods
 
 
 
-### set_identity
-
-    mixed ZSocket::set_identity()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_rate
-
-    mixed ZSocket::set_rate()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_recovery_ivl
-
-    mixed ZSocket::set_recovery_ivl()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_sndbuf
-
-    mixed ZSocket::set_sndbuf()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_rcvbuf
-
-    mixed ZSocket::set_rcvbuf()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_linger
-
-    mixed ZSocket::set_linger()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_reconnect_ivl
-
-    mixed ZSocket::set_reconnect_ivl()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_reconnect_ivl_max
-
-    mixed ZSocket::set_reconnect_ivl_max()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_backlog
-
-    mixed ZSocket::set_backlog()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_maxmsgsize
-
-    mixed ZSocket::set_maxmsgsize()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_multicast_hops
-
-    mixed ZSocket::set_multicast_hops()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_rcvtimeo
-
-    mixed ZSocket::set_rcvtimeo()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_sndtimeo
-
-    mixed ZSocket::set_sndtimeo()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### set_xpub_verbose
 
     mixed ZSocket::set_xpub_verbose()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_tcp_keepalive
-
-    mixed ZSocket::set_tcp_keepalive()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_tcp_keepalive_idle
-
-    mixed ZSocket::set_tcp_keepalive_idle()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_tcp_keepalive_cnt
-
-    mixed ZSocket::set_tcp_keepalive_cnt()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_tcp_keepalive_intvl
-
-    mixed ZSocket::set_tcp_keepalive_intvl()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_tcp_accept_filter
-
-    mixed ZSocket::set_tcp_accept_filter()
 
 
 
