@@ -25,7 +25,7 @@
 #define HEARTBEAT_EXPIRY    HEARTBEAT_INTERVAL * HEARTBEAT_LIVENESS
 
 //  This is the version of MDP/Client we implement
-#define MDPC_CLIENT         "MDPC0X"
+#define MDPC_CLIENT         "MDPC01"
 
 //  MDP/Client commands, as strings
 #define MDPC_REQUEST        "\001"
@@ -37,7 +37,7 @@ static char *mdpc_commands [] = {
 };
 
 //  This is the version of MDP/Worker we implement
-#define MDPW_WORKER         "MDPW0X"
+#define MDPW_WORKER         "MDPW01"
 
 //  MDP/Worker commands, as strings
 #define MDPW_READY          "\001"

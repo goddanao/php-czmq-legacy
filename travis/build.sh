@@ -1,16 +1,8 @@
 #!/usr/bin/env bash
 
-#ZEROMQ_HASH=6e064f9f757af466b007b59c4ea4e19de0568548
-#LIBSODIUM_HASH=""
-#CZMQ_HASH=8bbab31200ba629cafacb9027d1b5f2b01c383f0
-#ZYRE_HASH=3691e3f51c33ed5d7b9d8c9f01f1511b5205f805
-#
-#FILEMQ_VERSION=master FILEMQ_HASH="" PHPCPP_VERSION=master PHPCPP_HASH=""
-#  - ZEROMQ_VERSION=v4.2.0 ZEROMQ_HASH=6e064f9f757af466b007b59c4ea4e19de0568548 LIBSODIUM_VERSION=1.0.3 LIBSODIUM_HASH="" CZMQ_VERSION=v3.0.2 CZMQ_HASH="" ZYRE_VERSION=v1.1.0 ZYRE_HASH="" MAJORDOMO_VERSION=master MAJORDOMO_HASH="" MALAMUTE_VERSION=master MALAMUTE_HASH="" FILEMQ_VERSION=master FILEMQ_HASH="" PHPCPP_VERSION=master PHPCPP_HASH=""
-
-
 # Installs libsodium.
 install_libsodium() {
+
     pushd /tmp
 
     git clone https://github.com/jedisct1/libsodium
@@ -239,7 +231,7 @@ install_czmq
 install_zyre
 install_majordomo
 
-# Malamute works only in v4.2.0 wich is current dev/master
+# Malamute works with libzmq v4.2.0+ wich is current dev/master
 if [ $ZEROMQ_VERSION == "master" ] || [ ${#ZEROMQ_VERSION} == 40 ]; then
     install_malamute
     export LINKER_DEPENDENCIES="-lphpcpp -lzmq -lczmq -lzyre -lmajordomo -lfilemq -lmlm"

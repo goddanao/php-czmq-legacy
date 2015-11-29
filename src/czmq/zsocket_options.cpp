@@ -115,13 +115,11 @@ Php::Value ZSocket::get_socket_type() {
         case ZMQ_PAIR : return "pair";
         case ZMQ_STREAM : return "stream";
 
-    #if (ZMQ_VERSION_MAJOR == 4)
-    #if (ZMQ_VERSION_MINOR >= 2)
+    #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
 
         case ZMQ_SERVER : return "server";
         case ZMQ_CLIENT : return "client";
 
-    #endif
     #endif
 
         default:

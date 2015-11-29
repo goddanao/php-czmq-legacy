@@ -21,15 +21,13 @@ public:
         return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
     }
 
-#if (ZMQ_VERSION_MAJOR == 4)
-#if (ZMQ_VERSION_MINOR >= 2)
+#if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
 
     static Php::Value libmlm_version() {
         int major = MALAMUTE_VERSION_MAJOR, minor = MALAMUTE_VERSION_MINOR, patch = MALAMUTE_VERSION_PATCH;
         return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
     }
 
-#endif
 #endif
 
     static Php::Value libmdp_version() {
@@ -186,10 +184,10 @@ public:
         o.method("libmdp_version", &ZSys::libmdp_version);
         o.method("libfmq_version", &ZSys::libfmq_version);
 
-        #if (ZMQ_VERSION_MAJOR == 4)
-        #if (ZMQ_VERSION_MINOR >= 2)
+        #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
+
             o.method("libmlm_version", &ZSys::libmlm_version);
-        #endif
+
         #endif
 
 
@@ -215,12 +213,13 @@ public:
         o.constant("SOCKET_PAIR", "pair");
         o.constant("SOCKET_STREAM", "stream");
 
-    #if (ZMQ_VERSION_MAJOR == 4)
-    #if (ZMQ_VERSION_MINOR >= 2)
+    #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
+
         o.constant("SOCKET_SERVER", "server");
         o.constant("SOCKET_CLIENT", "client");
+
    #endif
-   #endif
+
 
         // Const - Event Type
         o.constant("EVENT_CLOSED", ZMQ_EVENT_CLOSED);

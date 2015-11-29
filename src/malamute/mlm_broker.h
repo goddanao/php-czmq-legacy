@@ -1,7 +1,6 @@
 #pragma once
 
-#if (ZMQ_VERSION_MAJOR == 4)
-#if (ZMQ_VERSION_MINOR >= 2)
+#if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
 
 #include "../common.h"
 
@@ -85,5 +84,4 @@ public:
 
 };
 
-#endif
 #endif

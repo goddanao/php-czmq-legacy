@@ -6,10 +6,10 @@
 #include <majordomo.h>
 #include <filemq.h>
 
-#if (ZMQ_VERSION_MAJOR == 4)
-#if (ZMQ_VERSION_MINOR >= 2)
+#if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
+
     #include <malamute.h>
-#endif
+
 #endif
 
 
@@ -51,13 +51,11 @@ public:
         if(_type == "mdp_broker_v1")
             return _handle;
 
-#if (ZMQ_VERSION_MAJOR == 4)
-#if (ZMQ_VERSION_MINOR >= 2)
+#if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
         if(_type == "mlm_broker")
             return _handle;
         if(_type == "mlm_client")
             return (void *) mlm_client_actor((mlm_client_t *) _handle);
-#endif
 #endif
 
         if(_type == "zyre")
@@ -104,13 +102,11 @@ public:
         if(_type == "mdp_client_v1")
             return (void *) _handle;
 
-#if (ZMQ_VERSION_MAJOR == 4)
-#if (ZMQ_VERSION_MINOR >= 2)
+#if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
         if(_type == "mlm_broker")
             return (void *) zsock_resolve(_handle);
         if(_type == "mlm_client")
             return (void *) mlm_client_msgpipe((mlm_client_t *) _handle);
-#endif
 #endif
         if(_type == "zyre")
             return (void *) zsock_resolve(zyre_socket((zyre_t*)_handle));
@@ -165,8 +161,7 @@ public:
             zpoller_destroy((zpoller_t **) &_handle);
         else
 
-    #if (ZMQ_VERSION_MAJOR == 4)
-    #if (ZMQ_VERSION_MINOR >= 2)
+    #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
 
         if((_type == "mlm_broker") && zactor_is(_handle))
             zactor_destroy((zactor_t **) &_handle);
@@ -175,7 +170,6 @@ public:
             mlm_client_destroy ((mlm_client_t **) &_handle);
         else
 
-    #endif
     #endif
 
         if(_type == "mdp_broker_v2" && zactor_is(_handle))
