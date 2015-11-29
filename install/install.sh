@@ -248,7 +248,3 @@ install_phpcpp
 # Install the extension in the current phpenv
 (cp php-czmq.so `php-config --extension-dir` && echo "extension=php-czmq.so" >> `php-config --prefix`/etc/php.ini) || exit 1
 
-composer update
-
-# Run PhpUnit tests
-$(which phpunit) -dzend.enable_gc=0

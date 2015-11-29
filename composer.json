@@ -7,10 +7,10 @@
         "email": "goddanao@gmail.com"
     }],
     "require": {
-        "php": ">=5.4"
+        "php": ">=5.4",
+        "kriswallsmith/spork": "*"
     },
     "require-dev": {
-        "kriswallsmith/spork": "*",
         "evert/phpdoc-md" : "~0.1.1"
     },
     "minimum-stability": "dev",

@@ -66,6 +66,8 @@ public:
         Php::Value result;
         int result_idx = 0;
         zlist_t *list = zyre_peer_groups(zyre_handle());
+        if(!list)
+            return nullptr;
         char *item = (char *) zlist_first(list);
         while(item) {
             result[result_idx++] = item;
@@ -80,7 +82,6 @@ public:
 	void set_interface(Php::Parameters &param) { zyre_set_interface(zyre_handle(), param[0].stringValue().c_str()); }
 
 	void set_interval(Php::Parameters &param) { zyre_set_interval(zyre_handle(), param[0].numericValue()); }
-
 
 	Php::Value set_endpoint(Php::Parameters &param) {
 		return (zyre_set_endpoint(zyre_handle(), param[0].stringValue().c_str()) == 0);
@@ -100,7 +101,6 @@ public:
 		free(value);
 		return result;
 	}
-
 
 	static Php::Value get_version() {
 		int major, minor, patch;
