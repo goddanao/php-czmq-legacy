@@ -32,29 +32,19 @@ public:
     }
 
     void add(Php::Parameters &param) {
-        if(param.size() == 0 || !param[0].isObject())
-            throw Php::Exception("ZPoller add require a ZActor, ZSocker or ZHandle and a poll mode.");
+        Php::Value o(param[0]);
+        _PV *object = (_PV *) &o;
+        short event = (param.size() > 1) ? (short) param[1].numericValue() : ZMQ_POLLIN;
+        zmq_pollitem_t *item = object->get_pollitem(event);
+        if(item == nullptr)
+            throw Php::Exception("Cannot create PollItem.");
 
-        // default ZMQ_POLL_IN
-        short event = (param.size()>1) ? (short) param[1].numericValue() : ZMQ_POLLIN;
-        ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
+        size_t index = _items.size();
+        _items.push_back(*item);
+        _index[item->socket] = index;
+        std::pair<void *, Php::Value> el = {item->socket, param[0]};
+        _objects.insert(el);
 
-        void *socket = NULL;
-
-        if(zhandle != NULL) {
-            socket = zhandle->get_socket();
-            if(socket) {
-                zmq_pollitem_t item { socket, 0, event, 0 };
-                size_t index = _items.size();
-                _items.push_back(item);
-                _index[socket] = index;
-                std::pair<void *, Php::Value> el = {socket, param[0]};
-                _objects.insert(el);
-            } else {
-                if(_verbose)
-                    zsys_info ("zpoller -> ne' socket, ne' fd ?!??!");
-            }
-        }
 
     }
 

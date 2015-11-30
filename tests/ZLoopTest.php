@@ -42,6 +42,17 @@ class ZLoopTest extends \PHPUnit_Framework_TestCase
     public function test_add()
     {
 
+
+//        $res = fopen("php://stdin", "r");
+//        $result = $this->loop->add($res, function($res, $zloop) use (&$return) {
+//            echo "Fatto\n";
+//        });
+//
+//        if($result)
+//            ZSys::info("SUCCESS!!!!");
+//
+//        exit;
+
         $return = "";
         $this->loop->add($this->rep, function($socket, $zloop) use (&$return) {
             $msg = $socket->recv();

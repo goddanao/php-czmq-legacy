@@ -106,7 +106,7 @@ public:
         return result;
     }
 
-    static void set_io_threads(Php::Parameters &param) { zsys_set_max_sockets(param[0].numericValue()); }
+    static void set_io_threads(Php::Parameters &param) { zsys_set_io_threads(param[0].numericValue()); }
     static void set_ipv6(Php::Parameters &param) { zsys_set_ipv6(param[0].boolValue() ? 1 : 0); }
 
     static void set_interface(Php::Parameters &param) { zsys_set_interface(param[0].stringValue().c_str()); }
@@ -150,7 +150,7 @@ public:
 
     static Php::Class<ZSys> php_register() {
 
-        Php::Class<ZSys> o("ZSys");
+        Php::Class<ZSys> o("ZSys", Php::Public | Php::Final);
 
         o.method("set_io_threads", &ZSys::set_io_threads, {
             Php::ByVal("threads", Php::Type::Numeric, true)

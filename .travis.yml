@@ -19,12 +19,12 @@ before_install:
   - sudo add-apt-repository -y ppa:git-core/ppa
   - sudo apt-get update -qq
   - composer self-update
-
-install:
   - sudo apt-get install -qq git g++-4.8 uuid-dev build-essential autoconf php5-dev pkg-config
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 
-script:
+install:
   - ./install/install.sh
   - composer install --no-dev -n
+
+script:
   - $(which phpunit) -dzend.enable_gc=0

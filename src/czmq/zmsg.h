@@ -2,7 +2,9 @@
 
 #include "zframe.h"
 
-class ZMsg  : public ZHandle, public Php::Base, public Php::Countable, public Php::ArrayAccess {
+class ZMsgIterator;
+
+class ZMsg  : public ZHandle, public Php::Base, public Php::Countable, public Php::ArrayAccess, public Php::Traversable {
 public:
 
     ZMsg() : ZHandle(), Php::Base() {}
@@ -634,6 +636,46 @@ public:
         }
     }
 
+
+
+
+    class ZMsgIterator : public Php::Iterator {
+    private:
+        ZMsg * _msg;
+        Php::Value _current;
+        int _current_key;
+    public:
+
+        ZMsgIterator(ZMsg *object) : Php::Iterator(object), _msg(object), _current(_msg->first()), _current_key(0) {}
+
+        virtual ~ZMsgIterator() {}
+
+        virtual bool valid() override { return !_current.isNull(); }
+
+        virtual Php::Value current() override { return _current; }
+
+        virtual Php::Value key() override { return _current_key; }
+
+        virtual void next() override {
+            _current = _msg->next();
+            if(!_current.isNull())
+                _current_key++;
+        }
+
+        virtual void rewind() override {
+            _current = _msg->first();
+            _current_key = 0;
+        }
+    };
+
+    /**
+     *  Get the iterator
+     *  @return Php::Iterator
+     */
+    virtual Php::Iterator *getIterator() override {
+        return new ZMsgIterator(this);
+    }
+
     static Php::Class<ZMsg> php_register() {
         Php::Class<ZMsg> o("ZMsg");
         o.method("__construct", &ZMsg::__construct);
@@ -686,3 +728,4 @@ public:
     }
 
 };
+

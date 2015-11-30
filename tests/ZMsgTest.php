@@ -7,7 +7,28 @@ class ZMsgTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotNull($msg);
     }
 
-    public function test_array_access() {
+    public function test_traversable()
+    {
+
+        $msg = new ZMsg();
+
+        $msg->append_string("Frame2");
+        $msg->append_string("Frame3");
+        $msg->prepend_string("Frame1");
+        $msg->prepend_string("Frame0");
+
+        $success = true;
+        $i = 0;
+        foreach($msg as $key => $value) {
+            $success = $success && ($value == "Frame{$i}");
+            $i++;
+        }
+
+        $this->assertEquals($i, 4);
+        $this->assertTrue($success);
+    }
+
+        public function test_array_access() {
 
         $msg = new ZMsg();
 

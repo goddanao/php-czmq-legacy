@@ -95,30 +95,12 @@ public:
         zloop_timer_end(zloop_handle(), param[0].numericValue());
     }
 
-    void add(Php::Parameters &param) {
+    Php::Value add(Php::Parameters &param) {
 
-        bool valid = ((param.size() > 1) && (param[0].isObject() || param[0].isNumeric())) && (param[1].isCallable());
+        bool valid = param.size() > 1;
 
-        int fd = INVALID_SOCKET;
-        zsock_t *socket = NULL;
-
-        if(valid && param[0].isObject()) {
-            ZHandle  *zh = dynamic_cast<ZHandle *> (param[0].implementation());
-            if(zh) {
-                socket = (zsock_t*) zh->get_socket();
-                if(socket == nullptr) {
-                    fd = zh->get_fd();
-                }
-            }
-        } else
-        if(valid && param[0].isNumeric()) {
-            fd = param[0].numericValue();
-        } else {
-            throw Php::Exception("ZLoop add require a ZDescriptor and a callback.");
-        }
-
-        if(socket == nullptr && fd == INVALID_SOCKET)
-            throw Php::Exception("ZLoop add require a ZDescriptor and a callback.");
+        if(!valid)
+            return false;
 
         // Register callback data
         _cbdata *data = new _cbdata();
@@ -127,40 +109,31 @@ public:
         zlistx_add_end(_callbacks, data);
 
         // Pollitem
+        Php::Value o(param[0]);
+        _PV *object = (_PV *) &o;
         short event = (param.size() > 2) ? (short) param[2].numericValue() : ZMQ_POLLIN;
-        zmq_pollitem_t item { socket, fd, event, 0 };
-        zloop_poller(zloop_handle(), &item, cb_events, data);
+        zmq_pollitem_t *item = object->get_pollitem(event);
+        if(item == nullptr)
+            throw Php::Exception("Cannot create PollItem.");
+
+        zloop_poller(zloop_handle(), item, cb_events, data);
 
         if(param.size() > 3 && param[3].boolValue())
-            zloop_poller_set_tolerant(zloop_handle(), &item);
+            zloop_poller_set_tolerant(zloop_handle(), item);
+
+        return true;
     }
 
     void remove(Php::Parameters &param) {
         bool valid = param.size() > 0;
 
-        int fd = INVALID_SOCKET;
-        zsock_t *socket = NULL;
-
-        if(valid && param[0].isObject()) {
-            ZHandle  *zh = dynamic_cast<ZHandle *> (param[0].implementation());
-            if(zh) {
-                socket = (zsock_t*) zh->get_socket();
-                if(socket == nullptr) {
-                    fd = zh->get_fd();
-                }
-            }
-        } else
-        if(valid && param[0].isNumeric()) {
-            fd = param[0].numericValue();
-        } else {
-            throw Php::Exception("ZLoop remove require a ZDescriptor.");
-        }
-
-        if(socket == nullptr && fd == INVALID_SOCKET)
-            throw Php::Exception("ZLoop remove require a ZDescriptor.");
-
-        zmq_pollitem_t item { socket, fd, 0, 0 };
-        zloop_poller_end( zloop_handle(), &item);
+        // Pollitem
+        Php::Value o(param[0]);
+        _PV *object = (_PV *) &o;
+        zmq_pollitem_t *item = object->get_pollitem(0);
+        if(item == nullptr)
+            throw Php::Exception("Cannot remove PollItem.");
+        zloop_poller_end( zloop_handle(), item);
 
     }
 
@@ -175,7 +148,7 @@ public:
         o.method("start", &ZLoop::start);
         o.method("stop", &ZLoop::stop);
         o.method("add", &ZLoop::add, {
-            Php::ByRef("socket", "IZDescriptor", false, true),
+            Php::ByVal("pollitem", Php::Type::String, true),
             Php::ByVal("mode", Php::Type::Numeric, false)
         });
         o.method("remove", &ZLoop::remove, {
