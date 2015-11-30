@@ -32,7 +32,7 @@ Methods
 
 #### Arguments
 * $socket_type **string** - &lt;p&gt;...&lt;/p&gt;
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
@@ -216,7 +216,7 @@ Methods
 
 ### recv
 
-    mixed ZSocket::recv()
+    \ZMsg ZSocket::recv()
 
 
 
@@ -245,7 +245,7 @@ Methods
 
 ### recv_string
 
-    mixed ZSocket::recv_string()
+    string ZSocket::recv_string()
 
 
 
@@ -274,7 +274,7 @@ Methods
 
 ### recv_picture
 
-    mixed ZSocket::recv_picture(string $picture)
+    array ZSocket::recv_picture(string $picture)
 
 
 
@@ -290,7 +290,7 @@ Methods
 
 ### pub
 
-    mixed ZSocket::pub(string $endpoint)
+    \ZSocket ZSocket::pub(string $endpoint)
 
 
 
@@ -301,13 +301,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### sub
 
-    mixed ZSocket::sub(string $endpoint)
+    \ZSocket ZSocket::sub(string $endpoint)
 
 
 
@@ -318,13 +318,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### rep
 
-    mixed ZSocket::rep(string $endpoint)
+    \ZSocket ZSocket::rep(string $endpoint)
 
 
 
@@ -335,13 +335,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### req
 
-    mixed ZSocket::req(string $endpoint)
+    \ZSocket ZSocket::req(string $endpoint)
 
 
 
@@ -352,13 +352,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### dealer
 
-    mixed ZSocket::dealer(string $endpoint)
+    \ZSocket ZSocket::dealer(string $endpoint)
 
 
 
@@ -369,13 +369,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### router
 
-    mixed ZSocket::router(string $endpoint)
+    \ZSocket ZSocket::router(string $endpoint)
 
 
 
@@ -386,13 +386,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### push
 
-    mixed ZSocket::push(string $endpoint)
+    \ZSocket ZSocket::push(string $endpoint)
 
 
 
@@ -403,13 +403,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### pull
 
-    mixed ZSocket::pull(string $endpoint)
+    \ZSocket ZSocket::pull(string $endpoint)
 
 
 
@@ -420,13 +420,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### xpub
 
-    mixed ZSocket::xpub(string $endpoint)
+    \ZSocket ZSocket::xpub(string $endpoint)
 
 
 
@@ -437,13 +437,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### xsub
 
-    mixed ZSocket::xsub(string $endpoint)
+    \ZSocket ZSocket::xsub(string $endpoint)
 
 
 
@@ -454,13 +454,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### xreq
 
-    mixed ZSocket::xreq(string $endpoint)
+    \ZSocket ZSocket::xreq(string $endpoint)
 
 
 
@@ -471,13 +471,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### xrep
 
-    mixed ZSocket::xrep(string $endpoint)
+    \ZSocket ZSocket::xrep(string $endpoint)
 
 
 
@@ -488,13 +488,13 @@ Methods
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### stream
 
-    mixed ZSocket::stream(string $endpoint)
+    \ZSocket ZSocket::stream(string $endpoint)
 
 Create a ZMQ_STREAM socket.
 
@@ -505,13 +505,13 @@ Create a ZMQ_STREAM socket.
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### server
 
-    mixed ZSocket::server(mixed $endpoint)
+    \ZSocket ZSocket::server(string $endpoint)
 
 Create a ZMQ_SERVER socket. (Requires ZMQ > 4.2.0)
 
@@ -522,13 +522,13 @@ Create a ZMQ_SERVER socket. (Requires ZMQ > 4.2.0)
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 
 ### client
 
-    mixed ZSocket::client(mixed $endpoint)
+    \ZSocket ZSocket::client(string $endpoint)
 
 Create a ZMQ_CLIENT socket. (Requires ZMQ > 4.2.0)
 
@@ -539,7 +539,7 @@ Create a ZMQ_CLIENT socket. (Requires ZMQ > 4.2.0)
 
 
 #### Arguments
-* $endpoint **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
 

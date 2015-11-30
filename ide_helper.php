@@ -7,7 +7,7 @@ namespace {
  *
  * ZMQ System
  */
-class ZSys {
+final  class ZSys {
   const SOCKET_PUB = "pub";
   const SOCKET_SUB = "sub";
   const SOCKET_REP = "rep";
@@ -539,10 +539,10 @@ class ZLoop {
   /**
    * ...
    * 
-   * @param \IZDescriptor $socket ...
+   * @param mixed $pollitem ...
    * @param int $mode ... (optional)
   */
-  public function add(\IZDescriptor $socket, $mode = \ZSys::POLL_IN) {}
+  public function add($pollitem, $mode = \ZSys::POLL_IN) {}
 
   /**
    * ...
@@ -927,10 +927,10 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ...
    * 
    * @param string $socket_type ...
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
   */
-  public function __construct($socket_type, $endpoint) {}
+  public function __construct($socket_type, $endpoint = null) {}
 
   /**
    * ...
@@ -1015,6 +1015,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @return \ZMsg
   */
   public function recv() {}
 
@@ -1028,6 +1029,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @return string
   */
   public function recv_string() {}
 
@@ -1042,113 +1044,129 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ...
    * 
    * @param string $picture ...
+   * @return array
   */
   public function recv_picture($picture) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function pub($endpoint) {}
+  static public function pub($endpoint = null) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function sub($endpoint) {}
+  static public function sub($endpoint = null) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function rep($endpoint) {}
+  static public function rep($endpoint = null) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function req($endpoint) {}
+  static public function req($endpoint = null) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function dealer($endpoint) {}
+  static public function dealer($endpoint = null) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function router($endpoint) {}
+  static public function router($endpoint = null) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function push($endpoint) {}
+  static public function push($endpoint = null) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function pull($endpoint) {}
+  static public function pull($endpoint = null) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function xpub($endpoint) {}
+  static public function xpub($endpoint = null) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function xsub($endpoint) {}
+  static public function xsub($endpoint = null) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function xreq($endpoint) {}
+  static public function xreq($endpoint = null) {}
 
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function xrep($endpoint) {}
+  static public function xrep($endpoint = null) {}
 
   /**
    * Create a ZMQ_STREAM socket.
    * 
-   * @param string $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function stream($endpoint) {}
+  static public function stream($endpoint = null) {}
 
   /**
    * Create a ZMQ_SERVER socket. (Requires ZMQ > 4.2.0)
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function server($endpoint) {}
+  static public function server($endpoint = null) {}
 
   /**
    * Create a ZMQ_CLIENT socket. (Requires ZMQ > 4.2.0)
    * 
-   * @param mixed $endpoint ... (optional)
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
   */
-  static public function client($endpoint) {}
+  static public function client($endpoint = null) {}
 
   /**
    * ...
