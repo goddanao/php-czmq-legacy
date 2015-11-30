@@ -7,6 +7,9 @@ public:
 
     zmq_pollitem_t *get_pollitem(short event) {
 
+        // we need the tsrm_ls variable
+        TSRMLS_FETCH();
+
         bool is_resource = (Z_TYPE_P(_val) == IS_RESOURCE);
         bool valid = is_resource || isObject() || isNumeric();
 
