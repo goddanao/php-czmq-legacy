@@ -11,6 +11,55 @@ public:
     ZSocket(zsock_t *handle, bool owned) : ZHandle(handle, owned, "zsock"), Php::Base() {}
     zsock_t *zsock_handle() const { return (zsock_t *) get_handle(); }
 
+    void __construct(Php::Parameters &param) {
+
+        if(!(param.size() > 0 && param[0].isString() && param[0] != ""))
+           throw Php::Exception("Can't create socket");
+
+       int type = -1;
+       bool serverish = false;
+       std::string name = ZUtils::toLower(param[0]);
+       std::string endpoint = param.size() > 1 ? param[1].stringValue() : "";
+
+       if(name == "pub")         { type = ZMQ_PUB; serverish = true; }
+       else if(name == "sub")    type = ZMQ_SUB;
+       else if(name == "req")    type = ZMQ_REQ;
+       else if(name == "rep")    { type = ZMQ_REP; serverish = true; }
+       else if(name == "dealer") type = ZMQ_DEALER;
+       else if(name == "router") { type = ZMQ_ROUTER; serverish = true; }
+       else if(name == "push")   type = ZMQ_PUSH;
+       else if(name == "pull")   { type = ZMQ_PULL; serverish = true; }
+       else if(name == "xpub")   { type = ZMQ_XPUB; serverish = true; }
+       else if(name == "xsub")   type = ZMQ_XSUB;
+       else if(name == "xreq")   type = ZMQ_DEALER;
+       else if(name == "xrep")   { type = ZMQ_ROUTER; serverish = true; }
+       else if(name == "pair")   type = ZMQ_PAIR;
+       else if(name == "stream") type = ZMQ_STREAM;
+
+   #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
+
+       else if(name == "server") { type = ZMQ_SERVER; serverish = true; }
+       else if(name == "client") type = ZMQ_CLIENT;
+
+   #endif
+
+       else
+           throw Php::Exception("Can't create socket");
+
+       zsock_t *sock = zsock_new (type);
+       if (sock != nullptr) {
+           if (zsock_attach (sock, endpoint.c_str(), serverish) == -1) {
+               zsock_destroy (&sock);
+               sock = nullptr;
+           }
+       }
+
+       if(sock != nullptr)
+           set_handle(sock, true, "zsock");
+       else
+           throw Php::Exception("Internal Error: Can't create socket.");
+    }
+
     static Php::Value pub(Php::Parameters &param) {
         zsock_t *socket = zsock_new_pub(param.size()>0 ? param[0].stringValue().c_str() : NULL);
         if (socket != nullptr) return Php::Object("ZSocket", new ZSocket(socket, true));
@@ -98,13 +147,25 @@ public:
 #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
 
     static Php::Value server(Php::Parameters &param) {
-        zsock_t *socket = zsock_new_server(param.size()>0 ? param[0].stringValue().c_str() : NULL);
+        zsock_t *socket = zsock_new (ZMQ_SERVER);
+        if (socket != nullptr) {
+           if (zsock_attach (socket, param.size() > 0 ? param[0].stringValue().c_str() : NULL, true) == -1) {
+               zsock_destroy (&socket);
+               socket = nullptr;
+           }
+        }
         if (socket != nullptr) return Php::Object("ZSocket", new ZSocket(socket, true));
         return nullptr;
     }
 
     static Php::Value client(Php::Parameters &param) {
-        zsock_t *socket = zsock_new_client(param.size()>0 ? param[0].stringValue().c_str() : NULL);
+        zsock_t *socket = zsock_new (ZMQ_CLIENT);
+        if (socket != nullptr) {
+           if (zsock_attach (socket, param.size() > 0 ? param[0].stringValue().c_str() : NULL, false) == -1) {
+               zsock_destroy (&socket);
+               socket = nullptr;
+           }
+        }
         if (socket != nullptr) return Php::Object("ZSocket", new ZSocket(socket, true));
         return nullptr;
     }
@@ -130,55 +191,6 @@ public:
 //        // done
 //        return retval;
 //    }
-
-    void __construct(Php::Parameters &param) {
-
-        if(!(param.size() > 0 && param[0].isString() && param[0] != ""))
-           throw Php::Exception("Can't create socket");
-
-       int type = -1;
-       bool serverish = false;
-       std::string name = ZUtils::toLower(param[0]);
-       std::string endpoint = param.size() > 1 ? param[1].stringValue() : "";
-
-       if(name == "pub")         { type = ZMQ_PUB; serverish = true; }
-       else if(name == "sub")    type = ZMQ_SUB;
-       else if(name == "req")    type = ZMQ_REQ;
-       else if(name == "rep")    { type = ZMQ_REP; serverish = true; }
-       else if(name == "dealer") type = ZMQ_DEALER;
-       else if(name == "router") { type = ZMQ_ROUTER; serverish = true; }
-       else if(name == "push")   type = ZMQ_PUSH;
-       else if(name == "pull")   { type = ZMQ_PULL; serverish = true; }
-       else if(name == "xpub")   { type = ZMQ_XPUB; serverish = true; }
-       else if(name == "xsub")   type = ZMQ_XSUB;
-       else if(name == "xreq")   type = ZMQ_DEALER;
-       else if(name == "xrep")   { type = ZMQ_ROUTER; serverish = true; }
-       else if(name == "pair")   type = ZMQ_PAIR;
-       else if(name == "stream") type = ZMQ_STREAM;
-
-   #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
-
-       else if(name == "server") { type = ZMQ_SERVER; serverish = true; }
-       else if(name == "client") type = ZMQ_CLIENT;
-
-   #endif
-
-       else
-           throw Php::Exception("Can't create socket");
-
-       zsock_t *sock = zsock_new (type);
-       if (sock != nullptr) {
-           if (zsock_attach (sock, endpoint.c_str(), serverish) == -1) {
-               zsock_destroy (&sock);
-               sock = nullptr;
-           }
-       }
-
-       if(sock != nullptr)
-           set_handle(sock, true, "zsock");
-       else
-           throw Php::Exception("Internal Error: Can't create socket.");
-    }
 
     void set_verbose (Php::Parameters &param) {
         _verbose = param.size() > 0 ? param[0].boolValue() : true;
