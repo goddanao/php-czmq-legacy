@@ -37,7 +37,7 @@ Methods
 
 ### add
 
-    mixed ZPoll::add(\IZDescriptor $socket, integer $mode)
+    mixed ZPoll::add(mixed $pollitem, integer $mode)
 
 
 
@@ -47,14 +47,14 @@ Methods
 
 
 #### Arguments
-* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $pollitem **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $mode **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### has
 
-    mixed ZPoll::has(\IZDescriptor $socket)
+    mixed ZPoll::has(mixed $pollitem)
 
 
 
@@ -64,13 +64,13 @@ Methods
 
 
 #### Arguments
-* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $pollitem **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### remove
 
-    mixed ZPoll::remove(\IZDescriptor $socket)
+    mixed ZPoll::remove(mixed $pollitem)
 
 
 
@@ -80,13 +80,13 @@ Methods
 
 
 #### Arguments
-* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $pollitem **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### check_for
 
-    mixed ZPoll::check_for(\IZDescriptor $socket, integer $event)
+    mixed ZPoll::check_for(mixed $pollitem, integer $event)
 
 
 
@@ -96,14 +96,14 @@ Methods
 
 
 #### Arguments
-* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $pollitem **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $event **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### events
 
-    mixed ZPoll::events(\IZDescriptor $socket)
+    mixed ZPoll::events(mixed $pollitem)
 
 
 
@@ -113,7 +113,25 @@ Methods
 
 
 #### Arguments
-* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $pollitem **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### poll_array
+
+    mixed ZPoll::poll_array(array $readers, array $writers, mixed $timeout)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $readers **array** - &lt;p&gt;...&lt;/p&gt;
+* $writers **array** - &lt;p&gt;...&lt;/p&gt;
+* $timeout **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -135,7 +153,7 @@ Methods
 
 ### has_input
 
-    boolean ZPoll::has_input(\IZDescriptor $socket)
+    boolean ZPoll::has_input(mixed $pollitem)
 
 
 
@@ -145,13 +163,13 @@ Methods
 
 
 #### Arguments
-* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $pollitem **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### has_output
 
-    boolean ZPoll::has_output(\IZDescriptor $socket)
+    boolean ZPoll::has_output(mixed $pollitem)
 
 
 
@@ -161,13 +179,13 @@ Methods
 
 
 #### Arguments
-* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $pollitem **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### has_error
 
-    boolean ZPoll::has_error(\IZDescriptor $socket)
+    boolean ZPoll::has_error(mixed $pollitem)
 
 
 
@@ -177,6 +195,6 @@ Methods
 
 
 #### Arguments
-* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $pollitem **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 

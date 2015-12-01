@@ -547,9 +547,9 @@ class ZLoop {
   /**
    * ...
    * 
-   * @param \IZDescriptor $socket ...
+   * @param mixed $pollitem ...
   */
-  public function remove(\IZDescriptor $socket) {}
+  public function remove($pollitem) {}
 
   /**
    * Add a repeating timer with a callback. Return a timer_id.
@@ -594,39 +594,48 @@ class ZPoll {
   /**
    * ...
    * 
-   * @param \IZDescriptor $socket ...
+   * @param mixed $pollitem ...
    * @param int $mode ... (optional)
   */
-  public function add(\IZDescriptor $socket, $mode = \ZSys::POLL_IN) {}
+  public function add($pollitem, $mode = \ZSys::POLL_IN) {}
 
   /**
    * ...
    * 
-   * @param \IZDescriptor $socket ...
+   * @param mixed $pollitem ...
   */
-  public function has(\IZDescriptor $socket) {}
+  public function has($pollitem) {}
 
   /**
    * ...
    * 
-   * @param \IZDescriptor $socket ...
+   * @param mixed $pollitem ...
   */
-  public function remove(\IZDescriptor $socket) {}
+  public function remove($pollitem) {}
 
   /**
    * ...
    * 
-   * @param \IZDescriptor $socket ...
+   * @param mixed $pollitem ...
    * @param int $event ... (optional)
   */
-  public function check_for(\IZDescriptor $socket, $event = \ZSys::POLL_IN) {}
+  public function check_for($pollitem, $event = \ZSys::POLL_IN) {}
 
   /**
    * ...
    * 
-   * @param \IZDescriptor $socket ...
+   * @param mixed $pollitem ...
   */
-  public function events(\IZDescriptor $socket) {}
+  public function events($pollitem) {}
+
+  /**
+   * ...
+   * 
+   * @param array $readers ...
+   * @param array $writers ...
+   * @param mixed $timeout ... (optional)
+  */
+  public function poll_array(array $readers, array $writers, $timeout) {}
 
   /**
    * ...
@@ -638,26 +647,26 @@ class ZPoll {
   /**
    * ...
    * 
-   * @param \IZDescriptor $socket ...
+   * @param mixed $pollitem ...
    * @return bool
   */
-  public function has_input(\IZDescriptor $socket) {}
+  public function has_input($pollitem) {}
 
   /**
    * ...
    * 
-   * @param \IZDescriptor $socket ...
+   * @param mixed $pollitem ...
    * @return bool
   */
-  public function has_output(\IZDescriptor $socket) {}
+  public function has_output($pollitem) {}
 
   /**
    * ...
    * 
-   * @param \IZDescriptor $socket ...
+   * @param mixed $pollitem ...
    * @return bool
   */
-  public function has_error(\IZDescriptor $socket) {}
+  public function has_error($pollitem) {}
 
 }
 
@@ -1049,7 +1058,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Create a PUB socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1057,15 +1066,16 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function pub($endpoint = null) {}
 
   /**
-   * ...
+   * Create a SUB socket, and optionally subscribe to some prefix string. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param string $topic Topic to subscribe. (optional)
    * @return \ZSocket
   */
-  static public function sub($endpoint = null) {}
+  static public function sub($endpoint = null, $topic = null) {}
 
   /**
-   * ...
+   * Create a REP socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1073,7 +1083,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function rep($endpoint = null) {}
 
   /**
-   * ...
+   * Create a REQ socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1081,7 +1091,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function req($endpoint = null) {}
 
   /**
-   * ...
+   * Create a DEALER socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1089,7 +1099,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function dealer($endpoint = null) {}
 
   /**
-   * ...
+   * Create a ROUTER socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1097,7 +1107,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function router($endpoint = null) {}
 
   /**
-   * ...
+   * Create a PUSH socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1105,7 +1115,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function push($endpoint = null) {}
 
   /**
-   * ...
+   * Create a PULL socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1113,7 +1123,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function pull($endpoint = null) {}
 
   /**
-   * ...
+   * Create an XPUB socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1121,7 +1131,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function xpub($endpoint = null) {}
 
   /**
-   * ...
+   * Create an XSUB socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1145,7 +1155,15 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function xrep($endpoint = null) {}
 
   /**
-   * Create a ZMQ_STREAM socket.
+   * Create a PAIR socket. Default action is connect.
+   * 
+   * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @return \ZSocket
+  */
+  static public function pair($endpoint = null) {}
+
+  /**
+   * Create a STREAM socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1153,7 +1171,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function stream($endpoint = null) {}
 
   /**
-   * Create a ZMQ_SERVER socket. (Requires ZMQ > 4.2.0)
+   * Create a SERVER socket. Default action is bind. (Requires ZMQ > 4.2.0)
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1161,7 +1179,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function server($endpoint = null) {}
 
   /**
-   * Create a ZMQ_CLIENT socket. (Requires ZMQ > 4.2.0)
+   * Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket

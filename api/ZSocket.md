@@ -292,9 +292,9 @@ Methods
 
     \ZSocket ZSocket::pub(string $endpoint)
 
+Create a PUB socket. Default action is bind.
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -307,11 +307,11 @@ Methods
 
 ### sub
 
-    \ZSocket ZSocket::sub(string $endpoint)
+    \ZSocket ZSocket::sub(string $endpoint, string $topic)
+
+Create a SUB socket, and optionally subscribe to some prefix string. Default action is connect.
 
 
-
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -319,6 +319,7 @@ Methods
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $topic **string** - &lt;p&gt;Topic to subscribe. (optional)&lt;/p&gt;
 
 
 
@@ -326,9 +327,9 @@ Methods
 
     \ZSocket ZSocket::rep(string $endpoint)
 
+Create a REP socket. Default action is bind.
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -343,9 +344,9 @@ Methods
 
     \ZSocket ZSocket::req(string $endpoint)
 
+Create a REQ socket. Default action is connect.
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -360,9 +361,9 @@ Methods
 
     \ZSocket ZSocket::dealer(string $endpoint)
 
+Create a DEALER socket. Default action is connect.
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -377,9 +378,9 @@ Methods
 
     \ZSocket ZSocket::router(string $endpoint)
 
+Create a ROUTER socket. Default action is bind.
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -394,9 +395,9 @@ Methods
 
     \ZSocket ZSocket::push(string $endpoint)
 
+Create a PUSH socket. Default action is connect.
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -411,9 +412,9 @@ Methods
 
     \ZSocket ZSocket::pull(string $endpoint)
 
+Create a PULL socket. Default action is bind.
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -428,9 +429,9 @@ Methods
 
     \ZSocket ZSocket::xpub(string $endpoint)
 
+Create an XPUB socket. Default action is bind.
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -445,9 +446,9 @@ Methods
 
     \ZSocket ZSocket::xsub(string $endpoint)
 
+Create an XSUB socket. Default action is connect.
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -492,11 +493,28 @@ Methods
 
 
 
+### pair
+
+    \ZSocket ZSocket::pair(string $endpoint)
+
+Create a PAIR socket. Default action is connect.
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+
+
+
 ### stream
 
     \ZSocket ZSocket::stream(string $endpoint)
 
-Create a ZMQ_STREAM socket.
+Create a STREAM socket. Default action is connect.
 
 
 
@@ -513,7 +531,7 @@ Create a ZMQ_STREAM socket.
 
     \ZSocket ZSocket::server(string $endpoint)
 
-Create a ZMQ_SERVER socket. (Requires ZMQ > 4.2.0)
+Create a SERVER socket. Default action is bind. (Requires ZMQ > 4.2.0)
 
 
 
@@ -530,7 +548,7 @@ Create a ZMQ_SERVER socket. (Requires ZMQ > 4.2.0)
 
     \ZSocket ZSocket::client(string $endpoint)
 
-Create a ZMQ_CLIENT socket. (Requires ZMQ > 4.2.0)
+Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
 
 
 

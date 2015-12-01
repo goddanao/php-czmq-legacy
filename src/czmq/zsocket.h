@@ -18,7 +18,7 @@ public:
     }
 
     static Php::Value sub(Php::Parameters &param) {
-        zsock_t *socket = zsock_new_sub(param.size()>0 ? param[0].stringValue().c_str() : NULL, param.size()>1 ? param[1].stringValue().c_str() : NULL);
+        zsock_t *socket = zsock_new_sub(param.size()>0 ? param[0].stringValue().c_str() : NULL, (param.size()>1 && !param[1].isNull()) ? param[1].stringValue().c_str() : NULL);
         if (socket != nullptr) return Php::Object("ZSocket", new ZSocket(socket, true));
         return nullptr;
     }
@@ -79,6 +79,12 @@ public:
 
     static Php::Value xrep(Php::Parameters &param) {
         zsock_t *socket = zsock_new_router(param.size()>0 ? param[0].stringValue().c_str() : NULL);
+        if (socket != nullptr) return Php::Object("ZSocket", new ZSocket(socket, true));
+        return nullptr;
+    }
+
+    static Php::Value pair(Php::Parameters &param) {
+        zsock_t *socket = zsock_new_pair(param.size()>0 ? param[0].stringValue().c_str() : NULL);
         if (socket != nullptr) return Php::Object("ZSocket", new ZSocket(socket, true));
         return nullptr;
     }
@@ -668,6 +674,9 @@ public:
             Php::ByVal("endpoint", Php::Type::String, false)
         });
     	o.method("xrep", &ZSocket::xrep, {
+            Php::ByVal("endpoint", Php::Type::String, false)
+        });
+        o.method("pair", &ZSocket::pair, {
             Php::ByVal("endpoint", Php::Type::String, false)
         });
     	o.method("stream", &ZSocket::stream, {

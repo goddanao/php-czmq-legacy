@@ -106,7 +106,7 @@ Methods
 
 ### remove
 
-    mixed ZLoop::remove(\IZDescriptor $socket)
+    mixed ZLoop::remove(mixed $pollitem)
 
 
 
@@ -116,7 +116,7 @@ Methods
 
 
 #### Arguments
-* $socket **[IZDescriptor](IZDescriptor.md)** - &lt;p&gt;...&lt;/p&gt;
+* $pollitem **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
