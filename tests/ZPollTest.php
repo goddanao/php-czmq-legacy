@@ -10,10 +10,10 @@ class ZPollTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         $endpoint = "ipc:///tmp/push_pull_test";
-        $this->sock_pull = new ZSocket(ZSys::SOCKET_PULL, '@' . $endpoint);
-        $this->sock_push = new ZSocket(ZSys::SOCKET_PUSH, '>' . $endpoint);
-        $this->rep = new ZSocket(ZSys::SOCKET_REP, '@' . $endpoint);
-        $this->req = new ZSocket(ZSys::SOCKET_REQ, '>' . $endpoint);
+        $this->sock_pull = ZSocket::pull($endpoint);
+        $this->sock_push = ZSocket::push($endpoint);
+        $this->rep = ZSocket::rep($endpoint);
+        $this->req = ZSocket::req($endpoint);
     }
 
     public function test_create() {
@@ -48,28 +48,34 @@ class ZPollTest extends \PHPUnit_Framework_TestCase {
         $this->poller->add($this->sock_push, ZSys::POLL_OUT);
         $this->poller->add($this->sock_pull); // default POLL_IN
         $this->sock_push->send_picture('s', 'hello!');
-        $res = $this->poller->poll(500);
+        $readers = []; $writers = [];
+        $res = $this->poller->poll_array($readers, $writers, 500);
         $this->assertTrue($res);
+        $this->assertEquals($this->sock_push, $writers[0]);
     }
 
     public function test_has_events_in() {
         $this->poller = new ZPoll();
         $this->poller->add($this->rep);
         $this->req->send_picture('s', 'hello!');
-        $res = $this->poller->poll(500);
+        $readers = []; $writers = [];
+        $res = $this->poller->poll_array($readers, $writers, 500);
         $res_i = $this->poller->has_input($this->rep);
         $this->assertTrue($res, "poll");
         $this->assertTrue($res_i, "has events in");
+        $this->assertEquals($this->req, $readers[0]);
     }
 
     public function test_has_events_out() {
         $this->poller = new ZPoll();
         $this->poller->add($this->sock_push, ZSys::POLL_OUT);
         $this->sock_push->send_picture('s', 'hello!');
-        $res   = $this->poller->poll(500);
+        $readers = []; $writers = [];
+        $res = $this->poller->poll_array($readers, $writers, 500);
         $res_o = $this->poller->has_output($this->sock_push);
         $this->assertTrue($res, "poll");
         $this->assertTrue($res_o, "has events out");
+        $this->assertEquals($this->sock_push, $writers[0]);
     }
 
 }

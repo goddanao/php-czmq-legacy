@@ -17,16 +17,12 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
         // $this->markTestSkipped('must be revisited.');
 
         $endpoint = "ipc:///tmp/rep";
-        $rep = new ZSocket(ZSys::SOCKET_REP);
-        $rep->bind($endpoint);
-        $req = new ZSocket(ZSys::SOCKET_REQ);
-        $req->connect($endpoint);
+        $rep = new ZSocket(ZSys::SOCKET_REP, $endpoint);
+        $req = new ZSocket(ZSys::SOCKET_REQ, $endpoint);
 
         $endpoint = "ipc:///tmp/pair";
-        $rep_pair = new ZSocket(ZSys::SOCKET_PAIR);
-        $rep_pair->bind($endpoint);
-        $req_pair = new ZSocket(ZSys::SOCKET_PAIR);
-        $req_pair->connect($endpoint);
+        $rep_pair = new ZSocket(ZSys::SOCKET_PAIR, $endpoint);
+        $req_pair = new ZSocket(ZSys::SOCKET_PAIR, $endpoint);
 
         // usleep(50000);
 
