@@ -6,24 +6,7 @@ class ZPoll : public Php::Base {
 private:
     bool _verbose = false;
     std::vector<zmq_pollitem_t> _items;
-    std::map<void *, size_t> _index;
-    std::map<int, size_t> _fdindex;
-    std::map<void *, Php::Value> _objects;
-
-    void reindex(size_t const index) {
-        if ( nullptr != _items[index].socket )
-        {
-            auto found = _index.find( _items[index].socket );
-            if (_index.end() == found) { throw Php::Exception("unable to reindex socket in poller"); }
-            found->second = index;
-        }
-        else
-        {
-            auto found = _fdindex.find( _items[index].fd );
-            if (_fdindex.end() == found) { throw Php::Exception("unable to reindex file descriptor in poller"); }
-            found->second = index;
-        }
-    }
+    std::map<uintptr_t, int> _objects;
 
 public:
 
@@ -37,120 +20,55 @@ public:
         if(item.socket == nullptr && item.fd == INVALID_SOCKET)
             throw Php::Exception("Cannot create PollItem.");
 
-        size_t index = _items.size();
+        int index = _items.size();
         _items.push_back(item);
-        _index[item.socket] = index;
-        std::pair<void *, Php::Value> el = {item.socket, param[0]};
+        std::pair<uintptr_t, int> el = {item.socket != nullptr ? (uintptr_t) item.socket : (uintptr_t) item.fd, index };
         _objects.insert(el);
-
-
     }
 
     Php::Value has(Php::Parameters &param) {
-        if(param.size() == 0 || !param[0].isObject())
-            throw Php::Exception("ZPoller has require a ZActor, ZSocker or ZHandle");
-
-        ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
-
-        void *socket = NULL;
-
-        if(zhandle != NULL) {
-            socket = zhandle->get_socket();
-            if(socket)
-                return _index.find(socket) != _index.end();
-            else {
-                if(_verbose)
-                    zsys_info ("zpoller -> ne' socket, ne' fd ?!??!");
-            }
-        }
-
-        return false;
+        zmq_pollitem_t item = ZUtils::phpvalue_to_pollitem(param[0]);
+        if(item.socket == nullptr && item.fd == INVALID_SOCKET)
+            throw Php::Exception("Cannot create PollItem.");
+        uintptr_t key = item.socket != nullptr ? (uintptr_t) item.socket : (uintptr_t) item.fd;
+        return _objects.find(key) != _objects.end();
     }
 
     void remove(Php::Parameters &param) {
-        if(param.size() == 0 || !param[0].isObject())
-            throw Php::Exception("ZPoller remove require a ZActor, ZSocker or ZHandle");
+        zmq_pollitem_t item = ZUtils::phpvalue_to_pollitem(param[0]);
+        if(item.socket == nullptr && item.fd == INVALID_SOCKET)
+            throw Php::Exception("Cannot create PollItem.");
 
-        ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
-
-        void *socket = NULL;
-
-        if(zhandle != NULL) {
-            socket = zhandle->get_socket();
-
-            if(socket) {
-                auto ofound = _objects.find((void *) socket);
-                if(ofound != _objects.end()) {
-                    _objects.erase(ofound);
-                }
-                auto found = _index.find(socket);
-                if (_index.end() == found) { return; }
-                if ( _items.size() - 1 == found->second ) {
-                    _items.pop_back();
-                    _index.erase(found);
-                    return;
-                }
-                std::swap(_items[found->second], _items.back());
-                _items.pop_back();
-                auto index = found->second;
-                _index.erase(found);
-                reindex( index );
-            }
-            else {
-                if(_verbose)
-                    zsys_info ("zpoller -> ne' socket, ne' fd ?!??!");
-            }
+        uintptr_t key = item.socket != nullptr ? (uintptr_t) item.socket : (uintptr_t) item.fd;
+        auto found = _objects.find(key);
+        if(found != _objects.end()) {
+            _items.erase(_items.begin() + found->second);
+            _objects.erase(found);
         }
     }
 
     void check_for(Php::Parameters &param) {
-        if(param.size() < 2 || !param[0].isObject())
-            throw Php::Exception("ZPoller check_for require a ZActor, ZSocker or ZHandle and event type");
+        zmq_pollitem_t item = ZUtils::phpvalue_to_pollitem(param[0]);
+        if(item.socket == nullptr && item.fd == INVALID_SOCKET)
+            throw Php::Exception("Cannot create PollItem.");
 
-        short event = param[1];
-        ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
-
-        void *socket = NULL;
-
-        if(zhandle != NULL) {
-            socket = zhandle->get_socket();
-
-            if(socket) {
-                auto found = _index.find(socket);
-                if (_index.end() == found) { return; }
-                _items[found->second].events = event;
-            }
-            else {
-                if(_verbose)
-                    zsys_info ("zpoller -> ne' socket, ne' fd ?!??!");
-            }
+        uintptr_t key = item.socket != nullptr ? (uintptr_t) item.socket : (uintptr_t) item.fd;
+        auto found = _objects.find(key);
+        if(found != _objects.end()) {
+            _items[found->second].events = (short) param[1].numericValue();
         }
     }
 
     Php::Value events(Php::Parameters &param) {
-        if(param.size() == 0 || !param[0].isObject())
-            throw Php::Exception("ZPoller events require a ZActor, ZSocker or ZHandle");
+        zmq_pollitem_t item = ZUtils::phpvalue_to_pollitem(param[0]);
+        if(item.socket == nullptr && item.fd == INVALID_SOCKET)
+            throw Php::Exception("Cannot create PollItem.");
 
-        ZHandle *zhandle = dynamic_cast<ZHandle *>(param[0].implementation());
-
-        void *socket = NULL;
-
-        if(zhandle != NULL) {
-            socket = zhandle->get_socket();
-
-            if(socket) {
-                auto found = _index.find(socket);
-                if (_index.end() == found) {
-                    return 0;
-                }
-                return _items[found->second].revents;
-            }
-            else {
-                if(_verbose)
-                    zsys_info ("zpoller -> ne' socket, ne' fd ?!??!");
-            }
+        uintptr_t key = item.socket != nullptr ? (uintptr_t) item.socket : (uintptr_t) item.fd;
+        auto found = _objects.find(key);
+        if(found != _objects.end()) {
+            return _items[found->second].revents;
         }
-
         return false;
     }
 
@@ -189,36 +107,38 @@ public:
         });
 
         o.method("add", &ZPoll::add, {
-            Php::ByRef("socket", "IZDescriptor", false, true),
+            Php::ByVal("pollitem", Php::Type::String, true),
             Php::ByVal("mode", Php::Type::Numeric, false)
         });
         o.method("has", &ZPoll::has, {
-               Php::ByRef("socket", "IZDescriptor", false, true)
+            Php::ByVal("pollitem", Php::Type::String, true)
         });
         o.method("remove", &ZPoll::remove, {
-             Php::ByRef("socket", "IZDescriptor", false, true)
+             Php::ByVal("pollitem", Php::Type::String, true)
         });
         o.method("check_for", &ZPoll::check_for, {
-            Php::ByRef("socket", "IZDescriptor", false, true),
+            Php::ByVal("pollitem", Php::Type::String, true),
             Php::ByVal("event", Php::Type::Numeric, false)
         });
 
         o.method("events", &ZPoll::events, {
-            Php::ByRef("socket", "IZDescriptor", false, true)
+            Php::ByVal("pollitem", Php::Type::String, true)
         });
 
         o.method("poll", &ZPoll::poll, {
+//            Php::ByRef("readable", Php::Type::Array, true),
+//            Php::ByRef("writeable", Php::Type::Array, true),
             Php::ByVal("timeout", Php::Type::Numeric, false)
         });
 
         o.method("has_input", &ZPoll::has_input, {
-            Php::ByRef("socket", "IZDescriptor", false, true)
+            Php::ByVal("pollitem", Php::Type::String, true)
         });
         o.method("has_output", &ZPoll::has_output, {
-            Php::ByRef("socket", "IZDescriptor", false, true)
+            Php::ByVal("pollitem", Php::Type::String, true)
         });
         o.method("has_error", &ZPoll::has_error, {
-            Php::ByRef("socket", "IZDescriptor", false, true)
+            Php::ByVal("pollitem", Php::Type::String, true)
         });
 
         return o;
