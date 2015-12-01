@@ -363,16 +363,16 @@ class ZMsg {
   /**
    * ...
    * 
-   * @param \ZFrame $frame ...
+   * @param \ZFrame &$frame ...
   */
-  public function append(\ZFrame $frame) {}
+  public function append(\ZFrame &$frame) {}
 
   /**
    * ...
    * 
-   * @param \ZFrame $frame ...
+   * @param \ZFrame &$frame ...
   */
-  public function prepend(\ZFrame $frame) {}
+  public function prepend(\ZFrame &$frame) {}
 
   /**
    * ...
@@ -405,16 +405,16 @@ class ZMsg {
   /**
    * Send a ZMsg
    * 
-   * @param \IZSocket $socket ...
+   * @param \IZSocket &$socket ...
   */
-  public function send(\IZSocket $socket) {}
+  public function send(\IZSocket &$socket) {}
 
   /**
    * ...
    * 
-   * @param \ZFrame $frame ...
+   * @param \ZFrame &$frame ...
   */
-  public function remove(\ZFrame $frame) {}
+  public function remove(\ZFrame &$frame) {}
 
   /**
    * ...
@@ -547,9 +547,9 @@ class ZLoop {
   /**
    * ...
    * 
-   * @param mixed $pollitem ...
+   * @param mixed &$pollitem ...
   */
-  public function remove($pollitem) {}
+  public function remove(&$pollitem) {}
 
   /**
    * Add a repeating timer with a callback. Return a timer_id.
@@ -631,11 +631,11 @@ class ZPoll {
   /**
    * ...
    * 
-   * @param array $readers ...
-   * @param array $writers ...
+   * @param array &$readers ...
+   * @param array &$writers ...
    * @param mixed $timeout ... (optional)
   */
-  public function poll_array(array $readers, array $writers, $timeout) {}
+  public function poll_array(array &$readers, array &$writers, $timeout) {}
 
   /**
    * ...
@@ -761,48 +761,9 @@ class ZCert {
   /**
    * ...
    * 
-   * @param \IZSocket $socket ...
+   * @param \IZSocket &$socket ...
   */
-  public function apply(\IZSocket $socket) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function dump() {}
-
-}
-
-
-/**
- * ZCertStore
- *
- * ...
- */
-class ZCertStore {
-
-  /**
-   * ...
-   * 
-   * @param string $certificates_dir ... (optional)
-   * @return \ZCertStore
-  */
-  public function __construct($certificates_dir = null) {}
-
-  /**
-   * ...
-   * 
-   * @param string $pubkey ...
-   * @return \ZCert
-  */
-  public function lookup($pubkey) {}
-
-  /**
-   * ...
-   * 
-   * @param \ZCert $cert ...
-  */
-  public function insert(\ZCert $cert) {}
+  public function apply(\IZSocket &$socket) {}
 
   /**
    * ...
@@ -836,10 +797,10 @@ class ZMonitor implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param \IZSocket $socket ...
+   * @param \IZSocket &$socket ...
    * @return \ZMonitor
   */
-  public function __construct(\IZSocket $socket) {}
+  public function __construct(\IZSocket &$socket) {}
 
   /**
    * ...
@@ -980,14 +941,6 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * @param string $endpoint ...
   */
   public function disconnect($endpoint) {}
-
-  /**
-   * ...
-   * 
-   * @param string $endpoints ...
-   * @param bool $serverish ... (optional)
-  */
-  public function attach($endpoints, $serverish = false) {}
 
   /**
    * ...
@@ -1208,6 +1161,36 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ...
    * 
   */
+  public function set_router_raw() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function set_delay_attach_on_connect() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function set_subscribe() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function set_unsubscribe() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function set_xpub_verbose() {}
+
+  /**
+   * ...
+   * 
+  */
   public function set_router_handover() {}
 
   /**
@@ -1257,36 +1240,6 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * 
   */
   public function set_curve_serverkey_bin() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_router_raw() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_delay_attach_on_connect() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_subscribe() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_unsubscribe() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_xpub_verbose() {}
 
 }
 

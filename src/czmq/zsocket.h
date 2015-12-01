@@ -217,11 +217,6 @@ public:
         return (zsock_disconnect(zsock_handle(), param[0].stringValue().c_str()) == 0);
     }
 
-    Php::Value attach(Php::Parameters &param) {
-        bool serverish = param.size() > 1 ? param[1].boolValue() : false;
-        return (zsock_attach(zsock_handle(), param[0].stringValue().c_str(), serverish) == 0);
-    }
-
     Php::Value signal(Php::Parameters &param) {
         byte status = (uint8_t) param[0].numericValue();
         return (zsock_signal(zsock_handle(), status) == 0);
@@ -623,10 +618,6 @@ public:
     	o.method("disconnect", &ZSocket::disconnect, {
             Php::ByVal("endpoint", Php::Type::String, true)
         });
-    	o.method("attach", &ZSocket::attach, {
-            Php::ByVal("endpoints", Php::Type::String, true),
-            Php::ByVal("serverish", Php::Type::Bool, false)
-        });
     	o.method("signal", &ZSocket::signal, {
             Php::ByVal("byte", Php::Type::Numeric, true)
         });
@@ -714,70 +705,7 @@ public:
         o.method("get_fd", &ZSocket::get_fd);
         o.method("get_socket", &ZSocket::_get_socket);
 
-
-#if (ZMQ_VERSION_MAJOR == 4)
-
-        o.property("tos", &ZSocket::get_tos, &ZSocket::set_tos);
-        o.property("zap_domain", &ZSocket::get_zap_domain, &ZSocket::set_zap_domain);
-        o.property("mechanism", &ZSocket::get_mechanism);
-        o.property("plain_server", &ZSocket::get_plain_server, &ZSocket::set_plain_server);
-        o.property("plain_username", &ZSocket::get_plain_username, &ZSocket::set_plain_username);
-        o.property("plain_password", &ZSocket::get_plain_password, &ZSocket::set_plain_password);
-        o.property("curve_server", &ZSocket::get_curve_server, &ZSocket::set_curve_server);
-        o.property("curve_publickey", &ZSocket::get_curve_publickey, &ZSocket::set_curve_publickey);
-        o.property("curve_secretkey", &ZSocket::get_curve_secretkey, &ZSocket::set_curve_secretkey);
-        o.property("curve_serverkey", &ZSocket::get_curve_serverkey, &ZSocket::set_curve_serverkey);
-        o.property("gssapi_server", &ZSocket::get_gssapi_server, &ZSocket::set_gssapi_server);
-        o.property("gssapi_plaintext", &ZSocket::get_gssapi_plaintext, &ZSocket::set_gssapi_plaintext);
-        o.property("gssapi_principal", &ZSocket::get_gssapi_principal, &ZSocket::set_gssapi_principal);
-        o.property("gssapi_service_principal", &ZSocket::get_gssapi_service_principal, &ZSocket::set_gssapi_service_principal);
-        o.property("ipv6", &ZSocket::get_ipv6, &ZSocket::set_ipv6);
-        o.property("immediate", &ZSocket::get_immediate, &ZSocket::set_immediate);
-        o.property("ipv4only", &ZSocket::get_ipv4only, &ZSocket::set_ipv4only);
-        o.property("type", &ZSocket::get_type);
-        o.property("sndhwm", &ZSocket::get_sndhwm, &ZSocket::set_sndhwm);
-        o.property("rcvhwm", &ZSocket::get_rcvhwm, &ZSocket::set_rcvhwm);
-        o.property("affinity", &ZSocket::get_affinity, &ZSocket::set_affinity);
-        o.property("identity", &ZSocket::get_identity, &ZSocket::set_identity);
-        o.property("rate", &ZSocket::get_rate, &ZSocket::set_rate);
-        o.property("recovery_ivl", &ZSocket::get_recovery_ivl, &ZSocket::set_recovery_ivl);
-        o.property("sndbuf", &ZSocket::get_sndbuf, &ZSocket::set_sndbuf);
-        o.property("rcvbuf", &ZSocket::get_rcvbuf, &ZSocket::set_rcvbuf);
-        o.property("linger", &ZSocket::get_linger, &ZSocket::set_linger);
-        o.property("reconnect_ivl", &ZSocket::get_reconnect_ivl, &ZSocket::set_reconnect_ivl);
-        o.property("reconnect_ivl_max", &ZSocket::get_reconnect_ivl_max, &ZSocket::set_reconnect_ivl_max);
-        o.property("backlog", &ZSocket::get_backlog, &ZSocket::set_backlog);
-        o.property("maxmsgsize", &ZSocket::get_maxmsgsize, &ZSocket::set_maxmsgsize);
-        o.property("multicast_hops", &ZSocket::get_multicast_hops, &ZSocket::set_multicast_hops);
-        o.property("rcvtimeo", &ZSocket::get_rcvtimeo, &ZSocket::set_rcvtimeo);
-        o.property("sndtimeo", &ZSocket::get_sndtimeo, &ZSocket::set_sndtimeo);
-        o.property("tcp_keepalive", &ZSocket::get_tcp_keepalive, &ZSocket::set_tcp_keepalive);
-        o.property("tcp_keepalive_idle", &ZSocket::get_tcp_keepalive_idle, &ZSocket::set_tcp_keepalive_idle);
-        o.property("tcp_keepalive_cnt", &ZSocket::get_tcp_keepalive_cnt, &ZSocket::set_tcp_keepalive_cnt);
-        o.property("tcp_keepalive_intvl", &ZSocket::get_tcp_keepalive_intvl, &ZSocket::set_tcp_keepalive_intvl);
-        o.property("tcp_accept_filter", &ZSocket::get_tcp_accept_filter, &ZSocket::set_tcp_accept_filter);
-        o.property("rcvmore", &ZSocket::get_rcvmore);
-        o.property("events", &ZSocket::get_events);
-        o.property("last_endpoint", &ZSocket::get_last_endpoint);
-
-    	o.method("set_router_handover", &ZSocket::set_router_handover);
-    	o.method("set_router_mandatory", &ZSocket::set_router_mandatory);
-    	o.method("set_probe_router", &ZSocket::set_probe_router);
-    	o.method("set_req_relaxed", &ZSocket::set_req_relaxed);
-    	o.method("set_req_correlate", &ZSocket::set_req_correlate);
-    	o.method("set_conflate", &ZSocket::set_conflate);
-    	o.method("set_curve_publickey_bin", &ZSocket::set_curve_publickey_bin);
-    	o.method("set_curve_secretkey_bin", &ZSocket::set_curve_secretkey_bin);
-    	o.method("set_curve_serverkey_bin", &ZSocket::set_curve_serverkey_bin);
-    	o.method("set_router_raw", &ZSocket::set_router_raw);
-    	o.method("set_delay_attach_on_connect", &ZSocket::set_delay_attach_on_connect);
-    	o.method("set_subscribe", &ZSocket::set_subscribe);
-    	o.method("set_unsubscribe", &ZSocket::set_unsubscribe);
-    	o.method("set_xpub_verbose", &ZSocket::set_xpub_verbose);
-
-#endif
-
-#if (ZMQ_VERSION_MAJOR == 3)
+        // Properties
 
         o.property("ipv4only", &ZSocket::get_ipv4only, &ZSocket::set_ipv4only);
         o.property("type", &ZSocket::get_type);
@@ -811,6 +739,36 @@ public:
         o.method("set_subscribe", &ZSocket::set_subscribe);
         o.method("set_unsubscribe", &ZSocket::set_unsubscribe);
         o.method("set_xpub_verbose", &ZSocket::set_xpub_verbose);
+
+#if (ZMQ_VERSION_MAJOR == 4)
+
+        o.property("tos", &ZSocket::get_tos, &ZSocket::set_tos);
+        o.property("zap_domain", &ZSocket::get_zap_domain, &ZSocket::set_zap_domain);
+        o.property("mechanism", &ZSocket::get_mechanism);
+        o.property("plain_server", &ZSocket::get_plain_server, &ZSocket::set_plain_server);
+        o.property("plain_username", &ZSocket::get_plain_username, &ZSocket::set_plain_username);
+        o.property("plain_password", &ZSocket::get_plain_password, &ZSocket::set_plain_password);
+        o.property("curve_server", &ZSocket::get_curve_server, &ZSocket::set_curve_server);
+        o.property("curve_publickey", &ZSocket::get_curve_publickey, &ZSocket::set_curve_publickey);
+        o.property("curve_secretkey", &ZSocket::get_curve_secretkey, &ZSocket::set_curve_secretkey);
+        o.property("curve_serverkey", &ZSocket::get_curve_serverkey, &ZSocket::set_curve_serverkey);
+        o.property("gssapi_server", &ZSocket::get_gssapi_server, &ZSocket::set_gssapi_server);
+        o.property("gssapi_plaintext", &ZSocket::get_gssapi_plaintext, &ZSocket::set_gssapi_plaintext);
+        o.property("gssapi_principal", &ZSocket::get_gssapi_principal, &ZSocket::set_gssapi_principal);
+        o.property("gssapi_service_principal", &ZSocket::get_gssapi_service_principal, &ZSocket::set_gssapi_service_principal);
+        o.property("ipv6", &ZSocket::get_ipv6, &ZSocket::set_ipv6);
+        o.property("immediate", &ZSocket::get_immediate, &ZSocket::set_immediate);
+
+    	o.method("set_router_handover", &ZSocket::set_router_handover);
+    	o.method("set_router_mandatory", &ZSocket::set_router_mandatory);
+    	o.method("set_probe_router", &ZSocket::set_probe_router);
+    	o.method("set_req_relaxed", &ZSocket::set_req_relaxed);
+    	o.method("set_req_correlate", &ZSocket::set_req_correlate);
+    	o.method("set_conflate", &ZSocket::set_conflate);
+    	o.method("set_curve_publickey_bin", &ZSocket::set_curve_publickey_bin);
+    	o.method("set_curve_secretkey_bin", &ZSocket::set_curve_secretkey_bin);
+    	o.method("set_curve_serverkey_bin", &ZSocket::set_curve_serverkey_bin);
+
 
 #endif
 

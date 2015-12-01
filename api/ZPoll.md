@@ -129,8 +129,8 @@ Methods
 
 
 #### Arguments
-* $readers **array** - &lt;p&gt;...&lt;/p&gt;
-* $writers **array** - &lt;p&gt;...&lt;/p&gt;
+* $readers **array**
+* $writers **array**
 * $timeout **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 

@@ -129,7 +129,7 @@ Methods
 
 
 #### Arguments
-* $socket **[IZSocket](IZSocket.md)** - &lt;p&gt;...&lt;/p&gt;
+* $socket **[IZSocket](IZSocket.md)**
 
 
 

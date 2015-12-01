@@ -126,23 +126,6 @@ Methods
 
 
 
-### attach
-
-    mixed ZSocket::attach(string $endpoints, boolean $serverish)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $endpoints **string** - &lt;p&gt;...&lt;/p&gt;
-* $serverish **boolean** - &lt;p&gt;... (optional)&lt;/p&gt;
-
-
-
 ### signal
 
     mixed ZSocket::signal(integer $byte)
@@ -602,6 +585,71 @@ Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
 
 
 
+### set_router_raw
+
+    mixed ZSocket::set_router_raw()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### set_delay_attach_on_connect
+
+    mixed ZSocket::set_delay_attach_on_connect()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### set_subscribe
+
+    mixed ZSocket::set_subscribe()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### set_unsubscribe
+
+    mixed ZSocket::set_unsubscribe()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### set_xpub_verbose
+
+    mixed ZSocket::set_xpub_verbose()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### set_router_handover
 
     mixed ZSocket::set_router_handover()
@@ -709,71 +757,6 @@ Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
 ### set_curve_serverkey_bin
 
     mixed ZSocket::set_curve_serverkey_bin()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_router_raw
-
-    mixed ZSocket::set_router_raw()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_delay_attach_on_connect
-
-    mixed ZSocket::set_delay_attach_on_connect()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_subscribe
-
-    mixed ZSocket::set_subscribe()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_unsubscribe
-
-    mixed ZSocket::set_unsubscribe()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_xpub_verbose
-
-    mixed ZSocket::set_xpub_verbose()
 
 
 

@@ -9,7 +9,6 @@
 #include "czmq/zpoll.h"
 #include "czmq/zloop.h"
 #include "czmq/zcert.h"
-#include "czmq/zcertstore.h"
 #include "czmq/zbeacon.h"
 #include "czmq/zauth.h"
 #include "czmq/zgossip.h"

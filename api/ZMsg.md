@@ -92,7 +92,7 @@ Methods
 
 
 #### Arguments
-* $frame **[ZFrame](ZFrame.md)** - &lt;p&gt;...&lt;/p&gt;
+* $frame **[ZFrame](ZFrame.md)**
 
 
 
@@ -108,7 +108,7 @@ Methods
 
 
 #### Arguments
-* $frame **[ZFrame](ZFrame.md)** - &lt;p&gt;...&lt;/p&gt;
+* $frame **[ZFrame](ZFrame.md)**
 
 
 
@@ -182,7 +182,7 @@ Send a ZMsg
 
 
 #### Arguments
-* $socket **[IZSocket](IZSocket.md)** - &lt;p&gt;...&lt;/p&gt;
+* $socket **[IZSocket](IZSocket.md)**
 
 
 
@@ -198,7 +198,7 @@ Send a ZMsg
 
 
 #### Arguments
-* $frame **[ZFrame](ZFrame.md)** - &lt;p&gt;...&lt;/p&gt;
+* $frame **[ZFrame](ZFrame.md)**
 
 
 

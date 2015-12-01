@@ -56,9 +56,6 @@ extern "C" {
         // ZCert
         Php::Class<ZCert> zcert = ZCert::php_register();
 
-        // ZCertStore
-        Php::Class<ZCertStore> zcertstore = ZCertStore::php_register();
-
         // ZMonitor
         Php::Class<ZMonitor> zmonitor = ZMonitor::php_register();
         zmonitor.implements(izsocket);
@@ -211,7 +208,6 @@ extern "C" {
         extension.add(std::move(zloop));
         extension.add(std::move(zpoll));
         extension.add(std::move(zcert));
-        extension.add(std::move(zcertstore));
         extension.add(std::move(zmonitor));
         extension.add(std::move(zsocket));
         extension.add(std::move(zproxy));
@@ -225,6 +221,7 @@ extern "C" {
 
         // zyre
         extension.add(std::move(zyre_ns));
+
         // majordomo
         extension.add(std::move(mdp_ns));
 

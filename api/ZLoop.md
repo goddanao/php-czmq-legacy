@@ -106,7 +106,7 @@ Methods
 
 ### remove
 
-    mixed ZLoop::remove(mixed $pollitem)
+    mixed ZLoop::remove($pollitem)
 
 
 
@@ -116,7 +116,7 @@ Methods
 
 
 #### Arguments
-* $pollitem **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $pollitem **mixed**
 
 
 
