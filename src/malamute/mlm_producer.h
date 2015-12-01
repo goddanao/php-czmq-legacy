@@ -40,7 +40,7 @@ public:
 
         Php::Value result = param[1]();
         while(!(result.isBool() && result == false)) {
-            zmsg_t *reply = ZMsg::msg_from_param(&result);
+            zmsg_t *reply = ZUtils::phpvalue_to_zmsg(result);
             mlm_client_send(mlm_producer_handle(), param[0].stringValue().c_str(), &reply);
             result = param[1]();
         }

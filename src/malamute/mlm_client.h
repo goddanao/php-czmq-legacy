@@ -65,8 +65,7 @@ public:
 		std::string subject = param[0].stringValue();
 		zmsg_t *msg = nullptr;
         if(param.size() > 1) {
-            Php::Value p(param[1]);
-            msg = ZMsg::msg_from_param(&p);
+            msg = ZUtils::phpvalue_to_zmsg(param[1]);
         }
 
 		return (mlm_client_send(mlm_client_handle(), subject.c_str(), &msg) == 0);
@@ -77,8 +76,7 @@ public:
 
 		zmsg_t *msg = nullptr;
 		if(param.size() > 1) {
-			Php::Value p(param[1]);
-			msg = ZMsg::msg_from_param(&p);
+			msg = ZUtils::phpvalue_to_zmsg(param[1]);
 		}
 
 		int _to = (param.size() > 2) ? param[2].numericValue() : _timeout;
@@ -94,8 +92,7 @@ public:
 
 		zmsg_t *msg = nullptr;
         if(param.size() > 2) {
-            Php::Value p(param[2]);
-            msg = ZMsg::msg_from_param(&p);
+            msg = ZUtils::phpvalue_to_zmsg(param[2]);
         }
 
         int _to = (param.size() > 3) ? param[3].numericValue() : _timeout;

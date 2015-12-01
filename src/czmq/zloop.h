@@ -97,44 +97,30 @@ public:
 
     Php::Value add(Php::Parameters &param) {
 
-        bool valid = param.size() > 1;
-
-        if(!valid)
-            return false;
-
         // Register callback data
         _cbdata *data = new _cbdata();
         data->obj  = new Php::Value(param[0]);
         data->cb   = new Php::Value(param[1]);
         zlistx_add_end(_callbacks, data);
 
-        // Pollitem
-        Php::Value o(param[0]);
-        _PV *object = (_PV *) &o;
         short event = (param.size() > 2) ? (short) param[2].numericValue() : ZMQ_POLLIN;
-        zmq_pollitem_t *item = object->get_pollitem(event);
-        if(item == nullptr)
+        zmq_pollitem_t item = ZUtils::phpvalue_to_pollitem(param[0], event);
+        if(item.socket == nullptr && item.fd == INVALID_SOCKET)
             throw Php::Exception("Cannot create PollItem.");
 
-        zloop_poller(zloop_handle(), item, cb_events, data);
+        zloop_poller(zloop_handle(), &item, cb_events, data);
 
         if(param.size() > 3 && param[3].boolValue())
-            zloop_poller_set_tolerant(zloop_handle(), item);
+            zloop_poller_set_tolerant(zloop_handle(), &item);
 
         return true;
     }
 
     void remove(Php::Parameters &param) {
-        bool valid = param.size() > 0;
-
-        // Pollitem
-        Php::Value o(param[0]);
-        _PV *object = (_PV *) &o;
-        zmq_pollitem_t *item = object->get_pollitem(0);
-        if(item == nullptr)
+        zmq_pollitem_t item = ZUtils::phpvalue_to_pollitem(param[0]);
+        if(item.socket == nullptr && item.fd == INVALID_SOCKET)
             throw Php::Exception("Cannot remove PollItem.");
-        zloop_poller_end( zloop_handle(), item);
-
+        zloop_poller_end( zloop_handle(), &item);
     }
 
     static Php::Class<ZLoop> php_register() {
@@ -152,7 +138,7 @@ public:
             Php::ByVal("mode", Php::Type::Numeric, false)
         });
         o.method("remove", &ZLoop::remove, {
-            Php::ByRef("socket", "IZDescriptor", false, true)
+            Php::ByRef("pollitem", Php::Type::String, true)
         });
         o.method("add_timer", &ZLoop::add_timer, {
            Php::ByVal("timeout", Php::Type::Numeric, true),

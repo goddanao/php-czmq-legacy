@@ -20,9 +20,7 @@ Php::Value ZHandle::recv_picture(Php::Parameters &param) {
 }
 
 Php::Value ZHandle::send_string(Php::Parameters &param) {
-    zmsg_t *msg = zmsg_new();
-    ZMsg z(msg, false);
-    z.append_string(param);
+    zmsg_t *msg = ZUtils::phpvalue_to_zmsg(param[0]);
     return (zmsg_send (&msg, get_socket()) == 0);
 }
 
@@ -35,9 +33,8 @@ Php::Value ZHandle::recv_string(Php::Parameters &param) {
 }
 
 Php::Value ZHandle::send(Php::Parameters &param) {
-    Php::Value p(param[0]);
-    zmsg_t *czmsg = ZMsg::msg_from_param(&p);
-    return (zmsg_send(&czmsg, get_socket()) == 0);
+    zmsg_t *msg = ZUtils::phpvalue_to_zmsg(param[0]);
+    return (zmsg_send(&msg, get_socket()) == 0);
 }
 
 Php::Value ZHandle::recv(Php::Parameters &param) {

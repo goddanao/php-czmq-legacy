@@ -54,7 +54,7 @@ public:
                 result = param[0](zmsg, header());
 
                 if(sender != "") {
-                    zmsg_t *reply = ZMsg::msg_from_param(&result);
+                    zmsg_t *reply = ZUtils::phpvalue_to_zmsg(result);
                     mlm_client_sendto(mlm_worker_handle(), sender.c_str(), _address.c_str(), mlm_client_subject(mlm_worker_handle()), _timeout, &reply);
                 }
             }

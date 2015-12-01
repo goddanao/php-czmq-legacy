@@ -108,8 +108,7 @@ public:
 
 		zmsg_t *zmsg = nullptr;
 		if(param.size() > 1) {
-			Php::Value p(param[1]);
-			zmsg = ZMsg::msg_from_param(&p);
+			zmsg = ZUtils::phpvalue_to_zmsg(param[1]);
 		}
 
 		// Qua devo confezionare la richiesta

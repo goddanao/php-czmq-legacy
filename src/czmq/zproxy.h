@@ -33,7 +33,7 @@ public:
     void set_frontend(Php::Parameters &param) {
         if(param.size() < 2)
             return;
-        std::string socket_type = toUpper(param[0].stringValue());
+        std::string socket_type = ZUtils::toUpper(param[0].stringValue());
         std::string socket_endpoints = param[1];
         zstr_sendx(zproxy_handle(), "FRONTEND", socket_type.c_str(), socket_endpoints.c_str(), NULL);
         zsock_wait(zproxy_handle());
@@ -42,7 +42,7 @@ public:
     void set_backend(Php::Parameters &param) {
         if(param.size() < 2)
             return;
-        std::string socket_type = toUpper(param[0]);
+        std::string socket_type = ZUtils::toUpper(param[0]);
         std::string socket_endpoints = param[1];
         zstr_sendx(zproxy_handle(), "BACKEND", socket_type.c_str(), socket_endpoints.c_str(), NULL);
         zsock_wait(zproxy_handle());

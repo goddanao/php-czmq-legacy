@@ -32,17 +32,15 @@ public:
     }
 
     void add(Php::Parameters &param) {
-        Php::Value o(param[0]);
-        _PV *object = (_PV *) &o;
         short event = (param.size() > 1) ? (short) param[1].numericValue() : ZMQ_POLLIN;
-        zmq_pollitem_t *item = object->get_pollitem(event);
-        if(item == nullptr)
+        zmq_pollitem_t item = ZUtils::phpvalue_to_pollitem(param[0], event);
+        if(item.socket == nullptr && item.fd == INVALID_SOCKET)
             throw Php::Exception("Cannot create PollItem.");
 
         size_t index = _items.size();
-        _items.push_back(*item);
-        _index[item->socket] = index;
-        std::pair<void *, Php::Value> el = {item->socket, param[0]};
+        _items.push_back(item);
+        _index[item.socket] = index;
+        std::pair<void *, Php::Value> el = {item.socket, param[0]};
         _objects.insert(el);
 
 

@@ -93,8 +93,8 @@ public:
     Php::Value send(Php::Parameters &param) {
         int rc = 0;
 
-        Php::Value p(param[0]);
-        zmsg_t *zmsg = ZMsg::msg_from_param(&p);
+        zmsg_t *zmsg = ZUtils::phpvalue_to_zmsg(param[0]);
+
         zframe_t *frame = nullptr;
 
         if(zmsg) {
@@ -131,7 +131,7 @@ public:
         o.method("send", &ZUdp::send);
         o.method("recv", &ZUdp::recv);
 
-        // IZSocket intf support
+        // IZDescriptor intf support
         o.method("get_fd", &ZUdp::get_fd);
 
         return o;

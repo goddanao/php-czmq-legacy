@@ -41,8 +41,7 @@ public:
         zmsg_t *zmsg;
 
         if(param.size() > 1) {
-            Php::Value p(param[1]);
-            zmsg = ZMsg::msg_from_param(&p);
+            zmsg = ZUtils::phpvalue_to_zmsg(param[1]);
         }
 		else
 		    zmsg = zmsg_new();
