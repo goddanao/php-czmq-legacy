@@ -5,6 +5,7 @@
 class ZInotify : public ZHandle, public Php::Base {
 private:
     std::map<int,std::string> _map;
+
 public:
 
     ZInotify() : ZHandle(inotify_init(), true, "fd"), Php::Base() { }
@@ -49,7 +50,6 @@ public:
         return result;
     }
 
-
 	static Php::Class<ZInotify> php_register() {
         Php::Class<ZInotify> o("ZInotify");
 
@@ -62,34 +62,37 @@ public:
         });
         o.method("recv", &ZInotify::recv);
 
-        o.constant("IN_ACCESS", IN_ACCESS);
-        o.constant("IN_MODIFY", IN_MODIFY);
-        o.constant("IN_ATTRIB", IN_ATTRIB);
-        o.constant("IN_CLOSE_WRITE", IN_CLOSE_WRITE);
-        o.constant("IN_CLOSE_NOWRITE", IN_CLOSE_NOWRITE);
-        o.constant("IN_OPEN", IN_OPEN);
-        o.constant("IN_MOVED_FROM", IN_MOVED_FROM);
-        o.constant("IN_MOVED_TO", IN_MOVED_TO);
-        o.constant("IN_CREATE", IN_CREATE);
-        o.constant("IN_DELETE", IN_DELETE);
-        o.constant("IN_DELETE_SELF", IN_DELETE_SELF);
-        o.constant("IN_MOVE_SELF", IN_MOVE_SELF);
+        o.constant("IN_ACCESS", ZUtils::sprintf("0x%08x", IN_ACCESS));
+        o.constant("IN_MODIFY", ZUtils::sprintf("0x%08x", IN_MODIFY));
+        o.constant("IN_ATTRIB", ZUtils::sprintf("0x%08x", IN_ATTRIB));
+        o.constant("IN_CLOSE_WRITE", ZUtils::sprintf("0x%08x", IN_CLOSE_WRITE));
+        o.constant("IN_CLOSE_NOWRITE", ZUtils::sprintf("0x%08x", IN_CLOSE_NOWRITE));
+        o.constant("IN_OPEN", ZUtils::sprintf("0x%08x", IN_OPEN));
+        o.constant("IN_MOVED_FROM", ZUtils::sprintf("0x%08x", IN_MOVED_FROM));
+        o.constant("IN_MOVED_TO", ZUtils::sprintf("0x%08x", IN_MOVED_TO));
+        o.constant("IN_CREATE", ZUtils::sprintf("0x%08x", IN_CREATE));
+        o.constant("IN_DELETE", ZUtils::sprintf("0x%08x", IN_DELETE));
+        o.constant("IN_DELETE_SELF", ZUtils::sprintf("0x%08x", IN_DELETE_SELF));
+        o.constant("IN_MOVE_SELF", ZUtils::sprintf("0x%08x", IN_MOVE_SELF));
 
-        o.constant("IN_UNMOUNT", IN_UNMOUNT);
-        o.constant("IN_Q_OVERFLOW", IN_Q_OVERFLOW);
-        o.constant("IN_IGNORED", IN_IGNORED);
+        o.constant("IN_UNMOUNT", ZUtils::sprintf("0x%08x", IN_UNMOUNT));
+        o.constant("IN_Q_OVERFLOW", ZUtils::sprintf("0x%08x", IN_Q_OVERFLOW));
+        o.constant("IN_IGNORED", ZUtils::sprintf("0x%08x", IN_IGNORED));
 
-        o.constant("IN_CLOSE", IN_CLOSE);
-        o.constant("IN_MOVE", IN_MOVE);
+        o.constant("IN_CLOSE", ZUtils::sprintf("0x%08x", IN_CLOSE));
+        o.constant("IN_MOVE", ZUtils::sprintf("0x%08x", IN_MOVE));
 
-        o.constant("IN_ONLYDIR", IN_ONLYDIR);
-        o.constant("IN_DONT_FOLLOW", IN_DONT_FOLLOW);
-        o.constant("IN_EXCL_UNLINK", IN_EXCL_UNLINK);
-        o.constant("IN_MASK_ADD", IN_MASK_ADD);
-        o.constant("IN_ISDIR", IN_ISDIR);
-        // o.constant("IN_ONESHOT", IN_ONESHOT);
+        o.constant("IN_ONLYDIR", ZUtils::sprintf("0x%08x", IN_ONLYDIR));
+        o.constant("IN_DONT_FOLLOW", ZUtils::sprintf("0x%08x", IN_DONT_FOLLOW));
+        o.constant("IN_EXCL_UNLINK", ZUtils::sprintf("0x%08x", IN_EXCL_UNLINK));
+        o.constant("IN_MASK_ADD", ZUtils::sprintf("0x%08x", IN_MASK_ADD));
+        o.constant("IN_ISDIR", ZUtils::sprintf("0x%08x", IN_ISDIR));
 
-        o.constant("IN_ALL_EVENTS", IN_ALL_EVENTS);
+    #ifdef IN_ONESHOT
+        o.constant("IN_ONESHOT", ZUtils::sprintf("0x%08x", IN_ONESHOT));
+    #endif
+
+        o.constant("IN_ALL_EVENTS", ZUtils::sprintf("0x%08x", IN_ALL_EVENTS));
 
         // IZSocket intf support
         o.method("get_fd", &ZInotify::get_fd);

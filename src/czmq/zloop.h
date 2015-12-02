@@ -138,7 +138,7 @@ public:
             Php::ByVal("mode", Php::Type::Numeric, false)
         });
         o.method("remove", &ZLoop::remove, {
-            Php::ByRef("pollitem", Php::Type::String, true)
+            Php::ByVal("pollitem", Php::Type::String, true)
         });
         o.method("add_timer", &ZLoop::add_timer, {
            Php::ByVal("timeout", Php::Type::Numeric, true),

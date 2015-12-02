@@ -32,7 +32,7 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
 
         $loop   = new ZLoop();
 
-        $loop->add_timer(3000, function($timer_id, $loop){
+        $loop->add_timer(3000, function($timer_id, \ZLoop $loop){
             $loop->stop();
         });
 

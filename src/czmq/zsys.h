@@ -21,7 +21,7 @@ public:
         return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
     }
 
-#if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
+#ifdef MALAMUTE_VERSION_MAJOR
 
     static Php::Value libmlm_version() {
         int major = MALAMUTE_VERSION_MAJOR, minor = MALAMUTE_VERSION_MINOR, patch = MALAMUTE_VERSION_PATCH;
@@ -184,7 +184,7 @@ public:
         o.method("libmdp_version", &ZSys::libmdp_version);
         o.method("libfmq_version", &ZSys::libfmq_version);
 
-        #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
+        #ifdef MALAMUTE_VERSION_MAJOR
 
             o.method("libmlm_version", &ZSys::libmlm_version);
 
@@ -222,18 +222,18 @@ public:
 
 
         // Const - Event Type
-        o.constant("EVENT_CLOSED", ZMQ_EVENT_CLOSED);
-        o.constant("EVENT_CONNECTED", ZMQ_EVENT_CONNECTED);
-        o.constant("EVENT_CONNECT_DELAYED", ZMQ_EVENT_CONNECT_DELAYED);
-        o.constant("EVENT_CONNECT_RETRIED", ZMQ_EVENT_CONNECT_RETRIED);
-        o.constant("EVENT_LISTENING", ZMQ_EVENT_LISTENING);
-        o.constant("EVENT_BIND_FAILED", ZMQ_EVENT_BIND_FAILED);
-        o.constant("EVENT_ACCEPTED", ZMQ_EVENT_ACCEPTED);
-        o.constant("EVENT_ACCEPT_FAILED", ZMQ_EVENT_ACCEPT_FAILED);
-        o.constant("EVENT_CLOSE_FAILED", ZMQ_EVENT_CLOSE_FAILED);
-        o.constant("EVENT_DISCONNECTED", ZMQ_EVENT_DISCONNECTED);
-        o.constant("EVENT_MONITOR_STOPPED", ZMQ_EVENT_MONITOR_STOPPED);
-        o.constant("EVENT_ALL", ZMQ_EVENT_ALL);
+        o.constant("EVENT_CLOSED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_CLOSED));
+        o.constant("EVENT_CONNECTED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_CONNECTED));
+        o.constant("EVENT_CONNECT_DELAYED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_CONNECT_DELAYED));
+        o.constant("EVENT_CONNECT_RETRIED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_CONNECT_RETRIED));
+        o.constant("EVENT_LISTENING", ZUtils::sprintf("0x%08x", ZMQ_EVENT_LISTENING));
+        o.constant("EVENT_BIND_FAILED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_BIND_FAILED));
+        o.constant("EVENT_ACCEPTED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_ACCEPTED));
+        o.constant("EVENT_ACCEPT_FAILED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_ACCEPT_FAILED));
+        o.constant("EVENT_CLOSE_FAILED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_CLOSE_FAILED));
+        o.constant("EVENT_DISCONNECTED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_DISCONNECTED));
+        o.constant("EVENT_MONITOR_STOPPED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_MONITOR_STOPPED));
+        o.constant("EVENT_ALL", ZUtils::sprintf("0x%08x", ZMQ_EVENT_ALL));
 
         // Const - Poll Type
         o.constant("POLL_WAIT_FOREVER", -1);

@@ -1,6 +1,9 @@
 #pragma once
 
+#include <string>
+#include <cstdio>
 #include "zvalue.h"
+
 
 class ZUtils {
 public:
@@ -14,6 +17,16 @@ public:
     static zmq_pollitem_t phpvalue_to_pollitem(const Php::Value &value, short event = 0) {
         ZValue *val = (ZValue *) &value;
         return val->to_pollitem(event);
+    }
+
+    static zsock_t *phpvalue_to_zsock(const Php::Value &value) {
+        ZValue *val = (ZValue *) &value;
+        return val->get_socket();
+    }
+
+    static int phpvalue_to_fd(const Php::Value &value) {
+        ZValue *val = (ZValue *) &value;
+        return val->get_fd();
     }
 
     // String Utils
@@ -62,6 +75,20 @@ public:
 
       }
       return full;
+    }
+
+
+    template< typename... Args >
+    static std::string sprintf( const char* format, Args... args ) {
+        int length = std::snprintf( nullptr, 0, format, args... );
+        assert( length >= 0 );
+
+        char* buf = new char[length + 1];
+        std::snprintf( buf, length + 1, format, args... );
+
+        std::string str( buf );
+        delete[] buf;
+        return std::move(str);
     }
 
 };

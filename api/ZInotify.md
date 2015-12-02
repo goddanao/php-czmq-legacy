@@ -191,6 +191,14 @@ Constants
 
 
 
+### IN_ONESHOT
+
+    const IN_ONESHOT = 2147483648
+
+
+
+
+
 ### IN_ALL_EVENTS
 
     const IN_ALL_EVENTS = 4095

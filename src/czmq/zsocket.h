@@ -254,7 +254,7 @@ public:
             result["immediate"] = get_immediate();
         #endif
             result["ipv4only"] = get_ipv4only();
-            result["type"] = get_type();
+            result["type"] = get_socket_type();
             result["sndhwm"] = get_sndhwm();
             result["rcvhwm"] = get_rcvhwm();
             result["affinity"] = get_affinity();
@@ -321,8 +321,6 @@ public:
     Php::Value get_immediate() ;
 
     Php::Value get_ipv4only() ;
-
-    Php::Value get_type() ;
 
     Php::Value get_sndhwm() ;
 
@@ -485,8 +483,6 @@ public:
 #if (ZMQ_VERSION_MAJOR == 3)
     Php::Value get_ipv4only() ;
 
-    Php::Value get_type() ;
-
     Php::Value get_sndhwm() ;
 
     Php::Value get_rcvhwm() ;
@@ -601,7 +597,7 @@ public:
         Php::Class<ZSocket> o("ZSocket");
 
         o.method("__construct", &ZSocket::__construct, {
-    		Php::ByVal("socket_type", Php::Type::String, true),
+    		Php::ByVal("type", Php::Type::String, true),
     		Php::ByVal("endpoint", Php::Type::String, false)
     	});
     	o.method("set_verbose", &ZSocket::set_verbose);
@@ -623,8 +619,6 @@ public:
         });
     	o.method("wait", &ZSocket::wait);
     	o.method("flush", &ZSocket::flush);
-
-    	o.method("get_socket_type", &ZSocket::get_socket_type);
 
         o.method("send", &ZSocket::send, {
             Php::ByVal("data", Php::Type::String, true)
@@ -708,7 +702,7 @@ public:
         // Properties
 
         o.property("ipv4only", &ZSocket::get_ipv4only, &ZSocket::set_ipv4only);
-        o.property("type", &ZSocket::get_type);
+        o.property("type", &ZSocket::get_socket_type);
         o.property("sndhwm", &ZSocket::get_sndhwm, &ZSocket::set_sndhwm);
         o.property("rcvhwm", &ZSocket::get_rcvhwm, &ZSocket::set_rcvhwm);
         o.property("affinity", &ZSocket::get_affinity, &ZSocket::set_affinity);

@@ -24,18 +24,18 @@ final  class ZSys {
   const SOCKET_STREAM = "stream";
   const SOCKET_SERVER = "server";
   const SOCKET_CLIENT = "client";
-  const EVENT_CLOSED = 128;
-  const EVENT_CONNECTED = 1;
-  const EVENT_CONNECT_DELAYED = 2;
-  const EVENT_CONNECT_RETRIED = 4;
-  const EVENT_LISTENING = 8;
-  const EVENT_BIND_FAILED = 16;
-  const EVENT_ACCEPTED = 32;
-  const EVENT_ACCEPT_FAILED = 64;
-  const EVENT_CLOSE_FAILED = 256;
-  const EVENT_DISCONNECTED = 512;
-  const EVENT_MONITOR_STOPPED = 1024;
-  const EVENT_ALL = 65535;
+  const EVENT_CLOSED = 0x00000080;
+  const EVENT_CONNECTED = 0x00000001;
+  const EVENT_CONNECT_DELAYED = 0x00000002;
+  const EVENT_CONNECT_RETRIED = 0x00000004;
+  const EVENT_LISTENING = 0x00000008;
+  const EVENT_BIND_FAILED = 0x00000010;
+  const EVENT_ACCEPTED = 0x00000020;
+  const EVENT_ACCEPT_FAILED = 0x00000040;
+  const EVENT_CLOSE_FAILED = 0x00000100;
+  const EVENT_DISCONNECTED = 0x00000200;
+  const EVENT_MONITOR_STOPPED = 0x00000400;
+  const EVENT_ALL = 0x0000ffff;
   const POLL_WAIT_FOREVER = -1;
   const POLL_NONE = 0;
   const POLL_IN = 1;
@@ -539,7 +539,7 @@ class ZLoop {
   /**
    * ...
    * 
-   * @param mixed $pollitem ...
+   * @param int|resource|\IZDescriptor|\IZSocket $pollitem ...
    * @param int $mode ... (optional)
   */
   public function add($pollitem, $mode = \ZSys::POLL_IN) {}
@@ -547,9 +547,9 @@ class ZLoop {
   /**
    * ...
    * 
-   * @param mixed &$pollitem ...
+   * @param int|resource|\IZDescriptor|\IZSocket $pollitem ...
   */
-  public function remove(&$pollitem) {}
+  public function remove($pollitem) {}
 
   /**
    * Add a repeating timer with a callback. Return a timer_id.
@@ -594,7 +594,7 @@ class ZPoll {
   /**
    * ...
    * 
-   * @param mixed $pollitem ...
+   * @param int|resource|\IZDescriptor|\IZSocket $pollitem ...
    * @param int $mode ... (optional)
   */
   public function add($pollitem, $mode = \ZSys::POLL_IN) {}
@@ -602,21 +602,21 @@ class ZPoll {
   /**
    * ...
    * 
-   * @param mixed $pollitem ...
+   * @param int|resource|\IZDescriptor|\IZSocket $pollitem ...
   */
   public function has($pollitem) {}
 
   /**
    * ...
    * 
-   * @param mixed $pollitem ...
+   * @param int|resource|\IZDescriptor|\IZSocket $pollitem ...
   */
   public function remove($pollitem) {}
 
   /**
    * ...
    * 
-   * @param mixed $pollitem ...
+   * @param int|resource|\IZDescriptor|\IZSocket $pollitem ...
    * @param int $event ... (optional)
   */
   public function check_for($pollitem, $event = \ZSys::POLL_IN) {}
@@ -624,7 +624,7 @@ class ZPoll {
   /**
    * ...
    * 
-   * @param mixed $pollitem ...
+   * @param int|resource|\IZDescriptor|\IZSocket $pollitem ...
   */
   public function events($pollitem) {}
 
@@ -633,7 +633,8 @@ class ZPoll {
    * 
    * @param array &$readers ...
    * @param array &$writers ...
-   * @param mixed $timeout ... (optional)
+   * @param int $timeout ... (optional)
+   * @return bool
   */
   public function poll_array(array &$readers, array &$writers, $timeout) {}
 
@@ -641,13 +642,14 @@ class ZPoll {
    * ...
    * 
    * @param int $timeout ... (optional)
+   * @return bool
   */
   public function poll($timeout = \ZSys::POLL_WAIT_FOREVER) {}
 
   /**
    * ...
    * 
-   * @param mixed $pollitem ...
+   * @param int|resource|\IZDescriptor|\IZSocket $pollitem ...
    * @return bool
   */
   public function has_input($pollitem) {}
@@ -655,7 +657,7 @@ class ZPoll {
   /**
    * ...
    * 
-   * @param mixed $pollitem ...
+   * @param int|resource|\IZDescriptor|\IZSocket $pollitem ...
    * @return bool
   */
   public function has_output($pollitem) {}
@@ -663,7 +665,7 @@ class ZPoll {
   /**
    * ...
    * 
-   * @param mixed $pollitem ...
+   * @param int|resource|\IZDescriptor|\IZSocket $pollitem ...
    * @return bool
   */
   public function has_error($pollitem) {}
@@ -775,77 +777,6 @@ class ZCert {
 
 
 /**
- * ZMonitor
- *
- * ...
- */
-class ZMonitor implements \IZSocket, \IZDescriptor {
-  const EVT_CONNECTED = "CONNECTED";
-  const EVT_CONNECT_DELAYED = "CONNECT_DELAYED";
-  const EVT_CONNECT_RETRIED = "CONNECT_RETRIED";
-  const EVT_LISTENING = "LISTENING";
-  const EVT_BIND_FAILED = "BIND_FAILED";
-  const EVT_ACCEPTED = "ACCEPTED";
-  const EVT_ACCEPT_FAILED = "ACCEPT_FAILED";
-  const EVT_CLOSED = "CLOSED";
-  const EVT_CLOSE_FAILED = "CLOSE_FAILED";
-  const EVT_DISCONNECTED = "DISCONNECTED";
-  const EVT_MONITOR_STOPPED = "MONITOR_STOPPED";
-  const EVT_ALL = "ALL";
-
-
-  /**
-   * ...
-   * 
-   * @param \IZSocket &$socket ...
-   * @return \ZMonitor
-  */
-  public function __construct(\IZSocket &$socket) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_verbose() {}
-
-  /**
-   * ...
-   * 
-   * @param int $event ...
-  */
-  public function listen($event) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function start() {}
-
-  /**
-   * Recieve a ZMsg.
-   * 
-   * @return \ZMsg
-  */
-  public function recv() {}
-
-  /**
-   * Get the underlying File Descriptor.
-   * 
-   * @return int
-  */
-  public function get_fd() {}
-
-  /**
-   * Get the underlying ZSocket.
-   * 
-   * @return \ZSocket
-  */
-  public function get_socket() {}
-
-}
-
-
-/**
  * IZDescriptor
  *
  * ...
@@ -896,11 +827,11 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param string $socket_type ...
+   * @param mixed $type ...
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
   */
-  public function __construct($socket_type, $endpoint = null) {}
+  public function __construct($type, $endpoint = null) {}
 
   /**
    * ...
@@ -960,12 +891,6 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * 
   */
   public function flush() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_socket_type() {}
 
   /**
    * ...
@@ -1574,29 +1499,30 @@ class ZGossip implements \IZSocket, \IZDescriptor {
  * ...
  */
 class ZInotify implements \IZDescriptor {
-  const IN_ACCESS = 1;
-  const IN_MODIFY = 2;
-  const IN_ATTRIB = 4;
-  const IN_CLOSE_WRITE = 8;
-  const IN_CLOSE_NOWRITE = 16;
-  const IN_OPEN = 32;
-  const IN_MOVED_FROM = 64;
-  const IN_MOVED_TO = 128;
-  const IN_CREATE = 256;
-  const IN_DELETE = 512;
-  const IN_DELETE_SELF = 1024;
-  const IN_MOVE_SELF = 2048;
-  const IN_UNMOUNT = 8192;
-  const IN_Q_OVERFLOW = 16384;
-  const IN_IGNORED = 32768;
-  const IN_CLOSE = 24;
-  const IN_MOVE = 192;
-  const IN_ONLYDIR = 16777216;
-  const IN_DONT_FOLLOW = 33554432;
-  const IN_EXCL_UNLINK = 67108864;
-  const IN_MASK_ADD = 536870912;
-  const IN_ISDIR = 1073741824;
-  const IN_ALL_EVENTS = 4095;
+  const IN_ACCESS = 0x00000001;
+  const IN_MODIFY = 0x00000002;
+  const IN_ATTRIB = 0x00000004;
+  const IN_CLOSE_WRITE = 0x00000008;
+  const IN_CLOSE_NOWRITE = 0x00000010;
+  const IN_OPEN = 0x00000020;
+  const IN_MOVED_FROM = 0x00000040;
+  const IN_MOVED_TO = 0x00000080;
+  const IN_CREATE = 0x00000100;
+  const IN_DELETE = 0x00000200;
+  const IN_DELETE_SELF = 0x00000400;
+  const IN_MOVE_SELF = 0x00000800;
+  const IN_UNMOUNT = 0x00002000;
+  const IN_Q_OVERFLOW = 0x00004000;
+  const IN_IGNORED = 0x00008000;
+  const IN_CLOSE = 0x00000018;
+  const IN_MOVE = 0x000000c0;
+  const IN_ONLYDIR = 0x01000000;
+  const IN_DONT_FOLLOW = 0x02000000;
+  const IN_EXCL_UNLINK = 0x04000000;
+  const IN_MASK_ADD = 0x20000000;
+  const IN_ISDIR = 0x40000000;
+  const IN_ONESHOT = 0x80000000;
+  const IN_ALL_EVENTS = 0x00000fff;
 
 
   /**
@@ -2090,6 +2016,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * ...
    * 
    * @param string $service_name ...
+   * @return \ZMsg
   */
   public function call($service_name) {}
 
@@ -2237,6 +2164,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * 
    * @param string $service ...
    * @param array|string|\ZFrame|\ZMsg $data ... (optional)
+   * @return \ZMsg
   */
   public function call($service, $data) {}
 
@@ -2404,7 +2332,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * @param int $timeout ... (optional)
    * @return \Malamute\Client
   */
-  public function __construct($endpoint, $address, $timeout) {}
+  public function __construct($endpoint = null, $address = null, $timeout = 0) {}
 
   /**
    * ...
@@ -2419,7 +2347,7 @@ class Client implements \IZSocket, \IZDescriptor {
    * @param string $address ... (optional)
    * @param int $timeout ... (optional)
   */
-  public function connect($endpoint, $address, $timeout) {}
+  public function connect($endpoint = null, $address = null, $timeout = 0) {}
 
   /**
    * ...

@@ -56,10 +56,6 @@ extern "C" {
         // ZCert
         Php::Class<ZCert> zcert = ZCert::php_register();
 
-        // ZMonitor
-        Php::Class<ZMonitor> zmonitor = ZMonitor::php_register();
-        zmonitor.implements(izsocket);
-
         // ZSocket
         Php::Class<ZSocket> zsocket = ZSocket::php_register();
         zsocket.implements(izsocket);
@@ -145,8 +141,7 @@ extern "C" {
 
         mdp_ns.add(std::move(mdp_ns_version2));
 
-#if (ZMQ_VERSION_MAJOR == 4)
-#if (ZMQ_VERSION_MINOR >= 2)
+#ifdef MALAMUTE_VERSION_MAJOR
 
     // MALAMUTE
 
@@ -178,7 +173,6 @@ extern "C" {
         mlm_ns.add(std::move(mlmconsumer));
 
 #endif
-#endif
 
     // FILEMQ
 
@@ -208,7 +202,6 @@ extern "C" {
         extension.add(std::move(zloop));
         extension.add(std::move(zpoll));
         extension.add(std::move(zcert));
-        extension.add(std::move(zmonitor));
         extension.add(std::move(zsocket));
         extension.add(std::move(zproxy));
         extension.add(std::move(zbeacon));
@@ -225,11 +218,9 @@ extern "C" {
         // majordomo
         extension.add(std::move(mdp_ns));
 
-    #if (ZMQ_VERSION_MAJOR == 4)
-    #if (ZMQ_VERSION_MINOR >= 2)
+    #ifdef MALAMUTE_VERSION_MAJOR
         // malamute
         extension.add(std::move(mlm_ns));
-    #endif
     #endif
 
         // fmq

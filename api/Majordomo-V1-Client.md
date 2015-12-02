@@ -34,7 +34,7 @@ Methods
 
 ### call
 
-    mixed Majordomo\V1\Client::call(string $service, array|string|\ZFrame|\ZMsg $data)
+    \ZMsg Majordomo\V1\Client::call(string $service, array|string|\ZFrame|\ZMsg $data)
 
 
 

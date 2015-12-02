@@ -1,6 +1,11 @@
 
+#include <php.h>
+#include <zend_exceptions.h>
+#include <zend_interfaces.h>
+#include <zend_ini.h>
 #include "../czmq/zmsg.h"
 
+bool ZValue::isResource(void) { return (Z_TYPE_P(_val) == IS_RESOURCE); }
 bool ZValue::isZMsg(void) { ZMsg  *zmsg = dynamic_cast<ZMsg *> (implementation()); return zmsg != nullptr; }
 bool ZValue::isZFrame(void) { ZFrame  *zframe = dynamic_cast<ZFrame *> (implementation()); return zframe != nullptr; }
 

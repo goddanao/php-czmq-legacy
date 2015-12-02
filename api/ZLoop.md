@@ -89,7 +89,7 @@ Methods
 
 ### add
 
-    mixed ZLoop::add(mixed $pollitem, integer $mode)
+    mixed ZLoop::add(integer|resource|\IZDescriptor|\IZSocket $pollitem, integer $mode)
 
 
 
@@ -99,14 +99,14 @@ Methods
 
 
 #### Arguments
-* $pollitem **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $pollitem **integer|resource|[IZDescriptor](IZDescriptor.md)|[IZSocket](IZSocket.md)** - &lt;p&gt;...&lt;/p&gt;
 * $mode **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### remove
 
-    mixed ZLoop::remove($pollitem)
+    mixed ZLoop::remove(integer|resource|\IZDescriptor|\IZSocket $pollitem)
 
 
 
@@ -116,7 +116,7 @@ Methods
 
 
 #### Arguments
-* $pollitem **mixed**
+* $pollitem **integer|resource|[IZDescriptor](IZDescriptor.md)|[IZSocket](IZSocket.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 

@@ -10,7 +10,6 @@ API Index
 * [ZLoop](ZLoop.md)
 * [ZPoll](ZPoll.md)
 * [ZCert](ZCert.md)
-* [ZMonitor](ZMonitor.md)
 * [ZSocket](ZSocket.md)
 * [ZProxy](ZProxy.md)
 * [ZBeacon](ZBeacon.md)

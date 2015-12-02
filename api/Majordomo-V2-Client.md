@@ -63,7 +63,7 @@ Recieve a ZMsg.
 
 ### call
 
-    mixed Majordomo\V2\Client::call(string $service_name)
+    \ZMsg Majordomo\V2\Client::call(string $service_name)
 
 
 

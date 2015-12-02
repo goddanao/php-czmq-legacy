@@ -96,10 +96,6 @@ Php::Value ZSocket::get_ipv4only() {
     return zsock_ipv4only(zsock_handle());
 }
 
-Php::Value ZSocket::get_type() {
-    return zsock_type(zsock_handle());
-}
-
 Php::Value ZSocket::get_socket_type() {
     switch(zsock_type(zsock_handle())) {
         case ZMQ_PUB : return "pub";
@@ -115,7 +111,7 @@ Php::Value ZSocket::get_socket_type() {
         case ZMQ_PAIR : return "pair";
         case ZMQ_STREAM : return "stream";
 
-    #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
+    #ifdef ZMQ_SERVER
 
         case ZMQ_SERVER : return "server";
         case ZMQ_CLIENT : return "client";

@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \ZSocket ZSocket::__construct(string $socket_type, string $endpoint)
+    \ZSocket ZSocket::__construct(mixed $type, string $endpoint)
 
 
 
@@ -31,7 +31,7 @@ Methods
 
 
 #### Arguments
-* $socket_type **string** - &lt;p&gt;...&lt;/p&gt;
+* $type **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
@@ -158,19 +158,6 @@ Methods
 ### flush
 
     mixed ZSocket::flush()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### get_socket_type
-
-    mixed ZSocket::get_socket_type()
 
 
 

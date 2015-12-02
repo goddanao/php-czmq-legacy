@@ -477,7 +477,7 @@ public:
         return (int) zmsg_size(zmsg_handle());
     }
 
-    Php::Value get_content_size(){
+    Php::Value get_content_size() {
         return (int) zmsg_content_size(zmsg_handle());
     }
 
@@ -505,8 +505,7 @@ public:
      *  returns the number of elements in the map
      *  @return long
      */
-    virtual long count() override
-    {
+    virtual long count() override {
         return zmsg_size(zmsg_handle());
     }
 
@@ -516,8 +515,7 @@ public:
      *  @param  key
      *  @return bool
      */
-    virtual bool offsetExists(const Php::Value &key) override
-    {
+    virtual bool offsetExists(const Php::Value &key) override {
         return key.isNumeric() && zmsg_size(zmsg_handle()) > key.numericValue();
     }
 
@@ -526,8 +524,7 @@ public:
      *  @param  key
      *  @param  value
      */
-    virtual void offsetSet(const Php::Value &key, const Php::Value &value) override
-    {
+    virtual void offsetSet(const Php::Value &key, const Php::Value &value) override {
         if(!(key.isNumeric() && zmsg_size(zmsg_handle()) > key.numericValue()))
             return;
 
@@ -553,8 +550,7 @@ public:
      *  @param  key
      *  @return value
      */
-    virtual Php::Value offsetGet(const Php::Value &key) override
-    {
+    virtual Php::Value offsetGet(const Php::Value &key) override {
         if(!(key.isNumeric() && zmsg_size(zmsg_handle()) > key.numericValue()))
             return nullptr;
 
@@ -571,8 +567,7 @@ public:
      *  Remove a member
      *  @param key
      */
-    virtual void offsetUnset(const Php::Value &key) override
-    {
+    virtual void offsetUnset(const Php::Value &key) override {
         if(!(key.isNumeric() && zmsg_size(zmsg_handle()) > key.numericValue()))
             return;
 

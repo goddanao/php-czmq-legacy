@@ -1,13 +1,12 @@
 NAME				=	php-czmq
 INI_DIR				=	/etc/php5/mods-available
 EXTENSION_DIR		=	$(shell php-config --extension-dir)
-INCLUDE_DIR         =   $(shell php-config --includes)
 CLIB_PATH           =   $(shell cat /etc/ld.so.conf.d/libc.conf | grep /usr)
 EXTENSION 			=	${NAME}.so
 INI 				=	${NAME}.ini
 COMPILER			=	g++
 LINKER				=	g++
-COMPILER_FLAGS		=	${INCLUDE_DIR} -w -c -O2 -g -std=c++11 -fpic -o
+COMPILER_FLAGS		=	`php-config --includes` -w -c -O2 -g -std=c++11 -fpic -o
 LINKER_FLAGS		=	-shared
 
 RM					=	rm -f

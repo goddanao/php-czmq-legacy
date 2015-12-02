@@ -11,11 +11,6 @@
 #include <sys/inotify.h>
 #include <unistd.h>
 
-#include <php.h>
-#include <zend_exceptions.h>
-#include <zend_interfaces.h>
-#include <zend_ini.h>
-
 #include "common/zutils.h"
 #include "common/zhandle.h"
 #include "common/zinotify.h"

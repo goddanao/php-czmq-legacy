@@ -30,7 +30,7 @@ public:
         if(param.size() == 0)
             return;
 
-        std::string mode = param[0]; // PLAIN CURVE GSSAPI
+        std::string mode = ZUtils::toUpper(param[0].stringValue()); // PLAIN CURVE GSSAPI
         if(mode == "PLAIN") {
             if(param.size() < 2) {
                 throw Php::Exception("Auth mode PLAIN requires a config filename.");

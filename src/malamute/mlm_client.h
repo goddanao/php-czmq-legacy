@@ -1,7 +1,5 @@
 #pragma once
 
-#if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
-
 #include "../common.h"
 #include "../czmq/zmsg.h"
 
@@ -168,5 +166,3 @@ public:
     }
 
 };
-
-#endif
