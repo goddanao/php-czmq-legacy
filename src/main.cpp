@@ -104,42 +104,21 @@ extern "C" {
     // MAJORDOMO
 
         Php::Namespace mdp_ns("Majordomo");
-        Php::Namespace mdp_ns_version1("V1");
-        Php::Namespace mdp_ns_version2("V2");
-
-        // Majordomo Broker V1
-        Php::Class<MajordomoBrokerV1> mdpbrokerv1 = MajordomoBrokerV1::php_register();
-        mdpbrokerv1.implements(izsocket);
-        mdp_ns_version1.add(std::move(mdpbrokerv1));
-
-        // Majordomo Worker V1
-        Php::Class<MajordomoWorkerV1> mdpworkerv1 = MajordomoWorkerV1::php_register();
-        mdpworkerv1.implements(izsocket);
-        mdp_ns_version1.add(std::move(mdpworkerv1));
-
-        // Majordomo Client V1
-        Php::Class<MajordomoClientV1> mdpclientv1 = MajordomoClientV1::php_register();
-        mdpclientv1.implements(izsocket);
-        mdp_ns_version1.add(std::move(mdpclientv1));
-
-        mdp_ns.add(std::move(mdp_ns_version1));
 
         // Majordomo Broker V2
         Php::Class<MajordomoBrokerV2> mdpbroker = MajordomoBrokerV2::php_register();
         mdpbroker.implements(izsocket);
-        mdp_ns_version2.add(std::move(mdpbroker));
+        mdp_ns.add(std::move(mdpbroker));
 
         // Majordomo Worker V2
         Php::Class<MajordomoWorkerV2> mdpworker = MajordomoWorkerV2::php_register();
         mdpworker.implements(izsocket);
-        mdp_ns_version2.add(std::move(mdpworker));
+        mdp_ns.add(std::move(mdpworker));
 
         // Majordomo Client V2
         Php::Class<MajordomoClientV2> mdpclient = MajordomoClientV2::php_register();
         mdpclient.implements(izsocket);
-        mdp_ns_version2.add(std::move(mdpclient));
-
-        mdp_ns.add(std::move(mdp_ns_version2));
+        mdp_ns.add(std::move(mdpclient));
 
 #ifdef MALAMUTE_VERSION_MAJOR
 

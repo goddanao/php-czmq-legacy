@@ -13,7 +13,7 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
 
         # Run Broker
         $manager->fork(function() use($broker_endpoint) {
-            $broker = new Majordomo\V2\Broker($broker_endpoint, false);
+            $broker = new Majordomo\Broker($broker_endpoint, false);
             $zloop = new ZLoop();
             $zloop->start();
         });
@@ -21,7 +21,7 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
         # Run 5 Workers
         for($i = 0; $i < 5; $i++) {
             $manager->fork(function () use ($broker_endpoint, $i) {
-                $worker = new Majordomo\V2\Worker('myworker', $broker_endpoint, function ($req) use ($i) {
+                $worker = new Majordomo\Worker('myworker', $broker_endpoint, function ($req) use ($i) {
                     $usec = rand(1000, 500000);
                     usleep($usec);
                     return "OK";
@@ -42,7 +42,7 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
             for($i = 0; $i < 10; $i++) {
                 usleep(100000);
                 $requests[] = $manager->fork(function() use($i, $broker_endpoint) {
-                    $client = new Majordomo\V2\Client($broker_endpoint);
+                    $client = new Majordomo\Client($broker_endpoint);
                     $requestId = "requestId - " . $i;
                     $result = $client->call('myworker', $requestId);
                     if($result) {

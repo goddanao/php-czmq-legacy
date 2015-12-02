@@ -61,32 +61,6 @@ Return the secret key.
 
 
 
-### get_public_key_txt
-
-    string ZCert::get_public_key_txt()
-
-Return the public key.
-
-
-
-* Visibility: **public**
-
-
-
-
-### get_secret_key_txt
-
-    string ZCert::get_secret_key_txt()
-
-Return the secret key.
-
-
-
-* Visibility: **public**
-
-
-
-
 ### get_meta
 
     string ZCert::get_meta(string $name)

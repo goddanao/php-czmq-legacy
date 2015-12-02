@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../common.h"
+#include "../common.h"
 
 class MajordomoWorkerV2 : public ZHandle, public Php::Base  {
 private:

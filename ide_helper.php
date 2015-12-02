@@ -703,20 +703,6 @@ class ZCert {
   public function get_secret_key() {}
 
   /**
-   * Return the public key.
-   * 
-   * @return string
-  */
-  public function get_public_key_txt() {}
-
-  /**
-   * Return the secret key.
-   * 
-   * @return string
-  */
-  public function get_secret_key_txt() {}
-
-  /**
    * ...
    * 
    * @param string $name ...
@@ -1862,7 +1848,7 @@ class Zyre implements \IZSocket, \IZDescriptor {
 
 }
 
-namespace Majordomo\V2 {
+namespace Majordomo {
 
 /**
  * Broker
@@ -1874,9 +1860,9 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param string $endpoint ... (optional)
-   * @param bool $verbose ... (optional)
-   * @return \Majordomo\V2\Broker
+   * @param mixed $endpoint ... (optional)
+   * @param mixed $verbose ... (optional)
+   * @return \Majordomo\Broker
   */
   public function __construct($endpoint, $verbose) {}
 
@@ -1889,43 +1875,41 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param string $endpoint ...
+   * @param mixed $endpoint ...
   */
   public function bind($endpoint) {}
 
   /**
    * ...
    * 
-   * @param string $filename ...
+   * @param mixed $filename ...
   */
   public function load_config($filename) {}
 
   /**
    * ...
    * 
-   * @param string $filename ...
+   * @param mixed $filename ...
   */
   public function save_config($filename) {}
 
   /**
    * ...
    * 
-   * @param string $key ...
-   * @param string $value ...
+   * @param mixed $key ...
+   * @param mixed $value ...
   */
   public function set_config($key, $value) {}
 
   /**
-   * Get the underlying File Descriptor.
+   * ...
    * 
-   * @return int
   */
   public function get_fd() {}
 
   /**
-   * Get the underlying ZSocket.
+   * ...
    * 
-   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -1942,10 +1926,10 @@ class Worker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param string $name ...
-   * @param string $broker_endpoint ...
+   * @param mixed $name ...
+   * @param mixed $broker_endpoint ...
    * @param callable $callback ...
-   * @return \Majordomo\V2\Worker
+   * @return \Majordomo\Worker
   */
   public function __construct($name, $broker_endpoint, callable $callback) {}
 
@@ -1968,16 +1952,14 @@ class Worker implements \IZSocket, \IZDescriptor {
   public function process() {}
 
   /**
-   * Get the underlying File Descriptor.
+   * ...
    * 
-   * @return int
   */
   public function get_fd() {}
 
   /**
-   * Get the underlying ZSocket.
+   * ...
    * 
-   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -1994,8 +1976,8 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param string $broker_endpoint ...
-   * @return \Majordomo\V2\Client
+   * @param mixed $broker_endpoint ...
+   * @return \Majordomo\Client
   */
   public function __construct($broker_endpoint) {}
 
@@ -2006,187 +1988,34 @@ class Client implements \IZSocket, \IZDescriptor {
   public function set_verbose() {}
 
   /**
-   * Recieve a ZMsg.
+   * ...
    * 
-   * @return \ZMsg
   */
   public function recv() {}
 
   /**
    * ...
    * 
-   * @param string $service_name ...
-   * @return \ZMsg
+   * @param mixed $service_name ...
   */
   public function call($service_name) {}
 
   /**
    * ...
    * 
-   * @param string $service_name ...
+   * @param mixed $service_name ...
   */
   public function call_async($service_name) {}
 
   /**
-   * Get the underlying File Descriptor.
+   * ...
    * 
-   * @return int
   */
   public function get_fd() {}
 
   /**
-   * Get the underlying ZSocket.
-   * 
-   * @return \ZSocket
-  */
-  public function get_socket() {}
-
-}
-
-}
-
-namespace Majordomo\V1 {
-
-/**
- * Broker
- *
- * ...
- */
-class Broker implements \IZSocket, \IZDescriptor {
-
-  /**
    * ...
    * 
-   * @return \Majordomo\V1\Broker
-  */
-  public function __construct() {}
-
-  /**
-   * ...
-   * 
-   * @param string $endpoint ...
-  */
-  public function bind($endpoint) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_verbose() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function get_status() {}
-
-  /**
-   * ...
-   * 
-   * @param string $endpoint ...
-  */
-  public function set_capture($endpoint) {}
-
-  /**
-   * Get the underlying File Descriptor.
-   * 
-   * @return int
-  */
-  public function get_fd() {}
-
-  /**
-   * Get the underlying ZSocket.
-   * 
-   * @return \ZSocket
-  */
-  public function get_socket() {}
-
-}
-
-
-/**
- * Worker
- *
- * ...
- */
-class Worker implements \IZSocket, \IZDescriptor {
-
-  /**
-   * ...
-   * 
-   * @param string $broker_endpoint ...
-   * @param string $name ...
-   * @param bool $verbose ... (optional)
-   * @return \Majordomo\V1\Worker
-  */
-  public function __construct($broker_endpoint, $name, $verbose) {}
-
-  /**
-   * ...
-   * 
-   * @param callable $callback ...
-  */
-  public function run(callable $callback) {}
-
-  /**
-   * Get the underlying File Descriptor.
-   * 
-   * @return int
-  */
-  public function get_fd() {}
-
-  /**
-   * Get the underlying ZSocket.
-   * 
-   * @return \ZSocket
-  */
-  public function get_socket() {}
-
-}
-
-
-/**
- * Client
- *
- * ...
- */
-class Client implements \IZSocket, \IZDescriptor {
-
-  /**
-   * ...
-   * 
-   * @return \Majordomo\V1\Client
-  */
-  public function __construct() {}
-
-  /**
-   * ...
-   * 
-   * @param string $service ...
-   * @param array|string|\ZFrame|\ZMsg $data ... (optional)
-   * @return \ZMsg
-  */
-  public function call($service, $data) {}
-
-  /**
-   * ...
-   * 
-   * @param string $service ...
-   * @param array|string|\ZFrame|\ZMsg $data ... (optional)
-  */
-  public function call_async($service, $data) {}
-
-  /**
-   * Get the underlying File Descriptor.
-   * 
-   * @return int
-  */
-  public function get_fd() {}
-
-  /**
-   * Get the underlying ZSocket.
-   * 
-   * @return \ZSocket
   */
   public function get_socket() {}
 

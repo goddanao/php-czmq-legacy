@@ -48,8 +48,6 @@ public:
         if(_type == "mdp_client_v2")
             return (void *) mdp_client_actor ((mdp_client_t *) _handle);
 
-        if(_type == "mdp_broker_v1")
-            return _handle;
 
 #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
         if(_type == "mlm_broker")
@@ -94,13 +92,6 @@ public:
             return (void *) mdp_worker_msgpipe((mdp_worker_t *) _handle);
         if(_type == "mdp_client_v2")
             return (void *) mdp_client_msgpipe((mdp_client_t *) _handle);
-
-        if(_type == "mdp_broker_v1")
-            return (void *) zsock_resolve(_handle);
-        if(_type == "mdp_worker_v1")
-            return (void *) _handle;
-        if(_type == "mdp_client_v1")
-            return (void *) _handle;
 
 #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
         if(_type == "mlm_broker")
@@ -180,15 +171,6 @@ public:
         else
         if(_type == "mdp_client_v2")
             mdp_client_destroy ((mdp_client_t **) &_handle);
-        else
-        if(_type == "mdp_broker_v1" && zactor_is(_handle))
-            zactor_destroy((zactor_t **) &_handle);
-        else
-        if(_type == "mdp_worker_v1" && zsock_is(_handle))
-            zsock_destroy((zsock_t **) &_handle);
-        else
-        if(_type == "mdp_client_v1" && zsock_is(_handle))
-            zsock_destroy((zsock_t **) &_handle);
         else
         if(_type == "fmq_server")
              zactor_destroy((zactor_t **) &_handle);

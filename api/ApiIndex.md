@@ -22,14 +22,9 @@ API Index
 * Zyre
     * [Zyre](Zyre-Zyre.md)
 * Majordomo
-    * Majordomo\V2
-        * [Broker](Majordomo-V2-Broker.md)
-        * [Worker](Majordomo-V2-Worker.md)
-        * [Client](Majordomo-V2-Client.md)
-    * Majordomo\V1
-        * [Broker](Majordomo-V1-Broker.md)
-        * [Worker](Majordomo-V1-Worker.md)
-        * [Client](Majordomo-V1-Client.md)
+    * [Broker](Majordomo-Broker.md)
+    * [Worker](Majordomo-Worker.md)
+    * [Client](Majordomo-Client.md)
 * Malamute
     * [Broker](Malamute-Broker.md)
     * [Worker](Malamute-Worker.md)
