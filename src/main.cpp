@@ -1,8 +1,11 @@
 #include "czmq.h"
 #include "zyre.h"
 #include "majordomo.h"
-#include "malamute.h"
 #include "fmq.h"
+
+#if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
+    #include "malamute.h"
+#endif
 
 extern "C" {
     

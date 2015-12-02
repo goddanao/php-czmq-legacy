@@ -49,7 +49,7 @@ public:
             return (void *) mdp_client_actor ((mdp_client_t *) _handle);
 
 
-#if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
+#ifdef MALAMUTE_VERSION_MAJOR
         if(_type == "mlm_broker")
             return _handle;
         if(_type == "mlm_client")
