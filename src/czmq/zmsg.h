@@ -51,7 +51,6 @@ public:
         zmsg_print(zmsg_handle());
     }
 
-
     Php::Value append(Php::Parameters &param) {
         ZFrame *zframe  = dynamic_cast<ZFrame *>(param[0].implementation());
         zframe_t *frame = zframe_dup(zframe->zframe_handle());

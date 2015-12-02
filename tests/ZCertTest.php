@@ -27,7 +27,7 @@ class ZCertTest extends \PHPUnit_Framework_TestCase {
     public function test_load() {
         $cert = new ZCert(static::cert_dir . "/" . static::cert_file);
         $this->assertNotNull($cert);
-        $this->assertNotEmpty($cert->get_public_key_txt());
+        $this->assertNotEmpty($cert->get_public_key());
     }
 
     public function test_load_save() {
@@ -42,10 +42,8 @@ class ZCertTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotNull($cert2);
 
         ## SAME CERT?
-        $cert_pk        = $cert->get_public_key_txt();
-        $cert_pk2       = $cert2->get_public_key_txt();
-        $cert_pk_bin    = $cert->get_public_key();
-        $cert_pk2_bin   = $cert2->get_public_key();
+        $cert_pk        = $cert->get_public_key();
+        $cert_pk2       = $cert2->get_public_key();
 
         $this->assertNotEmpty($cert_pk);
         $this->assertNotEmpty($cert_pk2);

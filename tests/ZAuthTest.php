@@ -96,7 +96,7 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
 
             $server_cert = new ZCert();
             $client_cert = new ZCert();
-            $server_key = $server_cert->get_public_key_txt();
+            $server_key = $server_cert->get_public_key();
 
             //  Test without setting-up any authentication
             $server_cert->apply($this->server);

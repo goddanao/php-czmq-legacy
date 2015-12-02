@@ -18,26 +18,10 @@ public:
     }
 
     Php::Value get_public_key() {
-        Php::Value result;
-        char *buffer  = result.reserve(32);
-        byte *pubcert = zcert_public_key(zcert_handle());
-        memcpy(buffer, pubcert, 32);
-        return result;
-    }
-
-    Php::Value get_secret_key() {
-        Php::Value result;
-        char *buffer  = result.reserve(32);
-        byte *pubcert = zcert_secret_key(zcert_handle());
-        memcpy(buffer, pubcert, 32);
-        return result;
-    }
-
-    Php::Value get_public_key_txt() {
         return zcert_public_txt(zcert_handle());
     }
 
-    Php::Value get_secret_key_txt() {
+    Php::Value get_secret_key() {
         return zcert_secret_txt(zcert_handle());
     }
 
@@ -105,8 +89,6 @@ public:
 
         o.method("get_public_key", &ZCert::get_public_key);
         o.method("get_secret_key", &ZCert::get_secret_key);
-        o.method("get_public_key_txt", &ZCert::get_public_key_txt);
-        o.method("get_secret_key_txt", &ZCert::get_secret_key_txt);
 
         o.method("get_meta", &ZCert::get_meta, {
             Php::ByVal("name", Php::Type::String, true)
