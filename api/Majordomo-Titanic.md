@@ -50,20 +50,6 @@ Methods
 
 
 
-### get_socket
-
-    \ZSocket IZSocket::get_socket()
-
-
-
-...
-
-* Visibility: **public**
-* This method is defined by [IZSocket](IZSocket.md)
-
-
-
-
 ### get_fd
 
     integer IZDescriptor::get_fd()
@@ -74,6 +60,20 @@ Methods
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)
+
+
+
+
+### get_socket
+
+    \ZSocket IZSocket::get_socket()
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZSocket](IZSocket.md)
 
 
 

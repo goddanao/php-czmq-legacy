@@ -2049,13 +2049,13 @@ class Titanic implements \IZSocket, \IZDescriptor {
    * ...
    * 
   */
-  abstract public function get_socket() {}
+  public function get_fd() {}
 
   /**
    * ...
    * 
   */
-  abstract public function get_fd() {}
+  public function get_socket() {}
 
 }
 

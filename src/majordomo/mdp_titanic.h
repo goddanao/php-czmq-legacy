@@ -40,13 +40,9 @@ public:
     }
 
     void store_request(const char *uuid, zmsg_t *msg) {
-        zsys_info("before test");
-        _object.call("test");
-        zsys_info("after test");
         zmsg_t *dup = zmsg_dup(msg);
         Php::Object zmsg("ZMsg", new ZMsg(dup, true));
         _object.call("store", "request", uuid, zmsg);
-        zsys_info("after store");
     }
 
     const char * status(const char *uuid) {
@@ -373,8 +369,8 @@ private:
             if (!request)
                 break;      //  Interrupted, exit
 
-            zsys_info("titanic.reply request");
-            zmsg_dump(request);
+            // zsys_info("titanic.reply request");
+            // zmsg_dump(request);
 
             // Save worker address to send back the response
             zframe_t *address = zmsg_pop(request);
@@ -393,8 +389,8 @@ private:
                 zsock_send(pipe, "ssz", "READ_RESPONSE", uuid);
                 zsock_recv(pipe, "sm", &status, &msg);
 
-                zsys_info("readed message");
-                zmsg_dump(msg);
+//                zsys_info("readed message");
+//                zmsg_dump(msg);
 
                 zmsg_addstr (reply, status);
                 zmsg_addmsg(reply, &msg);
@@ -461,7 +457,7 @@ public:
         _broker_endpoint = param[0].stringValue();
 
         if(param.size()>1) {
-            storage = new PhpCallbackStorage(&(param[1]));
+            storage = new PhpCallbackStorage(param[1]);
         } else {
             storage = new FileSystemStorage();
         }
@@ -504,7 +500,7 @@ public:
                 }
                 else
                 if(streq(command, "READ_RESPONSE")) {
-                    zmsg_t *rmsg = storage->read_request(uuid);
+                    zmsg_t *rmsg = storage->read_response(uuid);
                     zsock_send(socket, "sm", "200", rmsg);
                     zmsg_destroy(&rmsg);
                 }
@@ -544,7 +540,7 @@ public:
         Php::Class<MajordomoTitanicV2> o("Titanic");
         o.method("__construct", &MajordomoTitanicV2::__construct, {
             Php::ByVal("endpoint", Php::Type::String, true),
-            Php::ByVal("storage", "Majordomo\\ITitanicStorage", false),
+            Php::ByVal("storage", "Majordomo\\ITitanicStorage", true, false),
             Php::ByVal("threads", Php::Type::Numeric, false)
         });
         o.method("run", &MajordomoTitanicV2::run);
