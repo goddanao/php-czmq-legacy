@@ -123,6 +123,32 @@ extern "C" {
         mdpclient.implements(izsocket);
         mdp_ns.add(std::move(mdpclient));
 
+        // Majordomo Titanic V2
+        Php::Class<MajordomoTitanicV2> mdptitanic = MajordomoTitanicV2::php_register();
+        mdptitanic.implements(izsocket);
+        mdp_ns.add(std::move(mdptitanic));
+
+        // TitanicStorage
+        Php::Interface iTitanicStorage("ITitanicStorage");
+        iTitanicStorage.method("read", {
+            Php::ByVal("what", Php::Type::String, true),
+            Php::ByVal("uuid", Php::Type::String, true)
+        });
+        iTitanicStorage.method("store", {
+            Php::ByVal("what", Php::Type::String, true),
+            Php::ByVal("uuid", Php::Type::String, true),
+            Php::ByVal("msg", "ZMsg", false, true)
+        });
+        iTitanicStorage.method("close", {
+            Php::ByVal("uuid", Php::Type::String, true)
+        });
+        iTitanicStorage.method("status", {
+            Php::ByVal("uuid", Php::Type::String, true)
+        });
+        iTitanicStorage.method("process");
+        mdp_ns.add(std::move(iTitanicStorage));
+
+
 #ifdef MALAMUTE_VERSION_MAJOR
 
     // MALAMUTE

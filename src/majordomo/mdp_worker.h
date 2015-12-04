@@ -32,11 +32,7 @@ public:
         int rc = zsock_recv(mdp_worker_msgpipe(mdpworker_handle()), "sfm", &command, &address, &body);
         if(rc == 0) {
             Php::Value result = _callback(Php::Object("ZMsg", new ZMsg(body, true)));
-            zmsg_t *zmsg = zmsg_new();
-            std::string result_str = result.stringValue();
-            zmsg_pushstr(zmsg, result_str.c_str());
-
-            // zsys_info("returning result : %s", result_str.c_str());
+            zmsg_t *zmsg = ZUtils::phpvalue_to_zmsg(result);
             mdp_worker_send_final(mdpworker_handle(), &address, &zmsg);
             zstr_free(&command);
             return true;
