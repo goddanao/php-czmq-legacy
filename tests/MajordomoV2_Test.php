@@ -40,7 +40,7 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
 
         $loop->add_timer(1, function($timer_id, $loop) use ($broker_endpoint, $manager, &$requests) {
             for($i = 0; $i < 10; $i++) {
-                usleep(5000);
+                usleep(100000);
                 $requests[] = $manager->fork(function() use($i, $broker_endpoint) {
                     $client = new Majordomo\Client($broker_endpoint);
                     $requestId = "requestId - " . $i;
