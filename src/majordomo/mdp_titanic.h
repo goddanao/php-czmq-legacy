@@ -8,89 +8,73 @@
 class TitanicStorage {
 public:
 
-    zmsg_t *read_request(const char *uuid);
+    virtual zmsg_t *read_request(const char *uuid) = 0;
 
-    void store_request(const char *uuid, zmsg_t *msg);
+    virtual void store_request(const char *uuid, zmsg_t *msg) = 0;
 
-    const char *status(const char *uuid);
+    virtual const char *status(const char *uuid)= 0;
 
-    zmsg_t *read_response(const char *uuid);
+    virtual zmsg_t *read_response(const char *uuid) = 0;
 
-    void store_response(const char *uuid, zmsg_t *msg);
+    virtual void store_response(const char *uuid, zmsg_t *msg) = 0;
 
-    void close(const char *uuid);
+    virtual void close(const char *uuid) = 0;
 
-    char *process();
+    virtual char *process() = 0;
 };
 
 class PhpCallbackStorage : public TitanicStorage {
 private:
-    Php::Value _read;       //  load request callback in zmsg out id
-    Php::Value _store;      //  load request callback in zmsg out id
-    Php::Value _close;      //  load response callback in id out zmsg
-    Php::Value _status;     //  load response callback in id out zmsg
-    Php::Value _process;    //  process all pending requests
-
+    Php::Value _object;
 public:
+
+    PhpCallbackStorage(Php::Value v) : _object(v) {}
 
     zmsg_t *read_request(const char *uuid) {
         zmsg_t *result;
-        if(_read.isCallable()){
-            Php::Value res = _read("request", uuid);
-            if(!res.isNull()) {
-                result = ZUtils::phpvalue_to_zmsg(res);
-            }
+        Php::Value res = _object.call("read", "request", uuid);
+        if(!res.isNull()) {
+            result = ZUtils::phpvalue_to_zmsg(res);
         }
         return result;
     }
 
     void store_request(const char *uuid, zmsg_t *msg) {
-        if(_store.isCallable()){
-            _store("request", uuid, Php::Object("ZMsg", new ZMsg(zmsg_dup(msg), true)));
-        }
+        zsys_info("before test");
+        _object.call("test");
+        zsys_info("after test");
+        zmsg_t *dup = zmsg_dup(msg);
+        Php::Object zmsg("ZMsg", new ZMsg(dup, true));
+        _object.call("store", "request", uuid, zmsg);
+        zsys_info("after store");
     }
 
     const char * status(const char *uuid) {
-        const char* result = "400";
-        if(_status.isCallable()){
-            Php::Value res = _status(uuid);
-            if(!res.isNull()) {
-                result = res.stringValue().c_str();
-            }
-        }
-        return result;
+        return _object.call("status", uuid);
     }
 
     zmsg_t *read_response(const char *uuid) {
         zmsg_t *result;
-        if(_read.isCallable()){
-            Php::Value res = _read("response", uuid);
-            if(!res.isNull()) {
-                result = ZUtils::phpvalue_to_zmsg(res);
-            }
+        Php::Value res = _object.call("read", "response", uuid);
+        if(!res.isNull()) {
+            result = ZUtils::phpvalue_to_zmsg(res);
         }
         return result;
     }
 
     void store_response(const char *uuid, zmsg_t *msg) {
-        if(_store.isCallable()){
-            _store("response", uuid, Php::Object("ZMsg", new ZMsg(zmsg_dup(msg), true)));
-        }
+        _object.call("store", "response", uuid, Php::Object("ZMsg", new ZMsg(zmsg_dup(msg), true)));
     }
 
     void close(const char *uuid) {
-        if(_close.isCallable()){
-            _close(uuid);
-        }
+        _object.call("close", uuid);
     }
 
     char *process() {
         char *result = nullptr;
-        if(_process.isCallable()){
-            Php::Value res = _process();
-            if(!res.isNull()) {
-                result = strdup(res.stringValue().c_str());
-            }
+        Php::Value res = _object.call("process");
+        if(!res.isNull()) {
+            result = strdup(res.stringValue().c_str());
         }
         return result;
     }
@@ -114,7 +98,7 @@ private:
 public:
 
     zmsg_t *read_request(const char *uuid) {
-        zsys_info("read_request - %s", uuid);
+        // zsys_info("read_request - %s", uuid);
 
         //  Ensure message directory exists
         zfile_mkdir (TITANIC_DIR);
@@ -129,7 +113,7 @@ public:
     }
 
     void store_request(const char *uuid, zmsg_t *msg) {
-        zsys_info("store_request - %s", uuid);
+        // zsys_info("store_request - %s", uuid);
 
         //  Ensure message directory exists
         zfile_mkdir (TITANIC_DIR);
@@ -148,7 +132,7 @@ public:
     }
 
     const char * status(const char *uuid) {
-        zsys_info("status - %s", uuid);
+        // zsys_info("status - %s", uuid);
 
         const char* status = "400";
         char *req_filename = s_request_filename (uuid);
@@ -182,7 +166,7 @@ public:
     }
 
     void store_response(const char *uuid, zmsg_t *msg) {
-        zsys_info("store_response - %s", uuid);
+        // zsys_info("store_response - %s", uuid);
 
         //  Ensure message directory exists
         zfile_mkdir (TITANIC_DIR);
@@ -196,7 +180,7 @@ public:
     }
 
     void close(const char *uuid) {
-        zsys_info("close - %s", uuid);
+        // zsys_info("close - %s", uuid);
 
         //  Ensure message directory exists
         zfile_mkdir (TITANIC_DIR);
@@ -210,7 +194,7 @@ public:
     }
 
     char *process() {
-        char *result;
+        char *result = nullptr;
 
         //  Brute force dispatcher
         char entry [] = "?.......:.......:.......:...........:";
@@ -244,12 +228,9 @@ public:
 
 class MajordomoTitanicV2 : public ZHandle, public Php::Base  {
 private:
-    TitanicStorage *storage;
     std::string _broker_endpoint;
-
-    std::vector<zactor_t *> _request;
-    std::vector<zactor_t *> _reply;
-    std::vector<zactor_t *> _close;
+    std::vector<zactor_t *> _actors;
+    TitanicStorage *storage;
 
     static zmsg_t *mdcli_send(mdp_client_t *client, char *service, zmsg_t* msg) {
         int rc = mdp_client_request(client, service, &msg);
@@ -289,13 +270,11 @@ private:
 
     int s_service_success (char *uuid, const char *ep) {
 
-        FileSystemStorage storage;
-
-        const char *status = storage.status(uuid);
+        const char *status = storage->status(uuid);
         if(streq(status, "200"))
             return 1;
 
-        zmsg_t *request = storage.read_request(uuid);
+        zmsg_t *request = storage->read_request(uuid);
 
         zframe_t *service = zmsg_pop (request);
         char *service_name = zframe_strdup (service);
@@ -320,9 +299,12 @@ private:
         int result = 0;
         if (service_ok) {
 
+            zsys_info("mmi success");
             zmsg_t *reply = mdcli_send (client, service_name, request);
             if (reply) {
-                storage.store_response(uuid, reply);
+                zsys_info("storing response ...");
+                storage->store_response(uuid, reply);
+                zsys_info("response stored");
                 zmsg_destroy (&reply);
                 result = 1;
             }
@@ -338,9 +320,7 @@ private:
 
     static void zmdp_titanic_request(zsock_t *pipe, void *ep) {
 
-        FileSystemStorage storage;
-
-        mdp_worker_t *worker = mdp_worker_new ((char *) ep, "titanic.request");
+        mdp_worker_t *worker = mdp_worker_new ((char*) ep, "titanic.request");
         zmsg_t *reply = NULL;
 
         zsock_signal (pipe, 0);
@@ -352,6 +332,9 @@ private:
             if (!request)
                 break;      //  Interrupted, exit
 
+            // zsys_info("titanic.request request");
+            // zmsg_dump(request);
+
             // Save worker address to send back the response
             zframe_t *address = zmsg_pop(request);
             char *uuid = s_generate_uuid();
@@ -359,9 +342,12 @@ private:
             reply = zmsg_new ();
             zmsg_push(reply, address);
 
-            storage.store_request(uuid, request);
+            zsock_send(pipe, "ssm", "STORE_REQUEST", uuid, request);
+            char *status;
+            zsock_recv(pipe, "s", &status);
+
             zmsg_destroy (&request);
-            zmsg_addstr (reply, "200");
+            zmsg_addstr (reply, status);
 
             //  Now send UUID back to client
             //  Done by the mdwrk_recv() at the top of the loop
@@ -369,17 +355,15 @@ private:
 
             zstr_free(&uuid);
 
-            zsys_info("titanic.request reply");
-            zmsg_dump(reply);
+            // zsys_info("titanic.request reply");
+            // zmsg_dump(reply);
         }
         mdp_worker_destroy (&worker);
     }
 
     static void zmdp_titanic_reply(zsock_t *pipe, void *ep) {
 
-        FileSystemStorage storage;
-
-        mdp_worker_t *worker = mdp_worker_new ((char *) ep, "titanic.reply");
+        mdp_worker_t *worker = mdp_worker_new ((char*) ep, "titanic.reply");
         zmsg_t *reply = NULL;
 
         zsock_signal (pipe, 0);
@@ -389,6 +373,9 @@ private:
             if (!request)
                 break;      //  Interrupted, exit
 
+            zsys_info("titanic.reply request");
+            zmsg_dump(request);
+
             // Save worker address to send back the response
             zframe_t *address = zmsg_pop(request);
             char *uuid = zmsg_popstr (request);
@@ -396,10 +383,20 @@ private:
             reply = zmsg_new();
             zmsg_push(reply, address);
 
-            const char *status = storage.status(uuid);
+            zsock_send(pipe, "ssz", "STATUS", uuid);
+            char *status;
+            zsock_recv(pipe, "s", &status);
+
             if(streq(status, "200")) {
-                zmsg_t *msg = storage.read_response(uuid);
-                zmsg_addstr (reply, "200");
+                zstr_free(&status);
+                zmsg_t *msg;
+                zsock_send(pipe, "ssz", "READ_RESPONSE", uuid);
+                zsock_recv(pipe, "sm", &status, &msg);
+
+                zsys_info("readed message");
+                zmsg_dump(msg);
+
+                zmsg_addstr (reply, status);
                 zmsg_addmsg(reply, &msg);
             }
             else {
@@ -409,8 +406,8 @@ private:
             zstr_free(&uuid);
             zmsg_destroy(&request);
 
-            zsys_info("titanic.reply reply");
-            zmsg_dump(reply);
+            // zsys_info("titanic.reply reply");
+            // zmsg_dump(reply);
 
         }
         mdp_worker_destroy (&worker);
@@ -418,9 +415,7 @@ private:
 
     static void zmdp_titanic_close(zsock_t *pipe, void *ep) {
 
-        FileSystemStorage storage;
-
-        mdp_worker_t *worker = mdp_worker_new ((char *) ep, "titanic.close");
+        mdp_worker_t *worker = mdp_worker_new ((char*) ep, "titanic.close");
         zmsg_t *reply = NULL;
 
         zsock_signal (pipe, 0);
@@ -430,6 +425,9 @@ private:
             if (!request)
                 break;      //  Interrupted, exit
 
+            // zsys_info("titanic.close request");
+            // zmsg_dump(request);
+
             // Save worker address to send back the response
             zframe_t *address = zmsg_pop(request);
             char *uuid = zmsg_popstr (request);
@@ -437,14 +435,17 @@ private:
             reply = zmsg_new();
             zmsg_push(reply, address);
 
-            storage.close(uuid);
-            zmsg_addstr (reply, "200");
+            char * status;
+            zsock_send(pipe, "ssz", "CLOSE", uuid);
+            zsock_recv(pipe, "s", &status);
+
+            zmsg_addstr (reply, status);
 
             zstr_free (&uuid);
             zmsg_destroy (&request);
 
-            zsys_info("titanic.close reply");
-            zmsg_dump(reply);
+            // zsys_info("titanic.close reply");
+            // zmsg_dump(reply);
 
         }
         mdp_worker_destroy (&worker);
@@ -459,38 +460,83 @@ public:
     void __construct(Php::Parameters &param) {
         _broker_endpoint = param[0].stringValue();
 
+        if(param.size()>1) {
+            storage = new PhpCallbackStorage(&(param[1]));
+        } else {
+            storage = new FileSystemStorage();
+        }
+
         int _threads = param.size()>2 ? param[2].numericValue() : 1;
         while(_threads > 0) {
-            _request.push_back(zactor_new(zmdp_titanic_request, (void*) _broker_endpoint.c_str()));
-            _reply.push_back(zactor_new(zmdp_titanic_reply, (void*) _broker_endpoint.c_str()));
-            _close.push_back(zactor_new(zmdp_titanic_close, (void*) _broker_endpoint.c_str()));
+            _actors.push_back(zactor_new(zmdp_titanic_request, (void*) _broker_endpoint.c_str()));
+            _actors.push_back(zactor_new(zmdp_titanic_reply, (void*) _broker_endpoint.c_str()));
+            _actors.push_back(zactor_new(zmdp_titanic_close, (void*) _broker_endpoint.c_str()));
             _threads--;
         }
-        // set_handle(mdp_worker_new(_broker_endpoint.c_str(), _name.c_str()), true, "mdp_worker_v2");
     }
 
     virtual ~MajordomoTitanicV2(){
-        for(auto it = _request.begin() ; it < _request.end(); it++)
+        for(auto it = _actors.begin() ; it < _actors.end(); it++)
             zactor_destroy(&(*it));
-        for(auto it = _reply.begin() ; it < _reply.end(); it++)
-            zactor_destroy(&(*it));
-        for(auto it = _close.begin() ; it < _close.end(); it++)
-            zactor_destroy(&(*it));
+        if(storage)
+            delete storage;
     }
 
     void run(void) {
 
-        FileSystemStorage storage;
-
         //  Main dispatcher loop
         while (!zsys_interrupted) {
-            char *process = storage.process();
-            if(process) {
+            zpoller_t *poller = zpoller_new(NULL);
+            for(auto it = _actors.begin() ; it < _actors.end(); it++)
+                zpoller_add(poller, *it);
+
+            void *socket = zpoller_wait(poller, 500);
+            if(socket) {
+                char *command, *uuid;
+                zmsg_t *msg;
+                zsock_recv(socket, "ssm", &command, &uuid, &msg);
+
+                // zsys_info("RUN %s - %s -> %p", command, uuid, msg);
+
+                if(streq(command, "STORE_REQUEST")) {
+                    storage->store_request(uuid, msg);
+                    zsock_send(socket, "s", "200");
+                }
+                else
+                if(streq(command, "READ_RESPONSE")) {
+                    zmsg_t *rmsg = storage->read_request(uuid);
+                    zsock_send(socket, "sm", "200", rmsg);
+                    zmsg_destroy(&rmsg);
+                }
+                else
+                if(streq(command, "STATUS")) {
+                    const char *status = storage->status(uuid);
+                    zsock_send(socket, "s", status);
+                }
+                else
+                if(streq(command, "CLOSE")) {
+                    storage->close(uuid);
+                    zsock_send(socket, "s", "200");
+                }
+
+                zstr_free(&command);
+                zstr_free(&uuid);
+                if(msg)
+                    zmsg_destroy(&msg);
+
+            }
+            else
+            if(zpoller_terminated(poller))
+                break;
+
+            // Send next request if available
+            char *process = storage->process();
+            if(process != nullptr) {
                 int result = s_service_success(process, _broker_endpoint.c_str());
                 zstr_free(&process);
-            } else {
-                zclock_sleep(1000);
             }
+
+            zpoller_destroy(&poller);
         }
     }
 
@@ -498,18 +544,14 @@ public:
         Php::Class<MajordomoTitanicV2> o("Titanic");
         o.method("__construct", &MajordomoTitanicV2::__construct, {
             Php::ByVal("endpoint", Php::Type::String, true),
-            Php::ByVal("storage", "Majordomo\\ITitanicStorage", true, false),
+            Php::ByVal("storage", "Majordomo\\ITitanicStorage", false),
             Php::ByVal("threads", Php::Type::Numeric, false)
         });
         o.method("run", &MajordomoTitanicV2::run);
 
-//        o.method("on_store_request", &MajordomoTitanicV2::on_store_request, {
-//            Php::ByVal("callback", Php::Type::Callable, true)
-//        });
-
-//        // IZSocket intf support
-//        o.method("get_fd", &MajordomoWorkerV2::get_fd);
-//        o.method("get_socket", &MajordomoWorkerV2::_get_socket);
+        // IZSocket intf support
+        o.method("get_fd", &MajordomoWorkerV2::get_fd);
+        o.method("get_socket", &MajordomoWorkerV2::_get_socket);
 
         return o;
     }
