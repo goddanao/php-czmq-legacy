@@ -234,10 +234,10 @@ private:
             char *command;
             zmsg_t *body;
             rc = zsock_recv(mdp_client_msgpipe(client), "sm", &command, &body);
-            if(rc == 0) {
+            if(command)
                 zstr_free(&command);
+            if(rc == 0)
                 return body;
-            }
         }
         return nullptr;
     }
@@ -294,13 +294,9 @@ private:
 
         int result = 0;
         if (service_ok) {
-
-            zsys_info("mmi success");
             zmsg_t *reply = mdcli_send (client, service_name, request);
             if (reply) {
-                zsys_info("storing response ...");
                 storage->store_response(uuid, reply);
-                zsys_info("response stored");
                 zmsg_destroy (&reply);
                 result = 1;
             }
@@ -492,8 +488,6 @@ public:
                 zmsg_t *msg;
                 zsock_recv(socket, "ssm", &command, &uuid, &msg);
 
-                // zsys_info("RUN %s - %s -> %p", command, uuid, msg);
-
                 if(streq(command, "STORE_REQUEST")) {
                     storage->store_request(uuid, msg);
                     zsock_send(socket, "s", "200");
@@ -515,15 +509,19 @@ public:
                     zsock_send(socket, "s", "200");
                 }
 
-                zstr_free(&command);
-                zstr_free(&uuid);
+                if(command)
+                    zstr_free(&command);
+                if(uuid)
+                    zstr_free(&uuid);
                 if(msg)
                     zmsg_destroy(&msg);
 
             }
             else
-            if(zpoller_terminated(poller))
+            if(zpoller_terminated(poller)) {
+                zpoller_destroy(&poller);
                 break;
+            }
 
             // Send next request if available
             char *process = storage->process();
