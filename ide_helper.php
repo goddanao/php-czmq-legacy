@@ -2021,6 +2021,91 @@ class Client implements \IZSocket, \IZDescriptor {
 
 }
 
+
+/**
+ * Titanic
+ *
+ * ...
+ */
+class Titanic implements \IZSocket, \IZDescriptor {
+
+  /**
+   * ...
+   * 
+   * @param mixed $endpoint ...
+   * @param Majordomo\ITitanicStorage $storage ... (optional)
+   * @param mixed $threads ... (optional)
+   * @return \Majordomo\Titanic
+  */
+  public function __construct($endpoint, \Majordomo\ITitanicStorage $storage = null, $threads) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function run() {}
+
+  /**
+   * ...
+   * 
+  */
+  abstract public function get_socket() {}
+
+  /**
+   * ...
+   * 
+  */
+  abstract public function get_fd() {}
+
+}
+
+
+/**
+ * ITitanicStorage
+ *
+ * ...
+ */
+interface ITitanicStorage {
+
+  /**
+   * ...
+   * 
+   * @param mixed $what ...
+   * @param mixed $uuid ...
+  */
+  public function read($what, $uuid) ;
+
+  /**
+   * ...
+   * 
+   * @param mixed $what ...
+   * @param mixed $uuid ...
+   * @param ZMsg $msg ...
+  */
+  public function store($what, $uuid, \ZMsg $msg) ;
+
+  /**
+   * ...
+   * 
+   * @param mixed $uuid ...
+  */
+  public function close($uuid) ;
+
+  /**
+   * ...
+   * 
+   * @param mixed $uuid ...
+  */
+  public function status($uuid) ;
+
+  /**
+   * ...
+   * 
+  */
+  public function process() ;
+
+}
+
 }
 
 namespace Malamute {

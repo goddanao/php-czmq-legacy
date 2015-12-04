@@ -3,6 +3,12 @@ API Index
 
 * [IZDescriptor](IZDescriptor.md)
 * [IZSocket](IZSocket.md)
+* Majordomo
+    * [ITitanicStorage](Majordomo-ITitanicStorage.md)
+    * [Broker](Majordomo-Broker.md)
+    * [Worker](Majordomo-Worker.md)
+    * [Client](Majordomo-Client.md)
+    * [Titanic](Majordomo-Titanic.md)
 * [ZSys](ZSys.md)
 * [ZUdp](ZUdp.md)
 * [ZMsg](ZMsg.md)
@@ -21,10 +27,6 @@ API Index
 * [ZStdErr](ZStdErr.md)
 * Zyre
     * [Zyre](Zyre-Zyre.md)
-* Majordomo
-    * [Broker](Majordomo-Broker.md)
-    * [Worker](Majordomo-Worker.md)
-    * [Client](Majordomo-Client.md)
 * Malamute
     * [Broker](Malamute-Broker.md)
     * [Worker](Malamute-Worker.md)
