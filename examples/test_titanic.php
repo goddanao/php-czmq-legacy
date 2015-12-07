@@ -55,6 +55,7 @@ for($i = 0; $i < 1; $i++) {
             ZSys::info("Worker got requests!!!!!!");
 //            $usec = rand(1000, 500000);
 //            usleep($usec);
+            // sleep(2);
             return "OK";
         });
         $worker->run();
@@ -65,7 +66,7 @@ for($i = 0; $i < 1; $i++) {
 for($i = 0; $i < 1; $i++) {
     $manager->fork(function () use ($broker_endpoint, $i) {
         $handler = new MyTitanicStorageHandler();
-        $titanic = new Majordomo\Titanic($broker_endpoint);
+        $titanic = new Majordomo\Titanic($broker_endpoint, null, 10);
         $titanic->run();
     });
 }
@@ -81,28 +82,48 @@ $requests = [];
 $loop->add_timer(1, function($timer_id, $loop) use ($broker_endpoint, $manager, &$requests) {
     for($i = 0; $i < 1; $i++) {
         usleep(5000);
-        $requests[] = $manager->fork(function() use($i, $broker_endpoint) {
+        // $requests[] = $manager->fork(function() use($i, $broker_endpoint) {
             $client = new Majordomo\Client($broker_endpoint);
             $msg = new ZMsg();
             $msg->append_string("myworker");
             $msg->append_string("requestId - " . $i);
             $result = $client->call('titanic.request', $msg);
             $tid = $result[1];
-            ZSys::info("Got Response: $tid");
-
+            ZSys::info("Called Titanic REQUEST ($tid): ");
+            $result->dump();
 
             sleep(1);
-            ZSys::info("Calling Titanic REPLY: $tid");
             $result = $client->call('titanic.reply', $tid);
-            ZSys::info("Called Titanic REPLY: $tid ");
-            // if($result[1] === "OK") {
-                ZSys::info("Calling titanic.close $tid");
-                $result = $client->call('titanic.close', $tid);
-                ZSys::info("Got Response from close: $result");
-            // }
+            ZSys::info("Called Titanic REPLY ($tid): ");
+            $result->dump();
+
+            sleep(1);
+            $result = $client->call('titanic.reply', $tid);
+            ZSys::info("Called Titanic REPLY ($tid): ");
+            $result->dump();
+
+            sleep(1);
+            $client = new Majordomo\Client($broker_endpoint);
+            ZSys::info("Calling Titanic REPLY ($tid): ");
+            $result = $client->call('titanic.reply', $tid);
+            ZSys::info("Called Titanic REPLY ($tid): ");
+            $result->dump();
+
+            sleep(1);
+            $client = new Majordomo\Client($broker_endpoint);
+            ZSys::info("Calling Titanic REPLY ($tid): ");
+            $result = $client->call('titanic.reply', $tid);
+            ZSys::info("Called Titanic REPLY ($tid): ");
+            $result->dump();
+
+//            sleep(1);
+            ZSys::info("Calling Titanic CLOSE ($tid): ");
+            $result = $client->call('titanic.close', $tid);
+            ZSys::info("Called Titanic CLOSE ($tid): ");
+            $result->dump();
 
 
-        });
+        // });
     }
 });
 

@@ -40,9 +40,7 @@ public:
     }
 
     void store_request(const char *uuid, zmsg_t *msg) {
-        zmsg_t *dup = zmsg_dup(msg);
-        Php::Object zmsg("ZMsg", new ZMsg(dup, true));
-        _object.call("store", "request", uuid, zmsg);
+        _object.call("store", "request", uuid, Php::Object("ZMsg", new ZMsg(zmsg_dup(msg), true)));
     }
 
     const char * status(const char *uuid) {
@@ -94,8 +92,6 @@ private:
 public:
 
     zmsg_t *read_request(const char *uuid) {
-        // zsys_info("read_request - %s", uuid);
-
         //  Ensure message directory exists
         zfile_mkdir (TITANIC_DIR);
 
@@ -109,8 +105,6 @@ public:
     }
 
     void store_request(const char *uuid, zmsg_t *msg) {
-        // zsys_info("store_request - %s", uuid);
-
         //  Ensure message directory exists
         zfile_mkdir (TITANIC_DIR);
 
@@ -128,8 +122,6 @@ public:
     }
 
     const char * status(const char *uuid) {
-        // zsys_info("status - %s", uuid);
-
         const char* status = "400";
         char *req_filename = s_request_filename (uuid);
         char *rep_filename = s_response_filename (uuid);
@@ -147,8 +139,6 @@ public:
     }
 
     zmsg_t *read_response(const char *uuid) {
-        zsys_info("read_response - %s", uuid);
-
         //  Ensure message directory exists
         zfile_mkdir (TITANIC_DIR);
 
@@ -162,8 +152,6 @@ public:
     }
 
     void store_response(const char *uuid, zmsg_t *msg) {
-        // zsys_info("store_response - %s", uuid);
-
         //  Ensure message directory exists
         zfile_mkdir (TITANIC_DIR);
 
@@ -176,8 +164,6 @@ public:
     }
 
     void close(const char *uuid) {
-        // zsys_info("close - %s", uuid);
-
         //  Ensure message directory exists
         zfile_mkdir (TITANIC_DIR);
 
@@ -226,11 +212,13 @@ class MajordomoTitanicV2 : public ZHandle, public Php::Base  {
 private:
     std::string _broker_endpoint;
     std::vector<zactor_t *> _actors;
+    std::vector<mdp_client_t *> _clients;
     TitanicStorage *storage;
+    zactor_t *process;
 
-    static zmsg_t *mdcli_send(mdp_client_t *client, char *service, zmsg_t* msg) {
+    static zmsg_t *mdcli_send(mdp_client_t *client, char *service, zmsg_t* msg, bool async = false) {
         int rc = mdp_client_request(client, service, &msg);
-        if(rc == 0) {
+        if(rc == 0 && !async) {
             char *command;
             zmsg_t *body;
             rc = zsock_recv(mdp_client_msgpipe(client), "sm", &command, &body);
@@ -264,7 +252,7 @@ private:
         return uuids;
     }
 
-    int s_service_success (char *uuid, const char *ep) {
+    static int s_service_success (char *uuid, const char *ep, TitanicStorage *storage) {
 
         const char *status = storage->status(uuid);
         if(streq(status, "200"))
@@ -310,159 +298,266 @@ private:
         return result;
     }
 
-    static void zmdp_titanic_request(zsock_t *pipe, void *ep) {
+    static void zmdp_titanic_request(zsock_t *pipe, void *args) {
 
-        mdp_worker_t *worker = mdp_worker_new ((char*) ep, "titanic.request");
-        zmsg_t *reply = NULL;
 
         zsock_signal (pipe, 0);
-        bool firstrun = true;
+
+        _actor_data *data = (_actor_data *)(args);
+        TitanicStorage *storage = data->st();
+        char *ep = (char *) data->ep;
+
+        mdp_worker_t *worker = mdp_worker_new (ep,  "titanic.request");
+        zpoller_t *poller = zpoller_new(pipe, mdp_worker_msgpipe(worker), NULL);
+        zmsg_t *reply = NULL;
 
         while (!zsys_interrupted) {
+           zsock_t *socket = (zsock_t *) zpoller_wait(poller, -1);
 
-            zmsg_t *request = mdwrk_recv (worker, reply);
-            if (!request)
-                break;      //  Interrupted, exit
+           if(socket == mdp_worker_msgpipe(worker)) {
+                zmsg_t *request = mdwrk_recv (worker, NULL);
+                zframe_t *address = zmsg_pop(request);
+                char *uuid = s_generate_uuid();
+                storage->store_request(uuid, request);
+                zmsg_destroy(&request);
 
-            // zsys_info("titanic.request request");
-            // zmsg_dump(request);
+                reply = zmsg_new ();
+                zmsg_addstr (reply, "200");
+                zmsg_addstr (reply, uuid);
+                mdp_worker_send_final(worker, &address, &reply);
 
-            // Save worker address to send back the response
-            zframe_t *address = zmsg_pop(request);
-            char *uuid = s_generate_uuid();
+           }
+           else
+           if(socket == pipe) {
+               zmsg_t *msg;
+               zsock_recv(socket, "m", &msg);
+               char *command = zmsg_popstr(msg);
+               bool exit = false;
+               if(streq(command, "$TERM")) {
+                  exit = true;
+               }
 
-            reply = zmsg_new ();
-            zmsg_push(reply, address);
+               if(msg)
+                    zmsg_destroy(&msg);
 
-            zsock_send(pipe, "ssm", "STORE_REQUEST", uuid, request);
-            char *status;
-            zsock_recv(pipe, "s", &status);
+               if(command)
+                    zstr_free(&command);
 
-            zmsg_destroy (&request);
-            zmsg_addstr (reply, status);
+               if(exit) {
+                  break;
+               }
+           }
+           else
+           if(zpoller_terminated(poller)) {
+               break;
+           }
 
-            //  Now send UUID back to client
-            //  Done by the mdwrk_recv() at the top of the loop
-            zmsg_addstr (reply, uuid);
-
-            zstr_free(&uuid);
-
-            // zsys_info("titanic.request reply");
-            // zmsg_dump(reply);
         }
+
+        delete storage;
+        zpoller_destroy(&poller);
         mdp_worker_destroy (&worker);
     }
 
-    static void zmdp_titanic_reply(zsock_t *pipe, void *ep) {
-
-        mdp_worker_t *worker = mdp_worker_new ((char*) ep, "titanic.reply");
-        zmsg_t *reply = NULL;
+    static void zmdp_titanic_reply(zsock_t *pipe, void *args) {
 
         zsock_signal (pipe, 0);
 
+        _actor_data *data = (_actor_data *)(args);
+        TitanicStorage *storage = data->st();
+        char *ep = (char *) data->ep;
+
+        mdp_worker_t *worker = mdp_worker_new (ep, "titanic.reply");
+        zpoller_t *poller = zpoller_new(pipe, mdp_worker_msgpipe(worker), NULL);
+        zmsg_t *reply = NULL;
+
         while (!zsys_interrupted) {
-            zmsg_t *request = mdwrk_recv (worker, reply);
-            if (!request)
-                break;      //  Interrupted, exit
+            zsock_t *socket = (zsock_t *) zpoller_wait(poller, -1);
 
-            // zsys_info("titanic.reply request");
-            // zmsg_dump(request);
+            if(socket == mdp_worker_msgpipe(worker)) {
 
-            // Save worker address to send back the response
-            zframe_t *address = zmsg_pop(request);
-            char *uuid = zmsg_popstr (request);
+                zmsg_t *request = mdwrk_recv (worker, NULL);
+                zframe_t *address = zmsg_pop(request);
+                char *uuid = zmsg_popstr (request);
+                const char *status = storage->status(uuid);
 
-            reply = zmsg_new();
-            zmsg_push(reply, address);
+                reply = zmsg_new ();
+                zmsg_addstr (reply, status);
+                zmsg_addstr (reply, uuid);
+                if(streq(status, "200")) {
+                   zmsg_t *rmsg = storage->read_response(uuid);
+                   zmsg_addmsg(reply, &rmsg);
+                }
 
-            zsock_send(pipe, "ssz", "STATUS", uuid);
-            char *status;
-            zsock_recv(pipe, "s", &status);
+                zmsg_destroy (&request);
 
-            if(streq(status, "200")) {
-                zstr_free(&status);
+                mdp_worker_send_final(worker, &address, &reply);
+
+            }
+            else
+            if(socket == pipe) {
+                bool exit = false;
                 zmsg_t *msg;
-                zsock_send(pipe, "ssz", "READ_RESPONSE", uuid);
-                zsock_recv(pipe, "sm", &status, &msg);
+                zsock_recv(pipe, "m", &msg);
+                char *command = zmsg_popstr(msg);
 
-//                zsys_info("readed message");
-//                zmsg_dump(msg);
+                if(streq(command, "$TERM")) {
+                    exit = true;
+                }
+                if(command)
+                    zstr_free(&command);
 
-                zmsg_addstr (reply, status);
-                zmsg_addmsg(reply, &msg);
+                if(exit)
+                    break;
+
             }
-            else {
-                zmsg_addstr (reply, status);
+            else
+            if(zpoller_terminated(poller)) {
+                break;
             }
-
-            zstr_free(&uuid);
-            zmsg_destroy(&request);
-
-            // zsys_info("titanic.reply reply");
-            // zmsg_dump(reply);
-
         }
+
+        delete storage;
+        zpoller_destroy(&poller);
         mdp_worker_destroy (&worker);
     }
 
-    static void zmdp_titanic_close(zsock_t *pipe, void *ep) {
-
-        mdp_worker_t *worker = mdp_worker_new ((char*) ep, "titanic.close");
-        zmsg_t *reply = NULL;
+    static void zmdp_titanic_close(zsock_t *pipe, void *args) {
 
         zsock_signal (pipe, 0);
 
+        _actor_data *data = (_actor_data *)(args);
+        TitanicStorage *storage = data->st();
+        char *ep = (char *) data->ep;
+
+        mdp_worker_t *worker = mdp_worker_new (ep,  "titanic.close");
+        zpoller_t *poller = zpoller_new(pipe, mdp_worker_msgpipe(worker), NULL);
+        zmsg_t *reply = NULL;
+
         while (!zsys_interrupted) {
-            zmsg_t *request = mdwrk_recv (worker, reply);
-            if (!request)
-                break;      //  Interrupted, exit
+           zsock_t *socket = (zsock_t *) zpoller_wait(poller, -1);
 
-            // zsys_info("titanic.close request");
-            // zmsg_dump(request);
+           if(socket == mdp_worker_msgpipe(worker)) {
+                zmsg_t *request = mdwrk_recv (worker, NULL);
+                zframe_t *address = zmsg_pop(request);
+                char *uuid = zmsg_popstr (request);
+                storage->close(uuid);
 
-            // Save worker address to send back the response
-            zframe_t *address = zmsg_pop(request);
-            char *uuid = zmsg_popstr (request);
+                reply = zmsg_new ();
+                zmsg_addstr (reply, "200");
+                zmsg_addstr (reply, uuid);
+                mdp_worker_send_final(worker, &address, &reply);
 
-            reply = zmsg_new();
-            zmsg_push(reply, address);
+                zmsg_destroy (&request);
+            }
+            else
+            if(socket == pipe) {
+                bool exit = false;
+                zmsg_t *msg;
+                zsock_recv(pipe, "m", &msg);
+                char *command = zmsg_popstr(msg);
 
-            char * status;
-            zsock_send(pipe, "ssz", "CLOSE", uuid);
-            zsock_recv(pipe, "s", &status);
+                if(streq(command, "$TERM")) {
+                    exit = true;
+                }
 
-            zmsg_addstr (reply, status);
+                if(command)
+                    zstr_free(&command);
 
-            zstr_free (&uuid);
-            zmsg_destroy (&request);
+                if(exit)
+                    break;
 
-            // zsys_info("titanic.close reply");
-            // zmsg_dump(reply);
+            }
+            else
+            if(zpoller_terminated(poller))
+                break;
+        }
+
+        delete storage;
+        zpoller_destroy(&poller);
+        mdp_worker_destroy (&worker);
+    }
+
+    static void zmdp_titanic_process(zsock_t *pipe, void *args) {
+
+        zsock_signal (pipe, 0);
+
+        _actor_data *data = (_actor_data *)(args);
+        TitanicStorage *storage = data->st();
+        char *ep = (char *) data->ep;
+
+        zpoller_t *poller = zpoller_new(pipe, NULL);
+        zmsg_t *reply = NULL;
+
+        while (!zsys_interrupted) {
+           zsock_t *socket = (zsock_t *) zpoller_wait(poller, 1000);
+           if(socket == pipe) {
+                bool exit = false;
+                zmsg_t *msg;
+                zsock_recv(pipe, "m", &msg);
+                char *command = zmsg_popstr(msg);
+
+                if(streq(command, "$TERM")) {
+                    exit = true;
+                }
+
+                if(command)
+                    zstr_free(&command);
+
+                if(exit)
+                    break;
+
+            }
+            else
+            if(zpoller_terminated(poller))
+                break;
+
+            // Send next request if available
+            char *process = storage->process();
+            if(process != nullptr) {
+                int result = s_service_success(process, ep, storage);
+                zstr_free(&process);
+            }
 
         }
-        mdp_worker_destroy (&worker);
+
+        delete storage;
+        zpoller_destroy(&poller);
+    }
+
+    typedef struct {
+        const char *ep;
+        std::function<TitanicStorage*()> st;
+    } _actor_data;
+
+    _actor_data *actor_data_new(Php::Parameters &param) {
+        _actor_data *data = new _actor_data();
+        data->ep = _broker_endpoint.c_str();
+        data->st = [param](){
+            if(param.size()>1 && param[1].isObject() && !param[1].isNull()) {
+                return (TitanicStorage*) new PhpCallbackStorage(param[1]);
+            } else {
+                return (TitanicStorage*) new FileSystemStorage();
+            }
+        };
+        return data;
     }
 
 public:
 
     MajordomoTitanicV2() : ZHandle(), Php::Base() {};
-    // MajordomoTitanicV2(mdp_worker_t *handle, bool owned) : ZHandle(handle, owned, "mdp_worker_v2"), Php::Base() {}
-    // mdp_worker_t *mdpworker_handle() const { return (mdp_worker_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
         _broker_endpoint = param[0].stringValue();
 
-        if(param.size()>1) {
-            storage = new PhpCallbackStorage(param[1]);
-        } else {
-            storage = new FileSystemStorage();
-        }
-
         int _threads = param.size()>2 ? param[2].numericValue() : 1;
+
+        process = zactor_new(zmdp_titanic_process, (void*) actor_data_new(param));
+
         while(_threads > 0) {
-            _actors.push_back(zactor_new(zmdp_titanic_request, (void*) _broker_endpoint.c_str()));
-            _actors.push_back(zactor_new(zmdp_titanic_reply, (void*) _broker_endpoint.c_str()));
-            _actors.push_back(zactor_new(zmdp_titanic_close, (void*) _broker_endpoint.c_str()));
+            _actors.push_back(zactor_new(zmdp_titanic_request, (void*) actor_data_new(param)));
+            _actors.push_back(zactor_new(zmdp_titanic_reply, (void*) actor_data_new(param)));
+            _actors.push_back(zactor_new(zmdp_titanic_close, (void*) actor_data_new(param)));
             _threads--;
         }
     }
@@ -472,66 +567,24 @@ public:
             zactor_destroy(&(*it));
         if(storage)
             delete storage;
+        zactor_destroy(&process);
     }
 
     void run(void) {
 
-        //  Main dispatcher loop
+        zpoller_t *poller = zpoller_new(NULL);
+        for(auto it = _actors.begin() ; it < _actors.end(); it++)
+            zpoller_add(poller, *it);
+
         while (!zsys_interrupted) {
-            zpoller_t *poller = zpoller_new(NULL);
-            for(auto it = _actors.begin() ; it < _actors.end(); it++)
-                zpoller_add(poller, *it);
-
-            void *socket = zpoller_wait(poller, 500);
-            if(socket) {
-                char *command, *uuid;
-                zmsg_t *msg;
-                zsock_recv(socket, "ssm", &command, &uuid, &msg);
-
-                if(streq(command, "STORE_REQUEST")) {
-                    storage->store_request(uuid, msg);
-                    zsock_send(socket, "s", "200");
-                }
-                else
-                if(streq(command, "READ_RESPONSE")) {
-                    zmsg_t *rmsg = storage->read_response(uuid);
-                    zsock_send(socket, "sm", "200", rmsg);
-                    zmsg_destroy(&rmsg);
-                }
-                else
-                if(streq(command, "STATUS")) {
-                    const char *status = storage->status(uuid);
-                    zsock_send(socket, "s", status);
-                }
-                else
-                if(streq(command, "CLOSE")) {
-                    storage->close(uuid);
-                    zsock_send(socket, "s", "200");
-                }
-
-                if(command)
-                    zstr_free(&command);
-                if(uuid)
-                    zstr_free(&uuid);
-                if(msg)
-                    zmsg_destroy(&msg);
-
-            }
-            else
+            void *socket = zpoller_wait(poller, 1000);
             if(zpoller_terminated(poller)) {
                 zpoller_destroy(&poller);
                 break;
             }
-
-            // Send next request if available
-            char *process = storage->process();
-            if(process != nullptr) {
-                int result = s_service_success(process, _broker_endpoint.c_str());
-                zstr_free(&process);
-            }
-
-            zpoller_destroy(&poller);
         }
+
+        zpoller_destroy(&poller);
     }
 
     static Php::Class<MajordomoTitanicV2> php_register() {
