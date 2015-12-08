@@ -3,7 +3,7 @@
 use Spork\Fork;
 use Spork\ProcessManager;
 
-class ZFileMqTest extends \PHPUnit_Framework_TestCase {
+class FileMqTest extends \PHPUnit_Framework_TestCase {
 
     public function test_filemq()
     {
@@ -11,17 +11,26 @@ class ZFileMqTest extends \PHPUnit_Framework_TestCase {
         $server_path = realpath(__DIR__ . "/storage/remote");
         $client_path = realpath(__DIR__ . "/storage/local");
 
+        $manager = new ProcessManager();
+        # $manager->zombieOkay(true);
+
         # FileMQ Server
-        $server = new \FileMQ\Server();
-        $server->load_config(__DIR__ . "/cfg/filemq.cfg");
-        $server->bind($ep);
-        $server->publish($server_path, "/");
+        $manager->fork(function() use ($ep, $server_path) {
+            $server = new \FileMQ\Server();
+            $server->load_config(__DIR__ . "/cfg/filemq.cfg");
+            $server->bind($ep);
+            $server->publish($server_path, "/");
+            $loop = new ZLoop();
+            $loop->start();
+        });
 
         # FileMQ Client
-        $client = new \FileMq\Client($ep, $client_path, 1000);
-        $client->subscribe("/");
-
-        sleep(1);
+        $manager->fork(function() use ($ep, $client_path) {
+            $client = new \FileMq\Client($ep, $client_path, 1000);
+            $client->subscribe("/");
+            $loop = new ZLoop();
+            $loop->start();
+        });
 
         $timeout = 10;
         $filename = "test.dat";
@@ -38,6 +47,8 @@ class ZFileMqTest extends \PHPUnit_Framework_TestCase {
             sleep(1);
             $found = file_exists($client_path . "/" . $filename);
         }
+
+        $manager->killAll();
 
         $this->assertTrue($found);
 

@@ -65,9 +65,8 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
         });
 
         // test mdp + titanic
-        $loop->add_timer(3000, function($timer_id, $loop) use ($broker_endpoint, $manager) {
-            $requests[] = $manager->fork(function() use($i, $broker_endpoint) {
-
+        $loop->add_timer(1000, function($timer_id, $loop) use ($broker_endpoint, $manager, &$requests) {
+            $requests[] = $manager->fork(function() use($broker_endpoint) {
                 $client = new Majordomo\Client($broker_endpoint);
                 $requestPayload = "requestId - " . $i;
                 $msg = new ZMsg();
