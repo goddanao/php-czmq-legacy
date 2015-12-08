@@ -3,13 +3,15 @@
 #include "../common.h"
 
 class FileMqServer : public ZHandle, public Php::Base {
+private:
+    std::string _path;
 public:
     FileMqServer() : ZHandle(), Php::Base() {}
     zactor_t *fmq_broker_handle() const { return (zactor_t *) get_handle(); }
 
 	void __construct(Php::Parameters &param) {
-		void *args = (param.size() == 0) ? nullptr : (void *) param[0].stringValue().c_str();
-		set_handle(zactor_new (fmq_server, args), true, "fmq_server");
+		_path = param.size() > 0 ? param[0].stringValue() : "";
+		set_handle(zactor_new (fmq_server, (void *) _path.c_str()), true, "fmq_server");
 	}
 
 	void set_verbose(Php::Parameters &param) {
@@ -60,11 +62,12 @@ public:
 
 		char *result;
 		zstr_recvx (fmq_broker_handle(), &result, NULL);
-		if(!result)
-			return false;
-		Php::Value ret = streq(result,"SUCCESS");
-		zstr_free(&result);
-		return ret;
+		if(result) {
+            Php::Value ret = streq(result,"SUCCESS");
+            zstr_free(&result);
+            return ret;
+		}
+	    return false;
 	}
 
     static Php::Class<FileMqServer> php_register() {

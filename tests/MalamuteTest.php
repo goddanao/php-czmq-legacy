@@ -5,12 +5,12 @@ use Spork\ProcessManager;
 
 class MalamuteTest extends \PHPUnit_Framework_TestCase {
 
-    protected static $broker_endpoint = "tcp://127.0.0.1:8990";
+    protected static $broker_endpoint = "tcp://127.0.0.1:8940";
     protected static $mg;
 
     protected function setUp() {
         if (!class_exists("\\Malamute\\Broker"))
-            $this->markTestSkipped("Malamute test skipped since ZMQ version is too low");
+            $this->markTestSkipped("Malamute test skipped since ZMQ version is lower than 4.2.0");
 
     }
 

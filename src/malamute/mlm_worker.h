@@ -46,10 +46,11 @@ public:
             zsock_t *which = (zsock_t *) zpoller_wait (poller, 1000);
             if (which == client) {
                 zmsg_t *request = mlm_client_recv (mlm_worker_handle());
+                if(!request)
+                    break;
                 std::string sender(mlm_client_sender(mlm_worker_handle()));
 
-                Php::Object zmsg("ZMsg", new ZMsg(request, true));
-                result = param[0](zmsg, header());
+                result = param[0](Php::Object("ZMsg", new ZMsg(request, true)), header());
 
                 if(sender != "") {
                     zmsg_t *reply = ZUtils::phpvalue_to_zmsg(result);

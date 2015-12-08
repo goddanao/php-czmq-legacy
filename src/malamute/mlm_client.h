@@ -66,7 +66,7 @@ public:
             msg = ZUtils::phpvalue_to_zmsg(param[1]);
         }
 
-		return (mlm_client_send(mlm_client_handle(), subject.c_str(), &msg) == 0);
+		return msg ? (mlm_client_send(mlm_client_handle(), subject.c_str(), &msg) == 0) : false;
 	}
 
 	Php::Value send_mailbox(Php::Parameters &param) {
@@ -81,7 +81,7 @@ public:
         std::string subject = (param.size() > 3) ? param[3].stringValue() : "";
         std::string tracker = (param.size() > 4) ? param[4].stringValue() : "";
 
-		return (mlm_client_sendto(mlm_client_handle(), address.c_str(), subject.c_str(), tracker.c_str(), _to, &msg) == 0);
+		return msg ? (mlm_client_sendto(mlm_client_handle(), address.c_str(), subject.c_str(), tracker.c_str(), _to, &msg) == 0) : false;
 	}
 
 	Php::Value send_service(Php::Parameters &param) {
@@ -96,7 +96,7 @@ public:
         int _to = (param.size() > 3) ? param[3].numericValue() : _timeout;
         std::string tracker = (param.size() > 4) ? param[4].stringValue() : "";
 
-		return (mlm_client_sendfor(mlm_client_handle(), address.c_str(), subject.c_str(), tracker.c_str(), _to, &msg) == 0);
+		return msg ? (mlm_client_sendfor(mlm_client_handle(), address.c_str(), subject.c_str(), tracker.c_str(), _to, &msg) == 0) : false;
 	}
 
     Php::Value set_producer(Php::Parameters &param) { return (mlm_client_set_producer(mlm_client_handle(), param[0].stringValue().c_str()) != -1); }
@@ -107,7 +107,9 @@ public:
 
     Php::Value recv(Php::Parameters &param) {
         zmsg_t *msg = mlm_client_recv (mlm_client_handle());
-        return Php::Object("ZMsg", new ZMsg(msg, true));
+        if(msg)
+            return Php::Object("ZMsg", new ZMsg(msg, true));
+        return nullptr;
     }
 
     static Php::Class<MalamuteClient> php_register() {

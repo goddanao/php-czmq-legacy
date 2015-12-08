@@ -44,8 +44,11 @@ public:
             zsock_t *which = (zsock_t *) zpoller_wait (poller, 1000);
             if (which == client) {
                 zmsg_t *request = mlm_client_recv (mlm_consumer_handle());
-                Php::Object zmsg("ZMsg", new ZMsg(request, true));
-                result = param[1](zmsg, this);
+                if(request) {
+                    Php::Object zmsg("ZMsg", new ZMsg(request, true));
+                    result = param[1](zmsg, this);
+                } else
+                    break;
             }
         }
         zpoller_destroy(&poller);

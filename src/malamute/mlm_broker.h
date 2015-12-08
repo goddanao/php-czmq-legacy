@@ -46,8 +46,8 @@ public:
 		zstr_recvx (mlm_broker_handle(), &command, &port_str, NULL);
 		if(streq(command, "PORT")) {
 			Php::Value result = port_str;
-			free(command);
-			free(port_str);
+			zstr_free(&command);
+			zstr_free(&port_str);
 			return result;
 		}
 

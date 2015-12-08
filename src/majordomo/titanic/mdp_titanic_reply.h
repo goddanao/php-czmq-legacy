@@ -29,7 +29,14 @@ static void zmdp_titanic_reply(zsock_t *pipe, void *args) {
             zmsg_addstr (reply, uuid);
             if(streq(status, "200")) {
                zmsg_t *rmsg = storage->read_response(uuid);
-               zmsg_addmsg(reply, &rmsg);
+               if(rmsg) {
+                   zframe_t *f = zmsg_pop(rmsg);
+                   while(f) {
+                     zmsg_append(reply, &f);
+                     f = zmsg_pop(rmsg);
+                   }
+                   zmsg_destroy(&rmsg);
+               }
             }
 
             zstr_free(&uuid);

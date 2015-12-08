@@ -7,7 +7,7 @@ class ZFileMqTest extends \PHPUnit_Framework_TestCase {
 
     public function test_filemq()
     {
-        $ep = "tcp://127.0.0.1:8899";
+        $ep = "tcp://127.0.0.1:8859";
         $server_path = realpath(__DIR__ . "/storage/remote");
         $client_path = realpath(__DIR__ . "/storage/local");
 

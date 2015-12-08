@@ -57,7 +57,7 @@ public:
 	void run(Php::Parameters &param) {
         zpoller_t *poller = zpoller_new(zmdpbroker_handle());
         while (!zsys_interrupted) {
-            void *socket = zpoller_wait(poller, 1000);
+            void *socket = zpoller_wait(poller, -1);
             if(zpoller_terminated(poller)) {
                 zpoller_destroy(&poller);
                 break;
