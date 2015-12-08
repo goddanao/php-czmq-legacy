@@ -51,7 +51,7 @@ public:
     virtual ~MajordomoTitanicV2(){
         for (auto it = std::begin(_actors); it!=std::end(_actors); ++it) {
             zactor_destroy((_zactor_t**) &(it->first));
-            delete it->second;
+            delete (_actor_data *) it->second;
         }
     }
 
@@ -64,7 +64,6 @@ public:
         while (!zsys_interrupted) {
             void *socket = zpoller_wait(poller, -1);
             if(zpoller_terminated(poller)) {
-                zpoller_destroy(&poller);
                 break;
             }
         }
