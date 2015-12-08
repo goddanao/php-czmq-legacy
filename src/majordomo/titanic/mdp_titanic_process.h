@@ -25,6 +25,9 @@ static void zmdp_titanic_process(zsock_t *pipe, void *args) {
                 exit = true;
             }
 
+            if(msg)
+               zmsg_destroy(&msg);
+
             if(command)
                 zstr_free(&command);
 

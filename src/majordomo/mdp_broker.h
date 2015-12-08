@@ -54,6 +54,18 @@ public:
 		return true;
 	}
 
+	void run(Php::Parameters &param) {
+        zpoller_t *poller = zpoller_new(zmdpbroker_handle());
+        while (!zsys_interrupted) {
+            void *socket = zpoller_wait(poller, 1000);
+            if(zpoller_terminated(poller)) {
+                zpoller_destroy(&poller);
+                break;
+            }
+        }
+        zpoller_destroy(&poller);
+    }
+
     static Php::Class<MajordomoBrokerV2> php_register() {
         Php::Class<MajordomoBrokerV2> o("Broker");
         o.method("__construct", &MajordomoBrokerV2::__construct, {
@@ -61,6 +73,7 @@ public:
             Php::ByVal("verbose", Php::Type::Bool, false)
         });
         o.method("set_verbose", &MajordomoBrokerV2::set_verbose);
+        o.method("run", &MajordomoBrokerV2::run);
         o.method("bind", &MajordomoBrokerV2::bind, {
           Php::ByVal("endpoint", Php::Type::String, true)
         });

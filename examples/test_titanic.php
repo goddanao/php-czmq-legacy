@@ -5,7 +5,6 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use Spork\Fork;
 use Spork\ProcessManager;
 
-
 class MyTitanicStorageHandler implements \Majordomo\ITitanicStorage {
 
     public function read($what, $uuid) {

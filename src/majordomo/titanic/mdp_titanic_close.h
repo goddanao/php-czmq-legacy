@@ -27,7 +27,7 @@ static void zmdp_titanic_close(zsock_t *pipe, void *args) {
             zmsg_addstr (reply, "200");
             zmsg_addstr (reply, uuid);
             mdp_worker_send_final(worker, &address, &reply);
-
+            zstr_free(&uuid);
             zmsg_destroy (&request);
         }
         else
@@ -41,11 +41,15 @@ static void zmdp_titanic_close(zsock_t *pipe, void *args) {
                 exit = true;
             }
 
-            if(command)
-                zstr_free(&command);
+           if(msg)
+               zmsg_destroy(&msg);
 
-            if(exit)
-                break;
+          if(command)
+               zstr_free(&command);
+
+          if(exit) {
+             break;
+          }
 
         }
         else

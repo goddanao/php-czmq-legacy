@@ -28,6 +28,7 @@ static void zmdp_titanic_request(zsock_t *pipe, void *args) {
             zmsg_addstr (reply, "200");
             zmsg_addstr (reply, uuid);
             mdp_worker_send_final(worker, &address, &reply);
+            zstr_free(&uuid);
 
        }
        else

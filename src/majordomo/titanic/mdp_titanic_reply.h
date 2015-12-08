@@ -32,6 +32,7 @@ static void zmdp_titanic_reply(zsock_t *pipe, void *args) {
                zmsg_addmsg(reply, &rmsg);
             }
 
+            zstr_free(&uuid);
             zmsg_destroy (&request);
 
             mdp_worker_send_final(worker, &address, &reply);
@@ -43,15 +44,19 @@ static void zmdp_titanic_reply(zsock_t *pipe, void *args) {
             zmsg_t *msg;
             zsock_recv(pipe, "m", &msg);
             char *command = zmsg_popstr(msg);
-
             if(streq(command, "$TERM")) {
                 exit = true;
             }
-            if(command)
+
+            if(msg)
+                zmsg_destroy(&msg);
+
+           if(command)
                 zstr_free(&command);
 
-            if(exit)
-                break;
+           if(exit) {
+              break;
+           }
 
         }
         else
