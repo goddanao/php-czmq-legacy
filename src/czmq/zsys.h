@@ -148,6 +148,30 @@ public:
             zsys_error(param[0].stringValue().c_str());
     }
 
+    static  Php::Value get_available_socket_type() {
+        Php::Value result;
+        int idx = 0;
+        result[idx++] = "pub";
+        result[idx++] = "sub";
+        result[idx++] = "req";
+        result[idx++] = "rep";
+        result[idx++] = "dealer";
+        result[idx++] = "router";
+        result[idx++] = "push";
+        result[idx++] = "pull";
+        result[idx++] = "xpub";
+        result[idx++] = "xsub";
+        result[idx++] = "pair";
+        result[idx++] = "stream";
+
+        #ifdef ZMQ_SERVER
+            result[idx++] = "server";
+            result[idx++] = "client";
+        #endif
+
+        return result;
+    }
+
     static Php::Class<ZSys> php_register() {
 
         Php::Class<ZSys> o("ZSys", Php::Public | Php::Final);
@@ -173,6 +197,8 @@ public:
         o.method("set_interface", &ZSys::set_interface, { Php::ByVal("interface", Php::Type::String, true) });
         o.method("get_interface", &ZSys::get_interface);
         o.method("list_interfaces", &ZSys::list_interfaces);
+
+        o.method("get_available_socket_type", &ZSys::get_available_socket_type);
 
         o.method("set_log_ident", &ZSys::set_log_ident, { Php::ByVal("log_ident", Php::Type::String, true) });
         o.method("set_log_endpoint", &ZSys::set_log_endpoint, { Php::ByVal("log_endpoint", Php::Type::String, true) });

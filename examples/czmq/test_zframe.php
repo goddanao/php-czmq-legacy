@@ -6,4 +6,4 @@
 //$unpacked = $frame->unpack("nvc*");
 //print_r($unpacked);
 
-ZSocket::client()
+ZSocket::client();
