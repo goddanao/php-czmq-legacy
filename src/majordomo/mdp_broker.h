@@ -14,14 +14,20 @@ public:
 	void __construct(Php::Parameters &param) {
 	    _endpoint = (param.size() > 0) ? param[0].stringValue() : "";
 	    bool _verbose  = (param.size() > 1) ? param[1].boolValue() : false;
-		zactor_t *broker = zactor_new(mdp_broker, NULL);
-		if(broker) {
-			set_handle(broker, true, "mdp_broker_v2");
-			if(_verbose)
-			    zstr_sendx (broker, "VERBOSE", NULL);
-			if(_endpoint != "")
-			    zstr_sendx (broker, "BIND", _endpoint.c_str(), NULL);
+		zactor_t *broker = new_broker(_endpoint.c_str(), _verbose);
+		set_handle(broker, true, "mdp_broker_v2");
+	}
+
+	static zactor_t *new_broker(const char *ep, bool verbose) {
+        zactor_t *broker = zactor_new(mdp_broker, NULL);
+        if(broker) {
+            if(verbose)
+                zstr_sendx (broker, "VERBOSE", NULL);
+
+            zstr_sendx (broker, "BIND", ep, NULL);
+            return broker;
         }
+        return nullptr;
 	}
 
     void set_verbose(Php::Parameters &param) {
@@ -54,8 +60,12 @@ public:
 		return true;
 	}
 
-	void run(Php::Parameters &param) {
-        zpoller_t *poller = zpoller_new(zmdpbroker_handle());
+	static void run(Php::Parameters &param) {
+        std::string _endpoint = (param.size() > 0) ? param[0].stringValue() : "";
+        bool _verbose  = (param.size() > 1) ? param[1].boolValue() : false;
+
+        zactor_t *broker = new_broker(_endpoint.c_str(), _verbose);
+        zpoller_t *poller = zpoller_new(zsock_resolve(broker));
         while (!zsys_interrupted) {
             void *socket = zpoller_wait(poller, -1);
             if(zpoller_terminated(poller)) {
@@ -64,6 +74,7 @@ public:
             }
         }
         zpoller_destroy(&poller);
+        zactor_destroy(&broker);
     }
 
     static Php::Class<MajordomoBrokerV2> php_register() {
@@ -73,7 +84,12 @@ public:
             Php::ByVal("verbose", Php::Type::Bool, false)
         });
         o.method("set_verbose", &MajordomoBrokerV2::set_verbose);
-        o.method("run", &MajordomoBrokerV2::run);
+
+        o.method("run", &MajordomoBrokerV2::run, {
+           Php::ByVal("endpoint", Php::Type::String, true),
+           Php::ByVal("verbose", Php::Type::Bool, false)
+        });
+
         o.method("bind", &MajordomoBrokerV2::bind, {
           Php::ByVal("endpoint", Php::Type::String, true)
         });
