@@ -480,6 +480,28 @@ public:
         return (int) zmsg_content_size(zmsg_handle());
     }
 
+    void load(Php::Parameters &param) {
+        FILE *file = fopen (param[0].stringValue().c_str(), "r");
+        zmsg_t *result;
+        #if (CZMQ_VERSION >= CZMQ_MAKE_VERSION(3,0,3))
+            result = zmsg_load (file);
+        #else
+            result = zmsg_load (NULL, file);
+        #endif
+        if(result) {
+            zmsg_destroy((zmsg_t **) &_handle);
+            set_handle(result, true, "zmsg");
+        }
+        fclose (file);
+    }
+
+    void save(Php::Parameters &param) {
+        FILE *file = fopen (param[0].stringValue().c_str(), "w");
+        zmsg_save (zmsg_handle(), file);
+        fclose (file);
+    }
+
+
     Php::Value __toString() {
         if(zmsg_size(zmsg_handle()) == 0)
             return "";
@@ -667,6 +689,14 @@ public:
 
         o.method("get_size", &ZMsg::get_size);
         o.method("get_content_size", &ZMsg::get_content_size);
+
+        o.method("save", &ZMsg::save, {
+            Php::ByVal("file", Php::Type::String, true)
+        });
+        o.method("load", &ZMsg::load, {
+            Php::ByVal("file", Php::Type::String, true)
+        });
+
 
         o.method("dump", &ZMsg::dump);
         return o;

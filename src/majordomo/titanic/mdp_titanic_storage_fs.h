@@ -30,7 +30,13 @@ public:
         char *filename = s_request_filename (uuid);
         FILE *file = fopen (filename, "r");
         zstr_free (&filename);
-        result = zmsg_load (NULL, file);
+
+        #if (CZMQ_VERSION >= CZMQ_MAKE_VERSION(3,0,3))
+            result = zmsg_load (file);
+        #else
+            result = zmsg_load (NULL, file);
+        #endif
+
         fclose (file);
         return result;
     }
@@ -77,7 +83,11 @@ public:
         char *filename = s_response_filename (uuid);
         FILE *file = fopen (filename, "r");
         zstr_free (&filename);
-        result = zmsg_load (NULL, file);
+        #if (CZMQ_VERSION >= CZMQ_MAKE_VERSION(3,0,3))
+            result = zmsg_load (file);
+        #else
+            result = zmsg_load (NULL, file);
+        #endif
         fclose (file);
         return result;
     }

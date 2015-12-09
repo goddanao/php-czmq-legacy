@@ -24,42 +24,7 @@ sudo apt-get install -qq git g++-4.8 uuid-dev build-essential autoconf php5-dev 
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 ```
 
-Fetch, build and install required libraries
-
-```
-git clone git://github.com/jedisct1/libsodium.git
-git clone git://github.com/zeromq/libzmq.git
-git clone git://github.com/zeromq/czmq.git
-git clone git://github.com/zeromq/zyre.git
-git clone git://github.com/zeromq/majordomo.git
-git clone git://github.com/zeromq/filemq.git
-git clone git://github.com/zeromq/malamute.git
-for project in libsodium libzmq czmq zyre majordomo filemq malamute; do
-    cd $project
-    ./autogen.sh
-    ./configure && make check
-    sudo make install
-    sudo ldconfig
-    cd ..
-done
-git clone git://github.com/CopernicaMarketingSoftware/PHP-CPP.git
-cd PHP-CPP
-make
-sudo make install
-sudo ldconfig
-cd ..
-```
-
-Build and install
-
-```
-make
-sudo make install
-```
-
-The installer puts php-czmq.ini config file in ```/etc/php5/mods-available```, modify your php.ini to include "extension=php-czmq.so" or make a symbolic link in ```/etc/php5/cli/conf.d/20-php-czmq.ini``` or ```/etc/php5/apache2/conf.d/20-php-czmq.ini``` for default loading in cli and in apache.
-Otherwise there is a docker config for building the test environment.
-
+Then use one of the provided installers for [master branch](https://github.com/goddanao/php-czmq/blob/master/install/install-master.sh), [stable 4.2 branch](https://github.com/goddanao/php-czmq/blob/master/install/install-stable-4.2.sh), [stable 4.1 branch](https://github.com/goddanao/php-czmq/blob/master/install/install-stable-4.1.sh) version on libzmq.
 
 ## Usage
 Still to come... Take a look at the [Api](https://github.com/goddanao/php-czmq/blob/master/api/ApiIndex.md), [Ide Helper](https://github.com/goddanao/php-czmq/blob/master/ide_helper.php), [Examples](https://github.com/goddanao/php-czmq/tree/master/examples), [Tests](https://github.com/goddanao/php-czmq/tree/master/tests).
