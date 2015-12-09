@@ -7,4 +7,4 @@ export MAJORDOMO_VERSION=master
 export FILEMQ_VERSION=master
 export MALAMUTE_VERSION=master
 export PHPCPP_VERSION=master
-bash ./install.sh
+bash `dirname ${BASH_SOURCE[0]}`/install.sh
