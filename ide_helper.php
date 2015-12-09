@@ -176,6 +176,12 @@ final  class ZSys {
   static public function list_interfaces() {}
 
   /**
+   * ...
+   * 
+  */
+  static public function get_available_socket_type() {}
+
+  /**
    * Set log identity, which is a string that prefixes all log messages sent
    * by this process. The log identity defaults to the environment variable
    * ZSYS_LOGIDENT, if that is set.
@@ -450,6 +456,20 @@ class ZMsg {
    * @return int
   */
   public function get_content_size() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $file ...
+  */
+  public function save($file) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $file ...
+  */
+  public function load($file) {}
 
   /**
    * ...
@@ -1871,6 +1891,14 @@ class Broker implements \IZSocket, \IZDescriptor {
    * 
   */
   public function set_verbose() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $endpoint ...
+   * @param mixed $verbose ... (optional)
+  */
+  static public function run($endpoint, $verbose) {}
 
   /**
    * ...

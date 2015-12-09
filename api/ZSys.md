@@ -540,6 +540,20 @@ Return network interfaces
 
 
 
+### get_available_socket_type
+
+    mixed ZSys::get_available_socket_type()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
+
 ### set_log_ident
 
     mixed ZSys::set_log_ident(string $log_ident)

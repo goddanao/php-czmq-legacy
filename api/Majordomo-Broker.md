@@ -49,6 +49,24 @@ Methods
 
 
 
+### run
+
+    mixed Majordomo\Broker::run(mixed $endpoint, mixed $verbose)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
+
+
 ### bind
 
     mixed Majordomo\Broker::bind(mixed $endpoint)

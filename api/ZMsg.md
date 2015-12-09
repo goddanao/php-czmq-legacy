@@ -267,6 +267,38 @@ Send a ZMsg
 
 
 
+### save
+
+    mixed ZMsg::save(mixed $file)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $file **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### load
+
+    mixed ZMsg::load(mixed $file)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $file **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
 ### dump
 
     mixed ZMsg::dump()
