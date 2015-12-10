@@ -32,12 +32,40 @@ extern "C" {
 
     // COMMON
 
-        // IZSocket
+        // IZDescriptor
         Php::Interface izdescriptor("IZDescriptor");
         izdescriptor.method("get_fd");
+
+        // IZSocket
         Php::Interface izsocket("IZSocket");
         izsocket.extends(izdescriptor);
         izsocket.method("get_socket");
+
+        // IZEmitter
+        Php::Interface izemitter("IZEmitter");
+        izemitter.method("on", {
+            Php::ByVal("event", Php::Type::String, true),
+            Php::ByVal("listener", Php::Type::Callable, true)
+        });
+        izemitter.method("once", {
+            Php::ByVal("event", Php::Type::String, true),
+            Php::ByVal("listener", Php::Type::Callable, true)
+        });
+        izemitter.method("removeListener", {
+            Php::ByVal("event", Php::Type::String, true),
+            Php::ByVal("listener", Php::Type::Callable, true)
+        });
+        izemitter.method("removeAllListeners", {
+            Php::ByVal("event", Php::Type::String, false)
+        });
+        izemitter.method("listeners", {
+            Php::ByVal("event", Php::Type::String, true)
+        });
+        izemitter.method("emit", {
+            Php::ByVal("event", Php::Type::String, true),
+            Php::ByVal("arguments", Php::Type::Array, true)
+        });
+
 
     // CZMQ
 
@@ -201,6 +229,7 @@ extern "C" {
         //common
         extension.add(std::move(izdescriptor));
         extension.add(std::move(izsocket));
+        extension.add(std::move(izemitter));
 
         // czmq
         extension.add(std::move(zsys));

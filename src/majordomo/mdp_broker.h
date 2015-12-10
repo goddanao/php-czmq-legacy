@@ -6,6 +6,20 @@ class MajordomoBrokerV2 : public ZHandle, public Php::Base {
 private:
     bool _stopped = false;
     std::string _endpoint = "";
+
+    static zactor_t *new_broker(const char *ep, bool verbose) {
+        zactor_t *broker = zactor_new(mdp_broker, NULL);
+        if(broker) {
+            if(verbose) {
+                zstr_sendx (broker, "VERBOSE", NULL);
+            }
+            zstr_sendx (broker, "BIND", ep, NULL);
+            zclock_sleep(200);
+            return broker;
+        }
+        return nullptr;
+    }
+
 public:
 
     MajordomoBrokerV2() : ZHandle(), Php::Base() {}
@@ -16,18 +30,6 @@ public:
 	    bool _verbose  = (param.size() > 1) ? param[1].boolValue() : false;
 		zactor_t *broker = new_broker(_endpoint.c_str(), _verbose);
 		set_handle(broker, true, "mdp_broker_v2");
-	}
-
-	static zactor_t *new_broker(const char *ep, bool verbose) {
-        zactor_t *broker = zactor_new(mdp_broker, NULL);
-        if(broker) {
-            if(verbose)
-                zstr_sendx (broker, "VERBOSE", NULL);
-
-            zstr_sendx (broker, "BIND", ep, NULL);
-            return broker;
-        }
-        return nullptr;
 	}
 
     void set_verbose(Php::Parameters &param) {
@@ -61,7 +63,7 @@ public:
 	}
 
 	static void run(Php::Parameters &param) {
-        std::string _endpoint = (param.size() > 0) ? param[0].stringValue() : "";
+        std::string _endpoint = param[0].stringValue();
         bool _verbose  = (param.size() > 1) ? param[1].boolValue() : false;
 
         zactor_t *broker = new_broker(_endpoint.c_str(), _verbose);

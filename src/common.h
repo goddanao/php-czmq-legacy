@@ -13,5 +13,7 @@
 
 #include "common/zutils.h"
 #include "common/zhandle.h"
+#include "common/zparameters.h"
+#include "common/zemitter.h"
 #include "common/zinotify.h"
 #include "common/zstdio.h"

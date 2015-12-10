@@ -824,6 +824,62 @@ interface IZSocket extends \IZDescriptor {
 
 
 /**
+ * IZEmitter
+ *
+ * ...
+ */
+interface IZEmitter {
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) ;
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) ;
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function removelistener($event, callable $listener) ;
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function removealllisteners($event) ;
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) ;
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) ;
+
+}
+
+
+/**
  * ZSocket
  *
  * ...

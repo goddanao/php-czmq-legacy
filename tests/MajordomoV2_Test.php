@@ -18,10 +18,11 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
 
         # Run Broker
         $manager->fork(function() use($broker_endpoint) {
-            $broker = new Majordomo\Broker($broker_endpoint, false);
-            $zloop = new ZLoop();
-            $zloop->start();
+            Majordomo\Broker::run($broker_endpoint, false);
         });
+
+        # Wait for Broker to bind the address
+        // usleep(100000);
 
         # Run Titanic
         $manager->fork(function() use($broker_endpoint) {
