@@ -52,27 +52,20 @@ Methods
 
 ### run
 
-    mixed Majordomo\Worker::run()
+    mixed Majordomo\Worker::run(mixed $name, mixed $broker_endpoint, callable $callback)
 
 
 
 ...
 
 * Visibility: **public**
+* This method is **static**.
 
 
-
-
-### process
-
-    mixed Majordomo\Worker::process()
-
-
-
-...
-
-* Visibility: **public**
-
+#### Arguments
+* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $broker_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
 

@@ -18,11 +18,11 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
 
         # Run Broker
         $manager->fork(function() use($broker_endpoint) {
-            Majordomo\Broker::run($broker_endpoint, false);
+            Majordomo\Broker::run($broker_endpoint);
         });
 
         # Wait for Broker to bind the address
-        // usleep(100000);
+        // sleep(1);
 
         # Run Titanic
         $manager->fork(function() use($broker_endpoint) {

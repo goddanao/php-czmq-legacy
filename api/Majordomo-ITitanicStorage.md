@@ -21,7 +21,7 @@ Methods
 
 ### read
 
-    mixed Majordomo\ITitanicStorage::read(mixed $what, mixed $uuid)
+    \ZMsg Majordomo\ITitanicStorage::read(string $what, string $uuid)
 
 
 
@@ -31,14 +31,14 @@ Methods
 
 
 #### Arguments
-* $what **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $uuid **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $what **string** - &lt;p&gt;...&lt;/p&gt;
+* $uuid **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### store
 
-    mixed Majordomo\ITitanicStorage::store(mixed $what, mixed $uuid, \FileMq\ZMsg $msg)
+    mixed Majordomo\ITitanicStorage::store(string $what, string $uuid, \FileMq\ZMsg $msg)
 
 
 
@@ -48,15 +48,15 @@ Methods
 
 
 #### Arguments
-* $what **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $uuid **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $what **string** - &lt;p&gt;...&lt;/p&gt;
+* $uuid **string** - &lt;p&gt;...&lt;/p&gt;
 * $msg **FileMq\ZMsg** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### close
 
-    mixed Majordomo\ITitanicStorage::close(mixed $uuid)
+    mixed Majordomo\ITitanicStorage::close(string $uuid)
 
 
 
@@ -66,13 +66,13 @@ Methods
 
 
 #### Arguments
-* $uuid **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $uuid **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### status
 
-    mixed Majordomo\ITitanicStorage::status(mixed $uuid)
+    mixed Majordomo\ITitanicStorage::status(string $uuid)
 
 
 
@@ -82,13 +82,13 @@ Methods
 
 
 #### Arguments
-* $uuid **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $uuid **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### process
 
-    mixed Majordomo\ITitanicStorage::process()
+    string|null Majordomo\ITitanicStorage::process()
 
 
 

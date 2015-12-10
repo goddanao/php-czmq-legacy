@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Majordomo\Client Majordomo\Client::__construct(mixed $broker_endpoint)
+    \Majordomo\Client Majordomo\Client::__construct(string $broker_endpoint)
 
 
 
@@ -31,7 +31,7 @@ Methods
 
 
 #### Arguments
-* $broker_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $broker_endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -50,7 +50,7 @@ Methods
 
 ### recv
 
-    mixed Majordomo\Client::recv()
+    \ZMsg Majordomo\Client::recv()
 
 
 
@@ -63,7 +63,7 @@ Methods
 
 ### call
 
-    mixed Majordomo\Client::call(mixed $service_name)
+    \ZMsg Majordomo\Client::call(string $service_name)
 
 
 
@@ -73,13 +73,13 @@ Methods
 
 
 #### Arguments
-* $service_name **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $service_name **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### call_async
 
-    mixed Majordomo\Client::call_async(mixed $service_name)
+    boolean Majordomo\Client::call_async(string $service_name)
 
 
 
@@ -89,7 +89,7 @@ Methods
 
 
 #### Arguments
-* $service_name **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $service_name **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 

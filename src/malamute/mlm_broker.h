@@ -2,16 +2,31 @@
 
 #include "../common.h"
 
-class MalamuteBroker : public ZHandle, public Php::Base {
-public:
-    MalamuteBroker() : ZHandle(), Php::Base() { }
-    zactor_t *mlm_broker_handle() const { return (zactor_t *) get_handle(); }
+class MalamuteBroker : public ZActor, public Php::Base {
+private:
 
-	void __construct(Php::Parameters &param) {
-	    set_handle(zactor_new (mlm_server, NULL), true, "mlm_broker");
-		if(param.size() > 0 && param[0].boolValue())
-		    zstr_sendx (mlm_broker_handle(), "VERBOSE", NULL);
-	}
+    static void *new_broker(Php::Parameters &param, zpoller_t *poller) {
+        zactor_t *broker = zactor_new(mlm_server, NULL);
+        if(broker) {
+            if(poller)
+                zpoller_add(poller, broker);
+
+            if(param.size()>1 && param[1].boolValue()) {
+                zstr_sendx (broker, "VERBOSE", NULL);
+            }
+            if(param.size() > 0 && param[0].stringValue() != "") {
+                zstr_sendx (broker, "BIND", param[0].stringValue().c_str(), NULL);
+                zclock_sleep(200);
+            }
+            return broker;
+        }
+        return nullptr;
+    }
+
+public:
+
+    MalamuteBroker() : ZActor(&MalamuteBroker::new_broker), Php::Base() { _type = "mlm_broker"; }
+    zactor_t *mlm_broker_handle() const { return (zactor_t *) get_handle(); }
 
 	void set_verbose(Php::Parameters &param) {
 		zstr_sendx (mlm_broker_handle(), "VERBOSE", NULL);
@@ -54,6 +69,17 @@ public:
 		return true;
 	}
 
+	static void run(Php::Parameters &param) {
+        _run(&MalamuteBroker::new_broker,
+        [](void *actor){
+            zactor_destroy((zactor_t **) &actor);
+        },
+        [param](void *actor, void *socket){
+
+        },
+        param);
+    }
+
     static Php::Class<MalamuteBroker> php_register() {
         Php::Class<MalamuteBroker> o("Broker");
         o.method("__construct", &MalamuteBroker::__construct);
@@ -62,6 +88,12 @@ public:
         o.method("bind", &MalamuteBroker::bind, {
           Php::ByVal("endpoint", Php::Type::String, true)
         });
+
+        o.method("run", &MalamuteBroker::run, {
+          Php::ByVal("endpoint", Php::Type::String, true),
+          Php::ByVal("verbose", Php::Type::Bool, false)
+        });
+
         o.method("load_config", &MalamuteBroker::load_config, {
             Php::ByVal("filename", Php::Type::String, true)
         });

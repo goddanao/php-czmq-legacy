@@ -61,6 +61,24 @@ Methods
 
 
 
+### run
+
+    mixed Malamute\Broker::run(mixed $endpoint, mixed $verbose)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
+
+
 ### load_config
 
     mixed Malamute\Broker::load_config(string $filename)

@@ -21,10 +21,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         self::$mg = new ProcessManager();
         self::$mg->zombieOkay(true);
         self::$mg->fork(function(){
-            $broker = new Malamute\Broker();
-            $broker->bind(self::$broker_endpoint);
-            $loop = new ZLoop();
-            $loop->start();
+            Malamute\Broker::run(self::$broker_endpoint);
         });
     }
 

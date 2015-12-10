@@ -21,7 +21,7 @@ Methods
 
 ### on
 
-    mixed IZEmitter::on(mixed $event, callable $listener)
+    mixed IZEmitter::on(string $event, callable $listener)
 
 
 
@@ -31,14 +31,14 @@ Methods
 
 
 #### Arguments
-* $event **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
 * $listener **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### once
 
-    mixed IZEmitter::once(mixed $event, callable $listener)
+    mixed IZEmitter::once(string $event, callable $listener)
 
 
 
@@ -48,14 +48,14 @@ Methods
 
 
 #### Arguments
-* $event **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
 * $listener **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### removelistener
 
-    mixed IZEmitter::removelistener(mixed $event, callable $listener)
+    mixed IZEmitter::removelistener(string $event, callable $listener)
 
 
 
@@ -65,14 +65,14 @@ Methods
 
 
 #### Arguments
-* $event **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
 * $listener **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### removealllisteners
 
-    mixed IZEmitter::removealllisteners(mixed $event)
+    mixed IZEmitter::removealllisteners(string $event)
 
 
 
@@ -82,13 +82,13 @@ Methods
 
 
 #### Arguments
-* $event **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $event **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### listeners
 
-    mixed IZEmitter::listeners(mixed $event)
+    array IZEmitter::listeners(string $event)
 
 
 
@@ -98,13 +98,13 @@ Methods
 
 
 #### Arguments
-* $event **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### emit
 
-    mixed IZEmitter::emit(mixed $event, array $arguments)
+    mixed IZEmitter::emit(string $event, array $arguments)
 
 
 
@@ -114,7 +114,7 @@ Methods
 
 
 #### Arguments
-* $event **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
 * $arguments **array** - &lt;p&gt;...&lt;/p&gt;
 
 

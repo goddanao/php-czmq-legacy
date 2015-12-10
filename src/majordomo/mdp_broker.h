@@ -2,19 +2,22 @@
 
 #include "../common.h"
 
-class MajordomoBrokerV2 : public ZHandle, public Php::Base {
-private:
-    bool _stopped = false;
-    std::string _endpoint = "";
+class MajordomoBrokerV2 : public ZActor, public Php::Base {
 
-    static zactor_t *new_broker(const char *ep, bool verbose) {
+    static void *new_actor(Php::Parameters &param, zpoller_t *poller) {
         zactor_t *broker = zactor_new(mdp_broker, NULL);
         if(broker) {
-            if(verbose) {
+
+            if(poller)
+                zpoller_add(poller, broker);
+
+            if(param.size()>1 && param[1].boolValue()) {
                 zstr_sendx (broker, "VERBOSE", NULL);
             }
-            zstr_sendx (broker, "BIND", ep, NULL);
-            zclock_sleep(200);
+            if(param.size() > 0 && param[0].stringValue() != "") {
+                zstr_sendx (broker, "BIND", param[0].stringValue().c_str(), NULL);
+                zclock_sleep(200);
+            }
             return broker;
         }
         return nullptr;
@@ -22,15 +25,8 @@ private:
 
 public:
 
-    MajordomoBrokerV2() : ZHandle(), Php::Base() {}
+    MajordomoBrokerV2() : ZActor(&MajordomoBrokerV2::new_actor), Php::Base() { _type = "mdp_broker_v2"; }
     zactor_t *zmdpbroker_handle() const { return (zactor_t *) get_handle(); }
-
-	void __construct(Php::Parameters &param) {
-	    _endpoint = (param.size() > 0) ? param[0].stringValue() : "";
-	    bool _verbose  = (param.size() > 1) ? param[1].boolValue() : false;
-		zactor_t *broker = new_broker(_endpoint.c_str(), _verbose);
-		set_handle(broker, true, "mdp_broker_v2");
-	}
 
     void set_verbose(Php::Parameters &param) {
 		zstr_sendx (zmdpbroker_handle(), "VERBOSE", NULL);
@@ -58,24 +54,18 @@ public:
 		if(param.size() == 0)
 			throw Php::Exception("Majordomo Broker can't bind endpoint.");
 		zstr_sendx (zmdpbroker_handle(), "BIND", param[0].stringValue().c_str(), NULL);
-
-		return true;
+        return true;
 	}
 
 	static void run(Php::Parameters &param) {
-        std::string _endpoint = param[0].stringValue();
-        bool _verbose  = (param.size() > 1) ? param[1].boolValue() : false;
+        _run(&MajordomoBrokerV2::new_actor,
+        [](void *actor){
+            zactor_destroy((zactor_t **) &actor);
+        },
+        [param](void *actor, void *socket){
 
-        zactor_t *broker = new_broker(_endpoint.c_str(), _verbose);
-        zpoller_t *poller = zpoller_new(zsock_resolve(broker));
-        while (!zsys_interrupted) {
-            void *socket = zpoller_wait(poller, -1);
-            if(zpoller_terminated(poller)) {
-                break;
-            }
-        }
-        zpoller_destroy(&poller);
-        zactor_destroy(&broker);
+        },
+        param);
     }
 
     static Php::Class<MajordomoBrokerV2> php_register() {
