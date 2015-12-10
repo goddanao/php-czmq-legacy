@@ -9,6 +9,27 @@ public:
 
     // Php Value Utils
 
+    static zmsg_t *params_to_zmsg(const Php::Parameters &param, int start = 0, int end = -1) {
+        zmsg_t *zmsg = zmsg_new();
+
+        if(end == -1)
+            end = param.size();
+
+        for(int idx = start; idx < end; idx++) {
+            zmsg_t *mm = phpvalue_to_zmsg(param[idx]);
+            if(mm) {
+               zframe_t *f = zmsg_pop(mm);
+               while(f) {
+                 zmsg_append(zmsg, &f);
+                 f = zmsg_pop(mm);
+               }
+               zmsg_destroy(&mm);
+           }
+        }
+
+        return zmsg;
+    }
+
     static zmsg_t *phpvalue_to_zmsg(const Php::Value &value) {
         ZValue *val = (ZValue *) &value;
         return val->to_zmsg();

@@ -8,6 +8,10 @@ private:
     std::string _broker_endpoint;
     Php::Value _callback;
 
+    static mdp_worker_t *new_worker(std::string name, std::string endpoint) {
+        return mdp_worker_new(endpoint.c_str(), name.c_str());
+    }
+
 public:
 
     MajordomoWorkerV2() : ZHandle(), Php::Base() {};
@@ -18,7 +22,7 @@ public:
         _name = param[0].stringValue();
         _broker_endpoint = param[1].stringValue();
         _callback = param[2];
-        set_handle(mdp_worker_new(_broker_endpoint.c_str(), _name.c_str()), true, "mdp_worker_v2");
+        set_handle(new_worker(_name, _broker_endpoint), true, "mdp_worker_v2");
     }
 
     void set_verbose() {
@@ -40,8 +44,36 @@ public:
         return false;
     }
 
-    void run() {
-        while(process().boolValue()) ;
+
+    static void run(Php::Parameters &param) {
+        std::string _name = param[0].stringValue();
+        std::string _broker_endpoint = param[1].stringValue();
+
+        mdp_worker_t *worker = new_worker(_name, _broker_endpoint);
+        zclock_sleep(100);
+
+        zpoller_t *poller = zpoller_new(mdp_worker_msgpipe(worker));
+
+        while (!zsys_interrupted) {
+            void *socket = zpoller_wait(poller, -1);
+            if(zpoller_terminated(poller)) {
+                break;
+            }
+            if(socket == mdp_worker_msgpipe(worker)) {
+                char *command;
+                zframe_t *address;
+                zmsg_t *body;
+                int rc = zsock_recv(socket, "sfm", &command, &address, &body);
+                if(rc == 0) {
+                    Php::Value result = param[2](Php::Object("ZMsg", new ZMsg(body, true)));
+                    zmsg_t *zmsg = ZUtils::phpvalue_to_zmsg(result);
+                    mdp_worker_send_final(worker, &address, &zmsg);
+                    zstr_free(&command);
+                }
+            }
+        }
+        zpoller_destroy(&poller);
+        mdp_worker_destroy(&worker);
     }
 
     static Php::Class<MajordomoWorkerV2> php_register() {
@@ -52,7 +84,11 @@ public:
             Php::ByVal("callback", Php::Type::Callable, true)
         });
         o.method("set_verbose", &MajordomoWorkerV2::set_verbose);
-        o.method("run", &MajordomoWorkerV2::run);
+        o.method("run", &MajordomoWorkerV2::run, {
+            Php::ByVal("name", Php::Type::String, true),
+            Php::ByVal("broker_endpoint", Php::Type::String, true),
+            Php::ByVal("callback", Php::Type::Callable, true)
+        });
         o.method("process", &MajordomoWorkerV2::process);
 
         // IZSocket intf support

@@ -9,12 +9,11 @@
 
 class MajordomoTitanicV2 : public ZHandle, public Php::Base  {
 private:
-    std::string _broker_endpoint;
     std::map<zactor_t *, _actor_data *> _actors;
 
-    _actor_data *actor_data_new(Php::Parameters &param) {
+    static _actor_data *actor_data_new(Php::Parameters &param) {
         _actor_data *data = new _actor_data;
-        data->ep = _broker_endpoint.c_str();
+        data->ep = strdup(param[0].stringValue().c_str());
         data->st = [param](){
             if(param.size()>1 && param[1].isObject() && !param[1].isNull()) {
                 return (TitanicStorage*) new PhpCallbackStorage(param[1]);
@@ -25,13 +24,8 @@ private:
         return data;
     }
 
-public:
-
-    MajordomoTitanicV2() : ZHandle(), Php::Base() {};
-
-    void __construct(Php::Parameters &param) {
-        _broker_endpoint = param[0].stringValue();
-
+    static std::map<zactor_t *, _actor_data *> new_titanic(Php::Parameters &param) {
+        std::map<zactor_t *, _actor_data *> _actors;
         int _threads = param.size()>2 ? param[2].numericValue() : 1;
 
         _actor_data *ad = actor_data_new(param);
@@ -46,16 +40,33 @@ public:
             _actors.insert({zactor_new(zmdp_titanic_close, (void*) ad), ad});
             _threads--;
         }
+
+        return _actors;
     }
 
-    virtual ~MajordomoTitanicV2(){
+    static void destroy_titanic(std::map<zactor_t *, _actor_data *> &_actors) {
         for (auto it = std::begin(_actors); it!=std::end(_actors); ++it) {
             zactor_destroy((_zactor_t**) &(it->first));
+            zstr_free(&(it->second->ep));
             delete (_actor_data *) it->second;
         }
     }
 
-    void run(void) {
+public:
+
+    MajordomoTitanicV2() : ZHandle(), Php::Base() {};
+
+    void __construct(Php::Parameters &param) {
+        _actors = new_titanic(param);
+    }
+
+    virtual ~MajordomoTitanicV2(){
+        destroy_titanic(_actors);
+    }
+
+    static void run(Php::Parameters &param) {
+
+        std::map<zactor_t *, _actor_data *> _actors = new_titanic(param);
 
         zpoller_t *poller = zpoller_new(NULL);
         for (auto it = std::begin(_actors); it!=std::end(_actors); ++it)
@@ -67,8 +78,8 @@ public:
                 break;
             }
         }
-
         zpoller_destroy(&poller);
+        destroy_titanic(_actors);
     }
 
     static Php::Class<MajordomoTitanicV2> php_register() {
@@ -78,7 +89,11 @@ public:
             Php::ByVal("storage", "Majordomo\\ITitanicStorage", true, false),
             Php::ByVal("threads", Php::Type::Numeric, false)
         });
-        o.method("run", &MajordomoTitanicV2::run);
+        o.method("run", &MajordomoTitanicV2::run, {
+            Php::ByVal("endpoint", Php::Type::String, true),
+            Php::ByVal("storage", "Majordomo\\ITitanicStorage", true, false),
+            Php::ByVal("threads", Php::Type::Numeric, false)
+        });
 
         // IZSocket intf support
         o.method("get_fd", &MajordomoWorkerV2::get_fd);

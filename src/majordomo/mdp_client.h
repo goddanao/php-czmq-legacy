@@ -38,13 +38,7 @@ public:
 		if(param.size() == 0)
 			throw Php::Exception("MajordomoClient call need service name and params..");
 
-        zmsg_t *zmsg;
-
-        if(param.size() > 1) {
-            zmsg = ZUtils::phpvalue_to_zmsg(param[1]);
-        }
-		else
-		    zmsg = zmsg_new();
+        zmsg_t *zmsg = ZUtils::params_to_zmsg(param, 1);
 
         int rc = mdp_client_request(mdpclient_handle(),  param[0].stringValue().c_str(), &zmsg);
         return (rc == 0);

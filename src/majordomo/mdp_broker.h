@@ -71,7 +71,6 @@ public:
         while (!zsys_interrupted) {
             void *socket = zpoller_wait(poller, -1);
             if(zpoller_terminated(poller)) {
-                zpoller_destroy(&poller);
                 break;
             }
         }

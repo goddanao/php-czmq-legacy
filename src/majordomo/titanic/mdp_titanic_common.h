@@ -4,7 +4,7 @@
 #include "mdp_titanic_storage.h"
 
 typedef struct {
-    const char *ep;
+    char *ep;
     std::function<TitanicStorage*()> st;
 } _actor_data;
 
