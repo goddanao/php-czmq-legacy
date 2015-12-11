@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \FileMq\Server FileMq\Server::__construct()
+    \FileMq\Server FileMq\Server::__construct(mixed $endpoint, array $options)
 
 
 
@@ -29,6 +29,30 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
+
+
+
+### run
+
+    mixed FileMq\Server::run(mixed $endpoint, mixed $path, mixed $alias, array $options)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $path **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $alias **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -127,6 +151,96 @@ FileMQ Server endpoint to bind.
 
 
 
+### send
+
+    mixed FileMq\Server::send(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv
+
+    \ZMsg FileMq\Server::recv()
+
+Recieve a ZMsg.
+
+
+
+* Visibility: **public**
+
+
+
+
+### send_string
+
+    mixed FileMq\Server::send_string(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_string
+
+    mixed FileMq\Server::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send_picture
+
+    mixed FileMq\Server::send_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_picture
+
+    mixed FileMq\Server::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
 ### get_fd
 
     integer IZDescriptor::get_fd()
@@ -151,19 +265,6 @@ FileMQ Server endpoint to bind.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
-
-
-
-
-### recv
-
-    \ZMsg FileMq\Server::recv()
-
-Recieve a ZMsg.
-
-
-
-* Visibility: **public**
 
 
 

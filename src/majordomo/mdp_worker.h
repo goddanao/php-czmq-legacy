@@ -4,6 +4,7 @@
 
 class MajordomoWorkerV2 : public ZActor, public Php::Base  {
 private:
+    zframe_t *address = nullptr; // Address to respond at
 
     static void *new_actor(Php::Parameters &param, zpoller_t *poller) {
         mdp_worker_t *worker = mdp_worker_new(param[1].stringValue().c_str(), param[0].stringValue().c_str());
@@ -21,20 +22,27 @@ public:
         mdp_worker_set_verbose(mdpworker_handle());
     }
 
-//    Php::Value process() {
-//        char *command;
-//        zframe_t *address;
-//        zmsg_t *body;
-//        int rc = zsock_recv(mdp_worker_msgpipe(mdpworker_handle()), "sfm", &command, &address, &body);
-//        if(rc == 0) {
-//            Php::Value result = _callback(Php::Object("ZMsg", new ZMsg(body, true)));
-//            zmsg_t *zmsg = ZUtils::phpvalue_to_zmsg(result);
-//            mdp_worker_send_final(mdpworker_handle(), &address, &zmsg);
-//            zstr_free(&command);
-//            return true;
-//        }
-//        return false;
-//    }
+    bool _send(zmsg_t *msg) override {
+        bool success = mdp_worker_send_final(mdpworker_handle(), &address, &msg) == 0;
+        address = nullptr;
+        return success;
+    }
+
+    zmsg_t *_recv() override {
+        char *command;
+        zmsg_t *body;
+        if(address != nullptr) {
+            zframe_destroy(&address);
+            address = nullptr;
+        }
+
+        int rc = zsock_recv(zsock_resolve(mdp_worker_msgpipe(mdpworker_handle())), "sfm", &command, &address, &body);
+        if(rc == 0) {
+            zstr_free(&command);
+            return body;
+        }
+        return nullptr;
+    }
 
     static void run(Php::Parameters &param) {
         _run(&MajordomoWorkerV2::new_actor,
@@ -56,45 +64,11 @@ public:
         param);
     }
 
-//    static void run(Php::Parameters &param) {
-//
-//
-//        std::string _name = param[0].stringValue();
-//        std::string _broker_endpoint = param[1].stringValue();
-//
-//        mdp_worker_t *worker = new_worker(_name, _broker_endpoint);
-//        zclock_sleep(100);
-//
-//        zpoller_t *poller = zpoller_new(mdp_worker_msgpipe(worker));
-//
-//        while (!zsys_interrupted) {
-//            void *socket = zpoller_wait(poller, -1);
-//            if(zpoller_terminated(poller)) {
-//                break;
-//            }
-//            if(socket == mdp_worker_msgpipe(worker)) {
-//                char *command;
-//                zframe_t *address;
-//                zmsg_t *body;
-//                int rc = zsock_recv(socket, "sfm", &command, &address, &body);
-//                if(rc == 0) {
-//                    Php::Value result = param[2](Php::Object("ZMsg", new ZMsg(body, true)));
-//                    zmsg_t *zmsg = ZUtils::phpvalue_to_zmsg(result);
-//                    mdp_worker_send_final(worker, &address, &zmsg);
-//                    zstr_free(&command);
-//                }
-//            }
-//        }
-//        zpoller_destroy(&poller);
-//        mdp_worker_destroy(&worker);
-//    }
-
     static Php::Class<MajordomoWorkerV2> php_register() {
         Php::Class<MajordomoWorkerV2> o("Worker");
         o.method("__construct", &MajordomoWorkerV2::__construct, {
             Php::ByVal("name", Php::Type::String, true),
-            Php::ByVal("broker_endpoint", Php::Type::String, true),
-            Php::ByVal("callback", Php::Type::Callable, true)
+            Php::ByVal("broker_endpoint", Php::Type::String, true)
         });
         o.method("set_verbose", &MajordomoWorkerV2::set_verbose);
         o.method("run", &MajordomoWorkerV2::run, {
@@ -103,6 +77,21 @@ public:
             Php::ByVal("callback", Php::Type::Callable, true)
         });
 //        o.method("process", &MajordomoWorkerV2::process);
+
+        o.method("send", &MajordomoWorkerV2::send, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o.method("recv", &MajordomoWorkerV2::recv);
+        o.method("send_string", &MajordomoWorkerV2::send_string, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o.method("recv_string", &MajordomoWorkerV2::recv_string);
+        o.method("send_picture", &MajordomoWorkerV2::send_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        o.method("recv_picture", &MajordomoWorkerV2::recv_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
 
         // IZSocket intf support
         o.method("get_fd", &MajordomoWorkerV2::get_fd);

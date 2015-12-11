@@ -50,6 +50,18 @@ public:
         return val->get_fd();
     }
 
+    static zconfig_t *phparray_to_zconfig(const Php::Value &value, std::string root) {
+        zconfig_t *config = nullptr;
+        if(value.isArray() && value.size()>0) {
+            config = zconfig_new(root.c_str(), NULL);
+            for(auto &it : value) {
+                std::string path = root + "/" + it.first.stringValue();
+                zconfig_put(config, path.c_str(), it.second.stringValue().c_str());
+            }
+        }
+        return config;
+    }
+
     // String Utils
 
     static std::string toUpper(const std::string& s) {

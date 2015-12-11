@@ -84,20 +84,20 @@ public:
         if(_type == "fmq_server")
             return (void *) zsock_resolve(_handle);
         if(_type == "fmq_client")
-             return fmq_client_msgpipe((fmq_client_t *) _handle);
+             return zsock_resolve(fmq_client_msgpipe((fmq_client_t *) _handle));
 
         if(_type == "mdp_broker_v2")
             return (void *) zsock_resolve(_handle);
         if(_type == "mdp_worker_v2")
-            return (void *) mdp_worker_msgpipe((mdp_worker_t *) _handle);
+            return (void *) zsock_resolve(mdp_worker_msgpipe((mdp_worker_t *) _handle));
         if(_type == "mdp_client_v2")
-            return (void *) mdp_client_msgpipe((mdp_client_t *) _handle);
+            return (void *) zsock_resolve(mdp_client_msgpipe((mdp_client_t *) _handle));
 
 #if (ZMQ_VERSION >= ZMQ_MAKE_VERSION(4,2,0))
         if(_type == "mlm_broker")
             return (void *) zsock_resolve(_handle);
         if(_type == "mlm_client")
-            return (void *) mlm_client_msgpipe((mlm_client_t *) _handle);
+            return (void *) zsock_resolve(mlm_client_msgpipe((mlm_client_t *) _handle));
 #endif
         if(_type == "zyre")
             return (void *) zsock_resolve(zyre_socket((zyre_t*)_handle));
@@ -183,6 +183,14 @@ public:
 
         _handle = nullptr;
         _fd = -1;
+    }
+
+    virtual bool _send(zmsg_t *msg) {
+        return (zmsg_send (&msg, get_socket()) == 0);
+    }
+
+    virtual zmsg_t *_recv() {
+        return zmsg_recv (get_socket());
     }
 
     virtual Php::Value send_picture(Php::Parameters &param);

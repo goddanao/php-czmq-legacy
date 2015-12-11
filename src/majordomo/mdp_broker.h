@@ -95,6 +95,21 @@ public:
             Php::ByVal("value", Php::Type::String, true)
         });
 
+        o.method("send", &MajordomoBrokerV2::send, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o.method("recv", &MajordomoBrokerV2::recv);
+        o.method("send_string", &MajordomoBrokerV2::send_string, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o.method("recv_string", &MajordomoBrokerV2::recv_string);
+        o.method("send_picture", &MajordomoBrokerV2::send_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        o.method("recv_picture", &MajordomoBrokerV2::recv_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+
 		// IZSocket intf support
         o.method("get_fd", &MajordomoBrokerV2::get_fd);
         o.method("get_socket", &MajordomoBrokerV2::_get_socket);

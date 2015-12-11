@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Majordomo\Worker Majordomo\Worker::__construct(mixed $name, mixed $broker_endpoint, callable $callback)
+    \Majordomo\Worker Majordomo\Worker::__construct(mixed $name, mixed $broker_endpoint)
 
 
 
@@ -33,7 +33,6 @@ Methods
 #### Arguments
 * $name **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $broker_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -66,6 +65,96 @@ Methods
 * $name **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $broker_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $callback **callable** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send
+
+    mixed Majordomo\Worker::send(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv
+
+    mixed Majordomo\Worker::recv()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send_string
+
+    mixed Majordomo\Worker::send_string(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_string
+
+    mixed Majordomo\Worker::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send_picture
+
+    mixed Majordomo\Worker::send_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_picture
+
+    mixed Majordomo\Worker::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

@@ -56,6 +56,96 @@ Methods
 
 
 
+### send
+
+    mixed Majordomo\Titanic::send(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv
+
+    mixed Majordomo\Titanic::recv()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send_string
+
+    mixed Majordomo\Titanic::send_string(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_string
+
+    mixed Majordomo\Titanic::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send_picture
+
+    mixed Majordomo\Titanic::send_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_picture
+
+    mixed Majordomo\Titanic::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
 ### get_fd
 
     integer IZDescriptor::get_fd()

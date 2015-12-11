@@ -7,6 +7,8 @@ protected:
     std::function<void *(Php::Parameters &param, zpoller_t *)> _new;
     std::function<void (void *)> _destroy;
     std::function<void (void *, void *)> _poll;
+
+
 public:
 
     ZActor(std::function<void *(Php::Parameters &param, zpoller_t *)> __new, std::function<void (void *)> __destroy = NULL, std::function<void (void *, void *)> __poll = NULL) : ZHandle(), _new(__new), _destroy(__destroy), _poll(__poll) { _type = "zactor"; }

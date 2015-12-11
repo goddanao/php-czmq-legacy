@@ -8,11 +8,11 @@ Php::Value ZHandle::send_picture(Php::Parameters &param) {
     zmsg_t *msg = zmsg_new();
     ZMsg z(msg, false);
     z.append_picture(param);
-    return (zmsg_send (&msg, get_socket()) == 0);
+    return _send (msg);
 }
 
 Php::Value ZHandle::recv_picture(Php::Parameters &param) {
-    zmsg_t *msg = zmsg_recv (get_socket());
+    zmsg_t *msg = _recv ();
     if(!msg)
         return nullptr;
     ZMsg z(msg, true);
@@ -21,11 +21,11 @@ Php::Value ZHandle::recv_picture(Php::Parameters &param) {
 
 Php::Value ZHandle::send_string(Php::Parameters &param) {
     zmsg_t *msg = ZUtils::phpvalue_to_zmsg(param[0]);
-    return (zmsg_send (&msg, get_socket()) == 0);
+    return _send(msg);
 }
 
 Php::Value ZHandle::recv_string(Php::Parameters &param) {
-    zmsg_t *msg = zmsg_recv (get_socket());
+    zmsg_t *msg = _recv ();
     if(!msg)
         return nullptr;
     ZMsg z(msg, true);
@@ -34,11 +34,11 @@ Php::Value ZHandle::recv_string(Php::Parameters &param) {
 
 Php::Value ZHandle::send(Php::Parameters &param) {
     zmsg_t *msg = ZUtils::phpvalue_to_zmsg(param[0]);
-    return (zmsg_send(&msg, get_socket()) == 0);
+    return _send(msg);
 }
 
 Php::Value ZHandle::recv(Php::Parameters &param) {
-    zmsg_t *msg = zmsg_recv (get_socket());
+    zmsg_t *msg = _recv ();
     if(!msg)
         return nullptr;
     return Php::Object("ZMsg", new ZMsg(msg, true));

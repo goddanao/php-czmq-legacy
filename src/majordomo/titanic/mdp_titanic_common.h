@@ -4,6 +4,7 @@
 #include "mdp_titanic_storage.h"
 
 typedef struct {
+    int threads;
     char *ep;
     std::function<TitanicStorage*()> st;
 } _actor_data;

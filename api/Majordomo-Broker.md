@@ -132,6 +132,96 @@ Methods
 
 
 
+### send
+
+    mixed Majordomo\Broker::send(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv
+
+    mixed Majordomo\Broker::recv()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send_string
+
+    mixed Majordomo\Broker::send_string(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_string
+
+    mixed Majordomo\Broker::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send_picture
+
+    mixed Majordomo\Broker::send_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_picture
+
+    mixed Majordomo\Broker::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
 ### get_fd
 
     integer IZDescriptor::get_fd()

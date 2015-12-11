@@ -37,32 +37,23 @@ Create e new instance.
 
 
 
-### set_timeout
+### run
 
-    mixed FileMq\Client::set_timeout(integer $timeout)
+    mixed FileMq\Client::run(mixed $endpoint, mixed $local_path, mixed $remote_path, mixed $timeout)
 
 
 
 ...
 
 * Visibility: **public**
+* This method is **static**.
 
 
 #### Arguments
-* $timeout **integer** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### connect
-
-    mixed FileMq\Client::connect()
-
-
-
-...
-
-* Visibility: **public**
-
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $local_path **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $remote_path **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $timeout **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -82,6 +73,22 @@ Create e new instance.
 
 
 
+### send
+
+    mixed FileMq\Client::send(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
 ### recv
 
     \ZMsg FileMq\Client::recv()
@@ -92,6 +99,67 @@ Recieve a ZMsg.
 
 * Visibility: **public**
 
+
+
+
+### send_string
+
+    mixed FileMq\Client::send_string(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_string
+
+    mixed FileMq\Client::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send_picture
+
+    mixed FileMq\Client::send_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_picture
+
+    mixed FileMq\Client::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
