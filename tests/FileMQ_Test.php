@@ -7,29 +7,23 @@ class FileMqTest extends \PHPUnit_Framework_TestCase {
 
     public function test_filemq()
     {
-        $ep = "tcp://127.0.0.1:8859";
+        $ep = "tcp://127.0.0.1:8879";
         $server_path = realpath(__DIR__ . "/storage/remote");
         $client_path = realpath(__DIR__ . "/storage/local");
 
         $manager = new ProcessManager();
-        # $manager->zombieOkay(true);
+        $manager->zombieOkay(true);
 
         # FileMQ Server
         $manager->fork(function() use ($ep, $server_path) {
-            $server = new \FileMQ\Server();
-            $server->load_config(__DIR__ . "/cfg/filemq.cfg");
-            $server->bind($ep);
-            $server->publish($server_path, "/");
-            $loop = new ZLoop();
-            $loop->start();
+            FileMQ\Server::run($ep, $server_path, "/", [
+                "security/mechanism" => "null"
+            ]);
         });
 
         # FileMQ Client
         $manager->fork(function() use ($ep, $client_path) {
-            $client = new \FileMq\Client($ep, $client_path, 1000);
-            $client->subscribe("/");
-            $loop = new ZLoop();
-            $loop->start();
+            FileMq\Client::run($ep, $client_path, "/");
         });
 
         $timeout = 10;

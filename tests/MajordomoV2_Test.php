@@ -22,7 +22,7 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
         });
 
         # Wait for Broker to bind the address
-        // sleep(1);
+        sleep(1);
 
         # Run Titanic
         $manager->fork(function() use($broker_endpoint) {
@@ -33,10 +33,22 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
         for($i = 0; $i < 1; $i++) {
             $manager->fork(function () use ($broker_endpoint, $i) {
                 Majordomo\Worker::run('myworker', $broker_endpoint, function ($req) use ($i) {
-                    // $usec = rand(1000, 500000);
-                    // usleep($usec);
                     return "OK";
                 });
+            });
+        }
+
+        # Run 5 Workers
+        for($i = 0; $i < 1; $i++) {
+            $manager->fork(function () use ($broker_endpoint, $i) {
+                $loop = new ZLoop();
+                $worker = new Majordomo\Worker('myworker', $broker_endpoint);
+                $loop->add($worker, function($socket, $zloop) use ($i) {
+                    $msg = $socket->recv();
+                    if($msg)
+                        $socket->send("OK");
+                });
+                $loop->start();
             });
         }
 
@@ -51,7 +63,7 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
         // test mdp
         $loop->add_timer(1, function($timer_id, $loop) use ($broker_endpoint, $manager, &$requests) {
             for($i = 0; $i < 10; $i++) {
-                usleep(100000);
+                usleep(150000);
                 $requests[] = $manager->fork(function() use($i, $broker_endpoint) {
                     $client = new Majordomo\Client($broker_endpoint);
                     $result = $client->call('myworker', "requestId - $i");
@@ -86,7 +98,8 @@ class MajordomoV2Test extends \PHPUnit_Framework_TestCase {
         $res = true;
         foreach($requests as $client) {
             $client->receive();
-            $res = $res && ($client->getResult() == "OK");
+            $r = $client->getResult();
+            $res = $res && ($r == "OK");
         }
 
         $manager->killAll();
