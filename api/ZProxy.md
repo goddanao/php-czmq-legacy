@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \ZProxy ZProxy::__construct()
+    \ZProxy ZProxy::__construct(mixed $verbose)
 
 
 
@@ -29,6 +29,9 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 

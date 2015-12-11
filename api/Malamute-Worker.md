@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Malamute\Worker Malamute\Worker::__construct(string $endpoint, string $address, string $pattern)
+    \Malamute\Worker Malamute\Worker::__construct(string $endpoint, mixed $name, string $pattern)
 
 
 
@@ -32,30 +32,34 @@ Methods
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
-* $address **string** - &lt;p&gt;...&lt;/p&gt;
+* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $pattern **string** - &lt;p&gt;... (optional)&lt;/p&gt;
-
-
-
-### set_timeout
-
-    mixed Malamute\Worker::set_timeout(integer $timeout)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $timeout **integer** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### run
 
-    mixed Malamute\Worker::run(callable $callback)
+    mixed Malamute\Worker::run(mixed $endpoint, mixed $name, mixed $pattern, callable $callback)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $pattern **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### headers
+
+    mixed Malamute\Worker::headers(mixed $header)
 
 
 
@@ -65,7 +69,7 @@ Methods
 
 
 #### Arguments
-* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
+* $header **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 

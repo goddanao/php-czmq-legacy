@@ -57,9 +57,12 @@ public:
             if(rc == 0) {
                 zstr_free(&command);
                 Php::Value result = param[2](Php::Object("ZMsg", new ZMsg(body, true)));
+                if(result.isBool() && !result.boolValue())
+                    return false;
                 zmsg_t *zmsg = ZUtils::phpvalue_to_zmsg(result);
                 mdp_worker_send_final((mdp_worker_t*) actor, &address, &zmsg);
             }
+            return true;
         },
         param);
     }

@@ -63,36 +63,65 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         $endpoint = self::$broker_endpoint;
 
         # Start a Stream Consumer
-        $client = $manager->fork(function() use ($msg_count, $endpoint) {
+        $client[] = $manager->fork(function() use ($msg_count, $endpoint) {
             $processed = 0;
-            $worker = new Malamute\Consumer($endpoint, "my_stream");
-            $worker->run("mysubject", function($msg, $me) use(&$processed, $msg_count) {
+            $worker = new Malamute\Consumer($endpoint);
+            $worker->consume("my_stream", "mysubject");
+            $zloop = new ZLoop();
+            $zloop->add($worker, function($me) use (&$processed, $msg_count) {
+                $msg = $me->recv();
+                $processed++;
+            });
+            $zloop->add_timer(1500, function($timer_id, $loop) {
+                $loop->stop();
+            });
+            $zloop->start();
+            return ($msg_count == $processed) ? "OK" : "KO";
+        });
+
+        # Start another Stream Consumer
+        $client[] = $manager->fork(function() use ($msg_count, $endpoint) {
+            $processed = 0;
+            Malamute\Consumer::run($endpoint, "my_stream", "mysubject", function($msg, $headers) use (&$processed, $msg_count) {
                 $processed++;
                 return ($processed < $msg_count) ? true : false;
             });
-
             return ($msg_count == $processed) ? "OK" : "KO";
         });
 
         # Start a Stream Producer
+//        $manager->fork(function() use ($msg_count, $endpoint) {
+//            $processed = 0;
+//            $worker = new Malamute\Producer($endpoint, "my_stream");
+//            $zloop = new ZLoop();
+//            $zloop->add_timer(100, function($timer_id, $loop) use ($worker, &$processed, $msg_count) {
+//                $worker->send("mysubject", "mydata");
+//                $processed++;
+//            }, 10);
+//            $zloop->add_timer(1500, function($timer_id, $loop) {
+//                $loop->stop();
+//            });
+//            $zloop->start();
+//        });
+
         $manager->fork(function() use ($msg_count, $endpoint) {
             $processed = 0;
-            $worker = new Malamute\Producer($endpoint, "my_stream");
-            $worker->run("mysubject", function() use(&$processed, $msg_count) {
-                $processed++;
+            Malamute\Producer::run($endpoint, "my_stream", "mysubject", function() use (&$processed, $msg_count) {
                 $usec = rand(0, 1000);
                 usleep($usec);
-                return ($processed <= $msg_count) ? "mydata" : false;
+                return ($processed++ < $msg_count) ? "mydata" : false;
             });
         });
 
         sleep(2);
 
-        $client->receive();
-        $result = $client->getResult();
+        foreach($client as $c) {
+            $c->receive();
+            $result = $c->getResult();
+            $this->assertEquals($result,"OK");
+        }
+
         $manager->killAll();
-        $this->assertEquals($result,"OK");
-        $manager = null;
 
     }
 
@@ -103,21 +132,19 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         $endpoint = self::$broker_endpoint;
 
         $w = $manager->fork(function() use ($endpoint) {
-            $done = false;
-            $worker = new Malamute\Worker($endpoint, "my_mailbox_worker");
-            $worker->run(function($req, $headers) use(&$done) {
-                $done = true;
+            $done = "KO";
+            Malamute\Worker::run($endpoint, "my_mailbox_worker", "", function($req, $headers) use(&$done) {
+                $done = "OK";
                 return false;
             });
-
-            return $done ? "OK" : "KO";
+            return $done;
         });
 
         # Start Client (Send Work to MailBox)
         $manager->fork(function() use ($endpoint) {
             $service_client = new Malamute\Client($endpoint);
             $service_client->connect();
-            $service_client->send_mailbox('my_mailbox_worker', json_encode(['gino' => 'pino' . $i]), 1000);
+            $service_client->send_mailbox('my_mailbox_worker', json_encode(['stovazzo' => 'stavinchia' . $i]), 1000);
         });
 
         sleep(2);
@@ -125,8 +152,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         $w->receive();
         $result = $w->getResult();
         $manager->killAll();
-        $this->assertEquals($result,"OK");
-        $manager = null;
+        $this->assertTrue($result == "OK");
 
     }
 
@@ -140,8 +166,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         for($i = 0; $i < 5; $i++)
             $forks[] = $manager->fork(function() use($i, $endpoint) {
                 $processed = 0;
-                $worker   = new Malamute\Worker($endpoint, "my_worker", "mywork*");
-                $worker->run(function($req, $me) use($i, &$processed) {
+                Malamute\Worker::run($endpoint, "my_worker", "mywork*", function($req, $me) use($i, &$processed) {
                     $processed++;
                     $usec = rand(0, 1000);
                     usleep($usec);

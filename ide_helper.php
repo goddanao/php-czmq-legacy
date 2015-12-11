@@ -1242,9 +1242,10 @@ class ZProxy implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @param mixed $verbose ... (optional)
    * @return \ZProxy
   */
-  public function __construct() {}
+  public function __construct($verbose) {}
 
   /**
    * ...
@@ -1321,9 +1322,10 @@ class ZBeacon implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @param mixed $verbose ... (optional)
    * @return \ZBeacon
   */
-  public function __construct() {}
+  public function __construct($verbose) {}
 
   /**
    * ...
@@ -1404,9 +1406,10 @@ class ZAuth implements \IZSocket, \IZDescriptor {
   /**
    *  
    * 
+   * @param mixed $verbose ... (optional)
    * @return \ZAuth
   */
-  public function __construct() {}
+  public function __construct($verbose) {}
 
   /**
    * Enable verbose logging of commands and activity. Verbose logging can help
@@ -1479,9 +1482,10 @@ class ZGossip implements \IZSocket, \IZDescriptor {
   /**
    *  
    * 
+   * @param mixed $verbose ... (optional)
    * @return \ZGossip
   */
-  public function __construct() {}
+  public function __construct($verbose) {}
 
   /**
    * Enable verbose logging of commands and activity.
@@ -2408,25 +2412,28 @@ class Worker implements \IZSocket, \IZDescriptor {
    * ...
    * 
    * @param string $endpoint ...
-   * @param string $address ...
+   * @param mixed $name ...
    * @param string $pattern ... (optional)
    * @return \Malamute\Worker
   */
-  public function __construct($endpoint, $address, $pattern) {}
+  public function __construct($endpoint, $name, $pattern) {}
 
   /**
    * ...
    * 
-   * @param int $timeout ...
-  */
-  public function set_timeout($timeout) {}
-
-  /**
-   * ...
-   * 
+   * @param mixed $endpoint ...
+   * @param mixed $name ...
+   * @param mixed $pattern ...
    * @param callable $callback ...
   */
-  public function run(callable $callback) {}
+  static public function run($endpoint, $name, $pattern, callable $callback) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $header ... (optional)
+  */
+  public function headers($header) {}
 
   /**
    * Get the underlying Malamute Client.
@@ -2591,17 +2598,37 @@ class Producer implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param int $timeout ...
+   * @param mixed $endpoint ...
+   * @param mixed $stream ...
+   * @param string $subject ...
+   * @param callable $callback ...
   */
-  public function set_timeout($timeout) {}
+  static public function run($endpoint, $stream, $subject, callable $callback) {}
 
   /**
    * ...
    * 
-   * @param string $subject ...
-   * @param callable $callback ...
+   * @param mixed $subject ...
+   * @param mixed $data ...
   */
-  public function run($subject, callable $callback) {}
+  public function send($subject, $data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $subject ...
+   * @param mixed $data ...
+  */
+  public function send_string($subject, $data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $subject ...
+   * @param mixed $picture ...
+   * @param mixed $data ...
+  */
+  public function send_picture($subject, $picture, $data) {}
 
   /**
    * Get the underlying Malamute Client.
@@ -2638,32 +2665,55 @@ class Consumer implements \IZSocket, \IZDescriptor {
    * ...
    * 
    * @param string $endpoint ...
-   * @param string $stream ...
+   * @param string $stream ... (optional)
+   * @param mixed $pattern ... (optional)
    * @return \Malamute\Consumer
   */
-  public function __construct($endpoint, $stream) {}
+  public function __construct($endpoint, $stream, $pattern) {}
 
   /**
    * ...
    * 
-   * @param int $timeout ...
+   * @param mixed $stream ...
+   * @param mixed $pattern ...
   */
-  public function set_timeout($timeout) {}
+  public function consume($stream, $pattern) {}
 
   /**
    * ...
    * 
-   * @param string $header ... (optional)
-  */
-  public function header($header) {}
-
-  /**
-   * ...
-   * 
+   * @param mixed $endpoint ...
+   * @param mixed $stream ...
    * @param string $pattern ...
    * @param callable $callback ...
   */
-  public function run($pattern, callable $callback) {}
+  static public function run($endpoint, $stream, $pattern, callable $callback) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $header ... (optional)
+  */
+  public function headers($header) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_string() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $picture ...
+  */
+  public function recv_picture($picture) {}
 
   /**
    * Get the underlying Malamute Client.

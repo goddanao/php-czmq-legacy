@@ -2,18 +2,24 @@
 
 #include "../common.h"
 
-class ZProxy : public ZHandle, public Php::Base {
+class ZProxy : public ZActor, public Php::Base {
 private:
-    bool _verbose = false;
+
+    static void *new_actor(Php::Parameters &param, zpoller_t *poller) {
+        zactor_t *proxy = zactor_new (zproxy, NULL);
+        if(proxy) {
+            if(param.size()>0 && param[0].boolValue()) {
+                zstr_send (proxy, "VERBOSE");
+                zsock_wait(proxy);
+            }
+        }
+        return proxy;
+    }
 
 public:
 
-    ZProxy() : ZHandle(), Php::Base() {}
+    ZProxy() : ZActor(&ZProxy::new_actor), Php::Base() { _type = "zactor"; }
     zactor_t *zproxy_handle() const { return (zactor_t *) get_handle(); }
-
-    void __construct(Php::Parameters &param) {
-        set_handle(zactor_new(zproxy, NULL), true, "zactor");
-    }
 
     void pause() {
         zstr_sendx (zproxy_handle(), "PAUSE", NULL);
@@ -59,7 +65,9 @@ public:
     static Php::Class<ZProxy> php_register() {
         Php::Class<ZProxy> o("ZProxy");
 
-        o.method("__construct", &ZProxy::__construct);
+        o.method("__construct", &ZProxy::__construct, {
+            Php::ByVal("verbose", Php::Type::Bool, false)
+        });
         o.method("set_verbose", &ZProxy::set_verbose);
         o.method("pause", &ZProxy::pause);
         o.method("resume", &ZProxy::resume);

@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Malamute\Consumer Malamute\Consumer::__construct(string $endpoint, string $stream)
+    \Malamute\Consumer Malamute\Consumer::__construct(string $endpoint, string $stream, mixed $pattern)
 
 
 
@@ -32,29 +32,14 @@ Methods
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
-* $stream **string** - &lt;p&gt;...&lt;/p&gt;
+* $stream **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $pattern **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
-### set_timeout
+### consume
 
-    mixed Malamute\Consumer::set_timeout(integer $timeout)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $timeout **integer** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### header
-
-    mixed Malamute\Consumer::header(string $header)
+    mixed Malamute\Consumer::consume(mixed $stream, mixed $pattern)
 
 
 
@@ -64,13 +49,34 @@ Methods
 
 
 #### Arguments
-* $header **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $pattern **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### run
 
-    mixed Malamute\Consumer::run(string $pattern, callable $callback)
+    mixed Malamute\Consumer::run(mixed $endpoint, mixed $stream, string $pattern, callable $callback)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $pattern **string** - &lt;p&gt;...&lt;/p&gt;
+* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### headers
+
+    mixed Malamute\Consumer::headers(mixed $header)
 
 
 
@@ -80,8 +86,49 @@ Methods
 
 
 #### Arguments
-* $pattern **string** - &lt;p&gt;...&lt;/p&gt;
-* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
+* $header **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
+
+
+### recv
+
+    mixed Malamute\Consumer::recv()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_string
+
+    mixed Malamute\Consumer::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_picture
+
+    mixed Malamute\Consumer::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

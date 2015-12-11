@@ -47,7 +47,7 @@ Methods
 
 ### __construct
 
-    \ZAuth ZAuth::__construct()
+    \ZAuth ZAuth::__construct(mixed $verbose)
 
 
 
@@ -55,6 +55,9 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 

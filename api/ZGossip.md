@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \ZGossip ZGossip::__construct()
+    \ZGossip ZGossip::__construct(mixed $verbose)
 
 
 
@@ -29,6 +29,9 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 

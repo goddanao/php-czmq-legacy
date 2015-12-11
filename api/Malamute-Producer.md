@@ -36,25 +36,29 @@ Methods
 
 
 
-### set_timeout
-
-    mixed Malamute\Producer::set_timeout(integer $timeout)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $timeout **integer** - &lt;p&gt;...&lt;/p&gt;
-
-
-
 ### run
 
-    mixed Malamute\Producer::run(string $subject, callable $callback)
+    mixed Malamute\Producer::run(mixed $endpoint, mixed $stream, string $subject, callable $callback)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $subject **string** - &lt;p&gt;...&lt;/p&gt;
+* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send
+
+    mixed Malamute\Producer::send(mixed $subject, mixed $data)
 
 
 
@@ -64,8 +68,43 @@ Methods
 
 
 #### Arguments
-* $subject **string** - &lt;p&gt;...&lt;/p&gt;
-* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
+* $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_string
+
+    mixed Malamute\Producer::send_string(mixed $subject, mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_picture
+
+    mixed Malamute\Producer::send_picture(mixed $subject, mixed $picture, mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

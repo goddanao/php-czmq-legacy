@@ -75,7 +75,7 @@ public:
             zactor_destroy((zactor_t **) &actor);
         },
         [param](void *actor, void *socket){
-
+            return true;
         },
         param);
     }

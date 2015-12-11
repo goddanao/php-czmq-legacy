@@ -14,10 +14,8 @@ private:
                 if(param.size() > 2 && param[1].isString() && param[2].isString()) {
                     zstr_sendx (fmqserver, "PUBLISH", param[1].stringValue().c_str(), param[2].stringValue().c_str(), NULL);
                     char *result;
-                    if(zstr_recvx (fmqserver, &result, NULL) == 0) {
-                        zsys_info("fmq publish success %s", result);
-                        zstr_free(&result);
-                    }
+                    zstr_recvx (fmqserver, &result, NULL);
+                    zstr_free(&result);
                 }
 
                 zconfig_t * config;
@@ -121,7 +119,7 @@ public:
             zactor_destroy((zactor_t **) &actor);
         },
         [param](void *actor, void *socket){
-
+            return true;
         },
         param);
     }

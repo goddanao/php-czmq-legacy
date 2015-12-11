@@ -2,18 +2,23 @@
 
 #include "../common.h"
 
-class ZGossip : public ZHandle, public Php::Base {
+class ZGossip : public ZActor, public Php::Base {
 private:
-    bool _stopped = false;
+
+    static void *new_actor(Php::Parameters &param, zpoller_t *poller) {
+        zactor_t *gossip = zactor_new (zgossip, NULL);
+        if(gossip) {
+            if(param.size()>0 && param[0].boolValue()) {
+                zstr_send (gossip, "VERBOSE");
+            }
+        }
+        return gossip;
+    }
 
 public:
 
-    ZGossip() : ZHandle(), Php::Base() {}
+    ZGossip() : ZActor(&ZGossip::new_actor), Php::Base() { _type = "zactor"; }
     zactor_t *zgossip_handle() const { return (zactor_t *) get_handle(); }
-
-    void __construct(Php::Parameters &param) {
-        set_handle(zactor_new(zgossip, NULL), true, "zactor");
-    }
 
     void set_verbose(Php::Parameters &param) {
         zstr_send (zgossip_handle(), "VERBOSE");
@@ -82,7 +87,9 @@ public:
 
     static Php::Class<ZGossip> php_register() {
         Php::Class<ZGossip> o("ZGossip");
-        o.method("__construct", &ZGossip::__construct);
+        o.method("__construct", &ZGossip::__construct, {
+            Php::ByVal("verbose", Php::Type::Bool, false)
+        });
         o.method("set_verbose", &ZGossip::set_verbose);
 
         o.method("configure", &ZGossip::configure, {

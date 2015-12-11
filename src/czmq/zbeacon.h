@@ -2,15 +2,23 @@
 
 #include "../common.h"
 
-class ZBeacon : public ZHandle, public Php::Base {
+class ZBeacon : public ZActor, public Php::Base {
+private:
+
+    static void *new_actor(Php::Parameters &param, zpoller_t *poller) {
+        zactor_t *beacon = zactor_new (zbeacon, NULL);
+        if(beacon) {
+            if(param.size()>0 && param[0].boolValue()) {
+                zstr_send (beacon, "VERBOSE");
+            }
+        }
+        return beacon;
+    }
+
 public:
 
-    ZBeacon() : ZHandle(), Php::Base() {}
+    ZBeacon() : ZActor(&ZBeacon::new_actor), Php::Base() { _type =  "zactor"; }
     zactor_t *zbeacon_handle() const { return (zactor_t *) get_handle(); }
-
-    void __construct(Php::Parameters &param) {
-        set_handle(zactor_new(zbeacon, NULL), true, "zactor");
-    }
 
     void set_verbose() {
         zstr_send (zbeacon_handle(), "VERBOSE");
@@ -50,7 +58,9 @@ public:
     static Php::Class<ZBeacon> php_register() {
         Php::Class<ZBeacon> o("ZBeacon");
 
-        o.method("__construct", &ZBeacon::__construct);
+        o.method("__construct", &ZBeacon::__construct, {
+            Php::ByVal("verbose", Php::Type::Bool, false)
+        });
         o.method("set_verbose", &ZBeacon::set_verbose);
         o.method("set_port", &ZBeacon::set_port, {
             Php::ByVal("port", Php::Type::Numeric, true),

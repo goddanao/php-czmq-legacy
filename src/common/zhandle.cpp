@@ -33,7 +33,7 @@ Php::Value ZHandle::recv_string(Php::Parameters &param) {
 }
 
 Php::Value ZHandle::send(Php::Parameters &param) {
-    zmsg_t *msg = ZUtils::phpvalue_to_zmsg(param[0]);
+    zmsg_t *msg = ZUtils::params_to_zmsg(param);
     return _send(msg);
 }
 

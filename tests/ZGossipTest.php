@@ -11,7 +11,6 @@ class ZGossipTest extends \PHPUnit_Framework_TestCase {
 
     public function test_gossip(){
         $gossip1 = new ZGossip();
-        // $gossip1->set_verbose(true);
         $port = $gossip1->bind("tcp://127.0.0.1:*");
 
         $gossip2 = new ZGossip();

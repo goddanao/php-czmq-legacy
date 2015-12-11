@@ -53,6 +53,7 @@ public:
                 zmsg_t *zmsg = ZUtils::phpvalue_to_zmsg(result);
                 mdp_worker_send_final((mdp_worker_t*) actor, &address, &zmsg);
             }
+            return true;
         },
         param);
     }

@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \ZBeacon ZBeacon::__construct()
+    \ZBeacon ZBeacon::__construct(mixed $verbose)
 
 
 
@@ -29,6 +29,9 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 

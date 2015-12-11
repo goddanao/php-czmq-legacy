@@ -2,14 +2,24 @@
 
 #include "../common.h"
 
-class ZAuth  : public ZHandle, public Php::Base  {
-public:
-    ZAuth() : ZHandle(), Php::Base() {}
-    zactor_t *zauth_handle() const { return (zactor_t *) get_handle(); }
+class ZAuth  : public ZActor, public Php::Base  {
+private:
 
-    void __construct(Php::Parameters &param) {
-        set_handle(zactor_new(zauth, NULL), true, "zactor");
+    static void *new_actor(Php::Parameters &param, zpoller_t *poller) {
+        zactor_t *auth = zactor_new (zauth, NULL);
+        if(auth) {
+            if(param.size()>0 && param[0].boolValue()) {
+                zstr_send (auth, "VERBOSE");
+                zsock_wait(auth);
+            }
+        }
+        return auth;
     }
+
+public:
+
+    ZAuth() : ZActor(&ZAuth::new_actor), Php::Base() { _type = "zactor"; }
+    zactor_t *zauth_handle() const { return (zactor_t *) get_handle(); }
 
     void set_verbose() {
         zstr_send (zauth_handle(), "VERBOSE");
@@ -60,7 +70,9 @@ public:
 
     static Php::Class<ZAuth> php_register() {
         Php::Class<ZAuth> o("ZAuth");
-        o.method("__construct", &ZAuth::__construct);
+        o.method("__construct", &ZAuth::__construct, {
+            Php::ByVal("verbose", Php::Type::Bool, false)
+        });
         o.method("set_verbose", &ZAuth::set_verbose);
         o.method("recv", &ZAuth::recv);
         o.method("allow", &ZAuth::allow, {
