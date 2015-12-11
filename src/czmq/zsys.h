@@ -172,6 +172,15 @@ public:
         return result;
     }
 
+    // IPV6
+    #if (CZMQ_VERSION >= CZMQ_MAKE_VERSION(3,0,3))
+        static  Php::Value get_ipv6() { return zsys_ipv6(); }
+        static  void set_ipv6_address(Php::Parameters &param) { zsys_set_ipv6_address(param[0].stringValue().c_str()); }
+        static  Php::Value get_ipv6_address() { return zsys_ipv6_address(); }
+        static  void set_ipv6_mcast_address(Php::Parameters &param) { zsys_set_ipv6_mcast_address(param[0].stringValue().c_str()); }
+        static  Php::Value get_ipv6_mcast_address(Php::Parameters &param) { return zsys_ipv6_mcast_address(); }
+    #endif
+
     static Php::Class<ZSys> php_register() {
 
         Php::Class<ZSys> o("ZSys", Php::Public | Php::Final);
@@ -270,6 +279,15 @@ public:
 
     #ifdef ZMQ_POLLPRI
         o.constant("POLL_PRI", ZMQ_POLLPRI);
+    #endif
+
+    // IPV6
+    #if (CZMQ_VERSION >= CZMQ_MAKE_VERSION(3,0,3))
+        o.method("get_ipv6", &ZSys::get_ipv6);
+        o.method("get_ipv6_address", &ZSys::get_ipv6_address);
+        o.method("set_ipv6_address", &ZSys::set_ipv6_address, { Php::ByVal("address", Php::Type::String, true) });
+        o.method("get_ipv6_mcast_address", &ZSys::get_ipv6_mcast_address);
+        o.method("set_ipv6_mcast_address", &ZSys::set_ipv6_mcast_address, { Php::ByVal("address", Php::Type::String, true) });
     #endif
 
         return o;

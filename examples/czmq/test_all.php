@@ -1,5 +1,9 @@
 <?php
 
+echo ZSys::libczmq_version();
+exit;
+
+
 $loop = new ZLoop();
 
 //$zyre1 = new Zyre();

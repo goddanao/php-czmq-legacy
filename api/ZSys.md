@@ -765,3 +765,79 @@ Log message as Error
 * $message **string**
 
 
+
+### get_ipv6
+
+    mixed ZSys::get_ipv6()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
+
+### get_ipv6_address
+
+    mixed ZSys::get_ipv6_address()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
+
+### set_ipv6_address
+
+    mixed ZSys::set_ipv6_address(mixed $address)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $address **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### get_ipv6_mcast_address
+
+    mixed ZSys::get_ipv6_mcast_address()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
+
+### set_ipv6_mcast_address
+
+    mixed ZSys::set_ipv6_mcast_address(mixed $address)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $address **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+

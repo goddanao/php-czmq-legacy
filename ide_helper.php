@@ -281,6 +281,38 @@ final  class ZSys {
   */
   static public function error($message) {}
 
+  /**
+   * ...
+   * 
+  */
+  static public function get_ipv6() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function get_ipv6_address() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $address ...
+  */
+  static public function set_ipv6_address($address) {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function get_ipv6_mcast_address() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $address ...
+  */
+  static public function set_ipv6_mcast_address($address) {}
+
 }
 
 

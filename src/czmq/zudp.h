@@ -100,7 +100,12 @@ public:
         if(zmsg) {
             frame = zmsg_pop (zmsg);
             while(frame && (rc != -1)) {
-                rc = zsys_udp_send(zudp_handle(), frame, &broadcast);
+                #if (CZMQ_VERSION >= CZMQ_MAKE_VERSION(3,0,3))
+                    rc = zsys_udp_send(zudp_handle(), frame, &broadcast, sizeof (inaddr_t));
+                #else
+                    rc = zsys_udp_send(zudp_handle(), frame, &broadcast);
+                #endif
+
                 zframe_destroy(&frame);
                 frame = zmsg_pop (zmsg);
             }
@@ -111,7 +116,14 @@ public:
 
     Php::Value recv(Php::Parameters &param) {
         char peername [INET_ADDRSTRLEN];
-        zframe_t *frame = zsys_udp_recv(zudp_handle(), peername);
+
+
+        #if (CZMQ_VERSION >= CZMQ_MAKE_VERSION(3,0,3))
+            zframe_t *frame = zsys_udp_recv(zudp_handle(), peername, INET_ADDRSTRLEN);
+        #else
+            zframe_t *frame = zsys_udp_recv(zudp_handle(), peername);
+        #endif
+
         if(!frame)
             return nullptr;
         zmsg_t *msg = zmsg_new();
