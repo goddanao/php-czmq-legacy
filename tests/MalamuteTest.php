@@ -28,7 +28,6 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
     public static function tearDownAfterClass() {
         if (!class_exists("\\Malamute\\Broker"))
             return;
-
         self::$mg->killAll();
     }
 
@@ -133,7 +132,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
 
         $w = $manager->fork(function() use ($endpoint) {
             $done = "KO";
-            Malamute\Worker::run($endpoint, "my_mailbox_worker", "", function($req, $headers) use(&$done) {
+            Malamute\Worker::run($endpoint, "my_mailbox_worker", function($req, $headers) use(&$done) {
                 $done = "OK";
                 return false;
             });
@@ -143,8 +142,14 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         # Start Client (Send Work to MailBox)
         $manager->fork(function() use ($endpoint) {
             $service_client = new Malamute\Client($endpoint);
-            $service_client->connect();
-            $service_client->send_mailbox('my_mailbox_worker', json_encode(['stovazzo' => 'stavinchia' . $i]), 1000);
+            ZSys::info("Calling mailbox service ...");
+            $res = $service_client->call('my_mailbox_worker', json_encode(['stovazzo' => 'stavinchia']));
+            if($res) {
+                ZSys::info("Mailbox service RESULT");
+                $res->dump();
+            } else
+                ZSys::info("Calling mailbox service NU RESULT");
+
         });
 
         sleep(2);
@@ -166,7 +171,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         for($i = 0; $i < 5; $i++)
             $forks[] = $manager->fork(function() use($i, $endpoint) {
                 $processed = 0;
-                Malamute\Worker::run($endpoint, "my_worker", "mywork*", function($req, $me) use($i, &$processed) {
+                Malamute\Worker::run($endpoint, "my_worker.mywork.*", function($req, $me) use($i, &$processed) {
                     $processed++;
                     $usec = rand(0, 1000);
                     usleep($usec);
@@ -178,9 +183,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         for($i = 0; $i < 10; $i++)
         $clients[] = $manager->fork(function() use($i, $endpoint) {
                 $service_client = new Malamute\Client($endpoint, 'client_' . $i);
-                $service_client->connect();
-                $service_client->send_service('my_worker', 'mywork', json_encode(['gino' => 'pino']), 30000);
-                $rcv = $service_client->recv();
+                $rcv = $service_client->call('my_worker.mywork', json_encode(['gino' => 'pino']));
                 return $rcv == "mydata" ? "OK" : "KO";
             });
 

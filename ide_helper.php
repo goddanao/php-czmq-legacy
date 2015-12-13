@@ -2445,20 +2445,18 @@ class Worker implements \IZSocket, \IZDescriptor {
    * 
    * @param string $endpoint ...
    * @param mixed $name ...
-   * @param string $pattern ... (optional)
    * @return \Malamute\Worker
   */
-  public function __construct($endpoint, $name, $pattern) {}
+  public function __construct($endpoint, $name) {}
 
   /**
    * ...
    * 
    * @param mixed $endpoint ...
    * @param mixed $name ...
-   * @param mixed $pattern ...
    * @param callable $callback ...
   */
-  static public function run($endpoint, $name, $pattern, callable $callback) {}
+  static public function run($endpoint, $name, callable $callback) {}
 
   /**
    * ...
@@ -2466,6 +2464,46 @@ class Worker implements \IZSocket, \IZDescriptor {
    * @param mixed $header ... (optional)
   */
   public function headers($header) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send($data) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_string($data) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_string() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $picture ...
+  */
+  public function send_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $picture ...
+  */
+  public function recv_picture($picture) {}
 
   /**
    * Get the underlying Malamute Client.
@@ -2503,89 +2541,29 @@ class Client implements \IZSocket, \IZDescriptor {
    * 
    * @param string $endpoint ...
    * @param string $address ... (optional)
-   * @param int $timeout ... (optional)
    * @return \Malamute\Client
   */
-  public function __construct($endpoint = null, $address = null, $timeout = 0) {}
+  public function __construct($endpoint = null, $address = null) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $service ...
+   * @param mixed $data ...
+  */
+  public function call($service, $data) {}
 
   /**
    * ...
    * 
   */
-  public function set_verbose() {}
-
-  /**
-   * ...
-   * 
-   * @param string $endpoint ... (optional)
-   * @param string $address ... (optional)
-   * @param int $timeout ... (optional)
-  */
-  public function connect($endpoint = null, $address = null, $timeout = 0) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function header() {}
+  public function headers() {}
 
   /**
    * ...
    * 
   */
   public function content() {}
-
-  /**
-   * ...
-   * 
-   * @param string $stream ...
-  */
-  public function set_producer($stream) {}
-
-  /**
-   * ...
-   * 
-   * @param string $address ...
-   * @param string $patern ...
-  */
-  public function set_worker($address, $patern) {}
-
-  /**
-   * ...
-   * 
-   * @param string $stream ...
-   * @param string $patern ...
-  */
-  public function set_consumer($stream, $patern) {}
-
-  /**
-   * ...
-   * 
-   * @param string $subject ...
-  */
-  public function send_stream($subject) {}
-
-  /**
-   * ...
-   * 
-   * @param string $address ...
-   * @param mixed $payload ... (optional)
-   * @param int $timeout ... (optional)
-   * @param string $subject ... (optional)
-   * @param string $tracker ... (optional)
-  */
-  public function send_mailbox($address, $payload, $timeout, $subject, $tracker) {}
-
-  /**
-   * ...
-   * 
-   * @param string $address ...
-   * @param string $subject ...
-   * @param mixed $payload ... (optional)
-   * @param int $timeout ... (optional)
-   * @param string $tracker ... (optional)
-  */
-  public function send_service($address, $subject, $payload, $timeout, $tracker) {}
 
   /**
    * Recieve a ZMsg.

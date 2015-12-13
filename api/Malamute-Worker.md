@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Malamute\Worker Malamute\Worker::__construct(string $endpoint, mixed $name, string $pattern)
+    \Malamute\Worker Malamute\Worker::__construct(string $endpoint, mixed $name)
 
 
 
@@ -33,13 +33,12 @@ Methods
 #### Arguments
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 * $name **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $pattern **string** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### run
 
-    mixed Malamute\Worker::run(mixed $endpoint, mixed $name, mixed $pattern, callable $callback)
+    mixed Malamute\Worker::run(mixed $endpoint, mixed $name, callable $callback)
 
 
 
@@ -52,7 +51,6 @@ Methods
 #### Arguments
 * $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $name **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $pattern **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
@@ -70,6 +68,96 @@ Methods
 
 #### Arguments
 * $header **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+
+
+
+### send
+
+    mixed Malamute\Worker::send(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv
+
+    mixed Malamute\Worker::recv()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send_string
+
+    mixed Malamute\Worker::send_string(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_string
+
+    mixed Malamute\Worker::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send_picture
+
+    mixed Malamute\Worker::send_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_picture
+
+    mixed Malamute\Worker::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
