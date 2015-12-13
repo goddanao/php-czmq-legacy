@@ -39,10 +39,7 @@ static zmsg_t *mdwrk_recv(mdp_worker_t *worker, zmsg_t* reply) {
 }
 
 static char *s_generate_uuid (void) {
-    zuuid_t *uuid = zuuid_new ();
-    char *uuids = strdup(zuuid_str_canonical(uuid));
-    zuuid_destroy(&uuid);
-    return uuids;
+    return strdup(ZUtils::uuid().c_str());
 }
 
 static int s_service_success (char *uuid, const char *ep, TitanicStorage *storage) {

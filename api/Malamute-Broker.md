@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Malamute\Broker Malamute\Broker::__construct()
+    \Malamute\Broker Malamute\Broker::__construct(mixed $endpoint, array $options)
 
 
 
@@ -30,18 +30,9 @@ Methods
 * Visibility: **public**
 
 
-
-
-### set_verbose
-
-    mixed Malamute\Broker::set_verbose()
-
-
-
-...
-
-* Visibility: **public**
-
+#### Arguments
+* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 

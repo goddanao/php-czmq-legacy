@@ -31,28 +31,6 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         self::$mg->killAll();
     }
 
-    public function test_get_client() {
-
-        $worker = new Malamute\Worker();
-        $this->assertNotNull($worker);
-        $c = $worker->get_client();
-        $this->assertNotNull($c);
-        $this->assertInstanceOf("Malamute\\Client", $c);
-
-        $consumer = new Malamute\Consumer();
-        $this->assertNotNull($consumer);
-        $c = $consumer->get_client();
-        $this->assertNotNull($c);
-        $this->assertInstanceOf("Malamute\\Client", $c);
-
-        $producer = new Malamute\Producer();
-        $this->assertNotNull($producer);
-        $c = $producer->get_client();
-        $this->assertNotNull($c);
-        $this->assertInstanceOf("Malamute\\Client", $c);
-    }
-
-
     public function test_producer_consumer() {
 
         $manager = new ProcessManager();
@@ -142,14 +120,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         # Start Client (Send Work to MailBox)
         $manager->fork(function() use ($endpoint) {
             $service_client = new Malamute\Client($endpoint);
-            ZSys::info("Calling mailbox service ...");
-            $res = $service_client->call('my_mailbox_worker', json_encode(['stovazzo' => 'stavinchia']));
-            if($res) {
-                ZSys::info("Mailbox service RESULT");
-                $res->dump();
-            } else
-                ZSys::info("Calling mailbox service NU RESULT");
-
+            $service_client->call('my_mailbox_worker', 'mydata','mydata');
         });
 
         sleep(2);
@@ -181,8 +152,8 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
 
         # Start Clients (Send Work to Services)
         for($i = 0; $i < 10; $i++)
-        $clients[] = $manager->fork(function() use($i, $endpoint) {
-                $service_client = new Malamute\Client($endpoint, 'client_' . $i);
+        $clients[] = $manager->fork(function() use($endpoint) {
+                $service_client = new Malamute\Client($endpoint);
                 $rcv = $service_client->call('my_worker.mywork', json_encode(['gino' => 'pino']));
                 return $rcv == "mydata" ? "OK" : "KO";
             });

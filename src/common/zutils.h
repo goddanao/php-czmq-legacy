@@ -110,7 +110,6 @@ public:
       return full;
     }
 
-
     template< typename... Args >
     static std::string sprintf( const char* format, Args... args ) {
         int length = std::snprintf( nullptr, 0, format, args... );
@@ -122,6 +121,13 @@ public:
         std::string str( buf );
         delete[] buf;
         return std::move(str);
+    }
+
+    static std::string uuid (void) {
+        zuuid_t *uuid = zuuid_new ();
+        std::string uuidstr = zuuid_str_canonical(uuid);
+        zuuid_destroy(&uuid);
+        return uuidstr;
     }
 
 };

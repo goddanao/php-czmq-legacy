@@ -8,16 +8,27 @@ private:
     static void *new_broker(Php::Parameters &param, zpoller_t *poller) {
         zactor_t *broker = zactor_new(mlm_server, NULL);
         if(broker) {
-            if(poller)
-                zpoller_add(poller, broker);
 
-            if(param.size()>1 && param[1].boolValue()) {
-                zstr_sendx (broker, "VERBOSE", NULL);
+            // Options
+            if(param.size() > 1 && param[1].isArray() && param[1].size() > 0) {
+                zconfig_t * config;
+                config = ZUtils::phparray_to_zconfig(param[1], "mlm_broker");
+               if(config) {
+                    std::string fname = "/tmp/" + ZUtils::uuid() + ".cfg";
+                    zconfig_save(config, fname.c_str());
+                    zconfig_destroy(&config);
+                    zstr_sendx (broker, "LOAD", fname.c_str(), NULL);
+                }
             }
+
             if(param.size() > 0 && param[0].stringValue() != "") {
                 zstr_sendx (broker, "BIND", param[0].stringValue().c_str(), NULL);
                 zclock_sleep(200);
             }
+
+            if(poller)
+                zpoller_add(poller, broker);
+
             return broker;
         }
         return nullptr;
@@ -28,9 +39,9 @@ public:
     MalamuteBroker() : ZActor(&MalamuteBroker::new_broker), Php::Base() { _type = "mlm_broker"; }
     zactor_t *mlm_broker_handle() const { return (zactor_t *) get_handle(); }
 
-	void set_verbose(Php::Parameters &param) {
-		zstr_sendx (mlm_broker_handle(), "VERBOSE", NULL);
-	}
+//	void set_verbose(Php::Parameters &param) {
+//		zstr_sendx (mlm_broker_handle(), "VERBOSE", NULL);
+//	}
 
 	void load_config(Php::Parameters &param) {
 		if(param.size() == 0)
@@ -82,8 +93,10 @@ public:
 
     static Php::Class<MalamuteBroker> php_register() {
         Php::Class<MalamuteBroker> o("Broker");
-        o.method("__construct", &MalamuteBroker::__construct);
-        o.method("set_verbose", &MalamuteBroker::set_verbose);
+        o.method("__construct", &MalamuteBroker::__construct, {
+            Php::ByVal("endpoint", Php::Type::String, true),
+            Php::ByVal("options", Php::Type::Array, false)
+        });
 
         o.method("bind", &MalamuteBroker::bind, {
           Php::ByVal("endpoint", Php::Type::String, true)

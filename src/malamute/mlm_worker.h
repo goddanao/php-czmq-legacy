@@ -70,10 +70,6 @@ public:
         return _headers(mlm_worker_handle(), param.size() > 0 ? param[0].stringValue() : "");
     }
 
-    Php::Value get_client() {
-        return Php::Object("Malamute\\Client", new MalamuteClient((mlm_client_t *) get_handle(), false));
-    }
-
     static void run(Php::Parameters &param) {
         _run(&MalamuteWorker::new_actor,
         [](void *actor){
@@ -129,8 +125,6 @@ public:
         o.method("recv_picture", &MalamuteWorker::recv_picture, {
             Php::ByVal("picture", Php::Type::String, true)
         });
-
-        o.method("get_client", &MalamuteWorker::get_client);
 
         // IZSocket intf support
         o.method("get_fd", &MalamuteWorker::get_fd);

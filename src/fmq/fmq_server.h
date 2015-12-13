@@ -31,7 +31,7 @@ private:
                 }
 
                 if(config) {
-                    std::string fname = "/tmp/fmqcfg.txt";
+                    std::string fname = "/tmp/" + ZUtils::uuid() + ".cfg";
                     zconfig_save(config, fname.c_str());
                     zconfig_destroy(&config);
                     zstr_sendx (fmqserver, "LOAD", fname.c_str(), NULL);

@@ -132,19 +132,6 @@ Methods
 
 
 
-### get_client
-
-    \Malamute\Client Malamute\Consumer::get_client()
-
-Get the underlying Malamute Client.
-
-
-
-* Visibility: **public**
-
-
-
-
 ### get_fd
 
     integer IZDescriptor::get_fd()

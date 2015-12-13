@@ -2369,15 +2369,11 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @param mixed $endpoint ...
+   * @param array $options ... (optional)
    * @return \Malamute\Broker
   */
-  public function __construct() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_verbose() {}
+  public function __construct($endpoint, array $options) {}
 
   /**
    * ...
@@ -2506,13 +2502,6 @@ class Worker implements \IZSocket, \IZDescriptor {
   public function recv_picture($picture) {}
 
   /**
-   * Get the underlying Malamute Client.
-   * 
-   * @return \Malamute\Client
-  */
-  public function get_client() {}
-
-  /**
    * Get the underlying File Descriptor.
    * 
    * @return int
@@ -2541,9 +2530,19 @@ class Client implements \IZSocket, \IZDescriptor {
    * 
    * @param string $endpoint ...
    * @param string $address ... (optional)
+   * @param mixed $username ... (optional)
+   * @param mixed $password ... (optional)
    * @return \Malamute\Client
   */
-  public function __construct($endpoint = null, $address = null) {}
+  public function __construct($endpoint = null, $address = null, $username, $password) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $service ...
+   * @param mixed $data ...
+  */
+  public function call_async($service, $data) {}
 
   /**
    * ...
@@ -2571,6 +2570,21 @@ class Client implements \IZSocket, \IZDescriptor {
    * @return \ZMsg
   */
   public function recv() {}
+
+  /**
+   * ...
+   * 
+   * @return string
+  */
+  public function recv_string() {}
+
+  /**
+   * ...
+   * 
+   * @param string $picture ...
+   * @return array
+  */
+  public function recv_picture($picture) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2639,13 +2653,6 @@ class Producer implements \IZSocket, \IZDescriptor {
    * @param mixed $data ...
   */
   public function send_picture($subject, $picture, $data) {}
-
-  /**
-   * Get the underlying Malamute Client.
-   * 
-   * @return \Malamute\Client
-  */
-  public function get_client() {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2724,13 +2731,6 @@ class Consumer implements \IZSocket, \IZDescriptor {
    * @param mixed $picture ...
   */
   public function recv_picture($picture) {}
-
-  /**
-   * Get the underlying Malamute Client.
-   * 
-   * @return \Malamute\Client
-  */
-  public function get_client() {}
 
   /**
    * Get the underlying File Descriptor.
