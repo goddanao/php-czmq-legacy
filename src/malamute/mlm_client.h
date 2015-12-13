@@ -3,54 +3,60 @@
 #include "../common.h"
 #include "../czmq/zmsg.h"
 
-class MalamuteClient   : public ZHandle, public Php::Base {
+class MalamuteClient   : public ZActor, public Php::Base {
 private:
-    bool _verbose = false;
-    std::string _endpoint;
-    std::string _address;
-    int _timeout = 0;
-    bool _connected = false;
+
+    static void *new_actor(Php::Parameters &param, zpoller_t *poller) {
+        mlm_client_t *client = mlm_client_new();
+
+        if(client) {
+            std::string _endpoint = (param.size() > 0) ? param[0].stringValue() : "";
+            std::string _address  = (param.size() > 1) ? param[1].stringValue() : "";
+            int _timeout = 0;
+
+            int rc = mlm_client_connect(client, _endpoint.c_str(), _timeout, _address.c_str());
+            if(rc == -1)
+                throw Php::Exception("Internal Error: Can't create Malamute Consumer.");
+
+            if(poller)
+                zpoller_add(poller, mlm_client_msgpipe(client));
+        }
+        return client;
+    }
 
 public:
-    MalamuteClient() : ZHandle(), Php::Base() {}
-    MalamuteClient(mlm_client_t *handle, bool owned) : ZHandle(handle, owned, "mlm_client"), Php::Base() {}
+
+    MalamuteClient() : ZActor(&MalamuteClient::new_actor), Php::Base() { _type = "mlm_client"; }
+    MalamuteClient(mlm_client_t *handle, bool owned) : ZActor(handle, owned, &MalamuteClient::new_actor), Php::Base() { _type = "mlm_client"; }
     mlm_client_t *mlm_client_handle() const { return (mlm_client_t *) get_handle(); }
 
-	void __construct(Php::Parameters &param) {
-		mlm_client_t *client = mlm_client_new();
-		if(!client)
-			throw Php::Exception("Internal Error: Can't create MalamuteClient.");
-		set_handle(client, true, "mlm_client");
-		_endpoint = (param.size() > 0) ? param[0].stringValue() : "";
-		_address  = (param.size() > 1) ? param[1].stringValue() : "";
-		_timeout  = (param.size() > 2) ? param[2].numericValue() : 0;
-	}
+    zmsg_t *_recv() override {
+       return mlm_client_recv (mlm_client_handle());
+    }
 
-	Php::Value connect(Php::Parameters &param) {
-		if(_connected)
-			return true;
-		std::string _ep = (param.size() > 0) ? param[0].stringValue() : _endpoint;
-		std::string _ad = (param.size() > 1) ? param[1].stringValue() : _address;
-		int _to = (param.size() > 2) ? param[2].numericValue() : _timeout;
-		int rc = mlm_client_connect(mlm_client_handle(), _ep.c_str(), _to, _ad.c_str());
-		return (rc == 0);
-	}
+    bool _send(zmsg_t *msg) override {
+        return false;
+    }
 
-	void set_verbose(Php::Parameters &param) {
-		_verbose = param.size() > 0 ? param[0].boolValue() : true;
-	}
+	static Php::Value _headers(mlm_client_t *client, std::string _header = "") {
+        Php::Value result;
+        result["connected"]  = mlm_client_connected(client);
+        result["command"]  = mlm_client_command(client);
+        result["status"]   = mlm_client_status(client);
+        result["reason"]   = mlm_client_reason(client);
+        result["address"]  = mlm_client_address(client);
+        result["sender"]   = mlm_client_sender(client);
+        result["subject"]  = mlm_client_subject(client);
+        result["tracker"]  = mlm_client_tracker(client);
+        if(_header != "")
+            return result[_header];
+        return result;
 
-	Php::Value header(Php::Parameters &param) {
-		Php::Value result;
-		result["command"]  = mlm_client_command(mlm_client_handle());
-		result["status"]   = mlm_client_status(mlm_client_handle());
-		result["reason"]   = mlm_client_reason(mlm_client_handle());
-		result["address"]  = mlm_client_address(mlm_client_handle());
-		result["sender"]   = mlm_client_sender(mlm_client_handle());
-		result["subject"]  = mlm_client_subject(mlm_client_handle());
-		result["tracker"]  = mlm_client_tracker(mlm_client_handle());
-		return result;
-	}
+    }
+
+    Php::Value headers(Php::Parameters &param) {
+        return _headers(mlm_client_handle(), param.size() > 0 ? param[0].stringValue() : "");
+    }
 
 	Php::Value content(Php::Parameters &param) {
 		zmsg_t *msg = mlm_client_content(mlm_client_handle());
@@ -59,102 +65,55 @@ public:
 		return Php::Object("ZMsg", new ZMsg(msg, true));
 	}
 
-	Php::Value send_stream(Php::Parameters &param) {
-		std::string subject = param[0].stringValue();
-		zmsg_t *msg = nullptr;
-        if(param.size() > 1) {
-            msg = ZUtils::phpvalue_to_zmsg(param[1]);
+    Php::Value call(Php::Parameters &param) {
+        std::vector<std::string> parts = ZUtils::explode(param[0].stringValue(), '.');
+        if(parts.size() == 0)
+            return nullptr;
+
+        zmsg_t *msg = ZUtils::params_to_zmsg(param, 1);
+        int rc;
+        // send mailbox
+        if(parts.size() == 1) {
+            rc = mlm_client_sendto(mlm_client_handle(), param[0].stringValue().c_str(), "", "", 0, &msg);
+        } else {
+            std::string _address     = parts[0];
+            std::string _subject  = "";
+
+            for(int idx = 1; idx < parts.size(); idx++)
+                _subject = (_subject + (_subject != "" ? "." : "") + parts[idx]);
+
+            rc = mlm_client_sendfor(mlm_client_handle(), _address.c_str(), _subject.c_str(), "", 0, &msg);
         }
 
-		return msg ? (mlm_client_send(mlm_client_handle(), subject.c_str(), &msg) == 0) : false;
-	}
-
-	Php::Value send_mailbox(Php::Parameters &param) {
-		std::string address = param[0].stringValue();
-
-		zmsg_t *msg = nullptr;
-		if(param.size() > 1) {
-			msg = ZUtils::phpvalue_to_zmsg(param[1]);
-		}
-
-		int _to = (param.size() > 2) ? param[2].numericValue() : _timeout;
-        std::string subject = (param.size() > 3) ? param[3].stringValue() : "";
-        std::string tracker = (param.size() > 4) ? param[4].stringValue() : "";
-
-		return msg ? (mlm_client_sendto(mlm_client_handle(), address.c_str(), subject.c_str(), tracker.c_str(), _to, &msg) == 0) : false;
-	}
-
-	Php::Value send_service(Php::Parameters &param) {
-		std::string address = param[0].stringValue();
-        std::string subject = (param.size() > 1) ? param[1].stringValue() : "";
-
-		zmsg_t *msg = nullptr;
-        if(param.size() > 2) {
-            msg = ZUtils::phpvalue_to_zmsg(param[2]);
+        zmsg_t *res;
+        if(rc == 0) {
+            res = mlm_client_recv (mlm_client_handle());
         }
 
-        int _to = (param.size() > 3) ? param[3].numericValue() : _timeout;
-        std::string tracker = (param.size() > 4) ? param[4].stringValue() : "";
+        if(!res)
+            return nullptr;
 
-		return msg ? (mlm_client_sendfor(mlm_client_handle(), address.c_str(), subject.c_str(), tracker.c_str(), _to, &msg) == 0) : false;
-	}
-
-    Php::Value set_producer(Php::Parameters &param) { return (mlm_client_set_producer(mlm_client_handle(), param[0].stringValue().c_str()) != -1); }
-
-    Php::Value set_worker(Php::Parameters &param) { return (mlm_client_set_worker(mlm_client_handle(), param[0].stringValue().c_str(), param[1].stringValue().c_str()) != -1); }
-
-    Php::Value set_consumer(Php::Parameters &param) { return (mlm_client_set_consumer(mlm_client_handle(), param[0].stringValue().c_str(), param[1].stringValue().c_str()) != -1); }
-
-    Php::Value recv(Php::Parameters &param) {
-        zmsg_t *msg = mlm_client_recv (mlm_client_handle());
-        if(msg)
-            return Php::Object("ZMsg", new ZMsg(msg, true));
-        return nullptr;
+        return Php::Object("ZMsg", new ZMsg(res, true));
     }
 
     static Php::Class<MalamuteClient> php_register() {
         Php::Class<MalamuteClient> o("Client");
         o.method("__construct", &MalamuteClient::__construct, {
             Php::ByVal("endpoint", Php::Type::String, true),
-            Php::ByVal("address", Php::Type::String, false),
-            Php::ByVal("timeout", Php::Type::Numeric, false)
+            Php::ByVal("address", Php::Type::String, false)
         });
-        o.method("set_verbose", &MalamuteClient::set_verbose);
-        o.method("connect", &MalamuteClient::connect, {
-            Php::ByVal("endpoint", Php::Type::String, false),
-            Php::ByVal("address", Php::Type::String, false),
-            Php::ByVal("timeout", Php::Type::Numeric, false)
+
+//        o.method("call_async", &MalamuteClient::call_async, {
+//            Php::ByVal("service", Php::Type::String, true),
+//            Php::ByVal("data", Php::Type::String, true)
+//        });
+        o.method("call", &MalamuteClient::call, {
+            Php::ByVal("service", Php::Type::String, true),
+            Php::ByVal("data", Php::Type::String, true)
         });
-        o.method("header", &MalamuteClient::header);
+
+        o.method("headers", &MalamuteClient::headers);
         o.method("content", &MalamuteClient::content);
-        o.method("set_producer", &MalamuteClient::set_producer, {
-            Php::ByVal("stream", Php::Type::String, true)
-        });
-        o.method("set_worker", &MalamuteClient::set_worker, {
-            Php::ByVal("address", Php::Type::String, true),
-            Php::ByVal("patern", Php::Type::String, true)
-        });
-        o.method("set_consumer", &MalamuteClient::set_consumer, {
-            Php::ByVal("stream", Php::Type::String, true),
-            Php::ByVal("patern", Php::Type::String, true)
-        });
-        o.method("send_stream", &MalamuteClient::send_stream, {
-            Php::ByVal("subject", Php::Type::String, true)
-        });
-        o.method("send_mailbox", &MalamuteClient::send_mailbox, {
-            Php::ByVal("address", Php::Type::String, true),
-            Php::ByVal("payload", Php::Type::String, false),
-            Php::ByVal("timeout", Php::Type::Numeric, false),
-            Php::ByVal("subject", Php::Type::String, false),
-            Php::ByVal("tracker", Php::Type::String, false)
-        });
-        o.method("send_service", &MalamuteClient::send_service, {
-            Php::ByVal("address", Php::Type::String, true),
-            Php::ByVal("subject", Php::Type::String, true),
-            Php::ByVal("payload", Php::Type::String, false),
-            Php::ByVal("timeout", Php::Type::Numeric, false),
-            Php::ByVal("tracker", Php::Type::String, false)
-        });
 
         o.method("recv", &MalamuteClient::recv);
 
