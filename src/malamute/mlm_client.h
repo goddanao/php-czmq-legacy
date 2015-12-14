@@ -64,13 +64,6 @@ public:
         return _headers(mlm_client_handle(), param.size() > 0 ? param[0].stringValue() : "");
     }
 
-	Php::Value content(Php::Parameters &param) {
-		zmsg_t *msg = mlm_client_content(mlm_client_handle());
-		if(!msg)
-			return nullptr;
-		return Php::Object("ZMsg", new ZMsg(msg, true));
-	}
-
     Php::Value call(Php::Parameters &param) {
         bool success = call_async(param);
         if(success) {
@@ -124,7 +117,6 @@ public:
         });
 
         o.method("headers", &MalamuteClient::headers);
-        o.method("content", &MalamuteClient::content);
 
         o.method("recv", &MalamuteClient::recv);
         o.method("recv_string", &MalamuteClient::recv_string);

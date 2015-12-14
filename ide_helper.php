@@ -254,6 +254,12 @@ final  class ZSys {
   static public function libmlm_version() {}
 
   /**
+   * ...
+   * 
+  */
+  static public function uuid() {}
+
+  /**
    * Log message as Info
    * 
    * @param string $message  
@@ -2601,12 +2607,6 @@ class Client implements \IZSocket, \IZDescriptor {
   public function headers() {}
 
   /**
-   * ...
-   * 
-  */
-  public function content() {}
-
-  /**
    * Recieve a ZMsg.
    * 
    * @return \ZMsg
@@ -2666,10 +2666,9 @@ class Producer implements \IZSocket, \IZDescriptor {
    * 
    * @param mixed $endpoint ...
    * @param mixed $stream ...
-   * @param string $subject ...
    * @param callable $callback ...
   */
-  static public function run($endpoint, $stream, $subject, callable $callback) {}
+  static public function run($endpoint, $stream, callable $callback) {}
 
   /**
    * ...
@@ -2725,28 +2724,25 @@ class Consumer implements \IZSocket, \IZDescriptor {
    * 
    * @param string $endpoint ...
    * @param string $stream ... (optional)
-   * @param mixed $pattern ... (optional)
    * @return \Malamute\Consumer
   */
-  public function __construct($endpoint, $stream, $pattern) {}
+  public function __construct($endpoint, $stream) {}
 
   /**
    * ...
    * 
    * @param mixed $stream ...
-   * @param mixed $pattern ...
   */
-  public function consume($stream, $pattern) {}
+  public function consume($stream) {}
 
   /**
    * ...
    * 
    * @param mixed $endpoint ...
    * @param mixed $stream ...
-   * @param string $pattern ...
    * @param callable $callback ...
   */
-  static public function run($endpoint, $stream, $pattern, callable $callback) {}
+  static public function run($endpoint, $stream, callable $callback) {}
 
   /**
    * ...

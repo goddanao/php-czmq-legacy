@@ -50,24 +50,8 @@ public:
         return mlm_client_recv (mlm_worker_handle());
     }
 
-	static Php::Value _headers(mlm_client_t *client, std::string _header = "") {
-        Php::Value result;
-        result["connected"]  = mlm_client_connected(client);
-        result["command"]  = mlm_client_command(client);
-        result["status"]   = mlm_client_status(client);
-        result["reason"]   = mlm_client_reason(client);
-        result["address"]  = mlm_client_address(client);
-        result["sender"]   = mlm_client_sender(client);
-        result["subject"]  = mlm_client_subject(client);
-        result["tracker"]  = mlm_client_tracker(client);
-        if(_header != "")
-            return result[_header];
-        return result;
-
-    }
-
     Php::Value headers(Php::Parameters &param) {
-        return _headers(mlm_worker_handle(), param.size() > 0 ? param[0].stringValue() : "");
+        return MalamuteClient::_headers(mlm_worker_handle(), param.size() > 0 ? param[0].stringValue() : "");
     }
 
     static void run(Php::Parameters &param) {
@@ -82,7 +66,7 @@ public:
 
             std::string _sender(mlm_client_sender((mlm_client_t *) actor));
 
-            Php::Value result = param[2](Php::Object("ZMsg", new ZMsg(request, true)), _headers((mlm_client_t *) actor));
+            Php::Value result = param[2](Php::Object("ZMsg", new ZMsg(request, true)), MalamuteClient::_headers((mlm_client_t *) actor));
 
             if(result.isBool() && !result.boolValue())
                 return false;

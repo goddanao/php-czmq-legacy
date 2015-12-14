@@ -698,6 +698,20 @@ Return Malamute version
 
 
 
+### uuid
+
+    mixed ZSys::uuid()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
+
 ### info
 
     mixed ZSys::info(string $message)

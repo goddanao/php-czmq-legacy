@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Malamute\Consumer Malamute\Consumer::__construct(string $endpoint, string $stream, mixed $pattern)
+    \Malamute\Consumer Malamute\Consumer::__construct(string $endpoint, string $stream)
 
 
 
@@ -33,13 +33,12 @@ Methods
 #### Arguments
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 * $stream **string** - &lt;p&gt;... (optional)&lt;/p&gt;
-* $pattern **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### consume
 
-    mixed Malamute\Consumer::consume(mixed $stream, mixed $pattern)
+    mixed Malamute\Consumer::consume(mixed $stream)
 
 
 
@@ -50,13 +49,12 @@ Methods
 
 #### Arguments
 * $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $pattern **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
 ### run
 
-    mixed Malamute\Consumer::run(mixed $endpoint, mixed $stream, string $pattern, callable $callback)
+    mixed Malamute\Consumer::run(mixed $endpoint, mixed $stream, callable $callback)
 
 
 
@@ -69,7 +67,6 @@ Methods
 #### Arguments
 * $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $pattern **string** - &lt;p&gt;...&lt;/p&gt;
 * $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 

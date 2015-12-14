@@ -9,19 +9,32 @@ private:
         mlm_client_t *client = mlm_client_new();
 
         if(client) {
-            std::string _endpoint = (param.size() > 0) ? param[0].stringValue() : "";
-            std::string _stream   = (param.size() > 1) ? param[1].stringValue() : "";
-            std::string _subject  = (param.size() > 2 && param[2].isString()) ? param[2].stringValue() : "";
-            int _timeout = 0;
-
-            int rc = mlm_client_connect(client, _endpoint.c_str(), _timeout, "");
-            if(rc != -1 && _stream != "" && _subject != "")
-                rc = mlm_client_set_consumer(client, _stream.c_str(), _subject.c_str());
-            if(rc == -1)
-                throw Php::Exception("Internal Error: Can't create Malamute Consumer.");
 
             if(poller)
                 zpoller_add(poller, mlm_client_msgpipe(client));
+
+            std::string _endpoint = (param.size() > 0) ? param[0].stringValue() : "";
+            std::string _stream   = "";
+            std::string _subject  = "";
+
+            if(param.size()>1) {
+                std::vector<std::string> parts = ZUtils::explode(param[1].stringValue(), '.');
+                if(parts.size() > 1) {
+                    _stream     = parts[0];
+                    for(int idx = 1; idx < parts.size(); idx++)
+                        _subject = (_subject + (_subject != "" ? "." : "") + parts[idx]);
+                }
+            }
+
+            int rc = mlm_client_connect(client, _endpoint.c_str(), 0, "");
+            if(rc == 0 && _stream != "" && _subject != "")
+                rc = mlm_client_set_consumer(client, _stream.c_str(), _subject.c_str());
+            if(rc == -1) {
+                mlm_client_destroy(&client);
+                throw Php::Exception("Internal Error: Can't create Malamute Consumer.");
+            }
+
+
         }
         return client;
     }
@@ -40,27 +53,22 @@ public:
     }
 
     Php::Value consume(Php::Parameters &param) {
-        return mlm_client_set_consumer(mlm_consumer_handle(), param[0].stringValue().c_str(), param[1].stringValue().c_str()) == 0;
-    }
+        std::vector<std::string> parts = ZUtils::explode(param[0].stringValue(), '.');
+        std::string _stream   = "";
+        std::string _subject  = "";
+        if(parts.size() > 1) {
+            _stream     = parts[0];
+            for(int idx = 1; idx < parts.size(); idx++)
+                _subject = (_subject + (_subject != "" ? "." : "") + parts[idx]);
+        }
+        if(_subject == "")
+            return false;
 
-    static Php::Value _headers(mlm_client_t *client, std::string _header = "") {
-        Php::Value result;
-        result["connected"]  = mlm_client_connected(client);
-        result["command"]  = mlm_client_command(client);
-        result["status"]   = mlm_client_status(client);
-        result["reason"]   = mlm_client_reason(client);
-        result["address"]  = mlm_client_address(client);
-        result["sender"]   = mlm_client_sender(client);
-        result["subject"]  = mlm_client_subject(client);
-        result["tracker"]  = mlm_client_tracker(client);
-        if(_header != "")
-            return result[_header];
-        return result;
-
+        return mlm_client_set_consumer(mlm_consumer_handle(), _stream.c_str(), _subject.c_str()) == 0;
     }
 
     Php::Value headers(Php::Parameters &param) {
-        return _headers(mlm_consumer_handle(), param.size() > 0 ? param[0].stringValue() : "");
+        return MalamuteClient::_headers(mlm_consumer_handle(), param.size() > 0 ? param[0].stringValue() : "");
     }
 
     static void run(Php::Parameters &param) {
@@ -71,7 +79,7 @@ public:
         [param](void *actor, void *socket){
             zmsg_t *body = mlm_client_recv ((mlm_client_t *) actor);
             if(body) {
-                Php::Value result = param[3](Php::Object("ZMsg", new ZMsg(body, true)), _headers((mlm_client_t *) actor));
+                Php::Value result = param[2](Php::Object("ZMsg", new ZMsg(body, true)), MalamuteClient::_headers((mlm_client_t *) actor));
                 if(result.isBool() && !result.boolValue())
                     return false;
             }
@@ -84,17 +92,14 @@ public:
         Php::Class<MalamuteConsumer> o("Consumer");
         o.method("__construct", &MalamuteConsumer::__construct, {
             Php::ByVal("endpoint", Php::Type::String, true),
-            Php::ByVal("stream", Php::Type::String, false),
-            Php::ByVal("pattern", Php::Type::String, false)
+            Php::ByVal("stream", Php::Type::String, false)
         });
         o.method("consume", &MalamuteConsumer::consume, {
-            Php::ByVal("stream", Php::Type::String, true),
-            Php::ByVal("pattern", Php::Type::String, true)
+            Php::ByVal("stream", Php::Type::String, true)
         });
         o.method("run", &MalamuteConsumer::run, {
             Php::ByVal("endpoint", Php::Type::String, true),
             Php::ByVal("stream", Php::Type::String, true),
-            Php::ByVal("pattern", Php::Type::String, true),
             Php::ByVal("callback", Php::Type::Callable, true)
         });
         o.method("headers", &MalamuteConsumer::headers, {

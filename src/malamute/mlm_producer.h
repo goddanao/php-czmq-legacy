@@ -10,7 +10,8 @@ private:
 
         if(client) {
             std::string _endpoint = (param.size() > 0) ? param[0].stringValue() : "";
-            std::string _stream   = (param.size() > 1) ? param[1].stringValue() : "";
+            std::vector<std::string> parts = ZUtils::explode(param[1].stringValue(), '.');
+            std::string _stream = (parts.size() > 1) ? parts[0] : param[1].stringValue();
             int _timeout = 0;
 
             int rc = mlm_client_connect(client, _endpoint.c_str(), _timeout, "");
@@ -44,12 +45,18 @@ public:
     static void run(Php::Parameters &param) {
         void *actor = new_actor(param, NULL);
         bool stopped = false;
+        std::vector<std::string> parts = ZUtils::explode(param[1].stringValue(), '.');
+        std::string _stream = (parts.size() > 1) ? parts[0] : param[1].stringValue();
+        std::string _subject = "";
+        for(int idx = 1; idx < parts.size(); idx++)
+            _subject = (_subject + (_subject != "" ? "." : "") + parts[idx]);
+
         while (!zsys_interrupted) {
-            Php::Value result = param[3]();
+            Php::Value result = param[2]();
             if(result.isBool() && !result.boolValue())
                 break;
             zmsg_t *reply = ZUtils::phpvalue_to_zmsg(result);
-            mlm_client_send((mlm_client_t *) actor, param[2].stringValue().c_str(), &reply);
+            mlm_client_send((mlm_client_t *) actor, _subject.c_str(), &reply);
         }
         mlm_client_destroy((mlm_client_t **) &actor);
     }
@@ -75,7 +82,6 @@ public:
         o.method("run", &MalamuteProducer::run, {
             Php::ByVal("endpoint", Php::Type::String, true),
             Php::ByVal("stream", Php::Type::String, true),
-            Php::ByVal("subject", Php::Type::String, true),
             Php::ByVal("callback", Php::Type::Callable, true)
         });
 

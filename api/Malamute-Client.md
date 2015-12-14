@@ -85,19 +85,6 @@ Methods
 
 
 
-### content
-
-    mixed Malamute\Client::content()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### recv
 
     \ZMsg Malamute\Client::recv()

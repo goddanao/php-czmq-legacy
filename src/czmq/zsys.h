@@ -148,6 +148,10 @@ public:
             zsys_error(param[0].stringValue().c_str());
     }
 
+    static Php::Value uuid(Php::Parameters &param) {
+        return ZUtils::uuid();
+    }
+
     static  Php::Value get_available_socket_type() {
         Php::Value result;
         int idx = 0;
@@ -224,6 +228,9 @@ public:
             o.method("libmlm_version", &ZSys::libmlm_version);
 
         #endif
+
+        // UUID
+        o.method("uuid", &ZSys::uuid);
 
 
         // Logging ...

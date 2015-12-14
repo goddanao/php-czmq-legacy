@@ -38,7 +38,7 @@ Methods
 
 ### run
 
-    mixed Malamute\Producer::run(mixed $endpoint, mixed $stream, string $subject, callable $callback)
+    mixed Malamute\Producer::run(mixed $endpoint, mixed $stream, callable $callback)
 
 
 
@@ -51,7 +51,6 @@ Methods
 #### Arguments
 * $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $subject **string** - &lt;p&gt;...&lt;/p&gt;
 * $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
