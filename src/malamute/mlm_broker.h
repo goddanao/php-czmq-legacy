@@ -5,7 +5,7 @@
 class MalamuteBroker : public ZActor, public Php::Base {
 private:
 
-    static void *new_broker(Php::Parameters &param, zpoller_t *poller) {
+    static void *new_actor(Php::Parameters &param, zpoller_t *poller) {
         zactor_t *broker = zactor_new(mlm_server, NULL);
         if(broker) {
 
@@ -36,12 +36,8 @@ private:
 
 public:
 
-    MalamuteBroker() : ZActor(&MalamuteBroker::new_broker), Php::Base() { _type = "mlm_broker"; }
+    MalamuteBroker() : ZActor(&MalamuteBroker::new_actor), Php::Base() { _type = "mlm_broker"; }
     zactor_t *mlm_broker_handle() const { return (zactor_t *) get_handle(); }
-
-//	void set_verbose(Php::Parameters &param) {
-//		zstr_sendx (mlm_broker_handle(), "VERBOSE", NULL);
-//	}
 
 	void load_config(Php::Parameters &param) {
 		if(param.size() == 0)
@@ -81,7 +77,7 @@ public:
 	}
 
 	static void run(Php::Parameters &param) {
-        _run(&MalamuteBroker::new_broker,
+        _run(&MalamuteBroker::new_actor,
         [](void *actor){
             zactor_destroy((zactor_t **) &actor);
         },
@@ -104,7 +100,7 @@ public:
 
         o.method("run", &MalamuteBroker::run, {
           Php::ByVal("endpoint", Php::Type::String, true),
-          Php::ByVal("verbose", Php::Type::Bool, false)
+          Php::ByVal("options", Php::Type::Array, false)
         });
 
         o.method("load_config", &MalamuteBroker::load_config, {
