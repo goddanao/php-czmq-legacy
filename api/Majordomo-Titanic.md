@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Majordomo\Titanic Majordomo\Titanic::__construct(string $endpoint, \FileMq\Majordomo\ITitanicStorage $storage, integer $threads)
+    \Majordomo\Titanic Majordomo\Titanic::__construct(string $endpoint, \FileMq\ITitanicStorage $storage, integer $threads)
 
 
 
@@ -32,14 +32,14 @@ Methods
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
-* $storage **FileMq\Majordomo\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $storage **FileMq\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
 * $threads **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### run
 
-    mixed Majordomo\Titanic::run(string $endpoint, \FileMq\Majordomo\ITitanicStorage $storage, integer $threads)
+    mixed Majordomo\Titanic::run(string $endpoint, \FileMq\ITitanicStorage $storage, integer $threads)
 
 
 
@@ -51,7 +51,7 @@ Methods
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
-* $storage **FileMq\Majordomo\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $storage **FileMq\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
 * $threads **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 

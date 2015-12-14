@@ -13,6 +13,470 @@ ZSocket
 
 
 
+Properties
+----------
+
+
+### $ipv4only
+
+    public boolean $ipv4only
+
+
+
+
+
+* Visibility: **public**
+
+
+### $sndhwm
+
+    public integer $sndhwm
+
+
+
+
+
+* Visibility: **public**
+
+
+### $rcvhwm
+
+    public integer $rcvhwm
+
+
+
+
+
+* Visibility: **public**
+
+
+### $affinity
+
+    public integer $affinity
+
+
+
+
+
+* Visibility: **public**
+
+
+### $identity
+
+    public string $identity
+
+
+
+
+
+* Visibility: **public**
+
+
+### $rate
+
+    public integer $rate
+
+
+
+
+
+* Visibility: **public**
+
+
+### $recovery_ivl
+
+    public integer $recovery_ivl
+
+
+
+
+
+* Visibility: **public**
+
+
+### $sndbuf
+
+    public integer $sndbuf
+
+
+
+
+
+* Visibility: **public**
+
+
+### $rcvbuf
+
+    public integer $rcvbuf
+
+
+
+
+
+* Visibility: **public**
+
+
+### $linger
+
+    public integer $linger
+
+
+
+
+
+* Visibility: **public**
+
+
+### $reconnect_ivl
+
+    public integer $reconnect_ivl
+
+
+
+
+
+* Visibility: **public**
+
+
+### $reconnect_ivl_max
+
+    public integer $reconnect_ivl_max
+
+
+
+
+
+* Visibility: **public**
+
+
+### $backlog
+
+    public integer $backlog
+
+
+
+
+
+* Visibility: **public**
+
+
+### $maxmsgsize
+
+    public integer $maxmsgsize
+
+
+
+
+
+* Visibility: **public**
+
+
+### $multicast_hops
+
+    public integer $multicast_hops
+
+
+
+
+
+* Visibility: **public**
+
+
+### $rcvtimeo
+
+    public integer $rcvtimeo
+
+
+
+
+
+* Visibility: **public**
+
+
+### $sndtimeo
+
+    public integer $sndtimeo
+
+
+
+
+
+* Visibility: **public**
+
+
+### $tcp_keepalive
+
+    public integer $tcp_keepalive
+
+
+
+
+
+* Visibility: **public**
+
+
+### $tcp_keepalive_idle
+
+    public integer $tcp_keepalive_idle
+
+
+
+
+
+* Visibility: **public**
+
+
+### $tcp_keepalive_cnt
+
+    public integer $tcp_keepalive_cnt
+
+
+
+
+
+* Visibility: **public**
+
+
+### $tcp_keepalive_intvl
+
+    public integer $tcp_keepalive_intvl
+
+
+
+
+
+* Visibility: **public**
+
+
+### $tcp_accept_filter
+
+    public string $tcp_accept_filter
+
+
+
+
+
+* Visibility: **public**
+
+
+### $tos
+
+    public integer $tos
+
+
+
+
+
+* Visibility: **public**
+
+
+### $zap_domain
+
+    public string $zap_domain
+
+
+
+
+
+* Visibility: **public**
+
+
+### $plain_server
+
+    public boolean $plain_server
+
+
+
+
+
+* Visibility: **public**
+
+
+### $plain_username
+
+    public string $plain_username
+
+
+
+
+
+* Visibility: **public**
+
+
+### $plain_password
+
+    public string $plain_password
+
+
+
+
+
+* Visibility: **public**
+
+
+### $curve_server
+
+    public boolean $curve_server
+
+
+
+
+
+* Visibility: **public**
+
+
+### $curve_publickey
+
+    public string $curve_publickey
+
+
+
+
+
+* Visibility: **public**
+
+
+### $curve_secretkey
+
+    public string $curve_secretkey
+
+
+
+
+
+* Visibility: **public**
+
+
+### $curve_serverkey
+
+    public string $curve_serverkey
+
+
+
+
+
+* Visibility: **public**
+
+
+### $gssapi_server
+
+    public boolean $gssapi_server
+
+
+
+
+
+* Visibility: **public**
+
+
+### $gssapi_plaintext
+
+    public string $gssapi_plaintext
+
+
+
+
+
+* Visibility: **public**
+
+
+### $gssapi_principal
+
+    public string $gssapi_principal
+
+
+
+
+
+* Visibility: **public**
+
+
+### $gssapi_service_principal
+
+    public string $gssapi_service_principal
+
+
+
+
+
+* Visibility: **public**
+
+
+### $ipv6
+
+    public boolean $ipv6
+
+
+
+
+
+* Visibility: **public**
+
+
+### $immediate
+
+    public boolean $immediate
+
+
+
+
+
+* Visibility: **public**
+
+
+### $type
+
+    public string $type
+
+(read only)
+
+
+
+* Visibility: **public**
+
+
+### $rcvmore
+
+    public boolean $rcvmore
+
+(read only)
+
+
+
+* Visibility: **public**
+
+
+### $events
+
+    public integer $events
+
+(read only)
+
+
+
+* Visibility: **public**
+
+
+### $last_endpoint
+
+    public string $last_endpoint
+
+(read only)
+
+
+
+* Visibility: **public**
+
+
+### $mechanism
+
+    public string $mechanism
+
+(read only)
+
+
+
+* Visibility: **public**
 
 
 Methods

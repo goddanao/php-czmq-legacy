@@ -692,7 +692,6 @@ public:
     #endif
 
     	// Options
-
         o.method("get_options", &ZSocket::get_options);
 
         // IZSocket intf support
@@ -700,7 +699,6 @@ public:
         o.method("get_socket", &ZSocket::_get_socket);
 
         // Properties
-
         o.property("ipv4only", &ZSocket::get_ipv4only, &ZSocket::set_ipv4only);
         o.property("type", &ZSocket::get_socket_type);
         o.property("sndhwm", &ZSocket::get_sndhwm, &ZSocket::set_sndhwm);

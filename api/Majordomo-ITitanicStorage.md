@@ -38,7 +38,7 @@ Methods
 
 ### store
 
-    mixed Majordomo\ITitanicStorage::store(string $what, string $uuid, \FileMq\ZMsg $msg)
+    mixed Majordomo\ITitanicStorage::store(string $what, string $uuid, \ZMsg $msg)
 
 
 
@@ -50,7 +50,7 @@ Methods
 #### Arguments
 * $what **string** - &lt;p&gt;...&lt;/p&gt;
 * $uuid **string** - &lt;p&gt;...&lt;/p&gt;
-* $msg **FileMq\ZMsg** - &lt;p&gt;...&lt;/p&gt;
+* $msg **[ZMsg](ZMsg.md)** - &lt;p&gt;...&lt;/p&gt;
 
 
 

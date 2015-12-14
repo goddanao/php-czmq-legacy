@@ -916,6 +916,48 @@ interface IZEmitter {
  * ZSocket
  *
  * ...
+ * @property bool $ipv4only 
+ * @property-read string $type (read only)
+ * @property int $sndhwm 
+ * @property int $rcvhwm 
+ * @property int $affinity 
+ * @property string $identity 
+ * @property int $rate 
+ * @property int $recovery_ivl 
+ * @property int $sndbuf 
+ * @property int $rcvbuf 
+ * @property int $linger 
+ * @property int $reconnect_ivl 
+ * @property int $reconnect_ivl_max 
+ * @property int $backlog 
+ * @property int $maxmsgsize 
+ * @property int $multicast_hops 
+ * @property int $rcvtimeo 
+ * @property int $sndtimeo 
+ * @property int $tcp_keepalive 
+ * @property int $tcp_keepalive_idle 
+ * @property int $tcp_keepalive_cnt 
+ * @property int $tcp_keepalive_intvl 
+ * @property string $tcp_accept_filter 
+ * @property-read bool $rcvmore (read only)
+ * @property-read int $events (read only)
+ * @property-read string $last_endpoint (read only)
+ * @property int $tos 
+ * @property string $zap_domain 
+ * @property-read string $mechanism (read only)
+ * @property bool $plain_server 
+ * @property string $plain_username 
+ * @property string $plain_password 
+ * @property bool $curve_server 
+ * @property string $curve_publickey 
+ * @property string $curve_secretkey 
+ * @property string $curve_serverkey 
+ * @property bool $gssapi_server 
+ * @property string $gssapi_plaintext 
+ * @property string $gssapi_principal 
+ * @property string $gssapi_service_principal 
+ * @property bool $ipv6 
+ * @property bool $immediate 
  */
 class ZSocket implements \IZSocket, \IZDescriptor {
 
@@ -2235,7 +2277,7 @@ class Titanic implements \IZSocket, \IZDescriptor {
    * ...
    * 
    * @param string $endpoint ...
-   * @param Majordomo\ITitanicStorage $storage ... (optional)
+   * @param ITitanicStorage $storage ... (optional)
    * @param int $threads ... (optional)
    * @return \Majordomo\Titanic
   */
@@ -2245,7 +2287,7 @@ class Titanic implements \IZSocket, \IZDescriptor {
    * ...
    * 
    * @param string $endpoint ...
-   * @param Majordomo\ITitanicStorage $storage ... (optional)
+   * @param ITitanicStorage $storage ... (optional)
    * @param int $threads ... (optional)
   */
   static public function run($endpoint, \Majordomo\ITitanicStorage $storage = null, $threads) {}
@@ -2328,7 +2370,7 @@ interface ITitanicStorage {
    * 
    * @param string $what ...
    * @param string $uuid ...
-   * @param ZMsg $msg ...
+   * @param \ZMsg $msg ...
   */
   public function store($what, $uuid, \ZMsg $msg) ;
 
