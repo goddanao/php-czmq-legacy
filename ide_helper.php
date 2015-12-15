@@ -1038,23 +1038,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param string $data ...
-  */
-  public function send($data) {}
-
-  /**
-   * ...
-   * 
    * @return \ZMsg
   */
   public function recv() {}
-
-  /**
-   * ...
-   * 
-   * @param string $data ...
-  */
-  public function send_string($data) {}
 
   /**
    * ...
@@ -1067,16 +1053,42 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * ...
    * 
    * @param string $picture ...
+   * @return array
   */
-  public function send_picture($picture) {}
+  public function recv_picture($picture) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_zipped() {}
+
+  /**
+   * ...
+   * 
+   * @param string $data ...
+  */
+  public function send($data) {}
+
+  /**
+   * ...
+   * 
+   * @param string $data ...
+  */
+  public function send_string($data) {}
 
   /**
    * ...
    * 
    * @param string $picture ...
-   * @return array
   */
-  public function recv_picture($picture) {}
+  public function send_picture($picture) {}
 
   /**
    * ...
@@ -1088,8 +1100,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @param mixed $data ...
   */
-  public function recv_msgpack() {}
+  public function send_zipped($data) {}
 
   /**
    * Create a PUB socket. Default action is bind.

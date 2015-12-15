@@ -632,6 +632,74 @@ Methods
 
 
 
+### recv
+
+    \ZMsg ZSocket::recv()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_string
+
+    string ZSocket::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_picture
+
+    array ZSocket::recv_picture(string $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_msgpack
+
+    mixed ZSocket::recv_msgpack()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_zipped
+
+    mixed ZSocket::recv_zipped()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### send
 
     mixed ZSocket::send(string $data)
@@ -645,19 +713,6 @@ Methods
 
 #### Arguments
 * $data **string** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### recv
-
-    \ZMsg ZSocket::recv()
-
-
-
-...
-
-* Visibility: **public**
-
 
 
 
@@ -677,38 +732,9 @@ Methods
 
 
 
-### recv_string
-
-    string ZSocket::recv_string()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### send_picture
 
     mixed ZSocket::send_picture(string $picture)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $picture **string** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### recv_picture
-
-    array ZSocket::recv_picture(string $picture)
 
 
 
@@ -738,9 +764,9 @@ Methods
 
 
 
-### recv_msgpack
+### send_zipped
 
-    mixed ZSocket::recv_msgpack()
+    mixed ZSocket::send_zipped(mixed $data)
 
 
 
@@ -748,6 +774,9 @@ Methods
 
 * Visibility: **public**
 
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

@@ -196,6 +196,10 @@ public:
         return zmsg_recv (get_socket());
     }
 
+    virtual Php::Value recv_zipped(Php::Parameters &param);
+
+    virtual Php::Value send_zipped(Php::Parameters &param);
+
     virtual Php::Value recv_msgpack(Php::Parameters &param);
 
     virtual Php::Value send_msgpack(Php::Parameters &param);

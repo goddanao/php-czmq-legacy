@@ -591,6 +591,35 @@ public:
 
 #endif
 
+    template<class T>
+    static void register_send(Php::Class<T> *o) {
+        o->method("send", &T::send, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o->method("send_string", &T::send_string, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o->method("send_picture", &T::send_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        o->method("send_msgpack", &T::send_msgpack, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o->method("send_zipped", &T::send_zipped, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+    }
+
+    template<class T>
+    static void register_recv(Php::Class<T> *o) {
+        o->method("recv", &T::recv);
+        o->method("recv_string", &T::recv_string);
+        o->method("recv_picture", &T::recv_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        o->method("recv_msgpack", &T::recv_msgpack);
+        o->method("recv_zipped", &T::recv_zipped);
+    }
 
     static Php::Class<ZSocket> php_register() {
 
@@ -620,24 +649,9 @@ public:
     	o.method("wait", &ZSocket::wait);
     	o.method("flush", &ZSocket::flush);
 
-        o.method("send", &ZSocket::send, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-    	o.method("recv", &ZSocket::recv);
-        o.method("send_string", &ZSocket::send_string, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv_string", &ZSocket::recv_string);
-        o.method("send_picture", &ZSocket::send_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-    	o.method("recv_picture", &ZSocket::recv_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o.method("send_msgpack", &ZSocket::send_msgpack, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv_msgpack", &ZSocket::recv_msgpack);
+        //
+        register_recv((Php::Class<ZSocket> *) &o);
+        register_send((Php::Class<ZSocket> *) &o);
 
     	// static accessors
         o.method("pub", &ZSocket::pub, {

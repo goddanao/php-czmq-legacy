@@ -106,6 +106,28 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($result, "hello");
     }
 
+    public function test_send_recv_zipped() {
+        $arr = [
+            "bool"    => true,
+            "integer" => 1,
+            "float"   => 1.544,
+            "string"  => "mystring",
+            "array"   => [ "one", "two", "three"],
+            "map"     => [
+                "one"   => "other",
+                "two"   => PHP_INT_MAX
+            ]
+        ];
+        $str = json_encode($arr);
+        $str .= $str;
+        $str .= $str;
+
+        $this->req->send_zipped($str);
+        $result = $this->rep->recv_zipped();
+        $this->assertEquals($result, $str);
+
+    }
+
     public function test_send_recv_msgpack() {
         $arr = [
             "bool"    => true,
@@ -150,8 +172,8 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
             '8' => pow(2, 63) - 1,                          // 8 = 64 bit signed
             'i' => pow(2, 31) - 1,                          // i = 32bit signed
             'u' => pow(2, 32) - 1,                          // u = 32 bit unsigned
-            's' => str_pad('-', 255, '-'),                  // s = short string (255 chars)
-            'S' => str_pad('-', 256, '-'),                  // S = long string (> 255 chars),
+            's' => str_repeat('-', 255),                  // s = short string (255 chars)
+            'S' => str_repeat('-', 256),                  // S = long string (> 255 chars),
             'b' => pack("nvc*", 0x1234, 0x5678, 65, 66),    // b = byte buffer
             'z' => null,                                    // z = NULL
             'm' => $msg,                                    // ZMsg (collect frames not in picture, till the end of recieved message)
@@ -489,7 +511,7 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
 
 // Test picture type 's' againts a long_string - checking failure
     public function test_send_recv_picture_s_long_string() {
-        $this->assertFalse($this->send_recv('s', str_pad('-', 1024)));
+        $this->assertFalse($this->send_recv('s', str_repeat('-', 1024)));
     }
 
 // Test picture type 'S' againts a empty_string - checking success
@@ -504,7 +526,7 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
 
 // Test picture type 'S' againts a long_string - checking success
     public function test_send_recv_picture_s_uppercase_long_string() {
-        $this->assertTrue($this->send_recv('S', str_pad('-', 1024)));
+        $this->assertTrue($this->send_recv('S', str_repeat('-', 1024)));
     }
 
 

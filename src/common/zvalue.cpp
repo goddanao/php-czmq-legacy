@@ -49,7 +49,8 @@ zmsg_t *ZValue::to_zmsg(void) {
 
     if(isString()) {
         zmsg = zmsg_new ();
-        zmsg_pushstr (zmsg, stringValue().c_str());
+        // zmsg_pushstr (zmsg, stringValue().c_str());
+        zmsg_pushmem (zmsg, rawValue(), size());
     }
     else
     if(isObject()) {
@@ -70,7 +71,8 @@ zmsg_t *ZValue::to_zmsg(void) {
         for (auto &iter : Php::Array(this)) {
             Php::Value item = iter.second;
             if(item.isString()) {
-                zmsg_pushstr (zmsg, item.stringValue().c_str());
+                zmsg_pushmem (zmsg, item.rawValue(), item.size());
+                // zmsg_pushstr (zmsg, item.stringValue().c_str());
             }
             else
             if(item.isObject()) {

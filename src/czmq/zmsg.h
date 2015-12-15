@@ -96,41 +96,11 @@ public:
             if (*picture == 'u')    //  Deprecated, use 4 or 8 instead
                 zmsg_addstrf (msg, "%ud", (uint) (long) param[picture_idx++]);
             else
-            if (*picture == 's') {
-                zmsg_addstr (msg, param[picture_idx++].stringValue().substr(0, 255).c_str());
+            if (*picture == 's' || *picture == 'S' || *picture == 'b') {
+               zmsg_addmem (msg, param[picture_idx].rawValue(), (*picture == 's') ? std::min(256, param[picture_idx].size()) : param[picture_idx].size());
+               picture_idx++;
             }
             else
-            if (*picture == 'S') {
-                zmsg_addstr (msg, param[picture_idx++].stringValue().c_str());
-            }
-            else
-            if (*picture == 'b') {
-                const char *pointer = param[picture_idx].rawValue();
-                zmsg_addmem (msg, pointer, param[picture_idx].size());
-                picture_idx++;
-            }
-            else
-    //		if (*picture == 'p') {
-    //			if(streq(sock_type, "PAIR")) {
-    //				void *pointer = param[picture_idx++].implementation();
-    //				if(pointer != NULL) {
-    //					zmsg_addmem (msg, &pointer, sizeof (void *));
-    //					if(_verbose)
-    //						zsys_info("address sent %p", pointer);
-    //				}
-    //			} else {
-    //				throw Php::Exception("ZMsg picture: 'p' param not valid for socket type != PAIR.");
-    //			}
-    //		}
-    //		else
-//            if (*picture == 'c') {
-//                ZChunk *zchunk = dynamic_cast<ZChunk *>(param[picture_idx++].implementation());
-//                if(zchunk != NULL)
-//                    zmsg_addmem (msg, zchunk_data (zchunk->zchunk_handle()), zchunk_size (zchunk->zchunk_handle()));
-//                else
-//                    throw Php::Exception("ZMsg picture: 'c' param not mapped on ZChunk.");
-//            }
-//            else
             if (*picture == 'f') {
                 ZFrame *zframe = dynamic_cast<ZFrame *>(param[picture_idx++].implementation());
                 if(zframe != NULL)
@@ -139,16 +109,6 @@ public:
                     throw Php::Exception("ZMsg picture: 'f' param not mapped on ZFrame.");
             }
             else
-//            if (*picture == 'h') {
-//                ZHash *zhash = dynamic_cast<ZHash *>(param[picture_idx++].implementation());
-//                if(zhash != NULL) {
-//                    zframe_t *frame = zhash_pack (zhash->zhash_handle());
-//                    zmsg_append (msg, &frame);
-//                }
-//                else
-//                    throw Php::Exception("ZMsg picture: 'h' param not mapped on ZHash.");
-//            }
-//            else
             if (*picture == 'm') {
                 ZMsg *zmsg = dynamic_cast<ZMsg *>(param[picture_idx++].implementation());
                 if(zmsg != NULL) {
@@ -204,41 +164,11 @@ public:
             if (*picture == 'u')    //  Deprecated, use 4 or 8 instead
                 zmsg_pushstrf (msg, "%ud", (uint) (long) param[picture_idx--]);
             else
-            if (*picture == 's') {
-                zmsg_pushstr (msg, param[picture_idx--].stringValue().substr(0, 255).c_str());
-            }
-            else
-            if (*picture == 'S') {
-                zmsg_pushstr (msg, param[picture_idx--].stringValue().c_str());
-            }
-            else
-            if (*picture == 'b') {
-                const char *pointer = param[picture_idx].rawValue();
-                zmsg_pushmem (msg, pointer, param[picture_idx].size());
+            if (*picture == 's' || *picture == 'S' || *picture == 'b') {
+                zmsg_pushmem (msg, param[picture_idx].rawValue(),  (*picture == 's') ? std::min(256, param[picture_idx].size()) : param[picture_idx].size());
                 picture_idx--;
             }
             else
-    //		if (*picture == 'p') {
-    //			if(streq(sock_type, "PAIR")) {
-    //				void *pointer = param[picture_idx--].implementation();
-    //				if(pointer != NULL) {
-    //					zmsg_pushmem (msg, &pointer, sizeof (void *));
-    //					if(_verbose)
-    //						zsys_info("address sent %p", pointer);
-    //				}
-    //			} else {
-    //				throw Php::Exception("ZMsg picture: 'p' param not valid for socket type != PAIR.");
-    //			}
-    //		}
-    //		else
-//            if (*picture == 'c') {
-//                ZChunk *zchunk = dynamic_cast<ZChunk *>(param[picture_idx--].implementation());
-//                if(zchunk != NULL)
-//                    zmsg_pushmem (msg, zchunk_data (zchunk->zchunk_handle()), zchunk_size (zchunk->zchunk_handle()));
-//                else
-//                    throw Php::Exception("ZMsg picture: 'c' param not mapped on ZChunk.");
-//            }
-//            else
             if (*picture == 'f') {
                 ZFrame *zframe = dynamic_cast<ZFrame *>(param[picture_idx--].implementation());
                 if(zframe != NULL)
@@ -247,16 +177,6 @@ public:
                     throw Php::Exception("ZMsg picture: 'f' param not mapped on ZFrame.");
             }
             else
-//            if (*picture == 'h') {
-//                ZHash *zhash = dynamic_cast<ZHash *>(param[picture_idx--].implementation());
-//                if(zhash != NULL) {
-//                    zframe_t *frame = zhash_pack (zhash->zhash_handle());
-//                    zmsg_prepend (msg, &frame);
-//                }
-//                else
-//                    throw Php::Exception("ZMsg picture: 'h' param not mapped on ZHash.");
-//            }
-//            else
             if (*picture == 'm') {
                 ZMsg *zmsg = dynamic_cast<ZMsg *>(param[picture_idx--].implementation());
                 if(zmsg != NULL) {
@@ -329,20 +249,7 @@ public:
                 zstr_free (&string);
             }
             else
-            if (*picture == 's') {
-                char *string = zmsg_popstr (msg);
-                std::string sub = string;
-                result[idx++] = sub.substr(0,255);
-                zstr_free (&string);
-            }
-            else
-            if (*picture == 'S') {
-                char *string = zmsg_popstr (msg);
-                result[idx++] = string;
-                zstr_free (&string);
-            }
-            else
-            if (*picture == 'b') {
+            if (*picture == 's' || *picture == 'S' || *picture == 'b') {
                 zframe_t *frame = zmsg_pop (msg);
                 if(frame) {
                     Php::Value buffer;
@@ -366,62 +273,6 @@ public:
                     result[idx++] = nullptr;
             }
             else
-//            if (*picture == 'c') {
-//                zframe_t *frame = zmsg_pop (msg);
-//                if(frame) {
-//                    zchunk_t *chunk = zchunk_new(zframe_data (frame), zframe_size(frame));
-//                    if(chunk)
-//                        result[idx++] = Php::Object("ZChunk", new ZChunk(chunk,true));
-//                    else
-//                        result[idx++] = nullptr;
-//                    zframe_destroy (&frame);
-//                }
-//                else
-//                    result[idx++] = nullptr;
-//            }
-//            else
-    //		if (*picture == 'p') {
-    //			if(streq(sock_type,"PAIR")) {
-    //				void *pointer = NULL;
-    //				void *address = NULL;
-    //				zframe_t *frame = zmsg_pop (msg);
-    //
-    //				if (frame) {
-    //					if (zframe_size (frame) == sizeof (void *)) {
-    //						pointer = zframe_data (frame);
-    //						memcpy(&address, pointer, sizeof (void *));
-    //						result[idx++] = nullptr; // &address;
-    //
-    //						if(_verbose)
-    //							zsys_info("address recieved %p", address);
-    //
-    //					}
-    //					else
-    //						rc = -1;
-    //
-    //					zframe_destroy (&frame);
-    //				}
-    //
-    //			} else {
-    //				idx++;
-    //				rc = -1;
-    //			}
-    //		}
-    //		else
-//            if (*picture == 'h') {
-//                zframe_t *frame = zmsg_pop (msg);
-//                if(frame) {
-//                    zhash_t *unpacked = zhash_unpack (frame);
-//                    if(unpacked)
-//                        result[idx++] = Php::Object("ZHash", new ZHash(unpacked, true));
-//                    else
-//                        result[idx++] = nullptr;
-//                    zframe_destroy (&frame);
-//                }
-//                else
-//                    result[idx++] = nullptr;
-//            }
-//            else
             if (*picture == 'm') {
                 zmsg_t *zmsg_p = zmsg_new ();
                 zframe_t *frame;
@@ -455,19 +306,24 @@ public:
     }
 
     void append_string(Php::Parameters &param) {
-        zmsg_addstr (zmsg_handle(), param[0].stringValue().c_str());
+        zmsg_addmem (zmsg_handle(), param[0].rawValue(), param[0].size());
     }
 
     void prepend_string(Php::Parameters &param) {
-        zmsg_pushstr (zmsg_handle(), param[0].stringValue().c_str());
+        zmsg_pushmem (zmsg_handle(), param[0].rawValue(), param[0].size());
     }
 
     Php::Value pop_string() {
-        char *string = zmsg_popstr (zmsg_handle());
-        if(string) {
-            std::string sub = string;
-            zstr_free (&string);
-            return sub;
+        zframe_t *frame = zmsg_pop (zmsg_handle());
+        if(frame) {
+            Php::Value buffer;
+            int _buffer_size = zframe_size(frame);
+            buffer.reserve(_buffer_size);
+            const char *_buffer_to = buffer.rawValue();
+            byte *_buffer_from = zframe_data(frame);
+            memcpy((void *) _buffer_to, _buffer_from, _buffer_size);
+            zframe_destroy (&frame);
+            return buffer;
         }
         return nullptr;
     }

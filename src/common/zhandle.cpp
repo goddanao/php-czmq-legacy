@@ -64,9 +64,37 @@ Php::Value ZHandle::recv_msgpack(Php::Parameters &param) {
         byte *_buffer_from = zframe_data(frame);
         memcpy((void *) _buffer_to, _buffer_from, _buffer_size);
         zframe_destroy (&frame);
+        zmsg_destroy(&msg);
         Php::Value callback;
         return MsgPack::decode(buffer, callback);
     }
+    zmsg_destroy(&msg);
+    return nullptr;
+}
 
+Php::Value ZHandle::send_zipped(Php::Parameters &param) {
+    Php::Value v = ZUtils::compress_string(param[0]);
+    zmsg_t *msg = ZUtils::phpvalue_to_zmsg(v);
+    return _send(msg);
+}
+
+Php::Value ZHandle::recv_zipped(Php::Parameters &param) {
+    zmsg_t *msg = _recv ();
+    if(!msg)
+        return nullptr;
+
+    zframe_t *frame = zmsg_pop (msg);
+    if(frame) {
+        Php::Value buffer;
+        int _buffer_size = zframe_size(frame);
+        buffer.reserve(_buffer_size);
+        const char *_buffer_to = buffer.rawValue();
+        byte *_buffer_from = zframe_data(frame);
+        memcpy((void *) _buffer_to, _buffer_from, _buffer_size);
+        zframe_destroy (&frame);
+        zmsg_destroy(&msg);
+        return ZUtils::decompress_string(buffer);
+    }
+    zmsg_destroy(&msg);
     return nullptr;
 }
