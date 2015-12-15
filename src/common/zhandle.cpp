@@ -47,8 +47,6 @@ Php::Value ZHandle::recv(Php::Parameters &param) {
 Php::Value ZHandle::send_msgpack(Php::Parameters &param) {
     Php::Value v = MsgPack::encode(param);
     zmsg_t *msg = ZUtils::phpvalue_to_zmsg(v);
-    zsys_info("msgpack send");
-    zmsg_dump(msg);
     return _send(msg);
 }
 
@@ -56,10 +54,6 @@ Php::Value ZHandle::recv_msgpack(Php::Parameters &param) {
     zmsg_t *msg = _recv ();
     if(!msg)
         return nullptr;
-
-    zsys_info("msgpack recv");
-    zmsg_dump(msg);
-
     zframe_t *frame = zmsg_pop (msg);
     if(frame) {
         Php::Value buffer;
@@ -69,10 +63,6 @@ Php::Value ZHandle::recv_msgpack(Php::Parameters &param) {
         byte *_buffer_from = zframe_data(frame);
         memcpy((void *) _buffer_to, _buffer_from, _buffer_size);
         zframe_destroy (&frame);
-
-        zsys_info("decoding ...");
-
-
         return MsgPack::decode(buffer);
     }
 

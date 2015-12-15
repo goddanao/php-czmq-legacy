@@ -1079,6 +1079,19 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function recv_picture($picture) {}
 
   /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_msgpack($data) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
    * Create a PUB socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
@@ -1797,6 +1810,28 @@ class ZStdErr implements \IZDescriptor {
 
 }
 
+
+/**
+ * MsgPack
+ *
+ * ...
+ */
+class MsgPack {
+
+  /**
+   * ...
+   * 
+  */
+  static public function encode() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function decode() {}
+
+}
+
 }
 
 namespace Zyre {
@@ -2434,9 +2469,9 @@ class Broker implements \IZSocket, \IZDescriptor {
    * ...
    * 
    * @param mixed $endpoint ...
-   * @param mixed $verbose ... (optional)
+   * @param array $options ... (optional)
   */
-  static public function run($endpoint, $verbose) {}
+  static public function run($endpoint, array $options) {}
 
   /**
    * ...

@@ -26,6 +26,7 @@ API Index
 * [ZStdIn](ZStdIn.md)
 * [ZStdOut](ZStdOut.md)
 * [ZStdErr](ZStdErr.md)
+* [MsgPack](MsgPack.md)
 * Zyre
     * [Zyre](Zyre-Zyre.md)
 * Malamute

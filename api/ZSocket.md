@@ -722,6 +722,35 @@ Methods
 
 
 
+### send_msgpack
+
+    mixed ZSocket::send_msgpack(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_msgpack
+
+    mixed ZSocket::recv_msgpack()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### pub
 
     \ZSocket ZSocket::pub(string $endpoint)

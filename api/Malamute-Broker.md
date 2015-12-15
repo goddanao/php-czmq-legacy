@@ -54,7 +54,7 @@ Methods
 
 ### run
 
-    mixed Malamute\Broker::run(mixed $endpoint, mixed $verbose)
+    mixed Malamute\Broker::run(mixed $endpoint, array $options)
 
 
 
@@ -66,7 +66,7 @@ Methods
 
 #### Arguments
 * $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
