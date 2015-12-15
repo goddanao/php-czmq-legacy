@@ -82,8 +82,9 @@ public:
                 Php::Value result = param[2](Php::Object("ZMsg", new ZMsg(body, true)), MalamuteClient::_headers((mlm_client_t *) actor));
                 if(result.isBool() && !result.boolValue())
                     return false;
+                return true;
             }
-            return true;
+            return false;
         },
         param);
     }
