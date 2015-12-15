@@ -38,23 +38,7 @@ public:
     MajordomoTitanicV2() : ZActor(&MajordomoTitanicV2::new_actor), Php::Base() { _type = "zactor"; };
 
     static void run(Php::Parameters &param) {
-        _run(
-        &MajordomoTitanicV2::new_actor,
-        [](void *actor){
-            zactor_destroy((zactor_t **) &actor);
-        },
-        [param](void *actor, void *socket){
-            zmsg_t *msg = zmsg_recv(socket);
-            if(!msg) return false;
-            zsys_info("mdp_titanic - msg in");
-            zmsg_dump(msg);
-            zmsg_destroy(&msg);
-            return true;
-        },
-        [](void *actor){
-            return true;
-        },
-        param);
+        _run(param, &MajordomoTitanicV2::new_actor);
     }
 
     static Php::Class<MajordomoTitanicV2> php_register() {

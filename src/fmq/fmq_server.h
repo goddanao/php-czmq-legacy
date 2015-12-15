@@ -114,22 +114,7 @@ public:
 	}
 
 	static void run(Php::Parameters &param) {
-	    _run(&FileMqServer::new_actor,
-        [](void *actor){
-            zactor_destroy((zactor_t **) &actor);
-        },
-        [param](void *actor, void *socket){
-            zmsg_t *msg = zmsg_recv(socket);
-            if(!msg) return false;
-            zsys_info("fmq_server - msg in");
-            zmsg_dump(msg);
-            zmsg_destroy(&msg);
-            return true;
-        },
-        [](void *actor){
-            return true;
-        },
-        param);
+	    _run(param, &FileMqServer::new_actor);
     }
 
 

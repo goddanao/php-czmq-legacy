@@ -58,22 +58,7 @@ public:
 	}
 
 	static void run(Php::Parameters &param) {
-        _run(&MajordomoBrokerV2::new_actor,
-        [](void *actor){
-            zactor_destroy((zactor_t **) &actor);
-        },
-        [param](void *actor, void *socket){
-            zmsg_t *msg = zmsg_recv(socket);
-            if(!msg) return false;
-            zsys_info("mdp_broker - msg in");
-            zmsg_dump(msg);
-            zmsg_destroy(&msg);
-            return true;
-        },
-        [](void *actor){
-            return true;
-        },
-        param);
+        _run(param, &MajordomoBrokerV2::new_actor);
     }
 
     static Php::Class<MajordomoBrokerV2> php_register() {

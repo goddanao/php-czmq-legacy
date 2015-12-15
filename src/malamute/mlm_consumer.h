@@ -72,24 +72,16 @@ public:
     }
 
     static void run(Php::Parameters &param) {
-        _run(&MalamuteConsumer::new_actor,
+        _run(param, &MalamuteConsumer::new_actor,
         [](void *actor){
             mlm_client_destroy((mlm_client_t **) &actor);
         },
         [param](void *actor, void *socket){
             zmsg_t *body = mlm_client_recv ((mlm_client_t *) actor);
-            if(body) {
-                Php::Value result = param[2](Php::Object("ZMsg", new ZMsg(body, true)), MalamuteClient::_headers((mlm_client_t *) actor));
-                if(result.isBool() && !result.boolValue())
-                    return false;
-                return true;
-            }
-            return false;
-        },
-        [](void *actor){
-            return true;
-        },
-        param);
+            if(!body) return false;
+            Php::Value result = param[2](Php::Object("ZMsg", new ZMsg(body, true)), MalamuteClient::_headers((mlm_client_t *) actor));
+            return !(result.isBool() && !result.boolValue());
+        });
     }
 
     static Php::Class<MalamuteConsumer> php_register() {

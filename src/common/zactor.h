@@ -9,12 +9,11 @@ protected:
     std::function<bool (void *, void *)> _poll;
     std::function<bool (void *)> _expired;
 
-    static void _run(
+    static void _run(Php::Parameters &param,
         std::function<void *(Php::Parameters &param, zpoller_t *)> __new,
-        std::function<void (void *)> __destroy,
-        std::function<bool (void *, void *)> __poll,
-        std::function<bool (void *)> __expired,
-        Php::Parameters &param) {
+        std::function<void (void *)> __destroy = NULL,
+        std::function<bool (void *, void *)> __poll = NULL,
+        std::function<bool (void *)> __expired = NULL) {
         zpoller_t *poller = zpoller_new(NULL);
         void *actor = __new(param, poller);
         while (!zsys_interrupted) {
@@ -23,16 +22,31 @@ protected:
                 break;
             }
             if(zpoller_expired(poller)) {
-                if(!__expired(actor))
+                if(__expired && !__expired(actor))
                     break;
             }
             if(socket) {
-                if(!__poll(actor, socket))
-                    break;
+                if(__poll) {
+                    if(!__poll(actor, socket))
+                        break;
+                } else {
+                    zmsg_t *msg = zmsg_recv(socket);
+                    if(!msg) break;
+                    zsys_info("msg incoming");
+                    zmsg_dump(msg);
+                    zmsg_destroy(&msg);
+                }
             }
         }
         zpoller_destroy(&poller);
-        __destroy(actor);
+
+        if(__destroy) {
+            __destroy(actor);
+        } else {
+            if(zactor_is(actor)){
+                zactor_destroy((zactor_t **) &actor);
+            }
+        }
     }
 
 public:

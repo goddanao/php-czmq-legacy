@@ -48,27 +48,18 @@ public:
         for(int idx = 1; idx < parts.size(); idx++)
             _subject = (_subject + (_subject != "" ? "." : "") + parts[idx]);
 
-        _run(&MalamuteProducer::new_actor,
+        _run(param, &MalamuteProducer::new_actor,
         [](void *actor){
             mlm_client_destroy((mlm_client_t **) &actor);
         },
-        [param](void *actor, void *socket){
-            zmsg_t *msg = zmsg_recv(socket);
-            if(!msg) return false;
-            zsys_info("mlm_producer - msg in");
-            zmsg_dump(msg);
-            zmsg_destroy(&msg);
-            return true;
-        },
+        NULL,
         [param, _subject](void *actor){
             Php::Value result = param[2]();
             if(result.isBool() && !result.boolValue())
                 return false;
             zmsg_t *reply = ZUtils::phpvalue_to_zmsg(result);
-            int rc = mlm_client_send((mlm_client_t *) actor, _subject.c_str(), &reply);
-            return rc == 0;
-        },
-        param);
+            return mlm_client_send((mlm_client_t *) actor, _subject.c_str(), &reply) == 0;
+        });
     }
 
     Php::Value send_picture(Php::Parameters &param) {

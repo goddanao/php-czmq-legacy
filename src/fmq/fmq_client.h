@@ -38,22 +38,10 @@ public:
     }
 
     static void run(Php::Parameters &param) {
-        _run(&FileMqClient::new_actor,
+        _run(param, &FileMqClient::new_actor,
         [](void *actor){
             fmq_client_destroy((fmq_client_t **) &actor);
-        },
-        [param](void *actor, void *socket){
-            zmsg_t *msg = zmsg_recv(socket);
-            if(!msg) return false;
-            zsys_info("fmq_client - msg in");
-            zmsg_dump(msg);
-            zmsg_destroy(&msg);
-            return true;
-        },
-        [](void *actor){
-            return true;
-        },
-        param);
+        });
     }
 
     static Php::Class<FileMqClient> php_register() {

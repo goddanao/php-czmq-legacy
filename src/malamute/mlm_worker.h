@@ -55,7 +55,7 @@ public:
     }
 
     static void run(Php::Parameters &param) {
-        _run(&MalamuteWorker::new_actor,
+        _run(param, &MalamuteWorker::new_actor,
         [](void *actor){
             mlm_client_destroy((mlm_client_t **) &actor);
         },
@@ -76,11 +76,7 @@ public:
                 mlm_client_sendto((mlm_client_t *) actor, _sender.c_str(), mlm_client_address((mlm_client_t *) actor), mlm_client_subject((mlm_client_t *) actor), 0, &reply);
             }
             return true;
-        },
-        [](void *actor){
-            return true;
-        },
-        param);
+        });
     }
 
     static Php::Class<MalamuteWorker> php_register() {

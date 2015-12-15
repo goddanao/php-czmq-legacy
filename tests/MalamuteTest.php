@@ -49,7 +49,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
                 $msg = $me->recv();
                 $processed++;
             });
-            $zloop->add_timer(2500, function($timer_id, $loop) {
+            $zloop->add_timer(1000, function($timer_id, $loop) {
                 $loop->stop();
             });
             $zloop->start();
@@ -71,11 +71,11 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
             $processed = 0;
             $worker = new Malamute\Producer($endpoint, "my_stream");
             $zloop = new ZLoop();
-            $zloop->add_timer(500, function($timer_id, $loop) use (&$worker, &$processed, $msg_count) {
+            $zloop->add_timer(1, function($timer_id, $loop) use (&$worker, &$processed, $msg_count) {
                 $worker->send("myothersubject", "mydata");
                 $processed++;
             }, 10);
-            $zloop->add_timer(2000, function($timer_id, $loop) {
+            $zloop->add_timer(1000, function($timer_id, $loop) {
                 $loop->stop();
             });
             $zloop->start();
@@ -83,14 +83,12 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
 
         $manager->fork(function() use ($msg_count, $endpoint) {
             $processed = 0;
-            usleep(100000);
             Malamute\Producer::run($endpoint, "my_stream.mysubject", function() use (&$processed, $msg_count) {
-                usleep(rand(1000, 2000));
                 return ($processed++ < $msg_count) ? "mydata" : false;
             });
         });
 
-        sleep(3);
+        sleep(2);
 
         foreach($client as $c) {
             $c->receive();
@@ -104,7 +102,6 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
 
     public function test_queued_service()
     {
-        // $this->markTestSkipped();
         $manager = new ProcessManager();
 
         $endpoint = self::$broker_endpoint;
@@ -134,7 +131,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function test_pooled_service() {
-        // $this->markTestSkipped();
+
         $manager = new ProcessManager();
 
         $endpoint = self::$broker_endpoint;

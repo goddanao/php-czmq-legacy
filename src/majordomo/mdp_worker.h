@@ -45,7 +45,7 @@ public:
     }
 
     static void run(Php::Parameters &param) {
-        _run(&MajordomoWorkerV2::new_actor,
+        _run(param, &MajordomoWorkerV2::new_actor,
         [](void *actor){
             mdp_worker_destroy((mdp_worker_t **) &actor);
         },
@@ -63,11 +63,7 @@ public:
                 mdp_worker_send_final((mdp_worker_t*) actor, &address, &zmsg);
             }
             return true;
-        },
-        [](void *actor){
-            return true;
-        },
-        param);
+        });
     }
 
     static Php::Class<MajordomoWorkerV2> php_register() {
