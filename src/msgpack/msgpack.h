@@ -133,7 +133,6 @@ private:
                         result = Php::Object(classname);
                         for(int i = 1; i < unpacked->via.map.size; i++)
                             result[Php::Value((unpacked->via.map.ptr+i)->key.via.str.ptr,(unpacked->via.map.ptr+i)->key.via.str.size)] = decode_phpvalue(&(unpacked->via.map.ptr+i)->val, callback);
-
                     }
                 }
 
