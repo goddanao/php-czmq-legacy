@@ -143,8 +143,8 @@ public:
         o.method("send", &ZUdp::send);
         o.method("recv", &ZUdp::recv);
 
-        // IZDescriptor intf support
-        o.method("get_fd", &ZUdp::get_fd);
+       // IZDescriptor intf support
+       ZHandle::register_izdescriptor((Php::Class<ZUdp> *) &o);
 
         return o;
     }

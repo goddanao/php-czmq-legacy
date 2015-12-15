@@ -43,16 +43,14 @@ public:
             fmq_client_destroy((fmq_client_t **) &actor);
         },
         [param](void *actor, void *socket){
-            char *command;
-            zframe_t *address;
-            zmsg_t *body;
-            int rc = zsock_recv(socket, "sfm", &command, &address, &body);
-            if(rc == 0) {
-                zstr_free(&command);
-                Php::Value result = param[2](Php::Object("ZMsg", new ZMsg(body, true)));
-                zmsg_t *zmsg = ZUtils::phpvalue_to_zmsg(result);
-                mdp_worker_send_final((mdp_worker_t*) actor, &address, &zmsg);
-            }
+            zmsg_t *msg = zmsg_recv(socket);
+            if(!msg) return false;
+            zsys_info("fmq_client - msg in");
+            zmsg_dump(msg);
+            zmsg_destroy(&msg);
+            return true;
+        },
+        [](void *actor){
             return true;
         },
         param);
@@ -75,25 +73,12 @@ public:
             Php::ByVal("remote_path", Php::Type::String, true)
         });
 
-        o.method("send", &FileMqClient::send, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv", &FileMqClient::recv);
-        o.method("send_string", &FileMqClient::send_string, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv_string", &FileMqClient::recv_string);
-        o.method("send_picture", &FileMqClient::send_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o.method("recv_picture", &FileMqClient::recv_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
+        // Send / Recv
+        ZHandle::register_recv((Php::Class<FileMqClient> *) &o);
+        ZHandle::register_send((Php::Class<FileMqClient> *) &o);
 
         // IZSocket intf support
-        o.method("get_fd", &FileMqClient::get_fd);
-        o.method("get_socket", &FileMqClient::_get_socket);
-
+        ZHandle::register_izsocket((Php::Class<FileMqClient> *) &o);
 
         return o;
     }

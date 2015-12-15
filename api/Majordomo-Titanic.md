@@ -56,6 +56,74 @@ Methods
 
 
 
+### recv
+
+    mixed Majordomo\Titanic::recv()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_string
+
+    mixed Majordomo\Titanic::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_picture
+
+    mixed Majordomo\Titanic::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_msgpack
+
+    mixed Majordomo\Titanic::recv_msgpack()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_zipped
+
+    mixed Majordomo\Titanic::recv_zipped()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### send
 
     mixed Majordomo\Titanic::send(mixed $data)
@@ -69,19 +137,6 @@ Methods
 
 #### Arguments
 * $data **mixed** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### recv
-
-    mixed Majordomo\Titanic::recv()
-
-
-
-...
-
-* Visibility: **public**
-
 
 
 
@@ -101,19 +156,6 @@ Methods
 
 
 
-### recv_string
-
-    mixed Majordomo\Titanic::recv_string()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### send_picture
 
     mixed Majordomo\Titanic::send_picture(mixed $picture)
@@ -130,9 +172,9 @@ Methods
 
 
 
-### recv_picture
+### send_msgpack
 
-    mixed Majordomo\Titanic::recv_picture(mixed $picture)
+    mixed Majordomo\Titanic::send_msgpack(mixed $data)
 
 
 
@@ -142,7 +184,23 @@ Methods
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_zipped
+
+    mixed Majordomo\Titanic::send_zipped(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

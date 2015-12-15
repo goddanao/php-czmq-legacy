@@ -107,6 +107,40 @@ Methods
 
 
 
+### send_msgpack
+
+    mixed Malamute\Producer::send_msgpack(mixed $subject, mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_zipped
+
+    mixed Malamute\Producer::send_zipped(mixed $subject, mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
 ### get_fd
 
     integer IZDescriptor::get_fd()

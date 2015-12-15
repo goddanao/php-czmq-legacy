@@ -79,8 +79,7 @@ public:
         o.method("recv", &ZBeacon::recv);
 
         // IZSocket intf support
-        o.method("get_fd", &ZBeacon::get_fd);
-        o.method("get_socket", &ZBeacon::_get_socket);
+        ZHandle::register_izsocket((Php::Class<ZBeacon> *) &o);
 
         return o;
     }

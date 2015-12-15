@@ -64,6 +64,9 @@ public:
             }
             return true;
         },
+        [](void *actor){
+            return true;
+        },
         param);
     }
 
@@ -81,24 +84,13 @@ public:
         });
 //        o.method("process", &MajordomoWorkerV2::process);
 
-        o.method("send", &MajordomoWorkerV2::send, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv", &MajordomoWorkerV2::recv);
-        o.method("send_string", &MajordomoWorkerV2::send_string, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv_string", &MajordomoWorkerV2::recv_string);
-        o.method("send_picture", &MajordomoWorkerV2::send_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o.method("recv_picture", &MajordomoWorkerV2::recv_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
+
+        // Send / Recv
+        ZHandle::register_recv((Php::Class<MajordomoWorkerV2> *) &o);
+        ZHandle::register_send((Php::Class<MajordomoWorkerV2> *) &o);
 
         // IZSocket intf support
-        o.method("get_fd", &MajordomoWorkerV2::get_fd);
-        o.method("get_socket", &MajordomoWorkerV2::_get_socket);
+        ZHandle::register_izsocket((Php::Class<MajordomoWorkerV2> *) &o);
 
         return o;
     }

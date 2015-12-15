@@ -120,7 +120,7 @@ public:
       return full;
     }
 
-    template< typename... Args >
+    template<typename... Args>
     static std::string sprintf( const char* format, Args... args ) {
         int length = std::snprintf( nullptr, 0, format, args... );
         assert( length >= 0 );
@@ -165,8 +165,7 @@ public:
 
             if (outstring.size() < zs.total_out) {
                 // append the block to the output string
-                outstring.append(outbuffer,
-                                 zs.total_out - outstring.size());
+                outstring.append(outbuffer, zs.total_out - outstring.size());
             }
         } while (ret == Z_OK);
 

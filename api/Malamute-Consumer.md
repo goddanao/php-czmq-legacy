@@ -129,6 +129,32 @@ Methods
 
 
 
+### recv_msgpack
+
+    mixed Malamute\Consumer::recv_msgpack()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_zipped
+
+    mixed Malamute\Consumer::recv_zipped()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### get_fd
 
     integer IZDescriptor::get_fd()

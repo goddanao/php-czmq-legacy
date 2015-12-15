@@ -19,145 +19,17 @@ Methods
 -------
 
 
-### __construct
+### get_socket
 
-    \Malamute\Worker Malamute\Worker::__construct(string $endpoint, mixed $name)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
-* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### run
-
-    mixed Malamute\Worker::run(mixed $endpoint, mixed $name, callable $callback)
+    \ZSocket IZSocket::get_socket()
 
 
 
 ...
 
 * Visibility: **public**
-* This method is **static**.
+* This method is defined by [IZSocket](IZSocket.md)
 
-
-#### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### headers
-
-    mixed Malamute\Worker::headers(mixed $header)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $header **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
-
-
-
-### send
-
-    mixed Malamute\Worker::send(mixed $data)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### recv
-
-    mixed Malamute\Worker::recv()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### send_string
-
-    mixed Malamute\Worker::send_string(mixed $data)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### recv_string
-
-    mixed Malamute\Worker::recv_string()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### send_picture
-
-    mixed Malamute\Worker::send_picture(mixed $picture)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### recv_picture
-
-    mixed Malamute\Worker::recv_picture(mixed $picture)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -171,20 +43,6 @@ Methods
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)
-
-
-
-
-### get_socket
-
-    \ZSocket IZSocket::get_socket()
-
-
-
-...
-
-* Visibility: **public**
-* This method is defined by [IZSocket](IZSocket.md)
 
 
 

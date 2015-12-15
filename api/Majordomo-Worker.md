@@ -68,6 +68,74 @@ Methods
 
 
 
+### recv
+
+    mixed Majordomo\Worker::recv()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_string
+
+    mixed Majordomo\Worker::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_picture
+
+    mixed Majordomo\Worker::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_msgpack
+
+    mixed Majordomo\Worker::recv_msgpack()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_zipped
+
+    mixed Majordomo\Worker::recv_zipped()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### send
 
     mixed Majordomo\Worker::send(mixed $data)
@@ -81,19 +149,6 @@ Methods
 
 #### Arguments
 * $data **mixed** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### recv
-
-    mixed Majordomo\Worker::recv()
-
-
-
-...
-
-* Visibility: **public**
-
 
 
 
@@ -113,19 +168,6 @@ Methods
 
 
 
-### recv_string
-
-    mixed Majordomo\Worker::recv_string()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### send_picture
 
     mixed Majordomo\Worker::send_picture(mixed $picture)
@@ -142,9 +184,9 @@ Methods
 
 
 
-### recv_picture
+### send_msgpack
 
-    mixed Majordomo\Worker::recv_picture(mixed $picture)
+    mixed Majordomo\Worker::send_msgpack(mixed $data)
 
 
 
@@ -154,7 +196,23 @@ Methods
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_zipped
+
+    mixed Majordomo\Worker::send_zipped(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

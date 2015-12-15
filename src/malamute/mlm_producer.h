@@ -43,22 +43,32 @@ public:
     }
 
     static void run(Php::Parameters &param) {
-        void *actor = new_actor(param, NULL);
-        bool stopped = false;
         std::vector<std::string> parts = ZUtils::explode(param[1].stringValue(), '.');
-        std::string _stream = (parts.size() > 1) ? parts[0] : param[1].stringValue();
         std::string _subject = "";
         for(int idx = 1; idx < parts.size(); idx++)
             _subject = (_subject + (_subject != "" ? "." : "") + parts[idx]);
 
-        while (!zsys_interrupted) {
+        _run(&MalamuteProducer::new_actor,
+        [](void *actor){
+            mlm_client_destroy((mlm_client_t **) &actor);
+        },
+        [param](void *actor, void *socket){
+            zmsg_t *msg = zmsg_recv(socket);
+            if(!msg) return false;
+            zsys_info("mlm_producer - msg in");
+            zmsg_dump(msg);
+            zmsg_destroy(&msg);
+            return true;
+        },
+        [param, _subject](void *actor){
             Php::Value result = param[2]();
             if(result.isBool() && !result.boolValue())
-                break;
+                return false;
             zmsg_t *reply = ZUtils::phpvalue_to_zmsg(result);
-            mlm_client_send((mlm_client_t *) actor, _subject.c_str(), &reply);
-        }
-        mlm_client_destroy((mlm_client_t **) &actor);
+            int rc = mlm_client_send((mlm_client_t *) actor, _subject.c_str(), &reply);
+            return rc == 0;
+        },
+        param);
     }
 
     Php::Value send_picture(Php::Parameters &param) {
@@ -84,7 +94,6 @@ public:
             Php::ByVal("stream", Php::Type::String, true),
             Php::ByVal("callback", Php::Type::Callable, true)
         });
-
         o.method("send", &MalamuteProducer::send, {
             Php::ByVal("subject", Php::Type::String, true),
             Php::ByVal("data", Php::Type::String, true)
@@ -98,10 +107,17 @@ public:
             Php::ByVal("picture", Php::Type::String, true),
             Php::ByVal("data", Php::Type::String, true)
         });
+        o.method("send_msgpack", &MalamuteProducer::send_msgpack, {
+            Php::ByVal("subject", Php::Type::String, true),
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o.method("send_zipped", &MalamuteProducer::send_zipped, {
+            Php::ByVal("subject", Php::Type::String, true),
+            Php::ByVal("data", Php::Type::String, true)
+        });
 
         // IZSocket intf support
-        o.method("get_fd", &MalamuteProducer::get_fd);
-        o.method("get_socket", &MalamuteProducer::_get_socket);
+        ZHandle::register_izsocket((Php::Class<MalamuteProducer> *) &o);
 
         return o;
     }

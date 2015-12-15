@@ -25,8 +25,10 @@ public:
         o.method("send", &ZStdIn::send, {
             Php::ByVal("data", Php::Type::String, true)
         });
-        // IZSocket intf support
-        o.method("get_fd", &ZStdIn::get_fd);
+
+        // IZDescriptor intf support
+        ZHandle::register_izdescriptor((Php::Class<ZStdIn> *) &o);
+
         return o;
     }
 
@@ -55,8 +57,10 @@ public:
         o.method("send", &ZStdOut::send, {
             Php::ByVal("data", Php::Type::String, true)
         });
-        // IZSocket intf support
-        o.method("get_fd", &ZStdOut::get_fd);
+
+        // IZDescriptor intf support
+        ZHandle::register_izdescriptor((Php::Class<ZStdOut> *) &o);
+
         return o;
     }
 
@@ -86,8 +90,9 @@ public:
             Php::ByVal("data", Php::Type::String, true)
         });
 
-        // IZSocket intf support
-        o.method("get_fd", &ZStdErr::get_fd);
+        // IZDescriptor intf support
+        ZHandle::register_izdescriptor((Php::Class<ZStdErr> *) &o);
+
         return o;
     }
 

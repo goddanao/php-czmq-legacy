@@ -77,6 +77,9 @@ public:
             }
             return true;
         },
+        [](void *actor){
+            return true;
+        },
         param);
     }
 
@@ -95,24 +98,12 @@ public:
             Php::ByVal("header", Php::Type::String, false)
         });
 
-        o.method("send", &MalamuteWorker::send, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv", &MalamuteWorker::recv);
-        o.method("send_string", &MalamuteWorker::send_string, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv_string", &MalamuteWorker::recv_string);
-        o.method("send_picture", &MalamuteWorker::send_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o.method("recv_picture", &MalamuteWorker::recv_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
+        // Send / Recv
+        ZHandle::register_recv((Php::Class<MalamuteWorker> *) &o);
+        ZHandle::register_send((Php::Class<MalamuteWorker> *) &o);
 
         // IZSocket intf support
-        o.method("get_fd", &MalamuteWorker::get_fd);
-        o.method("get_socket", &MalamuteWorker::_get_socket);
+        ZHandle::register_izsocket((Php::Class<MalamuteWorker> *) &o);
 
         return o;
     }

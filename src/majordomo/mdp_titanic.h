@@ -39,13 +39,21 @@ public:
 
     static void run(Php::Parameters &param) {
         _run(
-            &MajordomoTitanicV2::new_actor,
-            [](void *actor){
-                zactor_destroy((zactor_t **) &actor);
-            },
-            [param](void *actor, void *socket){
-                return true;
-            },
+        &MajordomoTitanicV2::new_actor,
+        [](void *actor){
+            zactor_destroy((zactor_t **) &actor);
+        },
+        [param](void *actor, void *socket){
+            zmsg_t *msg = zmsg_recv(socket);
+            if(!msg) return false;
+            zsys_info("mdp_titanic - msg in");
+            zmsg_dump(msg);
+            zmsg_destroy(&msg);
+            return true;
+        },
+        [](void *actor){
+            return true;
+        },
         param);
     }
 
@@ -62,24 +70,12 @@ public:
             Php::ByVal("threads", Php::Type::Numeric, false)
         });
 
-        o.method("send", &MajordomoTitanicV2::send, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv", &MajordomoTitanicV2::recv);
-        o.method("send_string", &MajordomoTitanicV2::send_string, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv_string", &MajordomoTitanicV2::recv_string);
-        o.method("send_picture", &MajordomoTitanicV2::send_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o.method("recv_picture", &MajordomoTitanicV2::recv_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
+        // Send / Recv
+        ZHandle::register_recv((Php::Class<MajordomoTitanicV2> *) &o);
+        ZHandle::register_send((Php::Class<MajordomoTitanicV2> *) &o);
 
         // IZSocket intf support
-        o.method("get_fd", &MajordomoWorkerV2::get_fd);
-        o.method("get_socket", &MajordomoWorkerV2::_get_socket);
+        ZHandle::register_izsocket((Php::Class<MajordomoTitanicV2> *) &o);
 
         return o;
     }

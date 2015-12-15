@@ -86,6 +86,9 @@ public:
             }
             return false;
         },
+        [](void *actor){
+            return true;
+        },
         param);
     }
 
@@ -107,16 +110,11 @@ public:
             Php::ByVal("header", Php::Type::String, false)
         });
 
-        o.method("recv", &MalamuteConsumer::recv);
-        o.method("recv_string", &MalamuteConsumer::recv_string);
-        o.method("recv_picture", &MalamuteConsumer::recv_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
+        // Send / Recv
+        ZHandle::register_recv((Php::Class<MalamuteConsumer> *) &o);
 
         // IZSocket intf support
-        o.method("get_fd", &MalamuteConsumer::get_fd);
-        o.method("get_socket", &MalamuteConsumer::_get_socket);
-
+        ZHandle::register_izsocket((Php::Class<MalamuteConsumer> *) &o);
 
         return o;
     }

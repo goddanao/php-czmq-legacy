@@ -2127,22 +2127,8 @@ class Broker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $data ...
-  */
-  public function send($data) {}
-
-  /**
-   * ...
-   * 
   */
   public function recv() {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $data ...
-  */
-  public function send_string($data) {}
 
   /**
    * ...
@@ -2155,14 +2141,54 @@ class Broker implements \IZSocket, \IZDescriptor {
    * 
    * @param mixed $picture ...
   */
-  public function send_picture($picture) {}
+  public function recv_picture($picture) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_zipped() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_string($data) {}
 
   /**
    * ...
    * 
    * @param mixed $picture ...
   */
-  public function recv_picture($picture) {}
+  public function send_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_msgpack($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_zipped($data) {}
 
   /**
    * ...
@@ -2213,22 +2239,8 @@ class Worker implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $data ...
-  */
-  public function send($data) {}
-
-  /**
-   * ...
-   * 
   */
   public function recv() {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $data ...
-  */
-  public function send_string($data) {}
 
   /**
    * ...
@@ -2241,14 +2253,54 @@ class Worker implements \IZSocket, \IZDescriptor {
    * 
    * @param mixed $picture ...
   */
-  public function send_picture($picture) {}
+  public function recv_picture($picture) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_zipped() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_string($data) {}
 
   /**
    * ...
    * 
    * @param mixed $picture ...
   */
-  public function recv_picture($picture) {}
+  public function send_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_msgpack($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_zipped($data) {}
 
   /**
    * ...
@@ -2355,22 +2407,8 @@ class Titanic implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $data ...
-  */
-  public function send($data) {}
-
-  /**
-   * ...
-   * 
   */
   public function recv() {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $data ...
-  */
-  public function send_string($data) {}
 
   /**
    * ...
@@ -2383,14 +2421,54 @@ class Titanic implements \IZSocket, \IZDescriptor {
    * 
    * @param mixed $picture ...
   */
-  public function send_picture($picture) {}
+  public function recv_picture($picture) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_zipped() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_string($data) {}
 
   /**
    * ...
    * 
    * @param mixed $picture ...
   */
-  public function recv_picture($picture) {}
+  public function send_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_msgpack($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_zipped($data) {}
 
   /**
    * ...
@@ -2515,6 +2593,72 @@ class Broker implements \IZSocket, \IZDescriptor {
   public function set_config($key, $value) {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_string() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $picture ...
+  */
+  public function recv_picture($picture) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_zipped() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_string($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $picture ...
+  */
+  public function send_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_msgpack($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_zipped($data) {}
+
+  /**
    * Get the underlying File Descriptor.
    * 
    * @return int
@@ -2539,83 +2683,18 @@ class Broker implements \IZSocket, \IZDescriptor {
 class Worker implements \IZSocket, \IZDescriptor {
 
   /**
-   * ...
+   * Get the underlying ZSocket.
    * 
-   * @param string $endpoint ...
-   * @param mixed $name ...
-   * @return \Malamute\Worker
+   * @return \ZSocket
   */
-  public function __construct($endpoint, $name) {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $endpoint ...
-   * @param mixed $name ...
-   * @param callable $callback ...
-  */
-  static public function run($endpoint, $name, callable $callback) {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $header ... (optional)
-  */
-  public function headers($header) {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $data ...
-  */
-  public function send($data) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function recv() {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $data ...
-  */
-  public function send_string($data) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function recv_string() {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $picture ...
-  */
-  public function send_picture($picture) {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $picture ...
-  */
-  public function recv_picture($picture) {}
+  abstract public function get_socket() {}
 
   /**
    * Get the underlying File Descriptor.
    * 
    * @return int
   */
-  public function get_fd() {}
-
-  /**
-   * Get the underlying ZSocket.
-   * 
-   * @return \ZSocket
-  */
-  public function get_socket() {}
+  abstract public function get_fd() {}
 
 }
 
@@ -2750,6 +2829,22 @@ class Producer implements \IZSocket, \IZDescriptor {
   public function send_picture($subject, $picture, $data) {}
 
   /**
+   * ...
+   * 
+   * @param mixed $subject ...
+   * @param mixed $data ...
+  */
+  public function send_msgpack($subject, $data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $subject ...
+   * @param mixed $data ...
+  */
+  public function send_zipped($subject, $data) {}
+
+  /**
    * Get the underlying File Descriptor.
    * 
    * @return int
@@ -2823,6 +2918,18 @@ class Consumer implements \IZSocket, \IZDescriptor {
    * @param mixed $picture ...
   */
   public function recv_picture($picture) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_zipped() {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2914,25 +3021,11 @@ class Server implements \IZSocket, \IZDescriptor {
   public function publish($local_path, $alias) {}
 
   /**
-   * ...
-   * 
-   * @param mixed $data ...
-  */
-  public function send($data) {}
-
-  /**
    * Recieve a ZMsg.
    * 
    * @return \ZMsg
   */
   public function recv() {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $data ...
-  */
-  public function send_string($data) {}
 
   /**
    * ...
@@ -2945,14 +3038,54 @@ class Server implements \IZSocket, \IZDescriptor {
    * 
    * @param mixed $picture ...
   */
-  public function send_picture($picture) {}
+  public function recv_picture($picture) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_zipped() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_string($data) {}
 
   /**
    * ...
    * 
    * @param mixed $picture ...
   */
-  public function recv_picture($picture) {}
+  public function send_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_msgpack($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_zipped($data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -3006,25 +3139,11 @@ class Client implements \IZSocket, \IZDescriptor {
   public function subscribe($remote_path) {}
 
   /**
-   * ...
-   * 
-   * @param mixed $data ...
-  */
-  public function send($data) {}
-
-  /**
    * Recieve a ZMsg.
    * 
    * @return \ZMsg
   */
   public function recv() {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $data ...
-  */
-  public function send_string($data) {}
 
   /**
    * ...
@@ -3037,14 +3156,54 @@ class Client implements \IZSocket, \IZDescriptor {
    * 
    * @param mixed $picture ...
   */
-  public function send_picture($picture) {}
+  public function recv_picture($picture) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_zipped() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_string($data) {}
 
   /**
    * ...
    * 
    * @param mixed $picture ...
   */
-  public function recv_picture($picture) {}
+  public function send_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_msgpack($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_zipped($data) {}
 
   /**
    * Get the underlying File Descriptor.

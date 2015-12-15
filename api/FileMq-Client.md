@@ -73,6 +73,74 @@ Create e new instance.
 
 
 
+### recv
+
+    \ZMsg FileMq\Client::recv()
+
+Recieve a ZMsg.
+
+
+
+* Visibility: **public**
+
+
+
+
+### recv_string
+
+    mixed FileMq\Client::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_picture
+
+    mixed FileMq\Client::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_msgpack
+
+    mixed FileMq\Client::recv_msgpack()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_zipped
+
+    mixed FileMq\Client::recv_zipped()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### send
 
     mixed FileMq\Client::send(mixed $data)
@@ -86,19 +154,6 @@ Create e new instance.
 
 #### Arguments
 * $data **mixed** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### recv
-
-    \ZMsg FileMq\Client::recv()
-
-Recieve a ZMsg.
-
-
-
-* Visibility: **public**
-
 
 
 
@@ -118,19 +173,6 @@ Recieve a ZMsg.
 
 
 
-### recv_string
-
-    mixed FileMq\Client::recv_string()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### send_picture
 
     mixed FileMq\Client::send_picture(mixed $picture)
@@ -147,9 +189,9 @@ Recieve a ZMsg.
 
 
 
-### recv_picture
+### send_msgpack
 
-    mixed FileMq\Client::recv_picture(mixed $picture)
+    mixed FileMq\Client::send_msgpack(mixed $data)
 
 
 
@@ -159,7 +201,23 @@ Recieve a ZMsg.
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_zipped
+
+    mixed FileMq\Client::send_zipped(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

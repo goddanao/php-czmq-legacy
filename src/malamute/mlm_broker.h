@@ -82,6 +82,14 @@ public:
             zactor_destroy((zactor_t **) &actor);
         },
         [param](void *actor, void *socket){
+            zmsg_t *msg = zmsg_recv(socket);
+            if(!msg) return false;
+            zsys_info("mlm_broker - msg in");
+            zmsg_dump(msg);
+            zmsg_destroy(&msg);
+            return true;
+        },
+        [](void *actor){
             return true;
         },
         param);
@@ -114,9 +122,12 @@ public:
             Php::ByVal("value", Php::Type::String, true)
         });
 
-         // IZSocket intf support
-        o.method("get_fd", &MalamuteBroker::get_fd);
-        o.method("get_socket", &MalamuteBroker::_get_socket);
+        // Send / Recv
+        ZHandle::register_recv((Php::Class<MalamuteBroker> *) &o);
+        ZHandle::register_send((Php::Class<MalamuteBroker> *) &o);
+
+        // IZSocket intf support
+        ZHandle::register_izsocket((Php::Class<MalamuteBroker> *) &o);
 
         return o;
     }

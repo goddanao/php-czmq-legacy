@@ -94,8 +94,8 @@ public:
 
         o.constant("IN_ALL_EVENTS", ZUtils::sprintf("0x%08x", IN_ALL_EVENTS));
 
-        // IZSocket intf support
-        o.method("get_fd", &ZInotify::get_fd);
+        // IZDescriptor intf support
+        ZHandle::register_izdescriptor((Php::Class<ZInotify> *) &o);
 
         return o;
     }

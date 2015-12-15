@@ -86,8 +86,7 @@ public:
         });
 
         // IZSocket intf support
-        o.method("get_fd", &ZProxy::get_fd);
-        o.method("get_socket", &ZProxy::_get_socket);
+        ZHandle::register_izsocket((Php::Class<ZProxy> *) &o);
 
         return o;
     }

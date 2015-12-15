@@ -591,36 +591,6 @@ public:
 
 #endif
 
-    template<class T>
-    static void register_send(Php::Class<T> *o) {
-        o->method("send", &T::send, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o->method("send_string", &T::send_string, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o->method("send_picture", &T::send_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o->method("send_msgpack", &T::send_msgpack, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o->method("send_zipped", &T::send_zipped, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-    }
-
-    template<class T>
-    static void register_recv(Php::Class<T> *o) {
-        o->method("recv", &T::recv);
-        o->method("recv_string", &T::recv_string);
-        o->method("recv_picture", &T::recv_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o->method("recv_msgpack", &T::recv_msgpack);
-        o->method("recv_zipped", &T::recv_zipped);
-    }
-
     static Php::Class<ZSocket> php_register() {
 
         Php::Class<ZSocket> o("ZSocket");
@@ -650,8 +620,8 @@ public:
     	o.method("flush", &ZSocket::flush);
 
         //
-        register_recv((Php::Class<ZSocket> *) &o);
-        register_send((Php::Class<ZSocket> *) &o);
+        ZHandle::register_recv((Php::Class<ZSocket> *) &o);
+        ZHandle::register_send((Php::Class<ZSocket> *) &o);
 
     	// static accessors
         o.method("pub", &ZSocket::pub, {
@@ -713,8 +683,7 @@ public:
         o.method("get_options", &ZSocket::get_options);
 
         // IZSocket intf support
-        o.method("get_fd", &ZSocket::get_fd);
-        o.method("get_socket", &ZSocket::_get_socket);
+        ZHandle::register_izsocket((Php::Class<ZSocket> *) &o);
 
         // Properties
         o.property("ipv4only", &ZSocket::get_ipv4only, &ZSocket::set_ipv4only);

@@ -119,6 +119,14 @@ public:
             zactor_destroy((zactor_t **) &actor);
         },
         [param](void *actor, void *socket){
+            zmsg_t *msg = zmsg_recv(socket);
+            if(!msg) return false;
+            zsys_info("fmq_server - msg in");
+            zmsg_dump(msg);
+            zmsg_destroy(&msg);
+            return true;
+        },
+        [](void *actor){
             return true;
         },
         param);
@@ -156,24 +164,12 @@ public:
 			Php::ByVal("alias", Php::Type::String, true)
         });
 
-        o.method("send", &FileMqServer::send, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv", &FileMqServer::recv);
-        o.method("send_string", &FileMqServer::send_string, {
-            Php::ByVal("data", Php::Type::String, true)
-        });
-        o.method("recv_string", &FileMqServer::recv_string);
-        o.method("send_picture", &FileMqServer::send_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o.method("recv_picture", &FileMqServer::recv_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
+        // Send / Recv
+        ZHandle::register_recv((Php::Class<FileMqServer> *) &o);
+        ZHandle::register_send((Php::Class<FileMqServer> *) &o);
 
-		// IZSocket intf support
-        o.method("get_fd", &FileMqServer::get_fd);
-        o.method("get_socket", &FileMqServer::_get_socket);
+        // IZSocket intf support
+        ZHandle::register_izsocket((Php::Class<FileMqServer> *) &o);
 
         return o;
     }

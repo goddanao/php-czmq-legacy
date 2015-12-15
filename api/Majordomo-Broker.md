@@ -132,6 +132,74 @@ Methods
 
 
 
+### recv
+
+    mixed Majordomo\Broker::recv()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_string
+
+    mixed Majordomo\Broker::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_picture
+
+    mixed Majordomo\Broker::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_msgpack
+
+    mixed Majordomo\Broker::recv_msgpack()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_zipped
+
+    mixed Majordomo\Broker::recv_zipped()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### send
 
     mixed Majordomo\Broker::send(mixed $data)
@@ -145,19 +213,6 @@ Methods
 
 #### Arguments
 * $data **mixed** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### recv
-
-    mixed Majordomo\Broker::recv()
-
-
-
-...
-
-* Visibility: **public**
-
 
 
 
@@ -177,19 +232,6 @@ Methods
 
 
 
-### recv_string
-
-    mixed Majordomo\Broker::recv_string()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### send_picture
 
     mixed Majordomo\Broker::send_picture(mixed $picture)
@@ -206,9 +248,9 @@ Methods
 
 
 
-### recv_picture
+### send_msgpack
 
-    mixed Majordomo\Broker::recv_picture(mixed $picture)
+    mixed Majordomo\Broker::send_msgpack(mixed $data)
 
 
 
@@ -218,7 +260,23 @@ Methods
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_zipped
+
+    mixed Majordomo\Broker::send_zipped(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

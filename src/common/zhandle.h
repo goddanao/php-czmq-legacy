@@ -217,4 +217,45 @@ public:
     virtual Php::Value recv(Php::Parameters &param);
 
 
+    template<class T>
+    static void register_send(Php::Class<T> *o) {
+        o->method("send", &T::send, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o->method("send_string", &T::send_string, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o->method("send_picture", &T::send_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        o->method("send_msgpack", &T::send_msgpack, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o->method("send_zipped", &T::send_zipped, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+    }
+
+    template<class T>
+    static void register_recv(Php::Class<T> *o) {
+        o->method("recv", &T::recv);
+        o->method("recv_string", &T::recv_string);
+        o->method("recv_picture", &T::recv_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        o->method("recv_msgpack", &T::recv_msgpack);
+        o->method("recv_zipped", &T::recv_zipped);
+    }
+
+    template<class T>
+    static void register_izdescriptor(Php::Class<T> *o) {
+        o->method("get_fd", &T::get_fd);
+    }
+
+    template<class T>
+    static void register_izsocket(Php::Class<T> *o) {
+        o->method("get_fd", &T::get_fd);
+        o->method("get_socket", &T::_get_socket);
+    }
+
 };

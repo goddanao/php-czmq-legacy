@@ -115,8 +115,7 @@ public:
         o.method("recv", &ZGossip::recv);
 
         // IZSocket intf support
-        o.method("get_fd", &ZGossip::get_fd);
-        o.method("get_socket", &ZGossip::_get_socket);
+        ZHandle::register_izsocket((Php::Class<ZGossip> *) &o);
 
         return o;
     }

@@ -151,6 +151,74 @@ FileMQ Server endpoint to bind.
 
 
 
+### recv
+
+    \ZMsg FileMq\Server::recv()
+
+Recieve a ZMsg.
+
+
+
+* Visibility: **public**
+
+
+
+
+### recv_string
+
+    mixed FileMq\Server::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_picture
+
+    mixed FileMq\Server::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_msgpack
+
+    mixed FileMq\Server::recv_msgpack()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_zipped
+
+    mixed FileMq\Server::recv_zipped()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### send
 
     mixed FileMq\Server::send(mixed $data)
@@ -164,19 +232,6 @@ FileMQ Server endpoint to bind.
 
 #### Arguments
 * $data **mixed** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### recv
-
-    \ZMsg FileMq\Server::recv()
-
-Recieve a ZMsg.
-
-
-
-* Visibility: **public**
-
 
 
 
@@ -196,19 +251,6 @@ Recieve a ZMsg.
 
 
 
-### recv_string
-
-    mixed FileMq\Server::recv_string()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### send_picture
 
     mixed FileMq\Server::send_picture(mixed $picture)
@@ -225,9 +267,9 @@ Recieve a ZMsg.
 
 
 
-### recv_picture
+### send_msgpack
 
-    mixed FileMq\Server::recv_picture(mixed $picture)
+    mixed FileMq\Server::send_msgpack(mixed $data)
 
 
 
@@ -237,7 +279,23 @@ Recieve a ZMsg.
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_zipped
+
+    mixed FileMq\Server::send_zipped(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
