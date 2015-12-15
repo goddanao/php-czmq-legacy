@@ -98,17 +98,25 @@ private:
 public:
 
     static Php::Value encode(Php::Parameters &param) {
+        return encode(param[0]);
+    }
+
+    static Php::Value encode(Php::Value &v) {
         msgpack::sbuffer buffer;
         msgpack::packer<msgpack::sbuffer> pk(&buffer);
-        encode_phpvalue(param[0], &pk);
+        encode_phpvalue(v, &pk);
         return Php::Value(buffer.data(), buffer.size());
     }
 
     static Php::Value decode(Php::Parameters &param) {
+        return decode(param[0]);
+    }
+
+    static Php::Value decode(Php::Value &v) {
         msgpack::unpacker pac;
-        pac.reserve_buffer(param[0].size());
-        memcpy(pac.buffer(), param[0].rawValue(), param[0].size());
-        pac.buffer_consumed(param[0].size());
+        pac.reserve_buffer(v.size());
+        memcpy(pac.buffer(), v.rawValue(), v.size());
+        pac.buffer_consumed(v.size());
 
         // now starts streaming deserialization.
         msgpack::unpacked unpacked_data;

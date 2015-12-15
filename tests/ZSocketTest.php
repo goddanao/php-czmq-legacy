@@ -34,8 +34,7 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
         $this->socket = $rep;
     }
 
-    private function send_recv($type, $data)
-    {
+    private function send_recv($type, $data) {
         $this->req->send_picture($type, $data);
         $result = $this->rep->recv_picture($type);
         return $result[0] == $data;
@@ -105,6 +104,24 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
         $this->req->send_string("hello");
         $result = $this->rep->recv_string();
         $this->assertEquals($result, "hello");
+    }
+
+    public function test_send_recv_msgpack() {
+        $arr = [
+            "bool"    => true,
+            "integer" => 1,
+            "float"   => 1.544,
+            "string"  => "mystring",
+            "array"   => [ "one", "two", "three"],
+            "map"     => [
+                "one"   => "other",
+                "two"   => PHP_INT_MAX
+            ]
+        ];
+
+        $this->req->send_msgpack($arr);
+        $result = $this->rep->recv_msgpack();
+        $this->assertEquals($result, $arr);
     }
 
     public function test_send_recv_msg() {

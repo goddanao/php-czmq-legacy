@@ -634,6 +634,10 @@ public:
     	o.method("recv_picture", &ZSocket::recv_picture, {
             Php::ByVal("picture", Php::Type::String, true)
         });
+        o.method("send_msgpack", &ZSocket::send_msgpack, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o.method("recv_msgpack", &ZSocket::recv_msgpack);
 
     	// static accessors
         o.method("pub", &ZSocket::pub, {
