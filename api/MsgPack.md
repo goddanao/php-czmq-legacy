@@ -21,7 +21,7 @@ Methods
 
 ### encode
 
-    mixed MsgPack::encode()
+    mixed MsgPack::encode(mixed $data, callable $encoder)
 
 
 
@@ -30,12 +30,16 @@ Methods
 * Visibility: **public**
 * This method is **static**.
 
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $encoder **callable** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### decode
 
-    mixed MsgPack::decode()
+    mixed MsgPack::decode(mixed $data, callable $decoder)
 
 
 
@@ -44,5 +48,9 @@ Methods
 * Visibility: **public**
 * This method is **static**.
 
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $decoder **callable** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 

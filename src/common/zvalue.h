@@ -16,6 +16,8 @@ public:
 
     bool isHashMap(void);
 
+    std::string get_class_name(void);
+
     zsock_t *get_socket(void) { ZHandle  *zh = dynamic_cast<ZHandle *> (implementation()); return (zh != nullptr) ? (zsock_t *) zh->get_socket() : nullptr; }
     int get_fd(void) { ZHandle  *zh = dynamic_cast<ZHandle *> (implementation()); return (zh != nullptr) ? zh->get_fd().numericValue() : INVALID_SOCKET; }
 

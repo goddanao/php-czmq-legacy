@@ -21,6 +21,9 @@ protected:
     bool _owned         = false;
     std::string _type   = "unknown";
 
+//    Php::Value _msgpack_encoder;
+//    Php::Value _msgpack_decoder;
+
 public:
     ZHandle() { _created_by_pid = getpid(); }
     ZHandle(void *handle, bool owned, std::string type) : _handle(handle), _owned(owned), _type(type) { _created_by_pid = getpid(); }

@@ -1,9 +1,24 @@
 
 #include <php.h>
+#include <php_ini.h>
 #include <zend_exceptions.h>
 #include <zend_interfaces.h>
 #include <zend_ini.h>
+#include <ext/standard/php_smart_str.h>
+#include <ext/standard/php_incomplete_class.h>
+#include <ext/standard/php_var.h>
 #include "../czmq/zmsg.h"
+
+std::string ZValue::get_class_name(void) {
+    std::string result;
+    if(isObject()) {
+        PHP_CLASS_ATTRIBUTES;
+        PHP_SET_CLASS_ATTRIBUTES(_val);
+        result = class_name;
+        PHP_CLEANUP_CLASS_ATTRIBUTES();
+    }
+    return result;
+}
 
 bool ZValue::isResource(void) { return (Z_TYPE_P(_val) == IS_RESOURCE); }
 bool ZValue::isZMsg(void) { ZMsg  *zmsg = dynamic_cast<ZMsg *> (implementation()); return zmsg != nullptr; }

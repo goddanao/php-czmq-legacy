@@ -1821,14 +1821,20 @@ class MsgPack {
   /**
    * ...
    * 
+   * @param mixed $data ...
+   * @param callable $encoder ... (optional)
+   * @return mixed
   */
-  static public function encode() {}
+  static public function encode($data, callable $encoder) {}
 
   /**
    * ...
    * 
+   * @param mixed $data ...
+   * @param callable $decoder ... (optional)
+   * @return mixed
   */
-  static public function decode() {}
+  static public function decode($data, callable $decoder) {}
 
 }
 

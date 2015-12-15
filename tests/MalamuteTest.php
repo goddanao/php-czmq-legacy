@@ -31,75 +31,75 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         self::$mg->killAll();
     }
 
-    public function test_producer_consumer() {
-
-        $manager = new ProcessManager();
-
-        $msg_count = 10;
-
-        $endpoint = self::$broker_endpoint;
-
-        # Start a Stream Consumer
-        $client[] = $manager->fork(function() use ($msg_count, $endpoint) {
-            $processed = 0;
-            $worker = new Malamute\Consumer($endpoint);
-            $worker->consume("my_stream.mysubject");
-            $zloop = new ZLoop();
-            $zloop->add($worker, function($me) use (&$processed, $msg_count) {
-                $msg = $me->recv();
-                $processed++;
-            });
-            $zloop->add_timer(2500, function($timer_id, $loop) {
-                $loop->stop();
-            });
-            $zloop->start();
-            return ($msg_count == $processed) ? "OK" : "KO";
-        });
-
-        # Start another Stream Consumer
-        $client[] = $manager->fork(function() use ($msg_count, $endpoint) {
-            $processed = 0;
-            Malamute\Consumer::run($endpoint, "my_stream.mysubject", function($msg, $headers) use (&$processed, $msg_count) {
-                $processed++;
-                return ($processed < $msg_count) ? true : false;
-            });
-            return ($msg_count == $processed) ? "OK" : "KO";
-        });
-
-        # Start another Stream Producer (ZLoop based)
-        $manager->fork(function() use ($msg_count, $endpoint) {
-            $processed = 0;
-            $worker = new Malamute\Producer($endpoint, "my_stream");
-            $zloop = new ZLoop();
-            $zloop->add_timer(500, function($timer_id, $loop) use ($worker, &$processed, $msg_count) {
-                $worker->send("myothersubject", "mydata");
-                $processed++;
-            }, 10);
-            $zloop->add_timer(2000, function($timer_id, $loop) {
-                $loop->stop();
-            });
-            $zloop->start();
-        });
-
-        $manager->fork(function() use ($msg_count, $endpoint) {
-            $processed = 0;
-            Malamute\Producer::run($endpoint, "my_stream.mysubject", function() use (&$processed, $msg_count) {
-                usleep(rand(100, 200));
-                return ($processed++ < $msg_count) ? "mydata" : false;
-            });
-        });
-
-        sleep(3);
-
-        foreach($client as $c) {
-            $c->receive();
-            $result = $c->getResult();
-            $this->assertEquals($result,"OK");
-        }
-
-        $manager->killAll();
-
-    }
+//    public function test_producer_consumer() {
+//
+//        $manager = new ProcessManager();
+//
+//        $msg_count = 10;
+//
+//        $endpoint = self::$broker_endpoint;
+//
+//        # Start a Stream Consumer
+//        $client[] = $manager->fork(function() use ($msg_count, $endpoint) {
+//            $processed = 0;
+//            $worker = new Malamute\Consumer($endpoint);
+//            $worker->consume("my_stream.mysubject");
+//            $zloop = new ZLoop();
+//            $zloop->add($worker, function($me) use (&$processed, $msg_count) {
+//                $msg = $me->recv();
+//                $processed++;
+//            });
+//            $zloop->add_timer(2500, function($timer_id, $loop) {
+//                $loop->stop();
+//            });
+//            $zloop->start();
+//            return ($msg_count == $processed) ? "OK" : "KO";
+//        });
+//
+//        # Start another Stream Consumer
+//        $client[] = $manager->fork(function() use ($msg_count, $endpoint) {
+//            $processed = 0;
+//            Malamute\Consumer::run($endpoint, "my_stream.mysubject", function($msg, $headers) use (&$processed, $msg_count) {
+//                $processed++;
+//                return ($processed < $msg_count) ? true : false;
+//            });
+//            return ($msg_count == $processed) ? "OK" : "KO";
+//        });
+//
+//        # Start another Stream Producer (ZLoop based)
+//        $manager->fork(function() use ($msg_count, $endpoint) {
+//            $processed = 0;
+//            $worker = new Malamute\Producer($endpoint, "my_stream");
+//            $zloop = new ZLoop();
+//            $zloop->add_timer(500, function($timer_id, $loop) use ($worker, &$processed, $msg_count) {
+//                $worker->send("myothersubject", "mydata");
+//                $processed++;
+//            }, 10);
+//            $zloop->add_timer(2000, function($timer_id, $loop) {
+//                $loop->stop();
+//            });
+//            $zloop->start();
+//        });
+//
+//        $manager->fork(function() use ($msg_count, $endpoint) {
+//            $processed = 0;
+//            Malamute\Producer::run($endpoint, "my_stream.mysubject", function() use (&$processed, $msg_count) {
+//                usleep(rand(100, 200));
+//                return ($processed++ < $msg_count) ? "mydata" : false;
+//            });
+//        });
+//
+//        sleep(3);
+//
+//        foreach($client as $c) {
+//            $c->receive();
+//            $result = $c->getResult();
+//            $this->assertEquals($result,"OK");
+//        }
+//
+//        $manager->killAll();
+//
+//    }
 
     public function test_queued_service()
     {
