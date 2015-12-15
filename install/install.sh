@@ -224,6 +224,28 @@ install_phpcpp() {
   popd # pushd /tmp
 }
 
+install_msgpack() {
+
+  pushd /tmp
+
+  git clone https://github.com/msgpack/msgpack-c.git
+  cd msgpack-c
+
+  if [ $MSGPACK_VERSION != "master" ]; then
+      if [ ${#MSGPACK_VERSION} == 40 ]; then
+        git reset --hard $MSGPACK_VERSION
+      else
+        git checkout "tags/${MSGPACK_VERSION}"
+      fi
+  fi
+
+  cmake -DMSGPACK_CXX11=ON .
+  sudo make install
+  sudo ldconfig
+  cd ..
+
+  popd # pushd /tmp
+}
 
 install_libsodium
 install_zeromq
@@ -241,6 +263,7 @@ fi
 
 install_filemq
 install_phpcpp
+install_msgpack
 
 # Build and install PHP-CZMQ
 (make -j8 VERBOSE=1 && sudo make install && sudo ldconfig) || exit 1

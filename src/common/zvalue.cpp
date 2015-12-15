@@ -8,6 +8,25 @@
 bool ZValue::isResource(void) { return (Z_TYPE_P(_val) == IS_RESOURCE); }
 bool ZValue::isZMsg(void) { ZMsg  *zmsg = dynamic_cast<ZMsg *> (implementation()); return zmsg != nullptr; }
 bool ZValue::isZFrame(void) { ZFrame  *zframe = dynamic_cast<ZFrame *> (implementation()); return zframe != nullptr; }
+bool ZValue::isHashMap(void) {
+
+    int count = zend_hash_num_elements(Z_ARRVAL_P(_val));
+
+    if (count != (Z_ARRVAL_P(_val))->nNextFreeElement) {
+        return 1;
+    } else {
+        int i;
+        HashPosition pos = {0};
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(_val), &pos);
+        for (i = 0; i < count; i++) {
+            if (zend_hash_get_current_key_type_ex(Z_ARRVAL_P(_val), &pos) != HASH_KEY_IS_LONG) {
+                return true;
+            }
+            zend_hash_move_forward_ex(Z_ARRVAL_P(_val), &pos);
+        }
+    }
+    return false;
+}
 
 zmsg_t *ZValue::to_zmsg(void) {
     zmsg_t *zmsg = nullptr;

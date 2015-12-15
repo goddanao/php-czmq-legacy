@@ -88,6 +88,13 @@ public:
         return result;
     }
 
+    static std::string hexArrayToStr(const char* info, size_t infoLength) {
+        std::string result;
+        for (int i = 0; i < infoLength; i++)
+            result += sprintf("%02X ", info[i] & 0xFF);
+        return result;
+    }
+
     static std::vector<std::string> explode(const std::string& str, const char delimiter) {
       std::vector<std::string> elements;
       std::stringstream stream(str);

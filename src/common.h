@@ -18,3 +18,5 @@
 #include "common/zemitter.h"
 #include "common/zinotify.h"
 #include "common/zstdio.h"
+
+#include "msgpack/msgpack.h"

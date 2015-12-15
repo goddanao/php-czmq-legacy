@@ -66,6 +66,8 @@ extern "C" {
             Php::ByVal("arguments", Php::Type::Array, true)
         });
 
+    // MSGPACK
+        Php::Class<MsgPack> mmsgpack = MsgPack::php_register();
 
     // CZMQ
 
@@ -230,6 +232,9 @@ extern "C" {
         extension.add(std::move(izdescriptor));
         extension.add(std::move(izsocket));
         extension.add(std::move(izemitter));
+
+        // msgpack
+        extension.add(std::move(mmsgpack));
 
         // czmq
         extension.add(std::move(zsys));
