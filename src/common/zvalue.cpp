@@ -12,6 +12,7 @@
 std::string ZValue::get_class_name(void) {
     std::string result;
     if(isObject()) {
+        TSRMLS_FETCH();
         PHP_CLASS_ATTRIBUTES;
         PHP_SET_CLASS_ATTRIBUTES(_val);
         result = class_name;

@@ -88,7 +88,7 @@ Methods
 
 ### listeners
 
-    array IZEmitter::listeners(string $event)
+    array|null IZEmitter::listeners(string $event)
 
 
 

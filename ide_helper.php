@@ -903,7 +903,7 @@ interface IZEmitter {
    * ...
    * 
    * @param string $event ...
-   * @return array
+   * @return array|null
   */
   public function listeners($event) ;
 
@@ -913,7 +913,7 @@ interface IZEmitter {
    * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) ;
+  public function emit($event, array $arguments = null) ;
 
 }
 
@@ -1825,7 +1825,7 @@ class MsgPack {
    * @param callable $encoder ... (optional)
    * @return mixed
   */
-  static public function encode($data, callable $encoder) {}
+  static public function encode($data, callable $encoder = null) {}
 
   /**
    * ...
@@ -1834,7 +1834,7 @@ class MsgPack {
    * @param callable $decoder ... (optional)
    * @return mixed
   */
-  static public function decode($data, callable $decoder) {}
+  static public function decode($data, callable $decoder = null) {}
 
 }
 

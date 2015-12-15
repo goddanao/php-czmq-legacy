@@ -139,6 +139,10 @@ private:
 
             break;
             case MSGPACK_OBJECT_EXT:
+                result = Php::Value(unpacked->via.ext.ptr, unpacked->via.ext.size);
+                if(custom_decoder) {
+                    result = callback(unpacked->via.ext.type(), Php::Value(result));
+                }
             break;
         }
 
