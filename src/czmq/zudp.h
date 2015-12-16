@@ -126,6 +126,7 @@ public:
 
         if(!frame)
             return nullptr;
+
         zmsg_t *msg = zmsg_new();
         zmsg_addstr(msg, peername);
         zmsg_append(msg, &frame);

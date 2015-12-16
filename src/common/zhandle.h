@@ -247,6 +247,27 @@ public:
         o->method("recv_zipped", &T::recv_zipped);
     }
 
+
+    template<class T>
+    static void register_actor_with_config(Php::Class<T> *o) {
+
+        o->method("set_verbose", &T::set_verbose);
+
+        o->method("bind", &T::bind, {
+          Php::ByVal("endpoint", Php::Type::String, true)
+        });
+        o->method("load_config", &T::load_config, {
+            Php::ByVal("filename", Php::Type::String, true)
+        });
+        o->method("save_config", &T::save_config, {
+            Php::ByVal("filename", Php::Type::String, true)
+        });
+        o->method("set_config", &T::set_config, {
+            Php::ByVal("key", Php::Type::String, true),
+            Php::ByVal("value", Php::Type::String, true)
+        });
+    }
+
     template<class T>
     static void register_izdescriptor(Php::Class<T> *o) {
         o->method("get_fd", &T::get_fd);

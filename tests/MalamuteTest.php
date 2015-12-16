@@ -49,7 +49,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
                 $msg = $me->recv();
                 $processed++;
             });
-            $zloop->add_timer(1000, function($timer_id, $loop) {
+            $zloop->add_timer(1500, function($timer_id, $loop) {
                 $loop->stop();
             });
             $zloop->start();
@@ -75,7 +75,7 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
                 $worker->send("myothersubject", "mydata");
                 $processed++;
             }, 10);
-            $zloop->add_timer(1000, function($timer_id, $loop) {
+            $zloop->add_timer(1500, function($timer_id, $loop) {
                 $loop->stop();
             });
             $zloop->start();

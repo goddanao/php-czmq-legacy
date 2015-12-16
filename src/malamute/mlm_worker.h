@@ -73,7 +73,8 @@ public:
 
             if(_sender != "") {
                 zmsg_t *reply = ZUtils::phpvalue_to_zmsg(result);
-                mlm_client_sendto((mlm_client_t *) actor, _sender.c_str(), mlm_client_address((mlm_client_t *) actor), mlm_client_subject((mlm_client_t *) actor), 0, &reply);
+                if(mlm_client_sendto((mlm_client_t *) actor, _sender.c_str(), mlm_client_address((mlm_client_t *) actor), mlm_client_subject((mlm_client_t *) actor), 0, &reply) != 0)
+                    return false;
             }
             return true;
         });

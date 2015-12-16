@@ -86,9 +86,8 @@ public:
             Php::ByVal("path", Php::Type::String, false)
         });
 
-        // IZSocket
-        o.method("get_fd", &ZAuth::get_fd);
-        o.method("get_socket", &ZAuth::_get_socket);
+       // IZSocket intf support
+       ZHandle::register_izsocket((Php::Class<ZAuth> *) &o);
 
         o.property("AUTH_PLAIN", "PLAIN", Php::Const);
         o.property("AUTH_CURVE", "CURVE", Php::Const);

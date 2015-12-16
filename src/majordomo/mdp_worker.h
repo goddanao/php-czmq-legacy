@@ -60,7 +60,8 @@ public:
                 if(result.isBool() && !result.boolValue())
                     return false;
                 zmsg_t *zmsg = ZUtils::phpvalue_to_zmsg(result);
-                mdp_worker_send_final((mdp_worker_t*) actor, &address, &zmsg);
+                if(mdp_worker_send_final((mdp_worker_t*) actor, &address, &zmsg) != 0)
+                    return false;
             }
             return true;
         });
