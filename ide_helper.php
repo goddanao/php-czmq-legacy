@@ -2435,7 +2435,7 @@ class Titanic implements \IZSocket, \IZDescriptor {
    * @param int $threads ... (optional)
    * @return \Majordomo\Titanic
   */
-  public function __construct($endpoint, \Majordomo\ITitanicStorage $storage = null, $threads) {}
+  public function __construct($endpoint, ITitanicStorage $storage = null, $threads) {}
 
   /**
    * ...
@@ -2444,7 +2444,7 @@ class Titanic implements \IZSocket, \IZDescriptor {
    * @param ITitanicStorage $storage ... (optional)
    * @param int $threads ... (optional)
   */
-  static public function run($endpoint, \Majordomo\ITitanicStorage $storage = null, $threads) {}
+  static public function run($endpoint, ITitanicStorage $storage = null, $threads) {}
 
   /**
    * ...
