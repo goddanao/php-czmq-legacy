@@ -73,20 +73,12 @@ public:
            Php::ByVal("endpoint", Php::Type::String, true),
            Php::ByVal("verbose", Php::Type::Bool, false)
         });
-
         o.method("bind", &MajordomoBrokerV2::bind, {
           Php::ByVal("endpoint", Php::Type::String, true)
         });
-        o.method("load_config", &MajordomoBrokerV2::load_config, {
-            Php::ByVal("filename", Php::Type::String, true)
-        });
-        o.method("save_config", &MajordomoBrokerV2::save_config, {
-            Php::ByVal("filename", Php::Type::String, true)
-        });
-        o.method("set_config", &MajordomoBrokerV2::set_config, {
-            Php::ByVal("key", Php::Type::String, true),
-            Php::ByVal("value", Php::Type::String, true)
-        });
+
+        // load / save /set config
+        ZHandle::register_config((Php::Class<MajordomoBrokerV2> *) &o);
 
         // Send / Recv
         ZHandle::register_recv((Php::Class<MajordomoBrokerV2> *) &o);

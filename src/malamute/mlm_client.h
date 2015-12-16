@@ -40,10 +40,6 @@ public:
        return mlm_client_recv (mlm_client_handle());
     }
 
-    bool _send(zmsg_t *msg) override {
-        return false;
-    }
-
 	static Php::Value _headers(mlm_client_t *client, std::string _header = "") {
         Php::Value result;
         result["connected"]  = mlm_client_connected(client);
@@ -118,16 +114,11 @@ public:
 
         o.method("headers", &MalamuteClient::headers);
 
-        o.method("recv", &MalamuteClient::recv);
-        o.method("recv_string", &MalamuteClient::recv_string);
-        o.method("recv_picture", &MalamuteClient::recv_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
+        // Recv
+        ZHandle::register_recv((Php::Class<MalamuteClient> *) &o);
 
         // IZSocket intf support
-        o.method("get_fd", &MalamuteClient::get_fd);
-        o.method("get_socket", &MalamuteClient::_get_socket);
-
+        ZHandle::register_izsocket((Php::Class<MalamuteClient> *) &o);
 
         return o;
     }

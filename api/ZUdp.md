@@ -50,19 +50,6 @@ Verbose logging
 
 
 
-### send
-
-    mixed ZUdp::send()
-
-Send a ZMsg.
-
-
-
-* Visibility: **public**
-
-
-
-
 ### recv
 
     \ZMsg ZUdp::recv()
@@ -73,6 +60,141 @@ Recieve a ZMsg.
 
 * Visibility: **public**
 
+
+
+
+### recv_string
+
+    mixed ZUdp::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_picture
+
+    mixed ZUdp::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_msgpack
+
+    mixed ZUdp::recv_msgpack()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_zipped
+
+    mixed ZUdp::recv_zipped()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send
+
+    mixed ZUdp::send(mixed $data)
+
+Send a ZMsg.
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_string
+
+    mixed ZUdp::send_string(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_picture
+
+    mixed ZUdp::send_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_msgpack
+
+    mixed ZUdp::send_msgpack(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_zipped
+
+    mixed ZUdp::send_zipped(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

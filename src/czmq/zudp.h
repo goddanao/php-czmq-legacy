@@ -90,33 +90,27 @@ public:
         set_handle(socket, true, "zudp");
     }
 
-    Php::Value send(Php::Parameters &param) {
-        int rc = 0;
-
-        zmsg_t *zmsg = ZUtils::phpvalue_to_zmsg(param[0]);
-
-        zframe_t *frame = nullptr;
-
-        if(zmsg) {
-            frame = zmsg_pop (zmsg);
-            while(frame && (rc != -1)) {
+    bool _send(zmsg_t *msg) override {
+        int rc = -1;
+        if(msg) {
+            rc = 0;
+            zframe_t *frame = zmsg_pop (msg);
+            while(frame && (rc == 0)) {
                 #if (CZMQ_VERSION >= CZMQ_MAKE_VERSION(3,0,3))
                     rc = zsys_udp_send(zudp_handle(), frame, &broadcast, sizeof (inaddr_t));
                 #else
                     rc = zsys_udp_send(zudp_handle(), frame, &broadcast);
                 #endif
-
                 zframe_destroy(&frame);
-                frame = zmsg_pop (zmsg);
+                frame = zmsg_pop (msg);
             }
-            zmsg_destroy(&zmsg);
+            zmsg_destroy(&msg);
         }
-        return (rc != -1);
+        return (rc == 0);
     }
 
-    Php::Value recv(Php::Parameters &param) {
+    zmsg_t *_recv() override {
         char peername [INET_ADDRSTRLEN];
-
 
         #if (CZMQ_VERSION >= CZMQ_MAKE_VERSION(3,0,3))
             zframe_t *frame = zsys_udp_recv(zudp_handle(), peername, INET_ADDRSTRLEN);
@@ -130,22 +124,25 @@ public:
         zmsg_t *msg = zmsg_new();
         zmsg_addstr(msg, peername);
         zmsg_append(msg, &frame);
-        return Php::Object("ZMsg", new ZMsg(msg, true));
+        return msg;
     }
 
     static Php::Class<ZUdp> php_register() {
         Php::Class<ZUdp> o("ZUdp");
+
         o.method("__construct", &ZUdp::__construct, {
             Php::ByVal("interface", Php::Type::String, false),
             Php::ByVal("port", Php::Type::Numeric, false),
             Php::ByVal("routable", Php::Type::Bool, false)
         });
         o.method("set_verbose", &ZUdp::set_verbose);
-        o.method("send", &ZUdp::send);
-        o.method("recv", &ZUdp::recv);
 
-       // IZDescriptor intf support
-       ZHandle::register_izdescriptor((Php::Class<ZUdp> *) &o);
+        // Send / Recv
+        ZHandle::register_recv((Php::Class<ZUdp> *) &o);
+        ZHandle::register_send((Php::Class<ZUdp> *) &o);
+
+        // IZDescriptor intf support
+        ZHandle::register_izdescriptor((Php::Class<ZUdp> *) &o);
 
         return o;
     }

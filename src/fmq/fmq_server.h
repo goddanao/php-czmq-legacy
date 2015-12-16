@@ -134,20 +134,14 @@ public:
         o.method("bind", &FileMqServer::bind, {
             Php::ByVal("endpoint", Php::Type::String, true)
         });
-        o.method("load_config", &FileMqServer::load_config, {
-            Php::ByVal("filename", Php::Type::String, true)
-        });
-        o.method("save_config", &FileMqServer::save_config, {
-            Php::ByVal("filename", Php::Type::String, true)
-        });
-        o.method("set_config", &FileMqServer::set_config, {
-            Php::ByVal("key", Php::Type::String, true),
-            Php::ByVal("value", Php::Type::String, true)
-        });
+
         o.method("publish", &FileMqServer::publish, {
 			Php::ByVal("local_path", Php::Type::String, true),
 			Php::ByVal("alias", Php::Type::String, true)
         });
+
+        // load / save /set config
+        ZHandle::register_config((Php::Class<FileMqServer> *) &o);
 
         // Send / Recv
         ZHandle::register_recv((Php::Class<FileMqServer> *) &o);

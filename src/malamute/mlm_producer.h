@@ -38,10 +38,6 @@ public:
         return rc == 0;
     }
 
-    zmsg_t *_recv() override {
-        return nullptr;
-    }
-
     static void run(Php::Parameters &param) {
         std::vector<std::string> parts = ZUtils::explode(param[1].stringValue(), '.');
         std::string _subject = "";

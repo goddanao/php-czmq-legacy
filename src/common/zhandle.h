@@ -249,13 +249,7 @@ public:
 
 
     template<class T>
-    static void register_actor_with_config(Php::Class<T> *o) {
-
-        o->method("set_verbose", &T::set_verbose);
-
-        o->method("bind", &T::bind, {
-          Php::ByVal("endpoint", Php::Type::String, true)
-        });
+    static void register_config(Php::Class<T> *o) {
         o->method("load_config", &T::load_config, {
             Php::ByVal("filename", Php::Type::String, true)
         });

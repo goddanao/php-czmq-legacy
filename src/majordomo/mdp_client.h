@@ -23,13 +23,13 @@ public:
         mdp_client_set_verbose(mdpclient_handle());
     }
 
-    Php::Value recv(Php::Parameters &param) {
+    zmsg_t *_recv() override {
         char *command;
         zmsg_t *body;
         int rc = zsock_recv(get_socket(), "sm", &command, &body);
         if(rc == 0) {
             zstr_free(&command);
-            return Php::Object("ZMsg", new ZMsg(body, true));
+            return body;
         }
         return nullptr;
     }
@@ -56,7 +56,6 @@ public:
             Php::ByVal("broker_endpoint", Php::Type::String, true)
         });
         o.method("set_verbose", &MajordomoClientV2::set_verbose);
-        o.method("recv", &MajordomoClientV2::recv);
         o.method("call", &MajordomoClientV2::call, {
             Php::ByVal("service_name", Php::Type::String, true)
         });
@@ -64,9 +63,12 @@ public:
             Php::ByVal("service_name", Php::Type::String, true)
         });
 
+        // Send / Recv
+        ZHandle::register_recv((Php::Class<MajordomoClientV2> *) &o);
+        ZHandle::register_send((Php::Class<MajordomoClientV2> *) &o);
+
         // IZSocket intf support
-        o.method("get_fd", &MajordomoClientV2::get_fd);
-        o.method("get_socket", &MajordomoClientV2::_get_socket);
+        ZHandle::register_izsocket((Php::Class<MajordomoClientV2> *) &o);
 
         return o;
     }

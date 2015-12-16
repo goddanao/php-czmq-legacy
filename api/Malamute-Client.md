@@ -127,6 +127,32 @@ Recieve a ZMsg.
 
 
 
+### recv_msgpack
+
+    mixed Malamute\Client::recv_msgpack()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_zipped
+
+    mixed Malamute\Client::recv_zipped()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### get_fd
 
     integer IZDescriptor::get_fd()

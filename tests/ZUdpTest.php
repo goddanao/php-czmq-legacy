@@ -31,6 +31,21 @@ class ZUdpTest extends \PHPUnit_Framework_TestCase {
         $sender = $msg->pop_string();
         $this->assertRegExp('/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/sim', $sender);
         $this->assertEquals($msg->pop_string(), "world");
+
+        $udp1->send_zipped("Stocazzo");
+        $msg = $udp2->recv();
+        $this->assertNotNull($msg);
+        $sender = $msg->pop_string();
+        $this->assertRegExp('/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/sim', $sender);
+        $this->assertEquals($msg->pop_zipped(), "Stocazzo");
+
+        $udp1->send_msgpack("Stocazzo");
+        $msg = $udp2->recv();
+        $this->assertNotNull($msg);
+        $sender = $msg->pop_string();
+        $this->assertRegExp('/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/sim', $sender);
+        $this->assertEquals($msg->pop_msgpack(), "Stocazzo");
+
     }
 
 }

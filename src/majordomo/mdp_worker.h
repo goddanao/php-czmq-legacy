@@ -81,7 +81,6 @@ public:
         });
 //        o.method("process", &MajordomoWorkerV2::process);
 
-
         // Send / Recv
         ZHandle::register_recv((Php::Class<MajordomoWorkerV2> *) &o);
         ZHandle::register_send((Php::Class<MajordomoWorkerV2> *) &o);

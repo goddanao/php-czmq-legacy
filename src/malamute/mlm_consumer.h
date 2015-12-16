@@ -44,10 +44,6 @@ public:
     MalamuteConsumer() : ZActor(&MalamuteConsumer::new_actor), Php::Base() { _type = "mlm_client"; }
     mlm_client_t *mlm_consumer_handle() const { return (mlm_client_t *) get_handle(); }
 
-    bool _send(zmsg_t *msg) override {
-        return false;
-    }
-
     zmsg_t *_recv() override {
         return mlm_client_recv(mlm_consumer_handle());
     }
@@ -102,7 +98,7 @@ public:
             Php::ByVal("header", Php::Type::String, false)
         });
 
-        // Send / Recv
+        // Recv
         ZHandle::register_recv((Php::Class<MalamuteConsumer> *) &o);
 
         // IZSocket intf support

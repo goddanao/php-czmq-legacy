@@ -85,6 +85,23 @@ FileMQ Server endpoint to bind.
 
 
 
+### publish
+
+    mixed FileMq\Server::publish(string $local_path, string $alias)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $local_path **string** - &lt;p&gt;...&lt;/p&gt;
+* $alias **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
 ### load_config
 
     mixed FileMq\Server::load_config(string $filename)
@@ -131,23 +148,6 @@ FileMQ Server endpoint to bind.
 #### Arguments
 * $key **string** - &lt;p&gt;...&lt;/p&gt;
 * $value **string** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### publish
-
-    mixed FileMq\Server::publish(string $local_path, string $alias)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $local_path **string** - &lt;p&gt;...&lt;/p&gt;
-* $alias **string** - &lt;p&gt;...&lt;/p&gt;
 
 
 

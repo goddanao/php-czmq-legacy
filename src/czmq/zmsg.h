@@ -596,9 +596,7 @@ public:
         o.method("prepend_zipped", &ZMsg::prepend_zipped, {
             Php::ByVal("zipped", Php::Type::String, true)
         });
-        o.method("pop_zipped", &ZMsg::pop_zipped, {
-            Php::ByVal("zipped", Php::Type::String, true)
-        });
+        o.method("pop_zipped", &ZMsg::pop_zipped);
         
         o.method("append_msgpack", &ZMsg::append_msgpack, {
             Php::ByVal("msgpack", Php::Type::String, true)
@@ -606,9 +604,7 @@ public:
         o.method("prepend_msgpack", &ZMsg::prepend_msgpack, {
             Php::ByVal("msgpack", Php::Type::String, true)
         });
-        o.method("pop_msgpack", &ZMsg::pop_msgpack, {
-            Php::ByVal("msgpack", Php::Type::String, true)
-        });
+        o.method("pop_msgpack", &ZMsg::pop_msgpack);
 
         o.method("send", &ZMsg::send, {
             Php::ByRef("socket", "IZSocket", false, true)
@@ -631,9 +627,8 @@ public:
         o.method("load", &ZMsg::load, {
             Php::ByVal("file", Php::Type::String, true)
         });
-
-
         o.method("dump", &ZMsg::dump);
+
         return o;
     }
 

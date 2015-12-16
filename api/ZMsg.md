@@ -204,7 +204,7 @@ Methods
 
 ### pop_zipped
 
-    mixed ZMsg::pop_zipped(mixed $zipped)
+    mixed ZMsg::pop_zipped()
 
 
 
@@ -212,9 +212,6 @@ Methods
 
 * Visibility: **public**
 
-
-#### Arguments
-* $zipped **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -252,7 +249,7 @@ Methods
 
 ### pop_msgpack
 
-    mixed ZMsg::pop_msgpack(mixed $msgpack)
+    mixed ZMsg::pop_msgpack()
 
 
 
@@ -260,9 +257,6 @@ Methods
 
 * Visibility: **public**
 
-
-#### Arguments
-* $msgpack **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

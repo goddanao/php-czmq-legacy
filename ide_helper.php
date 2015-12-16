@@ -346,17 +346,71 @@ class ZUdp implements \IZDescriptor {
   public function set_verbose() {}
 
   /**
-   * Send a ZMsg.
-   * 
-  */
-  public function send() {}
-
-  /**
    * Recieve a ZMsg.
    * 
    * @return \ZMsg
   */
   public function recv() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_string() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $picture ...
+  */
+  public function recv_picture($picture) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_zipped() {}
+
+  /**
+   * Send a ZMsg.
+   * 
+   * @param mixed $data ...
+  */
+  public function send($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_string($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $picture ...
+  */
+  public function send_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_msgpack($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_zipped($data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -463,9 +517,8 @@ class ZMsg {
   /**
    * ...
    * 
-   * @param mixed $zipped ...
   */
-  public function pop_zipped($zipped) {}
+  public function pop_zipped() {}
 
   /**
    * ...
@@ -484,9 +537,8 @@ class ZMsg {
   /**
    * ...
    * 
-   * @param mixed $msgpack ...
   */
-  public function pop_msgpack($msgpack) {}
+  public function pop_msgpack() {}
 
   /**
    * Send a ZMsg
@@ -2383,13 +2435,6 @@ class Client implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @return \ZMsg
-  */
-  public function recv() {}
-
-  /**
-   * ...
-   * 
    * @param string $service_name ...
    * @return \ZMsg
   */
@@ -2402,6 +2447,73 @@ class Client implements \IZSocket, \IZDescriptor {
    * @return bool
   */
   public function call_async($service_name) {}
+
+  /**
+   * ...
+   * 
+   * @return \ZMsg
+  */
+  public function recv() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_string() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $picture ...
+  */
+  public function recv_picture($picture) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_zipped() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_string($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $picture ...
+  */
+  public function send_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_msgpack($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_zipped($data) {}
 
   /**
    * ...
@@ -2435,7 +2547,7 @@ class Titanic implements \IZSocket, \IZDescriptor {
    * @param int $threads ... (optional)
    * @return \Majordomo\Titanic
   */
-  public function __construct($endpoint, ITitanicStorage $storage = null, $threads) {}
+  public function __construct($endpoint, \Majordomo\ITitanicStorage $storage = null, $threads) {}
 
   /**
    * ...
@@ -2444,7 +2556,7 @@ class Titanic implements \IZSocket, \IZDescriptor {
    * @param ITitanicStorage $storage ... (optional)
    * @param int $threads ... (optional)
   */
-  static public function run($endpoint, ITitanicStorage $storage = null, $threads) {}
+  static public function run($endpoint, \Majordomo\ITitanicStorage $storage = null, $threads) {}
 
   /**
    * ...
@@ -2895,6 +3007,18 @@ class Client implements \IZSocket, \IZDescriptor {
   public function recv_picture($picture) {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_msgpack() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_zipped() {}
+
+  /**
    * Get the underlying File Descriptor.
    * 
    * @return int
@@ -3126,6 +3250,14 @@ class Server implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
+   * @param string $local_path ...
+   * @param string $alias ...
+  */
+  public function publish($local_path, $alias) {}
+
+  /**
+   * ...
+   * 
    * @param string $filename ...
   */
   public function load_config($filename) {}
@@ -3144,14 +3276,6 @@ class Server implements \IZSocket, \IZDescriptor {
    * @param string $value ...
   */
   public function set_config($key, $value) {}
-
-  /**
-   * ...
-   * 
-   * @param string $local_path ...
-   * @param string $alias ...
-  */
-  public function publish($local_path, $alias) {}
 
   /**
    * Recieve a ZMsg.

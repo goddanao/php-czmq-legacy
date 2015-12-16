@@ -48,19 +48,6 @@ Methods
 
 
 
-### recv
-
-    \ZMsg Majordomo\Client::recv()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
 ### call
 
     \ZMsg Majordomo\Client::call(string $service_name)
@@ -90,6 +77,154 @@ Methods
 
 #### Arguments
 * $service_name **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv
+
+    \ZMsg Majordomo\Client::recv()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_string
+
+    mixed Majordomo\Client::recv_string()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_picture
+
+    mixed Majordomo\Client::recv_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### recv_msgpack
+
+    mixed Majordomo\Client::recv_msgpack()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### recv_zipped
+
+    mixed Majordomo\Client::recv_zipped()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### send
+
+    mixed Majordomo\Client::send(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_string
+
+    mixed Majordomo\Client::send_string(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_picture
+
+    mixed Majordomo\Client::send_picture(mixed $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_msgpack
+
+    mixed Majordomo\Client::send_msgpack(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### send_zipped
+
+    mixed Majordomo\Client::send_zipped(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
