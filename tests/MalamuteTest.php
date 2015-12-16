@@ -41,21 +41,21 @@ class MalamuteTest extends \PHPUnit_Framework_TestCase {
         $endpoint = self::$broker_endpoint;
 
         # Start a Stream Consumer
-//        $client[] = $manager->fork(function() use ($msg_count, $endpoint) {
-//            $processed = 0;
-//            $worker = new Malamute\Consumer($endpoint);
-//            $worker->consume("my_stream.mysubject");
-//            $zloop = new ZLoop();
-//            $zloop->add($worker, function($me) use (&$processed, $msg_count) {
-//                $msg = $me->recv();
-//                $processed++;
-//            });
-//            $zloop->add_timer(1500, function($timer_id, $loop) {
-//                $loop->stop();
-//            });
-//            $zloop->start();
-//            return ($msg_count == $processed) ? "OK" : "KO";
-//        });
+        $client[] = $manager->fork(function() use ($msg_count, $endpoint) {
+            $processed = 0;
+            $worker = new Malamute\Consumer($endpoint);
+            $worker->consume("my_stream.mysubject");
+            $zloop = new ZLoop();
+            $zloop->add($worker, function($me) use (&$processed, $msg_count) {
+                $msg = $me->recv();
+                $processed++;
+            });
+            $zloop->add_timer(1500, function($timer_id, $loop) {
+                $loop->stop();
+            });
+            $zloop->start();
+            return ($msg_count == $processed) ? "OK" : "KO";
+        });
 
         # Start another Stream Consumer
         $client[] = $manager->fork(function() use ($msg_count, $endpoint) {
