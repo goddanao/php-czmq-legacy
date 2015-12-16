@@ -6,6 +6,7 @@ private:
     std::vector<Php::Value> _onces;
 
 public:
+
     ZEmitter() { }
 
     virtual void on(Php::Parameters &param) {
@@ -22,7 +23,7 @@ public:
         Php::Function cb([this, param, sz](Php::Parameters &pp) -> Php::Value {
 
             ZParameters rm_param({param[0], _onces[sz]});
-            removeListener(rm_param);
+            remove_listener(rm_param);
             _onces.erase(_onces.begin() + sz);
 
             param[1](pp[0]);
@@ -34,7 +35,7 @@ public:
         on(on_param);
     }
 
-    virtual void removeListener(Php::Parameters &param) {
+    virtual void remove_listener(Php::Parameters &param) {
         auto it = _listeners.find(param[0].stringValue());
         if (it != _listeners.end()) {
             int idx = 0;
@@ -51,7 +52,7 @@ public:
         }
     }
 
-    virtual void removeAllListeners(Php::Parameters &param) {
+    virtual void remove_all_listeners(Php::Parameters &param) {
         if(param.size() == 0) {
             _listeners.clear();
         } else {
@@ -83,30 +84,4 @@ public:
         }
     }
 
-//    static Php::Class<ZEmitter> php_register() {
-//        Php::Class<ZEmitter> o("ZEmitter");
-//        o.method("on", &ZEmitter::on, {
-//            Php::ByVal("event", Php::Type::String, true),
-//            Php::ByVal("listener", Php::Type::Callable, true)
-//        });
-//        o.method("once", &ZEmitter::once, {
-//            Php::ByVal("event", Php::Type::String, true),
-//            Php::ByVal("listener", Php::Type::Callable, true)
-//        });
-//        o.method("removeListener", &ZEmitter::removeListener, {
-//            Php::ByVal("event", Php::Type::String, true),
-//            Php::ByVal("listener", Php::Type::Callable, true)
-//        });
-//        o.method("removeAllListeners", &ZEmitter::removeAllListeners, {
-//            Php::ByVal("event", Php::Type::String, false)
-//        });
-//        o.method("listeners", &ZEmitter::listeners, {
-//            Php::ByVal("event", Php::Type::String, true)
-//        });
-//        o.method("emit", &ZEmitter::emit, {
-//            Php::ByVal("event", Php::Type::String, true),
-//            Php::ByVal("arguments", Php::Type::Array, true)
-//        });
-//        return o;
-//    }
 };

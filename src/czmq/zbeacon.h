@@ -17,7 +17,7 @@ private:
 
 public:
 
-    ZBeacon() : ZActor(&ZBeacon::new_actor), Php::Base() { _type =  "zactor"; }
+    ZBeacon() : ZActor(&ZBeacon::new_actor), Php::Base() { }
     zactor_t *zbeacon_handle() const { return (zactor_t *) get_handle(); }
 
     void set_verbose() {

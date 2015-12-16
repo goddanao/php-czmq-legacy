@@ -984,14 +984,14 @@ interface IZEmitter {
    * @param string $event ...
    * @param callable $listener ...
   */
-  public function removelistener($event, callable $listener) ;
+  public function remove_listener($event, callable $listener) ;
 
   /**
    * ...
    * 
    * @param string $event ... (optional)
   */
-  public function removealllisteners($event) ;
+  public function remove_all_listeners($event) ;
 
   /**
    * ...
@@ -1007,7 +1007,7 @@ interface IZEmitter {
    * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments = null) ;
+  public function emit($event, array $arguments = []) ;
 
 }
 
@@ -2547,7 +2547,7 @@ class Titanic implements \IZSocket, \IZDescriptor {
    * @param int $threads ... (optional)
    * @return \Majordomo\Titanic
   */
-  public function __construct($endpoint, \Majordomo\ITitanicStorage $storage = null, $threads) {}
+  public function __construct($endpoint, ITitanicStorage $storage = null, $threads) {}
 
   /**
    * ...
@@ -2556,7 +2556,7 @@ class Titanic implements \IZSocket, \IZDescriptor {
    * @param ITitanicStorage $storage ... (optional)
    * @param int $threads ... (optional)
   */
-  static public function run($endpoint, \Majordomo\ITitanicStorage $storage = null, $threads) {}
+  static public function run($endpoint, ITitanicStorage $storage = null, $threads) {}
 
   /**
    * ...

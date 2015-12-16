@@ -89,7 +89,9 @@ public:
         o.constant("IN_ISDIR", ZUtils::sprintf("0x%08x", IN_ISDIR));
 
     #ifdef IN_ONESHOT
+
         o.constant("IN_ONESHOT", ZUtils::sprintf("0x%08x", IN_ONESHOT));
+
     #endif
 
         o.constant("IN_ALL_EVENTS", ZUtils::sprintf("0x%08x", IN_ALL_EVENTS));

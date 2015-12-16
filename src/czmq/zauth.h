@@ -18,7 +18,7 @@ private:
 
 public:
 
-    ZAuth() : ZActor(&ZAuth::new_actor), Php::Base() { _type = "zactor"; }
+    ZAuth() : ZActor(&ZAuth::new_actor), Php::Base() { }
     zactor_t *zauth_handle() const { return (zactor_t *) get_handle(); }
 
     void set_verbose() {

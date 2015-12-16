@@ -18,7 +18,7 @@ private:
 
 public:
 
-    ZProxy() : ZActor(&ZProxy::new_actor), Php::Base() { _type = "zactor"; }
+    ZProxy() : ZActor(&ZProxy::new_actor), Php::Base() { }
     zactor_t *zproxy_handle() const { return (zactor_t *) get_handle(); }
 
     void pause() {

@@ -32,8 +32,8 @@ private:
 
 public:
 
-    MalamuteClient() : ZActor(&MalamuteClient::new_actor), Php::Base() { _type = "mlm_client"; }
-    MalamuteClient(mlm_client_t *handle, bool owned) : ZActor(handle, owned, &MalamuteClient::new_actor), Php::Base() { _type = "mlm_client"; }
+    MalamuteClient() : ZActor("mlm_client", &MalamuteClient::new_actor), Php::Base() { }
+    MalamuteClient(mlm_client_t *handle, bool owned) : ZActor(handle, owned, "mlm_client", &MalamuteClient::new_actor), Php::Base() { }
     mlm_client_t *mlm_client_handle() const { return (mlm_client_t *) get_handle(); }
 
     zmsg_t *_recv() override {

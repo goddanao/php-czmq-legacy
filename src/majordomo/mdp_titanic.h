@@ -35,7 +35,7 @@ private:
 
 public:
 
-    MajordomoTitanicV2() : ZActor(&MajordomoTitanicV2::new_actor), Php::Base() { _type = "zactor"; };
+    MajordomoTitanicV2() : ZActor(&MajordomoTitanicV2::new_actor), Php::Base() { };
 
     static void run(Php::Parameters &param) {
         _run(param, &MajordomoTitanicV2::new_actor);

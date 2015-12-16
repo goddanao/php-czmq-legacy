@@ -13,7 +13,8 @@ protected:
         std::function<void *(Php::Parameters &param, zpoller_t *)> __new,
         std::function<void (void *)> __destroy = NULL,
         std::function<bool (void *, void *)> __poll = NULL,
-        std::function<bool (void *)> __expired = NULL) {
+        std::function<bool (void *)> __expired = NULL
+    ) {
         zpoller_t *poller = zpoller_new(NULL);
         void *actor = __new(param, poller);
         while (!zsys_interrupted) {
@@ -51,18 +52,23 @@ protected:
 
 public:
 
-    ZActor(
+    ZActor( std::function<void *(Php::Parameters &param, zpoller_t *)> __new,
+            std::function<void (void *)> __destroy = NULL,
+            std::function<bool (void *, void *)> __poll = NULL,
+            std::function<bool (void *)> __expired = NULL) : ZHandle(), _new(__new), _destroy(__destroy), _poll(__poll), _expired(__expired) { _type = "zactor"; }
+
+    ZActor(std::string type,
         std::function<void *(Php::Parameters &param, zpoller_t *)> __new,
         std::function<void (void *)> __destroy = NULL,
         std::function<bool (void *, void *)> __poll = NULL,
-        std::function<bool (void *)> __expired = NULL) : ZHandle(), _new(__new), _destroy(__destroy), _poll(__poll), _expired(__expired) { _type = "zactor"; }
+        std::function<bool (void *)> __expired = NULL) : ZHandle(), _new(__new), _destroy(__destroy), _poll(__poll), _expired(__expired) { _type = type; }
 
-    ZActor(void *handle, bool owned,
+    ZActor(void *handle, bool owned, std::string type,
         std::function<void *(Php::Parameters &param, zpoller_t *)> __new,
         std::function<void (void *)> __destroy = NULL,
         std::function<bool (void *, void *)> __poll = NULL,
         std::function<bool (void *)> __expired = NULL
-        ) : ZHandle(handle, owned, "zactor"), _new(__new), _destroy(__destroy), _poll(__poll), _expired(__expired) { _type = "zactor"; }
+        ) : ZHandle(handle, owned, type), _new(__new), _destroy(__destroy), _poll(__poll), _expired(__expired) { _type = type; }
 
     virtual void __construct(Php::Parameters &param) {
         set_handle(_new(param, NULL), true, (_type != "unknown") ? _type : "zactor");

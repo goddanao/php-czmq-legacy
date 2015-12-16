@@ -54,7 +54,7 @@ private:
 
 
 public:
-    FileMqServer() : ZActor(&FileMqServer::new_actor), Php::Base() { _type = "fmq_server"; }
+    FileMqServer() : ZActor("fmq_server", &FileMqServer::new_actor), Php::Base() { }
     zactor_t *fmq_broker_handle() const { return (zactor_t *) get_handle(); }
 
 	void set_verbose(Php::Parameters &param) {

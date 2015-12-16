@@ -30,7 +30,7 @@ private:
 
 public:
 
-    FileMqClient() : ZActor(&FileMqClient::new_actor), Php::Base() { _type = "fmq_client"; }
+    FileMqClient() : ZActor("fmq_client", &FileMqClient::new_actor), Php::Base() { }
     fmq_client_t *fmq_client_handle() const { return (fmq_client_t *) get_handle(); }
 
 	Php::Value subscribe(Php::Parameters &param) {

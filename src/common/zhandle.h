@@ -21,9 +21,6 @@ protected:
     bool _owned         = false;
     std::string _type   = "unknown";
 
-//    Php::Value _msgpack_encoder;
-//    Php::Value _msgpack_decoder;
-
 public:
     ZHandle() { _created_by_pid = getpid(); }
     ZHandle(void *handle, bool owned, std::string type) : _handle(handle), _owned(owned), _type(type) { _created_by_pid = getpid(); }
@@ -216,6 +213,21 @@ public:
 
     virtual Php::Value recv(Php::Parameters &param);
 
+    template<class T>
+    static void register_intf(std::vector<std::string> intfs, Php::Class<T> *o) {
+        if(std::find(intfs.begin(), intfs.end(), "send") != intfs.end())
+            register_send(o);
+        if(std::find(intfs.begin(), intfs.end(), "recv") != intfs.end())
+            register_recv(o);
+        if(std::find(intfs.begin(), intfs.end(), "config") != intfs.end())
+            register_config(o);
+        if(std::find(intfs.begin(), intfs.end(), "izdescriptor") != intfs.end())
+            register_izdescriptor(o);
+        if(std::find(intfs.begin(), intfs.end(), "izsocket") != intfs.end())
+            register_izsocket(o);
+        if(std::find(intfs.begin(), intfs.end(), "izemitter") != intfs.end())
+            register_izemitter(o);
+    }
 
     template<class T>
     static void register_send(Php::Class<T> *o) {
@@ -247,7 +259,6 @@ public:
         o->method("recv_zipped", &T::recv_zipped);
     }
 
-
     template<class T>
     static void register_config(Php::Class<T> *o) {
         o->method("load_config", &T::load_config, {
@@ -271,6 +282,32 @@ public:
     static void register_izsocket(Php::Class<T> *o) {
         o->method("get_fd", &T::get_fd);
         o->method("get_socket", &T::_get_socket);
+    }
+
+    template<class T>
+    static void register_izemitter(Php::Class<T> *o) {
+        o->method("on", &T::on, {
+            Php::ByVal("event", Php::Type::String, true),
+            Php::ByVal("listener", Php::Type::Callable, true)
+        });
+        o->method("once", &T::once, {
+            Php::ByVal("event", Php::Type::String, true),
+            Php::ByVal("listener", Php::Type::Callable, true)
+        });
+        o->method("remove_listener", &T::remove_listener, {
+            Php::ByVal("event", Php::Type::String, true),
+            Php::ByVal("listener", Php::Type::Callable, true)
+        });
+        o->method("remove_all_listeners", &T::remove_all_listeners, {
+            Php::ByVal("event", Php::Type::String, false)
+        });
+        o->method("listeners", &T::listeners, {
+            Php::ByVal("event", Php::Type::String, true)
+        });
+        o->method("emit", &T::emit, {
+            Php::ByVal("event", Php::Type::String, true),
+            Php::ByVal("arguments", Php::Type::Array, true)
+        });
     }
 
 };

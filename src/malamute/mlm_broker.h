@@ -36,7 +36,7 @@ private:
 
 public:
 
-    MalamuteBroker() : ZActor(&MalamuteBroker::new_actor), Php::Base() { _type = "mlm_broker"; }
+    MalamuteBroker() : ZActor("mlm_broker", &MalamuteBroker::new_actor), Php::Base() { }
     zactor_t *mlm_broker_handle() const { return (zactor_t *) get_handle(); }
 
 	void load_config(Php::Parameters &param) {

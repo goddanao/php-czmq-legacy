@@ -53,9 +53,9 @@ Methods
 
 
 
-### removelistener
+### remove_listener
 
-    mixed IZEmitter::removelistener(string $event, callable $listener)
+    mixed IZEmitter::remove_listener(string $event, callable $listener)
 
 
 
@@ -70,9 +70,9 @@ Methods
 
 
 
-### removealllisteners
+### remove_all_listeners
 
-    mixed IZEmitter::removealllisteners(string $event)
+    mixed IZEmitter::remove_all_listeners(string $event)
 
 
 

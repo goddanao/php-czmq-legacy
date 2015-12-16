@@ -51,11 +51,11 @@ extern "C" {
             Php::ByVal("event", Php::Type::String, true),
             Php::ByVal("listener", Php::Type::Callable, true)
         });
-        izemitter.method("removeListener", {
+        izemitter.method("remove_listener", {
             Php::ByVal("event", Php::Type::String, true),
             Php::ByVal("listener", Php::Type::Callable, true)
         });
-        izemitter.method("removeAllListeners", {
+        izemitter.method("remove_all_listeners", {
             Php::ByVal("event", Php::Type::String, false)
         });
         izemitter.method("listeners", {

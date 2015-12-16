@@ -28,7 +28,7 @@ private:
 
 public:
 
-    MalamuteProducer() : ZActor(&MalamuteProducer::new_actor), Php::Base() { _type = "mlm_client"; }
+    MalamuteProducer() : ZActor("mlm_client", &MalamuteProducer::new_actor), Php::Base() { }
     mlm_client_t *mlm_producer_handle() const { return (mlm_client_t *) get_handle(); }
 
     bool _send(zmsg_t *msg) override {

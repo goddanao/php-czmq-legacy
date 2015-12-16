@@ -17,7 +17,7 @@ private:
 
 public:
 
-    ZGossip() : ZActor(&ZGossip::new_actor), Php::Base() { _type = "zactor"; }
+    ZGossip() : ZActor(&ZGossip::new_actor), Php::Base() { }
     zactor_t *zgossip_handle() const { return (zactor_t *) get_handle(); }
 
     void set_verbose(Php::Parameters &param) {

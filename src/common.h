@@ -10,6 +10,7 @@
 #include <net/if.h>
 #include <sys/inotify.h>
 #include <unistd.h>
+#include <algorithm>
 
 #include "common/zutils.h"
 #include "common/zhandle.h"

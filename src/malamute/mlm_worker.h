@@ -39,7 +39,7 @@ private:
 
 public:
 
-    MalamuteWorker() : ZActor(&MalamuteWorker::new_actor), Php::Base() { _type = "mlm_client"; }
+    MalamuteWorker() : ZActor("mlm_client", &MalamuteWorker::new_actor), Php::Base() { }
     mlm_client_t *mlm_worker_handle() const { return (mlm_client_t *) get_handle(); }
 
     bool _send(zmsg_t *msg) override {

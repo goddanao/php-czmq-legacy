@@ -25,7 +25,7 @@ class MajordomoBrokerV2 : public ZActor, public Php::Base {
 
 public:
 
-    MajordomoBrokerV2() : ZActor(&MajordomoBrokerV2::new_actor), Php::Base() { _type = "mdp_broker_v2"; }
+    MajordomoBrokerV2() : ZActor("mdp_broker_v2", &MajordomoBrokerV2::new_actor), Php::Base() { }
     zactor_t *zmdpbroker_handle() const { return (zactor_t *) get_handle(); }
 
     void set_verbose(Php::Parameters &param) {

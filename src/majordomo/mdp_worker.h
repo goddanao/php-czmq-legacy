@@ -15,7 +15,7 @@ private:
 
 public:
 
-    MajordomoWorkerV2() : ZActor(&MajordomoWorkerV2::new_actor), Php::Base() { _type = "mdp_worker_v2"; };
+    MajordomoWorkerV2() : ZActor("mdp_worker_v2", &MajordomoWorkerV2::new_actor), Php::Base() { };
     mdp_worker_t *mdpworker_handle() const { return (mdp_worker_t *) get_handle(); }
 
     void set_verbose() {
