@@ -156,6 +156,11 @@ public:
         return encode(param[0], callback);
     }
 
+    static Php::Value encode(Php::Value &v) {
+        Php::Value callback;
+        return encode(v, callback);
+    }
+
     static Php::Value encode(Php::Value &v, Php::Value &callback) {
         msgpack::sbuffer buffer;
         msgpack::packer<msgpack::sbuffer> pk(&buffer);
@@ -168,11 +173,16 @@ public:
         return decode(param[0], callback);
     }
 
-    static Php::Value decode(Php::Value &v, Php::Value &callback) {
+    static Php::Value decode(Php::Value &v) {
+        Php::Value callback;
+        return decode(v, callback);
+    }
+
+    static Php::Value decode(const void* data, size_t size, Php::Value &callback) {
         msgpack::unpacker pac;
-        pac.reserve_buffer(v.size());
-        memcpy(pac.buffer(), v.rawValue(), v.size());
-        pac.buffer_consumed(v.size());
+        pac.reserve_buffer(size);
+        memcpy(pac.buffer(), data, size);
+        pac.buffer_consumed(size);
 
         // now starts streaming deserialization.
         msgpack::unpacked unpacked_data;
@@ -180,8 +190,16 @@ public:
             msgpack::object object(unpacked_data.get());
             return decode_phpvalue(&object, callback);
         }
-
         return nullptr;
+    }
+
+    static Php::Value decode(const void* data, size_t size) {
+        Php::Value callback;
+        return decode(data, size, callback);
+    }
+
+    static Php::Value decode(Php::Value &v, Php::Value &callback) {
+        return decode(v.rawValue(), v.size(), callback);
     }
 
      static Php::Class<MsgPack> php_register() {

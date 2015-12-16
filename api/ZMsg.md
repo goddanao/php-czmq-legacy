@@ -32,54 +32,6 @@ Methods
 
 
 
-### append_picture
-
-    mixed ZMsg::append_picture(string $picture)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $picture **string** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### prepend_picture
-
-    mixed ZMsg::prepend_picture(string $picture)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $picture **string** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### pop_picture
-
-    array ZMsg::pop_picture(string $picture)
-
-
-
-...
-
-* Visibility: **public**
-
-
-#### Arguments
-* $picture **string** - &lt;p&gt;...&lt;/p&gt;
-
-
-
 ### append
 
     mixed ZMsg::append(\ZFrame $frame)
@@ -167,6 +119,150 @@ Methods
 
 * Visibility: **public**
 
+
+
+
+### append_picture
+
+    mixed ZMsg::append_picture(string $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### prepend_picture
+
+    mixed ZMsg::prepend_picture(string $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### pop_picture
+
+    array ZMsg::pop_picture(string $picture)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $picture **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### append_zipped
+
+    mixed ZMsg::append_zipped(mixed $zipped)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $zipped **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### prepend_zipped
+
+    mixed ZMsg::prepend_zipped(mixed $zipped)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $zipped **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### pop_zipped
+
+    mixed ZMsg::pop_zipped(mixed $zipped)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $zipped **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### append_msgpack
+
+    mixed ZMsg::append_msgpack(mixed $msgpack)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $msgpack **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### prepend_msgpack
+
+    mixed ZMsg::prepend_msgpack(mixed $msgpack)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $msgpack **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### pop_msgpack
+
+    mixed ZMsg::pop_msgpack(mixed $msgpack)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $msgpack **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

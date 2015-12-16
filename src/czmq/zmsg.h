@@ -328,6 +328,67 @@ public:
         return nullptr;
     }
 
+    void append_zipped(Php::Parameters &param) {
+        Php::Value compressed = ZUtils::compress_string(param[0]);
+        zmsg_addmem (zmsg_handle(), compressed.rawValue(), compressed.size());
+    }
+
+    void prepend_zipped(Php::Parameters &param) {
+        Php::Value compressed = ZUtils::compress_string(param[0]);
+        zmsg_pushmem (zmsg_handle(), compressed.rawValue(), compressed.size());
+    }
+
+    Php::Value pop_zipped() {
+        zframe_t *frame = zmsg_pop (zmsg_handle());
+        if(frame) {
+            Php::Value buffer;
+            int _buffer_size = zframe_size(frame);
+            buffer.reserve(_buffer_size);
+            const char *_buffer_to = buffer.rawValue();
+            byte *_buffer_from = zframe_data(frame);
+            memcpy((void *) _buffer_to, _buffer_from, _buffer_size);
+            zframe_destroy (&frame);
+            return ZUtils::decompress_string(buffer);
+        }
+        return nullptr;
+    }
+
+    void append_msgpack(Php::Parameters &param) {
+        Php::Value v = MsgPack::encode(param[0]);
+        zmsg_t *msg = ZUtils::phpvalue_to_zmsg(v);
+        if(!msg)
+            return;
+        zframe_t *frame;
+        for (frame = zmsg_first (msg); frame; frame = zmsg_next (msg)) {
+            zframe_t *dup = zframe_dup(frame);
+            zmsg_append (zmsg_handle(), &dup);
+        }
+        zmsg_destroy(&msg);
+    }
+
+    void prepend_msgpack(Php::Parameters &param) {
+        Php::Value v = MsgPack::encode(param[0]);
+        zmsg_t *msg = ZUtils::phpvalue_to_zmsg(v);
+        if(!msg)
+            return;
+        zframe_t *frame;
+        for (frame = zmsg_first (msg); frame; frame = zmsg_next (msg)) {
+            zframe_t *dup = zframe_dup(frame);
+            zmsg_prepend (zmsg_handle(), &dup);
+        }
+        zmsg_destroy(&msg);
+    }
+
+    Php::Value pop_msgpack() {
+        zframe_t *frame = zmsg_pop (zmsg_handle());
+        if(frame) {
+            Php::Value result = MsgPack::decode(zframe_data(frame), zframe_size(frame));
+            zframe_destroy (&frame);
+            return result;
+        }
+        return nullptr;
+    }
+
     Php::Value get_size() {
         return (int) zmsg_size(zmsg_handle());
     }
@@ -503,24 +564,12 @@ public:
         Php::Class<ZMsg> o("ZMsg");
         o.method("__construct", &ZMsg::__construct);
 
-        o.method("append_picture", &ZMsg::append_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o.method("prepend_picture", &ZMsg::prepend_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-        o.method("pop_picture", &ZMsg::pop_picture, {
-            Php::ByVal("picture", Php::Type::String, true)
-        });
-
         o.method("append", &ZMsg::append, {
             Php::ByRef("frame", "ZFrame", false, true)
         });
-
         o.method("prepend", &ZMsg::prepend, {
             Php::ByRef("frame", "ZFrame", false, true)
         });
-
         o.method("pop", &ZMsg::pop);
 
         o.method("append_string", &ZMsg::append_string, {
@@ -530,6 +579,36 @@ public:
             Php::ByVal("data", Php::Type::String, true)
         });
         o.method("pop_string", &ZMsg::pop_string);
+
+        o.method("append_picture", &ZMsg::append_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        o.method("prepend_picture", &ZMsg::prepend_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        o.method("pop_picture", &ZMsg::pop_picture, {
+            Php::ByVal("picture", Php::Type::String, true)
+        });
+        
+        o.method("append_zipped", &ZMsg::append_zipped, {
+            Php::ByVal("zipped", Php::Type::String, true)
+        });
+        o.method("prepend_zipped", &ZMsg::prepend_zipped, {
+            Php::ByVal("zipped", Php::Type::String, true)
+        });
+        o.method("pop_zipped", &ZMsg::pop_zipped, {
+            Php::ByVal("zipped", Php::Type::String, true)
+        });
+        
+        o.method("append_msgpack", &ZMsg::append_msgpack, {
+            Php::ByVal("msgpack", Php::Type::String, true)
+        });
+        o.method("prepend_msgpack", &ZMsg::prepend_msgpack, {
+            Php::ByVal("msgpack", Php::Type::String, true)
+        });
+        o.method("pop_msgpack", &ZMsg::pop_msgpack, {
+            Php::ByVal("msgpack", Php::Type::String, true)
+        });
 
         o.method("send", &ZMsg::send, {
             Php::ByRef("socket", "IZSocket", false, true)

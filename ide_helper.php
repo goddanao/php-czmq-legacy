@@ -385,28 +385,6 @@ class ZMsg {
   /**
    * ...
    * 
-   * @param string $picture ...
-  */
-  public function append_picture($picture) {}
-
-  /**
-   * ...
-   * 
-   * @param string $picture ...
-  */
-  public function prepend_picture($picture) {}
-
-  /**
-   * ...
-   * 
-   * @param string $picture ...
-   * @return array
-  */
-  public function pop_picture($picture) {}
-
-  /**
-   * ...
-   * 
    * @param \ZFrame &$frame ...
   */
   public function append(\ZFrame &$frame) {}
@@ -445,6 +423,70 @@ class ZMsg {
    * @return string
   */
   public function pop_string() {}
+
+  /**
+   * ...
+   * 
+   * @param string $picture ...
+  */
+  public function append_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param string $picture ...
+  */
+  public function prepend_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param string $picture ...
+   * @return array
+  */
+  public function pop_picture($picture) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $zipped ...
+  */
+  public function append_zipped($zipped) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $zipped ...
+  */
+  public function prepend_zipped($zipped) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $zipped ...
+  */
+  public function pop_zipped($zipped) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $msgpack ...
+  */
+  public function append_msgpack($msgpack) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $msgpack ...
+  */
+  public function prepend_msgpack($msgpack) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $msgpack ...
+  */
+  public function pop_msgpack($msgpack) {}
 
   /**
    * Send a ZMsg
