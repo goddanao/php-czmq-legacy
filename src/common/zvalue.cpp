@@ -19,6 +19,8 @@ std::string ZValue::serialize() {
 
     HashTable* var_hash; // ??
 
+    TSRMLS_FETCH();
+
     if (Z_OBJ_HT_P(_val)->get_class_entry)
         ce = Z_OBJCE_P(_val);
 
