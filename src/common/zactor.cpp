@@ -21,21 +21,30 @@ void ZActor::on_data(zmsg_t *msg) {
 
 void ZActor::start(Php::Parameters &param) {
     zpoller_t *poller = zpoller_new(NULL);
-    zpoller_add(poller, get_socket());
     on_start();
+    zpoller_add(poller, get_socket());
     while (!zsys_interrupted) {
         void *socket = zpoller_wait(poller, 1);
         if(zpoller_terminated(poller)) {
             break;
         }
+        else
+        if(socket) {
+            zsys_info("got socket data");
+            zmsg_t *msg = zmsg_recv(socket);
+            if(msg) {
+                on_data(msg);
+                zmsg_destroy(&msg);
+            } else
+                break;
+        }
+        else
         if(zpoller_expired(poller)) {
             on_idle();
         }
-        if(socket) {
-            zmsg_t *msg = zmsg_recv(socket);
-            on_data(msg);
-            zmsg_destroy(&msg);
-        }
+        else
+            break;
+
     }
     on_end();
     zpoller_destroy(&poller);

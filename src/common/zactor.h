@@ -22,10 +22,12 @@ protected:
             if(zpoller_terminated(poller)) {
                 break;
             }
+            else
             if(zpoller_expired(poller)) {
                 if(__expired && !__expired(actor))
                     break;
             }
+            else
             if(socket) {
                 if(__poll) {
                     if(!__poll(actor, socket))
@@ -37,7 +39,8 @@ protected:
                     zmsg_dump(msg);
                     zmsg_destroy(&msg);
                 }
-            }
+            } else
+                break;
         }
         zpoller_destroy(&poller);
 

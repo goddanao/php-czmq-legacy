@@ -11,7 +11,7 @@ private:
 
         if(client) {
             if(poller)
-                zpoller_add(poller, zyre_socket(client));
+                zpoller_add(poller, zyre_socket (client));
         }
         return client;
     }
