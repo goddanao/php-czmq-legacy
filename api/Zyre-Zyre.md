@@ -8,7 +8,7 @@ Zyre does local area discovery and clustering. A Zyre node broadcasts UDP beacon
 
 * Class name: Zyre
 * Namespace: Zyre
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md)
+* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -35,26 +35,44 @@ Creates a new Zyre node. Note that until you start the node it is silent and inv
 
 
 
-### start
+### run
 
-    boolean Zyre\Zyre::start()
-
-Start node, after setting header values. When you start a node it begins discovery and connection.
+    mixed Zyre\Zyre::run(mixed $name, callable $callback)
 
 
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### connect
+
+    mixed Zyre\Zyre::connect()
+
+
+
+...
 
 * Visibility: **public**
 
 
 
 
-### stop
+### disconnect
 
-    mixed Zyre\Zyre::stop()
-
-Stop node, this signals to other peers that this node will go away. This is polite; however you can also just destroy the node without stopping it.
+    mixed Zyre\Zyre::disconnect()
 
 
+
+...
 
 * Visibility: **public**
 
@@ -385,6 +403,125 @@ Send message to a named group.
 #### Arguments
 * $group **string** - &lt;p&gt;Group name.&lt;/p&gt;
 * $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### start
+
+    boolean Zyre\Zyre::start()
+
+Start node, after setting header values. When you start a node it begins discovery and connection.
+
+
+
+* Visibility: **public**
+
+
+
+
+### on
+
+    mixed IZEmitter::on(string $event, callable $listener)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### once
+
+    mixed IZEmitter::once(string $event, callable $listener)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### remove_listener
+
+    mixed IZEmitter::remove_listener(string $event, callable $listener)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### remove_all_listeners
+
+    mixed IZEmitter::remove_all_listeners(string $event)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+
+
+
+### listeners
+
+    array|null IZEmitter::listeners(string $event)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### emit
+
+    mixed IZEmitter::emit(string $event, array $arguments)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $arguments **array** - &lt;p&gt;...&lt;/p&gt;
 
 
 

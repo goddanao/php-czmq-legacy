@@ -17,9 +17,10 @@ class ZMsgTest extends \PHPUnit_Framework_TestCase {
 
         $msgread = new ZMsg();
         $msgread->load("mymsg.msg");
+        unlink("mymsg.msg");
+
         foreach($msg as $idx)
             $this->assertEquals($msg[$idx] , $msgread[$idx]);
-        unlink("mymsg.msg");
     }
 
     public function test_traversable()
@@ -127,8 +128,8 @@ class ZMsgTest extends \PHPUnit_Framework_TestCase {
             '8' => pow(2, 63) - 1,                          // 8 = 64 bit signed
             'i' => pow(2, 31) - 1,                          // i = 32bit signed
             'u' => pow(2, 32) - 1,                          // u = 32 bit unsigned
-            's' => str_pad('-', 255, '-'),                  // s = short string (255 chars)
-            'S' => str_pad('-', 256, '-'),                  // S = long string (> 255 chars),
+            's' => str_repeat('-', 255),                    // s = short string (255 chars)
+            'S' => str_repeat('-', 256),                    // S = long string (> 255 chars),
             'b' => pack("nvc*", 0x1234, 0x5678, 65, 66),    // b = byte buffer
             'z' => null,                                    // z = NULL,
             'Z' => str_repeat("-", 1024),                   // Z = Zipped data
@@ -143,8 +144,6 @@ class ZMsgTest extends \PHPUnit_Framework_TestCase {
         call_user_func_array([$msg, 'prepend_picture'], $params);
 
         $result = $msg->pop_picture($picture);
-
-        print_r($result);
 
         $equals = true;
         foreach ($result as $idx => $value) {

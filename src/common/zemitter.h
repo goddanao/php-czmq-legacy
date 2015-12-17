@@ -1,5 +1,7 @@
 #pragma once
 
+#include "zparameters.h"
+
 class ZEmitter {
 private:
     std::map<std::string, std::vector<Php::Value>> _listeners;
@@ -80,6 +82,15 @@ public:
         if (it != _listeners.end()) {
             for(Php::Value &v : it->second) {
                 v(param[1]);
+            }
+        }
+    }
+
+    virtual void emit(std::string event, Php::Value v) {
+        auto it = _listeners.find(event);
+        if (it != _listeners.end()) {
+            for(Php::Value &listener : it->second) {
+                listener(v);
             }
         }
     }

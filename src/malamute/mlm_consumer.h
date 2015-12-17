@@ -98,6 +98,10 @@ public:
             Php::ByVal("header", Php::Type::String, false)
         });
 
+        // ZEmitter
+        o.method("start", &MalamuteConsumer::start);
+        ZHandle::register_izemitter((Php::Class<MalamuteConsumer> *) &o);
+
         // Recv
         ZHandle::register_recv((Php::Class<MalamuteConsumer> *) &o);
 

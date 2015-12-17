@@ -79,7 +79,10 @@ public:
             Php::ByVal("broker_endpoint", Php::Type::String, true),
             Php::ByVal("callback", Php::Type::Callable, true)
         });
-//        o.method("process", &MajordomoWorkerV2::process);
+
+        // ZEmitter
+        o.method("start", &MajordomoWorkerV2::start);
+        ZHandle::register_izemitter((Php::Class<MajordomoWorkerV2> *) &o);
 
         // Send / Recv
         ZHandle::register_recv((Php::Class<MajordomoWorkerV2> *) &o);

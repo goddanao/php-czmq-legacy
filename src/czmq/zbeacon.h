@@ -78,6 +78,10 @@ public:
         o.method("silence", &ZBeacon::silence);
         o.method("recv", &ZBeacon::recv);
 
+        // ZEmitter
+        o.method("start", &ZBeacon::start);
+        ZHandle::register_izemitter((Php::Class<ZBeacon> *) &o);
+
         // IZSocket intf support
         ZHandle::register_izsocket((Php::Class<ZBeacon> *) &o);
 

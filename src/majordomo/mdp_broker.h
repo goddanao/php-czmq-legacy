@@ -80,6 +80,10 @@ public:
         // load / save /set config
         ZHandle::register_config((Php::Class<MajordomoBrokerV2> *) &o);
 
+        // ZEmitter
+        o.method("start", &MajordomoBrokerV2::start);
+        ZHandle::register_izemitter((Php::Class<MajordomoBrokerV2> *) &o);
+
         // Send / Recv
         ZHandle::register_recv((Php::Class<MajordomoBrokerV2> *) &o);
         ZHandle::register_send((Php::Class<MajordomoBrokerV2> *) &o);

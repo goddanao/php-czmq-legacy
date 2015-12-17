@@ -96,14 +96,17 @@ extern "C" {
         // ZProxy
         Php::Class<ZProxy> zproxy = ZProxy::php_register();
         zproxy.implements(izsocket);
+        zproxy.implements(izemitter);
 
         // ZBeacon
         Php::Class<ZBeacon> zbeacon = ZBeacon::php_register();
         zbeacon.implements(izsocket);
+        zbeacon.implements(izemitter);
 
         // ZAuth
         Php::Class<ZAuth> zauth = ZAuth::php_register();
         zauth.implements(izsocket);
+        zauth.implements(izemitter);
 
         // ZUdp
         Php::Class<ZUdp> zudp = ZUdp::php_register();
@@ -112,6 +115,7 @@ extern "C" {
         // ZGossip
         Php::Class<ZGossip> zgossip = ZGossip::php_register();
         zgossip.implements(izsocket);
+        zgossip.implements(izemitter);
 
         // ZInotify
         Php::Class<ZInotify> zinotify = ZInotify::php_register();
@@ -132,6 +136,7 @@ extern "C" {
         // Zyre
         Php::Class<Zyre> zyre = Zyre::php_register();
         zyre.implements(izsocket);
+        zyre.implements(izemitter);
         zyre_ns.add(std::move(zyre));
 
     // MAJORDOMO
@@ -141,11 +146,13 @@ extern "C" {
         // Majordomo Broker V2
         Php::Class<MajordomoBrokerV2> mdpbroker = MajordomoBrokerV2::php_register();
         mdpbroker.implements(izsocket);
+        mdpbroker.implements(izemitter);
         mdp_ns.add(std::move(mdpbroker));
 
         // Majordomo Worker V2
         Php::Class<MajordomoWorkerV2> mdpworker = MajordomoWorkerV2::php_register();
         mdpworker.implements(izsocket);
+        mdpworker.implements(izemitter);
         mdp_ns.add(std::move(mdpworker));
 
         // Majordomo Client V2
@@ -156,6 +163,7 @@ extern "C" {
         // Majordomo Titanic V2
         Php::Class<MajordomoTitanicV2> mdptitanic = MajordomoTitanicV2::php_register();
         mdptitanic.implements(izsocket);
+        mdptitanic.implements(izemitter);
         mdp_ns.add(std::move(mdptitanic));
 
         // TitanicStorage
@@ -188,6 +196,7 @@ extern "C" {
         // Malamute Broker
         Php::Class<MalamuteBroker> mlmbroker = MalamuteBroker::php_register();
         mlmbroker.implements(izsocket);
+        mlmbroker.implements(izemitter);
         mlm_ns.add(std::move(mlmbroker));
 
         // Malamute Client
@@ -198,16 +207,19 @@ extern "C" {
         // Malamute Worker
         Php::Class<MalamuteWorker> mlmworker = MalamuteWorker::php_register();
         mlmworker.implements(izsocket);
+        mlmworker.implements(izemitter);
         mlm_ns.add(std::move(mlmworker));
 
         // Malamute Producer
         Php::Class<MalamuteProducer> mlmproducer = MalamuteProducer::php_register();
         mlmproducer.implements(izsocket);
+        mlmproducer.implements(izemitter);
         mlm_ns.add(std::move(mlmproducer));
 
         // Malamute Consumer
         Php::Class<MalamuteConsumer> mlmconsumer = MalamuteConsumer::php_register();
         mlmconsumer.implements(izsocket);
+        mlmconsumer.implements(izemitter);
         mlm_ns.add(std::move(mlmconsumer));
 
 #endif
@@ -219,11 +231,13 @@ extern "C" {
         // FileMq Broker
         Php::Class<FileMqServer> fmqserver = FileMqServer::php_register();
         fmqserver.implements(izsocket);
+        fmqserver.implements(izemitter);
         fmq_ns.add(std::move(fmqserver));
 
         // FileMq Client
         Php::Class<FileMqClient> fmqclient = FileMqClient::php_register();
         fmqclient.implements(izsocket);
+        fmqclient.implements(izemitter);
         fmq_ns.add(std::move(fmqclient));
 
     // Add classes to Extension

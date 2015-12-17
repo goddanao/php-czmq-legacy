@@ -143,6 +143,10 @@ public:
         // load / save /set config
         ZHandle::register_config((Php::Class<FileMqServer> *) &o);
 
+        // ZEmitter
+        o.method("start", &FileMqServer::start);
+        ZHandle::register_izemitter((Php::Class<FileMqServer> *) &o);
+
         // Send / Recv
         ZHandle::register_recv((Php::Class<FileMqServer> *) &o);
         ZHandle::register_send((Php::Class<FileMqServer> *) &o);

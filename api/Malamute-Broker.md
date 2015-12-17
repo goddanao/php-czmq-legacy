@@ -8,7 +8,7 @@ Broker
 
 * Class name: Broker
 * Namespace: Malamute
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md)
+* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -116,6 +116,125 @@ Methods
 #### Arguments
 * $key **string** - &lt;p&gt;...&lt;/p&gt;
 * $value **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### start
+
+    mixed Malamute\Broker::start()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
+### on
+
+    mixed IZEmitter::on(string $event, callable $listener)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### once
+
+    mixed IZEmitter::once(string $event, callable $listener)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### remove_listener
+
+    mixed IZEmitter::remove_listener(string $event, callable $listener)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### remove_all_listeners
+
+    mixed IZEmitter::remove_all_listeners(string $event)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+
+
+
+### listeners
+
+    array|null IZEmitter::listeners(string $event)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### emit
+
+    mixed IZEmitter::emit(string $event, array $arguments)
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZEmitter](IZEmitter.md)
+
+
+#### Arguments
+* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $arguments **array** - &lt;p&gt;...&lt;/p&gt;
 
 
 

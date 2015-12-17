@@ -2,7 +2,7 @@
 
 #include "zhandle.h"
 
-class ZActor : public ZHandle {
+class ZActor : public ZHandle, public ZEmitter {
 protected:
     std::function<void *(Php::Parameters &param, zpoller_t *)> _new;
     std::function<void (void *)> _destroy;
@@ -55,23 +55,33 @@ public:
     ZActor( std::function<void *(Php::Parameters &param, zpoller_t *)> __new,
             std::function<void (void *)> __destroy = NULL,
             std::function<bool (void *, void *)> __poll = NULL,
-            std::function<bool (void *)> __expired = NULL) : ZHandle(), _new(__new), _destroy(__destroy), _poll(__poll), _expired(__expired) { _type = "zactor"; }
+            std::function<bool (void *)> __expired = NULL) : ZHandle(), ZEmitter(), _new(__new), _destroy(__destroy), _poll(__poll), _expired(__expired) { _type = "zactor"; }
 
     ZActor(std::string type,
         std::function<void *(Php::Parameters &param, zpoller_t *)> __new,
         std::function<void (void *)> __destroy = NULL,
         std::function<bool (void *, void *)> __poll = NULL,
-        std::function<bool (void *)> __expired = NULL) : ZHandle(), _new(__new), _destroy(__destroy), _poll(__poll), _expired(__expired) { _type = type; }
+        std::function<bool (void *)> __expired = NULL) : ZHandle(), ZEmitter(), _new(__new), _destroy(__destroy), _poll(__poll), _expired(__expired) { _type = type; }
 
     ZActor(void *handle, bool owned, std::string type,
         std::function<void *(Php::Parameters &param, zpoller_t *)> __new,
         std::function<void (void *)> __destroy = NULL,
         std::function<bool (void *, void *)> __poll = NULL,
         std::function<bool (void *)> __expired = NULL
-        ) : ZHandle(handle, owned, type), _new(__new), _destroy(__destroy), _poll(__poll), _expired(__expired) { _type = type; }
+        ) : ZHandle(handle, owned, type), ZEmitter(), _new(__new), _destroy(__destroy), _poll(__poll), _expired(__expired) { _type = type; }
 
     virtual void __construct(Php::Parameters &param) {
         set_handle(_new(param, NULL), true, (_type != "unknown") ? _type : "zactor");
     }
+
+    virtual void start(Php::Parameters &param);
+
+    virtual void on_start();
+
+    virtual void on_end();
+
+    virtual void on_idle();
+
+    virtual void on_data(zmsg_t *msg);
 
 };

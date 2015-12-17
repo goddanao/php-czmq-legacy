@@ -54,6 +54,10 @@ public:
             Php::ByVal("threads", Php::Type::Numeric, false)
         });
 
+        // ZEmitter
+        o.method("start", &MajordomoTitanicV2::start);
+        ZHandle::register_izemitter((Php::Class<MajordomoTitanicV2> *) &o);
+
         // Send / Recv
         ZHandle::register_recv((Php::Class<MajordomoTitanicV2> *) &o);
         ZHandle::register_send((Php::Class<MajordomoTitanicV2> *) &o);

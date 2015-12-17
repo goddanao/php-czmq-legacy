@@ -31,7 +31,7 @@ class ZyreTest extends \PHPUnit_Framework_TestCase {
     public function test_set_endpoint_name_already_exists() {
         $n1 = new \Zyre\Zyre("node1");
         $res_ok = $n1->set_endpoint("inproc://zyre-node1");
-        $n1->start();
+        $n1->connect();
         $n2 = new \Zyre\Zyre("node2");
         $res_fail = $n2->set_endpoint("inproc://zyre-node1");
         $this->assertTrue($res_ok && !$res_fail);
@@ -42,7 +42,7 @@ class ZyreTest extends \PHPUnit_Framework_TestCase {
         $n1->set_header("X-HELLO", "World");
         $n1->set_endpoint("inproc://zyre-node1");
         $n1->gossip_bind("inproc://gossip-hub");
-        $this->assertTrue($n1->start());
+        $this->assertTrue($n1->connect());
     }
 
     public function test_all() {
@@ -52,14 +52,14 @@ class ZyreTest extends \PHPUnit_Framework_TestCase {
         $n1->set_header("X-HELLO", "World");
         $n1->set_endpoint("inproc://zyre-node1");
         $n1->gossip_bind("inproc://gossip-hub");
-        $this->assertTrue($n1->start());
+        $this->assertTrue($n1->connect());
 
         ## Start Node 2
         $n2 = new \Zyre\Zyre("node2");
         $this->assertFalse($n2->set_endpoint("inproc://zyre-node1"));
         $this->assertTrue($n2->set_endpoint("inproc://zyre-node2"));
         $n2->gossip_connect("inproc://gossip-hub");
-        $this->assertTrue($n2->start());
+        $this->assertTrue($n2->connect());
 
         ## Node 1 <> Node 2
         $this->assertNotEquals($n1->get_uuid(), $n2->get_uuid());

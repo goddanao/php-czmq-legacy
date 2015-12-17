@@ -89,6 +89,10 @@ public:
        // IZSocket intf support
        ZHandle::register_izsocket((Php::Class<ZAuth> *) &o);
 
+        // ZEmitter
+        o.method("start", &ZAuth::start);
+        ZHandle::register_izemitter((Php::Class<ZAuth> *) &o);
+
         o.property("AUTH_PLAIN", "PLAIN", Php::Const);
         o.property("AUTH_CURVE", "CURVE", Php::Const);
         o.property("AUTH_GSSAPI", "GSSAPI", Php::Const);

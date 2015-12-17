@@ -23,7 +23,21 @@ class FileMqTest extends \PHPUnit_Framework_TestCase {
 
         # FileMQ Client
         $manager->fork(function() use ($ep, $client_path) {
-            FileMq\Client::run($ep, $client_path, "/");
+            // FileMq\Client::run($ep, $client_path, "/");
+            $client = new FileMq\Client($ep, $client_path);
+            $client->subscribe("/");
+            $client->on("start", function() {
+                ZSys::info("Started");
+            });
+            $client->on("end", function() {
+                ZSys::info("Ended");
+            });
+            $client->on("data", function($msg) {
+                ZSys::info("Recieved MSGs");
+                $msg[0]->dump();
+            });
+            $client->start();
+
         });
 
         $timeout = 10;

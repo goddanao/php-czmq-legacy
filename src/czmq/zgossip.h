@@ -114,6 +114,10 @@ public:
 
         o.method("recv", &ZGossip::recv);
 
+        // ZEmitter
+        o.method("start", &ZGossip::start);
+        ZHandle::register_izemitter((Php::Class<ZGossip> *) &o);
+
         // IZSocket intf support
         ZHandle::register_izsocket((Php::Class<ZGossip> *) &o);
 

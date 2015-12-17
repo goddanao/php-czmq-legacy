@@ -95,6 +95,10 @@ public:
             Php::ByVal("header", Php::Type::String, false)
         });
 
+        // ZEmitter
+        o.method("start", &MalamuteWorker::start);
+        ZHandle::register_izemitter((Php::Class<MalamuteWorker> *) &o);
+
         // Send / Recv
         ZHandle::register_recv((Php::Class<MalamuteWorker> *) &o);
         ZHandle::register_send((Php::Class<MalamuteWorker> *) &o);

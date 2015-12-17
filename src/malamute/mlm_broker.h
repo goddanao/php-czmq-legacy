@@ -99,6 +99,10 @@ public:
         // load / save /set config
         ZHandle::register_config((Php::Class<MalamuteBroker> *) &o);
 
+        // ZEmitter
+        o.method("start", &MalamuteBroker::start);
+        ZHandle::register_izemitter((Php::Class<MalamuteBroker> *) &o);
+
         // Send / Recv
         ZHandle::register_recv((Php::Class<MalamuteBroker> *) &o);
         ZHandle::register_send((Php::Class<MalamuteBroker> *) &o);

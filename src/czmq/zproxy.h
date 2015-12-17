@@ -85,6 +85,10 @@ public:
             Php::ByVal("endpoint", Php::Type::String, true)
         });
 
+        // ZEmitter
+        o.method("start", &ZProxy::start);
+        ZHandle::register_izemitter((Php::Class<ZProxy> *) &o);
+
         // IZSocket intf support
         ZHandle::register_izsocket((Php::Class<ZProxy> *) &o);
 

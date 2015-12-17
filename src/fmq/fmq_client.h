@@ -3,7 +3,7 @@
 #include "../common.h"
 #include "../czmq/zmsg.h"
 
-class FileMqClient   : public ZActor, public Php::Base {
+class FileMqClient : public ZActor, public Php::Base {
 private:
     static void *new_actor(Php::Parameters &param, zpoller_t *poller) {
 
@@ -60,6 +60,10 @@ public:
         o.method("subscribe", &FileMqClient::subscribe, {
             Php::ByVal("remote_path", Php::Type::String, true)
         });
+
+        // ZEmitter
+        o.method("start", &FileMqClient::start);
+        ZHandle::register_izemitter((Php::Class<FileMqClient> *) &o);
 
         // Send / Recv
         ZHandle::register_recv((Php::Class<FileMqClient> *) &o);

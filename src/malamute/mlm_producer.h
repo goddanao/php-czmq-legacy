@@ -103,6 +103,10 @@ public:
             Php::ByVal("data", Php::Type::String, true)
         });
 
+        // ZEmitter
+        o.method("start", &MalamuteProducer::start);
+        ZHandle::register_izemitter((Php::Class<MalamuteProducer> *) &o);
+
         // IZSocket intf support
         ZHandle::register_izsocket((Php::Class<MalamuteProducer> *) &o);
 

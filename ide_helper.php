@@ -1437,7 +1437,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
  *
  * ...
  */
-class ZProxy implements \IZSocket, \IZDescriptor {
+class ZProxy implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * ...
@@ -1496,6 +1496,58 @@ class ZProxy implements \IZSocket, \IZDescriptor {
   public function set_capture($endpoint) {}
 
   /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
+
+  /**
    * Get the underlying File Descriptor.
    * 
    * @return int
@@ -1517,7 +1569,7 @@ class ZProxy implements \IZSocket, \IZDescriptor {
  *
  * ...
  */
-class ZBeacon implements \IZSocket, \IZDescriptor {
+class ZBeacon implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * ...
@@ -1576,6 +1628,58 @@ class ZBeacon implements \IZSocket, \IZDescriptor {
   public function recv() {}
 
   /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
+
+  /**
    * Get the underlying File Descriptor.
    * 
    * @return int
@@ -1597,7 +1701,7 @@ class ZBeacon implements \IZSocket, \IZDescriptor {
  *
  * Authentication for ZeroMQ security mechanisms.
  */
-class ZAuth implements \IZSocket, \IZDescriptor {
+class ZAuth implements \IZSocket, \IZDescriptor, \IZEmitter {
   const AUTH_PLAIN = "PLAIN";
   const AUTH_CURVE = "CURVE";
   const AUTH_GSSAPI = "GSSAPI";
@@ -1669,6 +1773,58 @@ class ZAuth implements \IZSocket, \IZDescriptor {
   */
   public function get_socket() {}
 
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
+
 }
 
 
@@ -1677,7 +1833,7 @@ class ZAuth implements \IZSocket, \IZDescriptor {
  *
  * Decentralized configuration management.
  */
-class ZGossip implements \IZSocket, \IZDescriptor {
+class ZGossip implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    *  
@@ -1742,6 +1898,58 @@ class ZGossip implements \IZSocket, \IZDescriptor {
    * @return \ZMsg
   */
   public function recv() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -1954,7 +2162,7 @@ namespace Zyre {
  *
  * Zyre does local area discovery and clustering. A Zyre node broadcasts UDP beacons, and connects to peers that it finds.
  */
-class Zyre implements \IZSocket, \IZDescriptor {
+class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * Creates a new Zyre node. Note that until you start the node it is silent and invisible to other nodes on the network.
@@ -1965,17 +2173,24 @@ class Zyre implements \IZSocket, \IZDescriptor {
   public function __construct($name = null) {}
 
   /**
-   * Start node, after setting header values. When you start a node it begins discovery and connection.
+   * ...
    * 
-   * @return bool
+   * @param mixed $name ...
+   * @param callable $callback ...
   */
-  public function start() {}
+  static public function run($name, callable $callback) {}
 
   /**
-   * Stop node, this signals to other peers that this node will go away. This is polite; however you can also just destroy the node without stopping it.
+   * ...
    * 
   */
-  public function stop() {}
+  public function connect() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function disconnect() {}
 
   /**
    * Receive next message from network. The message may be a control message (ENTER, EXIT, JOIN, LEAVE) or data (WHISPER, SHOUT). Returns ZMsg object, or NULL if interrupted.
@@ -2140,6 +2355,59 @@ class Zyre implements \IZSocket, \IZDescriptor {
   public function send_group($group, $data) {}
 
   /**
+   * Start node, after setting header values. When you start a node it begins discovery and connection.
+   * 
+   * @return bool
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
+
+  /**
    * Get the underlying File Descriptor.
    * 
    * @return int
@@ -2164,7 +2432,7 @@ namespace Majordomo {
  *
  * ...
  */
-class Broker implements \IZSocket, \IZDescriptor {
+class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * ...
@@ -2217,6 +2485,58 @@ class Broker implements \IZSocket, \IZDescriptor {
    * @param mixed $value ...
   */
   public function set_config($key, $value) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
 
   /**
    * ...
@@ -2304,7 +2624,7 @@ class Broker implements \IZSocket, \IZDescriptor {
  *
  * ...
  */
-class Worker implements \IZSocket, \IZDescriptor {
+class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * ...
@@ -2329,6 +2649,58 @@ class Worker implements \IZSocket, \IZDescriptor {
    * @param callable $callback ...
   */
   static public function run($name, $broker_endpoint, callable $callback) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
 
   /**
    * ...
@@ -2537,7 +2909,7 @@ class Client implements \IZSocket, \IZDescriptor {
  *
  * ...
  */
-class Titanic implements \IZSocket, \IZDescriptor {
+class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * ...
@@ -2557,6 +2929,58 @@ class Titanic implements \IZSocket, \IZDescriptor {
    * @param int $threads ... (optional)
   */
   static public function run($endpoint, ITitanicStorage $storage = null, $threads) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
 
   /**
    * ...
@@ -2698,7 +3122,7 @@ namespace Malamute {
  *
  * ...
  */
-class Broker implements \IZSocket, \IZDescriptor {
+class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * ...
@@ -2745,6 +3169,58 @@ class Broker implements \IZSocket, \IZDescriptor {
    * @param string $value ...
   */
   public function set_config($key, $value) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
 
   /**
    * ...
@@ -2834,7 +3310,7 @@ class Broker implements \IZSocket, \IZDescriptor {
  *
  * ...
  */
-class Worker implements \IZSocket, \IZDescriptor {
+class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * ...
@@ -2860,6 +3336,58 @@ class Worker implements \IZSocket, \IZDescriptor {
    * @param mixed $header ... (optional)
   */
   public function headers($header) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
 
   /**
    * ...
@@ -3040,7 +3568,7 @@ class Client implements \IZSocket, \IZDescriptor {
  *
  * ...
  */
-class Producer implements \IZSocket, \IZDescriptor {
+class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * ...
@@ -3102,6 +3630,58 @@ class Producer implements \IZSocket, \IZDescriptor {
   public function send_zipped($subject, $data) {}
 
   /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
+
+  /**
    * Get the underlying File Descriptor.
    * 
    * @return int
@@ -3123,7 +3703,7 @@ class Producer implements \IZSocket, \IZDescriptor {
  *
  * ...
  */
-class Consumer implements \IZSocket, \IZDescriptor {
+class Consumer implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * ...
@@ -3156,6 +3736,58 @@ class Consumer implements \IZSocket, \IZDescriptor {
    * @param mixed $header ... (optional)
   */
   public function headers($header) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
 
   /**
    * ...
@@ -3213,7 +3845,7 @@ namespace FileMq {
  *
  * ...
  */
-class Server implements \IZSocket, \IZDescriptor {
+class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * ...
@@ -3276,6 +3908,58 @@ class Server implements \IZSocket, \IZDescriptor {
    * @param string $value ...
   */
   public function set_config($key, $value) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
 
   /**
    * Recieve a ZMsg.
@@ -3366,7 +4050,7 @@ class Server implements \IZSocket, \IZDescriptor {
  *
  * FileMQ Client
  */
-class Client implements \IZSocket, \IZDescriptor {
+class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
 
   /**
    * Create e new instance.
@@ -3394,6 +4078,58 @@ class Client implements \IZSocket, \IZDescriptor {
    * @param string $remote_path ...
   */
   public function subscribe($remote_path) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function on($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function once($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param callable $listener ...
+  */
+  public function remove_listener($event, callable $listener) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ... (optional)
+  */
+  public function remove_all_listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+  */
+  public function listeners($event) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $event ...
+   * @param array $arguments ...
+  */
+  public function emit($event, array $arguments) {}
 
   /**
    * Recieve a ZMsg.
