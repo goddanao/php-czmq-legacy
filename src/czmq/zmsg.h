@@ -276,13 +276,7 @@ public:
             if (*picture == 's' || *picture == 'S' || *picture == 'b') {
                 zframe_t *frame = zmsg_pop (msg);
                 if(frame) {
-                    Php::Value buffer;
-                    int _buffer_size = zframe_size(frame);
-                    buffer.reserve(_buffer_size);
-                    const char *_buffer_to = buffer.rawValue();
-                    byte *_buffer_from = zframe_data(frame);
-                    memcpy((void *) _buffer_to, _buffer_from, _buffer_size);
-                    result[idx++] = buffer;
+                    result[idx++] = Php::Value((const char*) zframe_data(frame), zframe_size(frame));
                     zframe_destroy (&frame);
                 }
                 else
@@ -327,8 +321,10 @@ public:
             else
             if (*picture == 'Z') {
                 zframe_t *frame = zmsg_pop (msg);
-                if(frame)
+                if(frame) {
                     result[idx++] = ZUtils::decompress_string(zframe_data(frame), zframe_size(frame));
+                    zframe_destroy(&frame);
+                }
                 else
                     rc = -1;
             }
@@ -354,52 +350,52 @@ public:
 
     Php::Value pop_string() {
         zframe_t *frame = zmsg_pop (zmsg_handle());
-        if(frame)
-            return Php::Value((const char*) zframe_data(frame), zframe_size(frame));
+        if(frame) {
+            Php::Value result = Php::Value((const char*) zframe_data(frame), zframe_size(frame));
+            zframe_destroy(&frame);
+            return result;
+        }
         return nullptr;
     }
 
     void append_zipped(Php::Parameters &param) {
-        Php::Value compressed = ZUtils::compress_string(param[0]);
-        zmsg_addmem (zmsg_handle(), compressed.rawValue(), compressed.size());
+        std::string compressed(ZUtils::compress_string(param[0]));
+        zmsg_addmem (zmsg_handle(), compressed.data(), compressed.size());
     }
 
     void prepend_zipped(Php::Parameters &param) {
-        Php::Value compressed = ZUtils::compress_string(param[0]);
-        zmsg_pushmem (zmsg_handle(), compressed.rawValue(), compressed.size());
+        std::string compressed(ZUtils::compress_string(param[0]));
+        zmsg_pushmem (zmsg_handle(), compressed.data(), compressed.size());
     }
 
     Php::Value pop_zipped() {
         zframe_t *frame = zmsg_pop (zmsg_handle());
-        if(frame)
-            return ZUtils::decompress_string(zframe_data(frame), zframe_size(frame));
+        if(frame) {
+            Php::Value result = ZUtils::decompress_string(zframe_data(frame), zframe_size(frame));
+            zframe_destroy(&frame);
+            return result;
+        }
         return nullptr;
     }
 
     void append_msgpack(Php::Parameters &param) {
         Php::Value v = MsgPack::encode(param[0]);
         zmsg_t *msg = ZUtils::phpvalue_to_zmsg(v);
-        if(!msg)
-            return;
-        zframe_t *frame;
-        for (frame = zmsg_first (msg); frame; frame = zmsg_next (msg)) {
-            zframe_t *dup = zframe_dup(frame);
-            zmsg_append (zmsg_handle(), &dup);
+        if(msg) {
+            for (zframe_t *frame = zmsg_first (msg); frame; frame = zmsg_next (msg))
+                zmsg_addmem (zmsg_handle(), zframe_data(frame), zframe_size(frame));
+            zmsg_destroy(&msg);
         }
-        zmsg_destroy(&msg);
     }
 
     void prepend_msgpack(Php::Parameters &param) {
         Php::Value v = MsgPack::encode(param[0]);
         zmsg_t *msg = ZUtils::phpvalue_to_zmsg(v);
-        if(!msg)
-            return;
-        zframe_t *frame;
-        for (frame = zmsg_first (msg); frame; frame = zmsg_next (msg)) {
-            zframe_t *dup = zframe_dup(frame);
-            zmsg_prepend (zmsg_handle(), &dup);
+        if(msg) {
+            for (zframe_t *frame = zmsg_first (msg); frame; frame = zmsg_next (msg))
+                zmsg_pushmem (zmsg_handle(), zframe_data(frame), zframe_size(frame));
+            zmsg_destroy(&msg);
         }
-        zmsg_destroy(&msg);
     }
 
     Php::Value pop_msgpack() {
@@ -422,23 +418,27 @@ public:
 
     void load(Php::Parameters &param) {
         FILE *file = fopen (param[0].stringValue().c_str(), "r");
-        zmsg_t *result;
-        #if (CZMQ_VERSION >= CZMQ_MAKE_VERSION(3,0,3))
-            result = zmsg_load (file);
-        #else
-            result = zmsg_load (NULL, file);
-        #endif
-        if(result) {
-            zmsg_destroy((zmsg_t **) &_handle);
-            set_handle(result, true, "zmsg");
+        if(file) {
+            zmsg_t *result;
+            #if (CZMQ_VERSION >= CZMQ_MAKE_VERSION(3,0,3))
+                result = zmsg_load (file);
+            #else
+                result = zmsg_load (NULL, file);
+            #endif
+            if(result) {
+                zmsg_destroy((zmsg_t **) &_handle);
+                set_handle(result, true, "zmsg");
+            }
+            fclose (file);
         }
-        fclose (file);
     }
 
     void save(Php::Parameters &param) {
         FILE *file = fopen (param[0].stringValue().c_str(), "w");
-        zmsg_save (zmsg_handle(), file);
-        fclose (file);
+        if(file) {
+            zmsg_save (zmsg_handle(), file);
+            fclose (file);
+        }
     }
 
 
@@ -496,13 +496,9 @@ public:
             count--;
         }
         if(frame) {
-            zmsg_t *msg = ZUtils::phpvalue_to_zmsg(value);
-            if(msg) {
-                zframe_t *repl = zmsg_first(msg);
-                if(repl)
-                    zframe_reset(frame, zframe_data(repl), zframe_size(repl));
-                zmsg_destroy(&msg);
-            }
+            zframe_t *repl = ZUtils::phpvalue_to_zframe(value);
+            if(repl)
+                zframe_reset(frame, zframe_data(repl), zframe_size(repl));
         }
     }
 

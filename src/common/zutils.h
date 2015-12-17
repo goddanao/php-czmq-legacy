@@ -33,6 +33,18 @@ public:
         return zmsg;
     }
 
+    static zframe_t *phpvalue_to_zframe(const Php::Value &value) {
+        ZValue *val = (ZValue *) &value;
+        zmsg_t *msg = val->to_zmsg();
+        zframe_t *res = nullptr;
+        if(msg) {
+            res = zmsg_pop(msg);
+            zmsg_destroy(&msg);
+        }
+        return res;
+
+    }
+
     static zmsg_t *phpvalue_to_zmsg(const Php::Value &value) {
         ZValue *val = (ZValue *) &value;
         return val->to_zmsg();
@@ -140,65 +152,20 @@ public:
         return uuidstr;
     }
 
+    static std::string compress_string(const std::string& str, int compressionlevel = Z_BEST_COMPRESSION) {
+        return compress_string(str.data(), str.size(), compressionlevel);
+    }
 
     static std::string compress_string(const byte *str, size_t size, int compressionlevel = Z_BEST_COMPRESSION) {
         return compress_string((const char *) str, size, compressionlevel);
     }
 
-    static std::string compress_string(const std::string& str, int compressionlevel = Z_BEST_COMPRESSION) {
-        return compress_string(str.data(), str.size(), compressionlevel);
-    }
-
-    /** Compress a STL string using zlib with given compression level and return
-      * the binary data. */
     static std::string compress_string(const char *str, size_t size, int compressionlevel = Z_BEST_COMPRESSION) {
-        z_stream zs;                        // z_stream is zlib's control structure
+        z_stream zs;
         memset(&zs, 0, sizeof(zs));
 
         if (deflateInit(&zs, compressionlevel) != Z_OK)
-            throw(std::runtime_error("deflateInit failed while compressing."));
-
-        zs.next_in = (Bytef*)str;
-        zs.avail_in = size;           // set the z_stream's input
-
-        int ret;
-        char outbuffer[32768];
-        std::string outstring;
-
-        // retrieve the compressed bytes blockwise
-        do {
-            zs.next_out = reinterpret_cast<Bytef*>(outbuffer);
-            zs.avail_out = sizeof(outbuffer);
-
-            ret = deflate(&zs, Z_FINISH);
-
-            if (outstring.size() < zs.total_out) {
-                // append the block to the output string
-                outstring.append(outbuffer, zs.total_out - outstring.size());
-            }
-        } while (ret == Z_OK);
-
-        deflateEnd(&zs);
-
-        if (ret != Z_STREAM_END) {          // an error occurred that was not EOF
-            std::ostringstream oss;
-            oss << "Exception during zlib compression: (" << ret << ") " << zs.msg;
-            throw(std::runtime_error(oss.str()));
-        }
-
-        return outstring;
-    }
-
-    static std::string decompress_string(const byte *str, size_t size) {
-        return decompress_string((const char *) str, size);
-    }
-
-    static std::string decompress_string(const char* str, size_t size) {
-        z_stream zs;                        // z_stream is zlib's control structure
-        memset(&zs, 0, sizeof(zs));
-
-        if (inflateInit(&zs) != Z_OK)
-            throw(std::runtime_error("inflateInit failed while decompressing."));
+            throw ( std::runtime_error("deflateInit failed while compressing.") );
 
         zs.next_in = (Bytef*)str;
         zs.avail_in = size;
@@ -207,35 +174,64 @@ public:
         char outbuffer[32768];
         std::string outstring;
 
-        // get the decompressed bytes blockwise using repeated calls to inflate
         do {
             zs.next_out = reinterpret_cast<Bytef*>(outbuffer);
             zs.avail_out = sizeof(outbuffer);
-
-            ret = inflate(&zs, 0);
-
-            if (outstring.size() < zs.total_out) {
-                outstring.append(outbuffer,
-                                 zs.total_out - outstring.size());
-            }
-
+            ret = deflate(&zs, Z_FINISH);
+            if (outstring.size() < zs.total_out)
+                outstring.append(outbuffer, zs.total_out - outstring.size());
         } while (ret == Z_OK);
 
-        inflateEnd(&zs);
+        deflateEnd(&zs);
 
-        if (ret != Z_STREAM_END) {          // an error occurred that was not EOF
+        if (ret != Z_STREAM_END) {
             std::ostringstream oss;
-            oss << "Exception during zlib decompression: (" << ret << ") " << zs.msg;
-            throw(std::runtime_error(oss.str()));
+            oss << "Exception during zlib compression: (" << ret << ") " << zs.msg;
+            throw ( std::runtime_error(oss.str()) );
         }
 
         return outstring;
     }
 
-    /** Decompress an STL string using zlib and return the original data. */
     static std::string decompress_string(const std::string& str) {
         return decompress_string(str.data(), str.size());
     }
 
+    static std::string decompress_string(const byte *str, size_t size) {
+        return decompress_string((const char *) str, size);
+    }
+
+    static std::string decompress_string(const char* str, size_t size) {
+        z_stream zs;
+        memset(&zs, 0, sizeof(zs));
+
+        if (inflateInit(&zs) != Z_OK)
+            throw ( std::runtime_error("inflateInit failed while decompressing.") );
+
+        zs.next_in = (Bytef*)str;
+        zs.avail_in = size;
+
+        int ret;
+        char outbuffer[32768];
+        std::string outstring;
+
+        do {
+            zs.next_out = reinterpret_cast<Bytef*>(outbuffer);
+            zs.avail_out = sizeof(outbuffer);
+            ret = inflate(&zs, 0);
+            if (outstring.size() < zs.total_out)
+                outstring.append(outbuffer, zs.total_out - outstring.size());
+        } while (ret == Z_OK);
+
+        inflateEnd(&zs);
+
+        if (ret != Z_STREAM_END) {
+            std::ostringstream oss;
+            oss << "Exception during zlib decompression: (" << ret << ") " << zs.msg;
+            throw ( std::runtime_error(oss.str()) );
+        }
+
+        return outstring;
+    }
 
 };
