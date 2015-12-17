@@ -15,8 +15,7 @@ public:
     mdp_client_t *mdpclient_handle() const { return (mdp_client_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
-        _broker_endpoint = param[0].stringValue();
-        set_handle(mdp_client_new(_broker_endpoint.c_str()), true, "mdp_client_v2");
+        set_handle(mdp_client_new(param[0].stringValue().c_str()), true, "mdp_client_v2");
     }
 
     void set_verbose() {
@@ -35,19 +34,13 @@ public:
     }
 
 	Php::Value call_async(Php::Parameters &param){
-		if(param.size() == 0)
-			throw Php::Exception("MajordomoClient call need service name and params..");
-
-        zmsg_t *zmsg = ZUtils::params_to_zmsg(param, 1);
+		zmsg_t *zmsg = ZUtils::params_to_zmsg(param, 1);
         int rc = mdp_client_request(mdpclient_handle(),  param[0].stringValue().c_str(), &zmsg);
         return (rc == 0);
 	}
 
 	Php::Value call(Php::Parameters &param){
-	    if(!call_async(param)) {
-            return nullptr;
-        }
-        return recv(param);
+	    return (call_async(param)) ? recv(param) : nullptr;
     }
 
     static Php::Class<MajordomoClientV2> php_register() {

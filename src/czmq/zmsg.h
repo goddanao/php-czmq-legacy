@@ -21,30 +21,30 @@ public:
 
     void remove(Php::Parameters &param) {
         ZFrame *zframe = dynamic_cast<ZFrame *>(param[0].implementation());
-        if(!zframe)
-            return;
-        zmsg_remove(zmsg_handle(), zframe->zframe_handle());
+        if(zframe)
+            zmsg_remove(zmsg_handle(), zframe->zframe_handle());
+        return;
     }
 
     Php::Value first() {
         zframe_t *frame = zmsg_first(zmsg_handle());
-        if(!frame)
-            return nullptr;
-        return Php::Object("ZFrame", new ZFrame(frame, false));
+        if(frame)
+            return Php::Object("ZFrame", new ZFrame(frame, false));
+        return nullptr;
     }
 
     Php::Value next() {
         zframe_t *frame = zmsg_next(zmsg_handle());
-        if(!frame)
-            return nullptr;
-        return Php::Object("ZFrame", new ZFrame(frame, false));
+        if(frame)
+            return Php::Object("ZFrame", new ZFrame(frame, false));
+        return nullptr;
     }
 
     Php::Value last() {
         zframe_t *frame = zmsg_last(zmsg_handle());
-        if(!frame)
-            return nullptr;
-        return Php::Object("ZFrame", new ZFrame(frame, false));
+        if(frame)
+            return Php::Object("ZFrame", new ZFrame(frame, false));
+        return nullptr;
     }
 
     void dump() {
@@ -103,7 +103,7 @@ public:
             else
             if (*picture == 'f') {
                 ZFrame *zframe = dynamic_cast<ZFrame *>(param[picture_idx++].implementation());
-                if(zframe != NULL)
+                if(zframe)
                     zmsg_addmem (msg, zframe_data(zframe->zframe_handle()), zframe_size(zframe->zframe_handle()));
                 else
                     throw Php::Exception("ZMsg picture: 'f' param not mapped on ZFrame.");
@@ -111,20 +111,32 @@ public:
             else
             if (*picture == 'm') {
                 ZMsg *zmsg = dynamic_cast<ZMsg *>(param[picture_idx++].implementation());
-                if(zmsg != NULL) {
-                    zframe_t *frame;
-                    for (frame = zmsg_first (zmsg->zmsg_handle()); frame; frame = zmsg_next (zmsg->zmsg_handle()) ) {
-                        zframe_t *frame_dup = zframe_dup (frame);
-                        zmsg_append (msg, &frame_dup);
-                    }
+                if(zmsg) {
+                    for (zframe_t *frame = zmsg_first (zmsg->zmsg_handle()); frame; frame = zmsg_next (zmsg->zmsg_handle()))
+                        zmsg_addmem (msg, zframe_data(frame), zframe_size(frame));
                 }
                 else
                     throw Php::Exception("ZMsg picture: 'm' param not mapped on ZMsg.");
             }
             else
+            if (*picture == 'M') {
+                Php::Value v = MsgPack::encode(param[picture_idx++]);
+                zmsg_t *mmsg = ZUtils::phpvalue_to_zmsg(v);
+                if(msg) {
+                    for (zframe_t *frame = zmsg_first (mmsg); frame; frame = zmsg_next (mmsg))
+                        zmsg_addmem (msg, zframe_data(frame), zframe_size(frame));
+                    zmsg_destroy(&mmsg);
+                }
+            }
+            else
             if (*picture == 'z') {
                 zmsg_addmem (msg, NULL, 0);
                 picture_idx++;
+            }
+            else
+            if(*picture == 'Z') {
+                std::string compressed(ZUtils::compress_string(param[picture_idx++]));
+                zmsg_addmem (msg, compressed.data(), compressed.size());
             }
             else
                 throw Php::Exception("ZMsg picture invalid element '" + std::to_string(*picture) + "'");
@@ -179,20 +191,32 @@ public:
             else
             if (*picture == 'm') {
                 ZMsg *zmsg = dynamic_cast<ZMsg *>(param[picture_idx--].implementation());
-                if(zmsg != NULL) {
-                    zframe_t *frame;
-                    for (frame = zmsg_first (zmsg->zmsg_handle()); frame; frame = zmsg_next (zmsg->zmsg_handle()) ) {
-                        zframe_t *frame_dup = zframe_dup (frame);
-                        zmsg_prepend (msg, &frame_dup);
-                    }
+                if(zmsg) {
+                    for (zframe_t *frame = zmsg_first (zmsg->zmsg_handle()); frame; frame = zmsg_next (zmsg->zmsg_handle()))
+                        zmsg_pushmem (msg, zframe_data(frame), zframe_size(frame));
                 }
                 else
                     throw Php::Exception("ZMsg picture: 'm' param not mapped on ZMsg.");
             }
             else
+            if (*picture == 'M') {
+                Php::Value v = MsgPack::encode(param[picture_idx--]);
+                zmsg_t *mmsg = ZUtils::phpvalue_to_zmsg(v);
+                if(msg) {
+                    for (zframe_t *frame = zmsg_first (mmsg); frame; frame = zmsg_next (mmsg))
+                        zmsg_pushmem (msg, zframe_data(frame), zframe_size(frame));
+                    zmsg_destroy(&mmsg);
+                }
+            }
+            else
             if (*picture == 'z') {
                 zmsg_pushmem (msg, NULL, 0);
                 picture_idx--;
+            }
+            else
+            if(*picture == 'Z') {
+                Php::Value compressed = ZUtils::compress_string(param[picture_idx--]);
+                zmsg_pushmem (msg, compressed.rawValue(), compressed.size());
             }
             else
                 throw Php::Exception("ZMsg picture invalid element '" + std::to_string(picture[0]) + "'");
@@ -276,11 +300,18 @@ public:
             if (*picture == 'm') {
                 zmsg_t *zmsg_p = zmsg_new ();
                 zframe_t *frame;
-                while ((frame = zmsg_pop (msg))) {
+                while ((frame = zmsg_pop (msg)))
                     zmsg_append (zmsg_p, &frame);
-                    zframe_destroy (&frame);
-                }
                 result[idx++] = Php::Object("ZMsg", new ZMsg(zmsg_p, true));
+            }
+            else
+            if (*picture == 'M') {
+                zframe_t *frame = zmsg_pop (msg);
+                if(frame) {
+                    result[idx++] = MsgPack::decode(zframe_data(frame), zframe_size(frame));
+                    zframe_destroy (&frame);
+                } else
+                    rc = -1;
             }
             else
             if (*picture == 'z') {
@@ -292,6 +323,14 @@ public:
                     rc = -1;
 
                 result[idx++] = nullptr;
+            }
+            else
+            if (*picture == 'Z') {
+                zframe_t *frame = zmsg_pop (msg);
+                if(frame)
+                    result[idx++] = ZUtils::decompress_string(zframe_data(frame), zframe_size(frame));
+                else
+                    rc = -1;
             }
             else
                 throw Php::Exception("ZMsg picture invalid element '" + std::to_string(*picture) + "'");
@@ -315,16 +354,8 @@ public:
 
     Php::Value pop_string() {
         zframe_t *frame = zmsg_pop (zmsg_handle());
-        if(frame) {
-            Php::Value buffer;
-            int _buffer_size = zframe_size(frame);
-            buffer.reserve(_buffer_size);
-            const char *_buffer_to = buffer.rawValue();
-            byte *_buffer_from = zframe_data(frame);
-            memcpy((void *) _buffer_to, _buffer_from, _buffer_size);
-            zframe_destroy (&frame);
-            return buffer;
-        }
+        if(frame)
+            return Php::Value((const char*) zframe_data(frame), zframe_size(frame));
         return nullptr;
     }
 
@@ -340,16 +371,8 @@ public:
 
     Php::Value pop_zipped() {
         zframe_t *frame = zmsg_pop (zmsg_handle());
-        if(frame) {
-            Php::Value buffer;
-            int _buffer_size = zframe_size(frame);
-            buffer.reserve(_buffer_size);
-            const char *_buffer_to = buffer.rawValue();
-            byte *_buffer_from = zframe_data(frame);
-            memcpy((void *) _buffer_to, _buffer_from, _buffer_size);
-            zframe_destroy (&frame);
-            return ZUtils::decompress_string(buffer);
-        }
+        if(frame)
+            return ZUtils::decompress_string(zframe_data(frame), zframe_size(frame));
         return nullptr;
     }
 

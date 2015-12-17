@@ -83,6 +83,38 @@ class ZMsgTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($msg->pop_string());
     }
 
+    public function test_append_prepend_zipped() {
+
+        $msg = new ZMsg();
+
+        $msg->append_zipped("Frame2");
+        $msg->append_zipped("Frame3");
+        $msg->prepend_zipped("Frame1");
+        $msg->prepend_zipped("Frame0");
+
+        $this->assertEquals($msg->pop_zipped(), "Frame0");
+        $this->assertEquals($msg->pop_zipped(), "Frame1");
+        $this->assertEquals($msg->pop_zipped(), "Frame2");
+        $this->assertEquals($msg->pop_zipped(), "Frame3");
+        $this->assertNull($msg->pop_zipped());
+    }
+
+    public function test_append_prepend_msgpack() {
+
+        $msg = new ZMsg();
+
+        $msg->append_msgpack("Frame2");
+        $msg->append_msgpack("Frame3");
+        $msg->prepend_msgpack("Frame1");
+        $msg->prepend_msgpack("Frame0");
+
+        $this->assertEquals($msg->pop_msgpack(), "Frame0");
+        $this->assertEquals($msg->pop_msgpack(), "Frame1");
+        $this->assertEquals($msg->pop_msgpack(), "Frame2");
+        $this->assertEquals($msg->pop_msgpack(), "Frame3");
+        $this->assertNull($msg->pop_msgpack());
+    }
+
     public function test_append_prepend_picture() {
 
         $msg = new ZMsg();
@@ -98,7 +130,9 @@ class ZMsgTest extends \PHPUnit_Framework_TestCase {
             's' => str_pad('-', 255, '-'),                  // s = short string (255 chars)
             'S' => str_pad('-', 256, '-'),                  // S = long string (> 255 chars),
             'b' => pack("nvc*", 0x1234, 0x5678, 65, 66),    // b = byte buffer
-            'z' => null,                                    // z = NULL
+            'z' => null,                                    // z = NULL,
+            'Z' => str_repeat("-", 1024),                   // Z = Zipped data
+            'M' => ['hello' => 'world'],                    // M = MsgPack data
             // 'm' prende tutti i frame fino alla fine del messaggio e quindi non puo' essere usato in questo test )
             // 'm' => new ZMsg(),                           // ZMsg (collect frames not in picture, till the end of recieved message)
         ];
@@ -109,6 +143,8 @@ class ZMsgTest extends \PHPUnit_Framework_TestCase {
         call_user_func_array([$msg, 'prepend_picture'], $params);
 
         $result = $msg->pop_picture($picture);
+
+        print_r($result);
 
         $equals = true;
         foreach ($result as $idx => $value) {
