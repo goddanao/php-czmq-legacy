@@ -427,7 +427,7 @@ class ZUdp implements \IZDescriptor {
  *
  * Multipart message handling
  */
-class ZMsg {
+class ZMsg implements \ArrayAccess, \Countable, \Traversable {
 
   /**
    *  
@@ -609,6 +609,44 @@ class ZMsg {
   */
   public function dump() {}
 
+  /**
+   * offsetExists
+   *
+   * @param mixed $offset
+   * @return boolean
+   */
+  public function offsetExists ( $offset ) {}
+  
+  /**
+   * offsetGet
+   *
+   * @param mixed $offset
+   * @return mixed
+   */
+  public function offsetGet ( $offset ) {}
+  
+  /**
+   * offsetSet
+   *
+   * @param mixed $offset
+   * @param mixed 
+   */
+  public function offsetSet ( $offset, $value ) {}
+  
+  /**
+   * offsetUnset
+   *
+   * @param mixed $offset
+   */
+  public function offsetUnset ( $offset ) {}
+  
+  /**
+   * count
+   *
+   * @return int
+   */
+  public function count () {}
+  
 }
 
 
@@ -922,7 +960,7 @@ class ZCert {
 interface IZDescriptor {
 
   /**
-   * ...
+   * Get the underlying File Descriptor.
    * 
    * @return int
   */
@@ -939,14 +977,14 @@ interface IZDescriptor {
 interface IZSocket extends \IZDescriptor {
 
   /**
-   * ...
+   * Get the underlying ZSocket.
    * 
    * @return \ZSocket
   */
   public function get_socket() ;
 
   /**
-   * ...
+   * Get the underlying File Descriptor.
    * 
    * @return int
   */
@@ -1016,48 +1054,59 @@ interface IZEmitter {
  * ZSocket
  *
  * ...
- * @property bool $ipv4only 
- * @property-read string $type (read only)
- * @property int $sndhwm 
- * @property int $rcvhwm 
- * @property int $affinity 
- * @property string $identity 
- * @property int $rate 
- * @property int $recovery_ivl 
- * @property int $sndbuf 
- * @property int $rcvbuf 
- * @property int $linger 
- * @property int $reconnect_ivl 
- * @property int $reconnect_ivl_max 
- * @property int $backlog 
- * @property int $maxmsgsize 
- * @property int $multicast_hops 
- * @property int $rcvtimeo 
- * @property int $sndtimeo 
- * @property int $tcp_keepalive 
- * @property int $tcp_keepalive_idle 
- * @property int $tcp_keepalive_cnt 
- * @property int $tcp_keepalive_intvl 
- * @property string $tcp_accept_filter 
- * @property-read bool $rcvmore (read only)
- * @property-read int $events (read only)
- * @property-read string $last_endpoint (read only)
- * @property int $tos 
- * @property string $zap_domain 
- * @property-read string $mechanism (read only)
- * @property bool $plain_server 
- * @property string $plain_username 
- * @property string $plain_password 
- * @property bool $curve_server 
- * @property string $curve_publickey 
- * @property string $curve_secretkey 
- * @property string $curve_serverkey 
- * @property bool $gssapi_server 
- * @property string $gssapi_plaintext 
- * @property string $gssapi_principal 
- * @property string $gssapi_service_principal 
- * @property bool $ipv6 
- * @property bool $immediate 
+ * @property int $handshake_ivl Get/Set maximum handshake interval. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc15)
+ * @property-write string $rid Set the next outbound connection id. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc5) (write only)
+ * @property-write bool $conflate Enable/Disable keep only last message. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc6) (write only)
+ * @property-write bool $router_handover Enable/Disable handle duplicate client identities on ROUTER sockets. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc35) (write only)
+ * @property-write bool $router_mandatory Enable/Disable accept only routable messages on ROUTER sockets. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc36) (write only)
+ * @property-write bool $probe_router Enable/Disable bootstrap connections to ROUTER sockets. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc25) (write only)
+ * @property-write bool $req_relaxed Enable/Disable relax strict alternation between request and reply. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc34) (write only)
+ * @property-write bool $req_correlate Enable/Disable match replies with requests. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc33) (write only)
+ * @property-write bool $router_raw Enable/Disable switch ROUTER socket to raw mode (This option is deprecated, please use ZMQ_STREAM sockets instead). [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc37) (write only)
+ * @property-write bool $delay_attach_on_connect Enable/Disable  [more..](http://api.zeromq.org/4-1:zmq-setsockopt) (write only)
+ * @property-write bool $xpub_verbose Enable/Disable provide all subscription messages on XPUB sockets. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc48) (write only)
+ * @property bool $ipv4only Enable/Disable Use IPv4-only on socket (This option is deprecated. Please use the ZMQ_IPV6 option). [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc54)
+ * @property int $sndhwm Get/Set high water mark for outbound messages. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc39)
+ * @property int $rcvhwm Get/Set high water mark for inbound messages. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc28)
+ * @property int $affinity Get/Set I/O thread affinity. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc3)
+ * @property string $identity Get/Set socket identity. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc16)
+ * @property int $rate Get/Set multicast data rate. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc26)
+ * @property int $recovery_ivl Get/Set multicast recovery interval. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc32)
+ * @property int $sndbuf Get/Set kernel transmit buffer size. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc38)
+ * @property int $rcvbuf Get/Set kernel receive buffer size. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc27)
+ * @property int $linger Get/Set linger period for socket shutdown. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc19)
+ * @property int $reconnect_ivl Get/Set reconnection interval. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc30)
+ * @property int $reconnect_ivl_max Get/Set maximum reconnection interval. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc31)
+ * @property int $backlog Get/Set maximum length of the queue of outstanding connections. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc4)
+ * @property int $maxmsgsize Get/Set Maximum acceptable inbound message size. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc20)
+ * @property int $multicast_hops Get/Set Maximum network hops for multicast packets. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc21)
+ * @property int $rcvtimeo Get/Set Maximum time before a recv operation returns with EAGAIN. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc29)
+ * @property int $sndtimeo Get/Set Maximum time before a send operation returns with EAGAIN. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc40)
+ * @property int $tcp_keepalive Get/Set Override SO_KEEPALIVE socket option [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc42)
+ * @property int $tcp_keepalive_idle Get/Set Override TCP_KEEPCNT (or TCP_KEEPALIVE on some OS). [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc44)
+ * @property int $tcp_keepalive_cnt Get/Set Override TCP_KEEPCNT socket option. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc43)
+ * @property int $tcp_keepalive_intvl Get/Set Override TCP_KEEPINTVL socket option. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc45)
+ * @property string $tcp_accept_filter Get/Set filters to allow new TCP connections (This option is deprecated, please use authentication via the ZAP API and IP address whitelisting / blacklisting). [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc50)
+ * @property-read string $type Get ZSocket type. (read only)
+ * @property-read string $mechanism Get current security mechanism configured for socket. (read only)
+ * @property-read string $last_endpoint Get the last known connected/binded endpoint. (read only)
+ * @property-read int $events Get the current events for socket. (read only)
+ * @property-read bool $rcvmore Get More message data parts to follow. (read only)
+ * @property int $tos Get/Set the Type-of-Service on socket. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc46)
+ * @property string $zap_domain Get/Set RFC 27 authentication domain. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc49)
+ * @property bool $plain_server Enable/Disable PLAIN server role. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc23)
+ * @property string $plain_username Get/Set PLAIN security username. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc24)
+ * @property string $plain_password Get/Set PLAIN security password. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc22)
+ * @property bool $curve_server Enable/Disable CURVE server role. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc9)
+ * @property string $curve_publickey Set CURVE public key. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc7)
+ * @property string $curve_secretkey Set CURVE secret key. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc8)
+ * @property string $curve_serverkey Set CURVE server key. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc10)
+ * @property bool $gssapi_server Enable/Disable GSSAPI server role. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc13)
+ * @property bool $gssapi_plaintext Enable/Disable GSSAPI encryption. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc11)
+ * @property string $gssapi_principal Get/Set name of GSSAPI principal. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc12)
+ * @property string $gssapi_service_principal Get/Set name of GSSAPI service principal. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc14)
+ * @property bool $ipv6 Enable/Disable IPv6 on socket. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc18)
+ * @property bool $immediate Enable/Disable queue messages only to completed connections. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc17)
  */
 class ZSocket implements \IZSocket, \IZDescriptor {
 
@@ -1334,100 +1383,32 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function get_options() {}
 
   /**
-   * ...
+   * Get the underlying File Descriptor.
    * 
+   * @return int
   */
   public function get_fd() {}
 
   /**
-   * ...
+   * Get the underlying ZSocket.
    * 
+   * @return \ZSocket
   */
   public function get_socket() {}
 
   /**
    * ...
    * 
+   * @param mixed $topic ...
   */
-  public function set_router_raw() {}
+  public function subscribe($topic) {}
 
   /**
    * ...
    * 
+   * @param mixed $topic ...
   */
-  public function set_delay_attach_on_connect() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_subscribe() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_unsubscribe() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_xpub_verbose() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_router_handover() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_router_mandatory() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_probe_router() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_req_relaxed() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_req_correlate() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_conflate() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_curve_publickey_bin() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_curve_secretkey_bin() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function set_curve_serverkey_bin() {}
+  public function unsubscribe($topic) {}
 
 }
 
@@ -1536,16 +1517,17 @@ class ZProxy implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -1668,16 +1650,17 @@ class ZBeacon implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -1814,16 +1797,17 @@ class ZAuth implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
 }
 
@@ -1940,16 +1924,17 @@ class ZGossip implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2024,7 +2009,7 @@ class ZInotify implements \IZDescriptor {
   public function recv() {}
 
   /**
-   * ...
+   * Get the underlying File Descriptor.
    * 
    * @return int
   */
@@ -2055,7 +2040,7 @@ class ZStdIn implements \IZDescriptor {
   public function send($data) {}
 
   /**
-   * ...
+   * Get the underlying File Descriptor.
    * 
    * @return int
   */
@@ -2086,7 +2071,7 @@ class ZStdOut implements \IZDescriptor {
   public function send($data) {}
 
   /**
-   * ...
+   * Get the underlying File Descriptor.
    * 
    * @return int
   */
@@ -2117,7 +2102,7 @@ class ZStdErr implements \IZDescriptor {
   public function send($data) {}
 
   /**
-   * ...
+   * Get the underlying File Descriptor.
    * 
    * @return int
   */
@@ -2396,16 +2381,17 @@ class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2527,16 +2513,17 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * ...
@@ -2605,14 +2592,16 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_zipped($data) {}
 
   /**
-   * ...
+   * Get the underlying File Descriptor.
    * 
+   * @return int
   */
   public function get_fd() {}
 
   /**
-   * ...
+   * Get the underlying ZSocket.
    * 
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2691,16 +2680,17 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * ...
@@ -2769,14 +2759,16 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_zipped($data) {}
 
   /**
-   * ...
+   * Get the underlying File Descriptor.
    * 
+   * @return int
   */
   public function get_fd() {}
 
   /**
-   * ...
+   * Get the underlying ZSocket.
    * 
+   * @return \ZSocket
   */
   public function get_socket() {}
 
@@ -2888,14 +2880,14 @@ class Client implements \IZSocket, \IZDescriptor {
   public function send_zipped($data) {}
 
   /**
-   * ...
+   * Get the underlying File Descriptor.
    * 
    * @return int
   */
   public function get_fd() {}
 
   /**
-   * ...
+   * Get the underlying ZSocket.
    * 
    * @return \ZSocket
   */
@@ -2971,16 +2963,17 @@ class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * ...
@@ -3049,14 +3042,14 @@ class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_zipped($data) {}
 
   /**
-   * ...
+   * Get the underlying File Descriptor.
    * 
    * @return int
   */
   public function get_fd() {}
 
   /**
-   * ...
+   * Get the underlying ZSocket.
    * 
    * @return \ZSocket
   */
@@ -3211,16 +3204,17 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * ...
@@ -3378,16 +3372,17 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * ...
@@ -3670,16 +3665,17 @@ class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -3778,16 +3774,17 @@ class Consumer implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * ...
@@ -3950,16 +3947,17 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * Recieve a ZMsg.
@@ -4120,16 +4118,17 @@ class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
    * ...
    * 
    * @param mixed $event ...
+   * @return array|null
   */
   public function listeners($event) {}
 
   /**
    * ...
    * 
-   * @param mixed $event ...
+   * @param string $event ...
    * @param array $arguments ...
   */
-  public function emit($event, array $arguments) {}
+  public function emit($event, array $arguments = []) {}
 
   /**
    * Recieve a ZMsg.

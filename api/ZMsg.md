@@ -8,7 +8,7 @@ Multipart message handling
 
 * Class name: ZMsg
 * Namespace: 
-
+* This class implements: ArrayAccess, Countable, Traversable
 
 
 
@@ -396,6 +396,84 @@ Send a ZMsg
 
 
 ...
+
+* Visibility: **public**
+
+
+
+
+### offsetExists
+
+    boolean ZMsg::offsetExists(mixed $offset)
+
+offsetExists
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $offset **mixed**
+
+
+
+### offsetGet
+
+    mixed ZMsg::offsetGet(mixed $offset)
+
+offsetGet
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $offset **mixed**
+
+
+
+### offsetSet
+
+    mixed ZMsg::offsetSet(mixed $offset, $value)
+
+offsetSet
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $offset **mixed**
+* $value **mixed**
+
+
+
+### offsetUnset
+
+    mixed ZMsg::offsetUnset(mixed $offset)
+
+offsetUnset
+
+
+
+* Visibility: **public**
+
+
+#### Arguments
+* $offset **mixed**
+
+
+
+### count
+
+    integer ZMsg::count()
+
+count
+
+
 
 * Visibility: **public**
 

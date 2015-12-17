@@ -23,9 +23,9 @@ Methods
 
     integer IZDescriptor::get_fd()
 
+Get the underlying File Descriptor.
 
 
-...
 
 * Visibility: **public**
 

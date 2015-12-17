@@ -278,9 +278,9 @@ Methods
 
     integer IZDescriptor::get_fd()
 
+Get the underlying File Descriptor.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)
@@ -292,9 +292,9 @@ Methods
 
     \ZSocket IZSocket::get_socket()
 
+Get the underlying ZSocket.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)

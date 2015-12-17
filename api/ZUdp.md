@@ -202,9 +202,9 @@ Send a ZMsg.
 
     integer IZDescriptor::get_fd()
 
+Get the underlying File Descriptor.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)

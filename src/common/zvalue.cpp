@@ -9,6 +9,34 @@
 #include <ext/standard/php_var.h>
 #include "../czmq/zmsg.h"
 
+
+std::string ZValue::serialize() {
+    std::string result = NULL;
+    zval *retval_ptr = NULL;
+    zval fname;
+    int res;
+    zend_class_entry *ce = NULL;
+
+    HashTable* var_hash; // ??
+
+    if (Z_OBJ_HT_P(_val)->get_class_entry)
+        ce = Z_OBJCE_P(_val);
+
+    // Object has a custom serializer? Use it ..
+    #if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 0)
+        if (ce && ce->serialize != NULL) {
+            unsigned char *serialized_data = NULL;
+            zend_uint serialized_length;
+            if (ce->serialize(_val, &serialized_data, &serialized_length, (zend_serialize_data *) var_hash TSRMLS_CC) == SUCCESS && !EG(exception))
+                result = std::string((const char *) serialized_data, serialized_length);
+            if (serialized_data)
+                efree(serialized_data);
+        }
+    #endif
+
+    return result;
+}
+
 std::string ZValue::get_class_name(void) {
     std::string result;
     if(isObject()) {

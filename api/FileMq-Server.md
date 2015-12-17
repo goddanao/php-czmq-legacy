@@ -422,9 +422,9 @@ Recieve a ZMsg.
 
     integer IZDescriptor::get_fd()
 
+Get the underlying File Descriptor.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)
@@ -436,9 +436,9 @@ Recieve a ZMsg.
 
     \ZSocket IZSocket::get_socket()
 
+Get the underlying ZSocket.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)

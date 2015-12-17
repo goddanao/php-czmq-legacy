@@ -372,21 +372,23 @@ public:
 
     Php::Value get_last_endpoint() ;
 
+    Php::Value get_handshake_ivl() ;
+
     // Set Socket Options
 
     void set_tos(const Php::Value &value) ;
 
-    void set_router_handover(Php::Parameters &param) ;
+    void set_router_handover(const Php::Value &value) ;
 
-    void set_router_mandatory(Php::Parameters &param) ;
+    void set_router_mandatory(const Php::Value &value) ;
 
-    void set_probe_router(Php::Parameters &param) ;
+    void set_probe_router(const Php::Value &value) ;
 
-    void set_req_relaxed(Php::Parameters &param) ;
+    void set_req_relaxed(const Php::Value &value) ;
 
-    void set_req_correlate(Php::Parameters &param) ;
+    void set_req_correlate(const Php::Value &value) ;
 
-    void set_conflate(Php::Parameters &param) ;
+    void set_conflate(const Php::Value &value) ;
 
     void set_zap_domain(const Php::Value &value) ;
 
@@ -400,15 +402,9 @@ public:
 
     void set_curve_publickey(const Php::Value &value) ;
 
-    void set_curve_publickey_bin(Php::Parameters &param) ;
-
     void set_curve_secretkey(const Php::Value &value) ;
 
-    void set_curve_secretkey_bin(Php::Parameters &param) ;
-
     void set_curve_serverkey(const Php::Value &value) ;
-
-    void set_curve_serverkey_bin(Php::Parameters &param) ;
 
     void set_gssapi_server(const Php::Value &value) ;
 
@@ -422,11 +418,11 @@ public:
 
     void set_immediate(const Php::Value &value) ;
 
-    void set_router_raw(Php::Parameters &param) ;
+    void set_router_raw(const Php::Value &value) ;
 
     void set_ipv4only(const Php::Value &value) ;
 
-    void set_delay_attach_on_connect(Php::Parameters &param) ;
+    void set_delay_attach_on_connect(const Php::Value &value) ;
 
     void set_sndhwm(const Php::Value &value) ;
 
@@ -464,7 +460,7 @@ public:
 
     void set_sndtimeo(const Php::Value &value) ;
 
-    void set_xpub_verbose(Php::Parameters &param) ;
+    void set_xpub_verbose(const Php::Value &value) ;
 
     void set_tcp_keepalive(const Php::Value &value) ;
 
@@ -475,6 +471,10 @@ public:
     void set_tcp_keepalive_intvl(const Php::Value &value) ;
 
     void set_tcp_accept_filter(const Php::Value &value) ;
+
+    void set_connect_rid(const Php::Value &value) ;
+
+    void set_handshake_ivl(const Php::Value &value) ;
 
 #endif
 
@@ -535,11 +535,11 @@ public:
 
     // Set Socket Options
 
-    void set_router_raw(Php::Parameters &param) ;
+    void set_router_raw(const Php::Value &value) ;
 
     void set_ipv4only(const Php::Value &value) ;
 
-    void set_delay_attach_on_connect(Php::Parameters &param) ;
+    void set_delay_attach_on_connect(const Php::Value &value) ;
 
     void set_sndhwm(const Php::Value &value) ;
 
@@ -555,7 +555,7 @@ public:
 
     void set_rate(const Php::Value &value) ;
 
-    void set_recovery_ivl(Php::Parameters &param) ;
+    void set_recovery_ivl(const Php::Value &value) ;
 
     void set_sndbuf(const Php::Value &value) ;
 
@@ -590,6 +590,8 @@ public:
     void set_tcp_accept_filter(const Php::Value &value) ;
 
 #endif
+
+    Php::Value emptyFn(void) { return nullptr; }
 
     static Php::Class<ZSocket> php_register() {
 
@@ -713,11 +715,16 @@ public:
         o.property("events", &ZSocket::get_events);
         o.property("last_endpoint", &ZSocket::get_last_endpoint);
 
-        o.method("set_router_raw", &ZSocket::set_router_raw);
-        o.method("set_delay_attach_on_connect", &ZSocket::set_delay_attach_on_connect);
-        o.method("set_subscribe", &ZSocket::set_subscribe);
-        o.method("set_unsubscribe", &ZSocket::set_unsubscribe);
-        o.method("set_xpub_verbose", &ZSocket::set_xpub_verbose);
+        o.property("router_raw", &ZSocket::emptyFn, &ZSocket::set_router_raw);
+        o.property("delay_attach_on_connect", &ZSocket::emptyFn, &ZSocket::set_delay_attach_on_connect);
+        o.property("xpub_verbose", &ZSocket::emptyFn, &ZSocket::set_xpub_verbose);
+
+        o.method("subscribe", &ZSocket::set_subscribe, {
+            Php::ByVal("topic", Php::Type::String, true)
+        });
+        o.method("unsubscribe", &ZSocket::set_unsubscribe, {
+            Php::ByVal("topic", Php::Type::String, true)
+        });
 
 #if (ZMQ_VERSION_MAJOR == 4)
 
@@ -737,17 +744,15 @@ public:
         o.property("gssapi_service_principal", &ZSocket::get_gssapi_service_principal, &ZSocket::set_gssapi_service_principal);
         o.property("ipv6", &ZSocket::get_ipv6, &ZSocket::set_ipv6);
         o.property("immediate", &ZSocket::get_immediate, &ZSocket::set_immediate);
+        o.property("handshake_ivl", &ZSocket::get_handshake_ivl, &ZSocket::set_handshake_ivl);
 
-    	o.method("set_router_handover", &ZSocket::set_router_handover);
-    	o.method("set_router_mandatory", &ZSocket::set_router_mandatory);
-    	o.method("set_probe_router", &ZSocket::set_probe_router);
-    	o.method("set_req_relaxed", &ZSocket::set_req_relaxed);
-    	o.method("set_req_correlate", &ZSocket::set_req_correlate);
-    	o.method("set_conflate", &ZSocket::set_conflate);
-    	o.method("set_curve_publickey_bin", &ZSocket::set_curve_publickey_bin);
-    	o.method("set_curve_secretkey_bin", &ZSocket::set_curve_secretkey_bin);
-    	o.method("set_curve_serverkey_bin", &ZSocket::set_curve_serverkey_bin);
-
+        o.property("conflate", &ZSocket::emptyFn, &ZSocket::set_conflate);
+        o.property("rid", &ZSocket::emptyFn, &ZSocket::set_connect_rid);
+        o.property("router_handover", &ZSocket::emptyFn, &ZSocket::set_router_handover);
+        o.property("router_mandatory", &ZSocket::emptyFn, &ZSocket::set_router_mandatory);
+        o.property("probe_router", &ZSocket::emptyFn, &ZSocket::set_probe_router);
+        o.property("req_relaxed", &ZSocket::emptyFn, &ZSocket::set_req_relaxed);
+        o.property("req_correlate", &ZSocket::emptyFn, &ZSocket::set_req_correlate);
 
 #endif
 

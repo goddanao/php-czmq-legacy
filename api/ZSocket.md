@@ -17,11 +17,22 @@ Properties
 ----------
 
 
+### $handshake_ivl
+
+    public integer $handshake_ivl
+
+Get/Set maximum handshake interval. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc15)
+
+
+
+* Visibility: **public**
+
+
 ### $ipv4only
 
     public boolean $ipv4only
 
-
+Enable/Disable Use IPv4-only on socket (This option is deprecated. Please use the ZMQ_IPV6 option). [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc54)
 
 
 
@@ -32,7 +43,7 @@ Properties
 
     public integer $sndhwm
 
-
+Get/Set high water mark for outbound messages. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc39)
 
 
 
@@ -43,7 +54,7 @@ Properties
 
     public integer $rcvhwm
 
-
+Get/Set high water mark for inbound messages. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc28)
 
 
 
@@ -54,7 +65,7 @@ Properties
 
     public integer $affinity
 
-
+Get/Set I/O thread affinity. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc3)
 
 
 
@@ -65,7 +76,7 @@ Properties
 
     public string $identity
 
-
+Get/Set socket identity. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc16)
 
 
 
@@ -76,7 +87,7 @@ Properties
 
     public integer $rate
 
-
+Get/Set multicast data rate. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc26)
 
 
 
@@ -87,7 +98,7 @@ Properties
 
     public integer $recovery_ivl
 
-
+Get/Set multicast recovery interval. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc32)
 
 
 
@@ -98,7 +109,7 @@ Properties
 
     public integer $sndbuf
 
-
+Get/Set kernel transmit buffer size. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc38)
 
 
 
@@ -109,7 +120,7 @@ Properties
 
     public integer $rcvbuf
 
-
+Get/Set kernel receive buffer size. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc27)
 
 
 
@@ -120,7 +131,7 @@ Properties
 
     public integer $linger
 
-
+Get/Set linger period for socket shutdown. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc19)
 
 
 
@@ -131,7 +142,7 @@ Properties
 
     public integer $reconnect_ivl
 
-
+Get/Set reconnection interval. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc30)
 
 
 
@@ -142,7 +153,7 @@ Properties
 
     public integer $reconnect_ivl_max
 
-
+Get/Set maximum reconnection interval. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc31)
 
 
 
@@ -153,7 +164,7 @@ Properties
 
     public integer $backlog
 
-
+Get/Set maximum length of the queue of outstanding connections. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc4)
 
 
 
@@ -164,7 +175,7 @@ Properties
 
     public integer $maxmsgsize
 
-
+Get/Set Maximum acceptable inbound message size. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc20)
 
 
 
@@ -175,7 +186,7 @@ Properties
 
     public integer $multicast_hops
 
-
+Get/Set Maximum network hops for multicast packets. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc21)
 
 
 
@@ -186,7 +197,7 @@ Properties
 
     public integer $rcvtimeo
 
-
+Get/Set Maximum time before a recv operation returns with EAGAIN. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc29)
 
 
 
@@ -197,7 +208,7 @@ Properties
 
     public integer $sndtimeo
 
-
+Get/Set Maximum time before a send operation returns with EAGAIN. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc40)
 
 
 
@@ -208,7 +219,7 @@ Properties
 
     public integer $tcp_keepalive
 
-
+Get/Set Override SO_KEEPALIVE socket option [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc42)
 
 
 
@@ -219,7 +230,7 @@ Properties
 
     public integer $tcp_keepalive_idle
 
-
+Get/Set Override TCP_KEEPCNT (or TCP_KEEPALIVE on some OS). [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc44)
 
 
 
@@ -230,7 +241,7 @@ Properties
 
     public integer $tcp_keepalive_cnt
 
-
+Get/Set Override TCP_KEEPCNT socket option. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc43)
 
 
 
@@ -241,7 +252,7 @@ Properties
 
     public integer $tcp_keepalive_intvl
 
-
+Get/Set Override TCP_KEEPINTVL socket option. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc45)
 
 
 
@@ -252,7 +263,7 @@ Properties
 
     public string $tcp_accept_filter
 
-
+Get/Set filters to allow new TCP connections (This option is deprecated, please use authentication via the ZAP API and IP address whitelisting / blacklisting). [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc50)
 
 
 
@@ -263,7 +274,7 @@ Properties
 
     public integer $tos
 
-
+Get/Set the Type-of-Service on socket. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc46)
 
 
 
@@ -274,7 +285,7 @@ Properties
 
     public string $zap_domain
 
-
+Get/Set RFC 27 authentication domain. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc49)
 
 
 
@@ -285,7 +296,7 @@ Properties
 
     public boolean $plain_server
 
-
+Enable/Disable PLAIN server role. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc23)
 
 
 
@@ -296,7 +307,7 @@ Properties
 
     public string $plain_username
 
-
+Get/Set PLAIN security username. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc24)
 
 
 
@@ -307,7 +318,7 @@ Properties
 
     public string $plain_password
 
-
+Get/Set PLAIN security password. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc22)
 
 
 
@@ -318,7 +329,7 @@ Properties
 
     public boolean $curve_server
 
-
+Enable/Disable CURVE server role. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc9)
 
 
 
@@ -329,7 +340,7 @@ Properties
 
     public string $curve_publickey
 
-
+Set CURVE public key. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc7)
 
 
 
@@ -340,7 +351,7 @@ Properties
 
     public string $curve_secretkey
 
-
+Set CURVE secret key. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc8)
 
 
 
@@ -351,7 +362,7 @@ Properties
 
     public string $curve_serverkey
 
-
+Set CURVE server key. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc10)
 
 
 
@@ -362,7 +373,7 @@ Properties
 
     public boolean $gssapi_server
 
-
+Enable/Disable GSSAPI server role. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc13)
 
 
 
@@ -371,9 +382,9 @@ Properties
 
 ### $gssapi_plaintext
 
-    public string $gssapi_plaintext
+    public boolean $gssapi_plaintext
 
-
+Enable/Disable GSSAPI encryption. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc11)
 
 
 
@@ -384,7 +395,7 @@ Properties
 
     public string $gssapi_principal
 
-
+Get/Set name of GSSAPI principal. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc12)
 
 
 
@@ -395,7 +406,7 @@ Properties
 
     public string $gssapi_service_principal
 
-
+Get/Set name of GSSAPI service principal. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc14)
 
 
 
@@ -406,7 +417,7 @@ Properties
 
     public boolean $ipv6
 
-
+Enable/Disable IPv6 on socket. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc18)
 
 
 
@@ -417,7 +428,117 @@ Properties
 
     public boolean $immediate
 
+Enable/Disable queue messages only to completed connections. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc17)
 
+
+
+* Visibility: **public**
+
+
+### $rid
+
+    public string $rid
+
+Set the next outbound connection id. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc5) (write only)
+
+
+
+* Visibility: **public**
+
+
+### $conflate
+
+    public boolean $conflate
+
+Enable/Disable keep only last message. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc6) (write only)
+
+
+
+* Visibility: **public**
+
+
+### $router_handover
+
+    public boolean $router_handover
+
+Enable/Disable handle duplicate client identities on ROUTER sockets. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc35) (write only)
+
+
+
+* Visibility: **public**
+
+
+### $router_mandatory
+
+    public boolean $router_mandatory
+
+Enable/Disable accept only routable messages on ROUTER sockets. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc36) (write only)
+
+
+
+* Visibility: **public**
+
+
+### $probe_router
+
+    public boolean $probe_router
+
+Enable/Disable bootstrap connections to ROUTER sockets. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc25) (write only)
+
+
+
+* Visibility: **public**
+
+
+### $req_relaxed
+
+    public boolean $req_relaxed
+
+Enable/Disable relax strict alternation between request and reply. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc34) (write only)
+
+
+
+* Visibility: **public**
+
+
+### $req_correlate
+
+    public boolean $req_correlate
+
+Enable/Disable match replies with requests. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc33) (write only)
+
+
+
+* Visibility: **public**
+
+
+### $router_raw
+
+    public boolean $router_raw
+
+Enable/Disable switch ROUTER socket to raw mode (This option is deprecated, please use ZMQ_STREAM sockets instead). [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc37) (write only)
+
+
+
+* Visibility: **public**
+
+
+### $delay_attach_on_connect
+
+    public boolean $delay_attach_on_connect
+
+Enable/Disable  [more..](http://api.zeromq.org/4-1:zmq-setsockopt) (write only)
+
+
+
+* Visibility: **public**
+
+
+### $xpub_verbose
+
+    public boolean $xpub_verbose
+
+Enable/Disable provide all subscription messages on XPUB sockets. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc48) (write only)
 
 
 
@@ -428,40 +549,7 @@ Properties
 
     public string $type
 
-(read only)
-
-
-
-* Visibility: **public**
-
-
-### $rcvmore
-
-    public boolean $rcvmore
-
-(read only)
-
-
-
-* Visibility: **public**
-
-
-### $events
-
-    public integer $events
-
-(read only)
-
-
-
-* Visibility: **public**
-
-
-### $last_endpoint
-
-    public string $last_endpoint
-
-(read only)
+Get ZSocket type. (read only)
 
 
 
@@ -472,7 +560,40 @@ Properties
 
     public string $mechanism
 
-(read only)
+Get current security mechanism configured for socket. (read only)
+
+
+
+* Visibility: **public**
+
+
+### $last_endpoint
+
+    public string $last_endpoint
+
+Get the last known connected/binded endpoint. (read only)
+
+
+
+* Visibility: **public**
+
+
+### $events
+
+    public integer $events
+
+Get the current events for socket. (read only)
+
+
+
+* Visibility: **public**
+
+
+### $rcvmore
+
+    public boolean $rcvmore
+
+Get More message data parts to follow. (read only)
 
 
 
@@ -1070,9 +1191,9 @@ Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
 
     integer IZDescriptor::get_fd()
 
+Get the underlying File Descriptor.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZDescriptor](IZDescriptor.md)
@@ -1084,9 +1205,9 @@ Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
 
     \ZSocket IZSocket::get_socket()
 
+Get the underlying ZSocket.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
@@ -1094,22 +1215,9 @@ Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
 
 
 
-### set_router_raw
+### subscribe
 
-    mixed ZSocket::set_router_raw()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_delay_attach_on_connect
-
-    mixed ZSocket::set_delay_attach_on_connect()
+    mixed ZSocket::subscribe(mixed $topic)
 
 
 
@@ -1118,24 +1226,14 @@ Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
 * Visibility: **public**
 
 
-
-
-### set_subscribe
-
-    mixed ZSocket::set_subscribe()
+#### Arguments
+* $topic **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 
-...
+### unsubscribe
 
-* Visibility: **public**
-
-
-
-
-### set_unsubscribe
-
-    mixed ZSocket::set_unsubscribe()
+    mixed ZSocket::unsubscribe(mixed $topic)
 
 
 
@@ -1144,134 +1242,7 @@ Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
 * Visibility: **public**
 
 
-
-
-### set_xpub_verbose
-
-    mixed ZSocket::set_xpub_verbose()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_router_handover
-
-    mixed ZSocket::set_router_handover()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_router_mandatory
-
-    mixed ZSocket::set_router_mandatory()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_probe_router
-
-    mixed ZSocket::set_probe_router()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_req_relaxed
-
-    mixed ZSocket::set_req_relaxed()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_req_correlate
-
-    mixed ZSocket::set_req_correlate()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_conflate
-
-    mixed ZSocket::set_conflate()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_curve_publickey_bin
-
-    mixed ZSocket::set_curve_publickey_bin()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_curve_secretkey_bin
-
-    mixed ZSocket::set_curve_secretkey_bin()
-
-
-
-...
-
-* Visibility: **public**
-
-
-
-
-### set_curve_serverkey_bin
-
-    mixed ZSocket::set_curve_serverkey_bin()
-
-
-
-...
-
-* Visibility: **public**
-
+#### Arguments
+* $topic **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
