@@ -40,6 +40,11 @@ public:
         return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
     }
 
+    static Php::Value libmsgpack_version() {
+        int major = MSGPACK_VERSION_MAJOR, minor = MSGPACK_VERSION_MINOR, patch = MSGPACK_VERSION_REVISION;
+        return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
+    }
+
     static Php::Value hostname() {
         Php::Value result;
         char *hostname = zsys_hostname();
@@ -222,6 +227,8 @@ public:
         o.method("libzyre_version", &ZSys::libzyre_version);
         o.method("libmdp_version", &ZSys::libmdp_version);
         o.method("libfmq_version", &ZSys::libfmq_version);
+        o.method("libmsgpack_version", &ZSys::libmsgpack_version);
+
 
         #ifdef MALAMUTE_VERSION_MAJOR
 
