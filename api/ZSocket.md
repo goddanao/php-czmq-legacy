@@ -667,15 +667,15 @@ Bind to the specified endpoint(s).
 
     mixed ZSocket::unbind(string $endpoint)
 
+Unbind from the specified endpoint(s).
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint(s) to unbind from.&lt;/p&gt;
 
 
 
@@ -699,15 +699,15 @@ Connect to the specified endpoint(s).
 
     mixed ZSocket::disconnect(string $endpoint)
 
+Disconnect from the specified endpoint(s).
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Endpoint(s) to disconnect from.&lt;/p&gt;
 
 
 

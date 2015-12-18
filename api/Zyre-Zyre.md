@@ -70,9 +70,9 @@ Connect to the specified endpoint(s).
 
     mixed Zyre\Zyre::disconnect()
 
+Disconnect from the specified endpoint(s).
 
 
-...
 
 * Visibility: **public**
 

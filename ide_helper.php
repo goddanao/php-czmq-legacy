@@ -248,6 +248,13 @@ final  class ZSys {
   static public function libfmq_version() {}
 
   /**
+   * Return MsgPack version
+   * 
+   * @return string
+  */
+  static public function libmsgpack_version() {}
+
+  /**
    * Return Malamute version
    * 
    * @return string
@@ -1155,9 +1162,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function bind($endpoint) {}
 
   /**
-   * ...
+   * Unbind from the specified endpoint(s).
    * 
-   * @param string $endpoint ...
+   * @param string $endpoint Endpoint(s) to unbind from.
   */
   public function unbind($endpoint) {}
 
@@ -1170,9 +1177,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function connect($endpoint) {}
 
   /**
-   * ...
+   * Disconnect from the specified endpoint(s).
    * 
-   * @param string $endpoint ...
+   * @param string $endpoint Endpoint(s) to disconnect from.
   */
   public function disconnect($endpoint) {}
 
@@ -2165,7 +2172,7 @@ class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function connect() {}
 
   /**
-   * ...
+   * Disconnect from the specified endpoint(s).
    * 
   */
   public function disconnect() {}

@@ -684,6 +684,20 @@ Return FileMq version
 
 
 
+### libmsgpack_version
+
+    string ZSys::libmsgpack_version()
+
+Return MsgPack version
+
+
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
+
 ### libmlm_version
 
     string ZSys::libmlm_version()
