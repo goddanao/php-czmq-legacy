@@ -5,7 +5,7 @@ namespace {
 /**
  * ZSys
  *
- * ZMQ System
+ * ZSys is static class holding zeromq system level methods / consts.
  */
 final  class ZSys {
   const SOCKET_PUB = "pub";
@@ -176,8 +176,9 @@ final  class ZSys {
   static public function list_interfaces() {}
 
   /**
-   * ...
+   * Return an array of supported socket types (depends on zmq version installed).
    * 
+   * @return array
   */
   static public function get_available_socket_type() {}
 
@@ -254,8 +255,9 @@ final  class ZSys {
   static public function libmlm_version() {}
 
   /**
-   * ...
+   * Generate an UUID and return as 32 bytes string.
    * 
+   * @return string
   */
   static public function uuid() {}
 
@@ -288,34 +290,43 @@ final  class ZSys {
   static public function error($message) {}
 
   /**
-   * ...
+   * Check if IPV6 is active by default on newly created sockets.
    * 
+   * @return bool
   */
   static public function get_ipv6() {}
 
   /**
-   * ...
+   * Return IPv6 address to use for zbeacon reception, or '' if none was set.
    * 
+   * @return string
   */
   static public function get_ipv6_address() {}
 
   /**
-   * ...
+   * Set IPv6 address to use zbeacon socket, particularly for receiving zbeacon.
+   *This needs to be set IPv6 is enabled as IPv6 can have multiple addresses
+   *on a given interface. If the environment variable ZSYS_IPV6_ADDRESS is set,
+   *use that as the default IPv6 address.
    * 
-   * @param mixed $address ...
+   * @param string $address IPV6 address
   */
   static public function set_ipv6_address($address) {}
 
   /**
-   * ...
+   * Return IPv6 multicast address to use for sending zbeacon, or '' if none was set
    * 
+   * @return string
   */
   static public function get_ipv6_mcast_address() {}
 
   /**
-   * ...
+   * Set IPv6 milticast address to use for sending zbeacon messages. This needs
+   *to be set if IPv6 is enabled. If the environment variable
+   *ZSYS_IPV6_MCAST_ADDRESS is set, use that as the default IPv6 multicast
+   *address.
    * 
-   * @param mixed $address ...
+   * @param string $address IPv6 milticast address
   */
   static public function set_ipv6_mcast_address($address) {}
 
@@ -353,27 +364,31 @@ class ZUdp implements \IZDescriptor {
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
+   * @return string
   */
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -385,9 +400,9 @@ class ZUdp implements \IZDescriptor {
   public function send($data) {}
 
   /**
-   * ...
+   * Send a one frame only message with a string.
    * 
-   * @param mixed $data ...
+   * @param string $data The string to send
   */
   public function send_string($data) {}
 
@@ -399,9 +414,9 @@ class ZUdp implements \IZDescriptor {
   public function send_picture($picture) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with MsgPack.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_msgpack($data) {}
 
@@ -955,7 +970,7 @@ class ZCert {
 /**
  * IZDescriptor
  *
- * ...
+ * Basic interface for File Descriptor support.
  */
 interface IZDescriptor {
 
@@ -972,7 +987,7 @@ interface IZDescriptor {
 /**
  * IZSocket
  *
- * ...
+ * Basic interface for ZSocket support.
  */
 interface IZSocket extends \IZDescriptor {
 
@@ -1193,22 +1208,24 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param string $picture ...
-   * @return array
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -1220,9 +1237,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function send($data) {}
 
   /**
-   * ...
+   * Send a one frame only message with a string.
    * 
-   * @param string $data ...
+   * @param string $data The string to send
   */
   public function send_string($data) {}
 
@@ -1234,9 +1251,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function send_picture($picture) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with MsgPack.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_msgpack($data) {}
 
@@ -2114,24 +2131,25 @@ class ZStdErr implements \IZDescriptor {
 /**
  * MsgPack
  *
- * ...
+ * MsgPack is a static class which offers customizable encoding/decoding support for msgpack format.
+ * Supports basic php types and objects (only public properties).
  */
 class MsgPack {
 
   /**
-   * ...
+   * Encode the specified data.
    * 
-   * @param mixed $data ...
-   * @param callable $encoder ... (optional)
+   * @param mixed $data The data to be encoded.
+   * @param callable $encoder An encoder callback used to custom encode objects. (optional)
    * @return mixed
   */
   static public function encode($data, callable $encoder = null) {}
 
   /**
-   * ...
+   * Decode the specified msgpack data.
    * 
-   * @param mixed $data ...
-   * @param callable $decoder ... (optional)
+   * @param mixed $data The data to be decoded.
+   * @param callable $decoder A decode callback used to custom decode objects. (optional)
    * @return mixed
   */
   static public function decode($data, callable $decoder = null) {}
@@ -2416,7 +2434,7 @@ namespace Majordomo {
 /**
  * Broker
  *
- * ...
+ * Majordomo Broker
  */
 class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
 
@@ -2526,33 +2544,38 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function emit($event, array $arguments = []) {}
 
   /**
-   * ...
+   * Recieve next message.
    * 
+   * @return \ZMsg
   */
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
+   * @return string
   */
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -2564,9 +2587,9 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send($data) {}
 
   /**
-   * ...
+   * Send a one frame only message with a string.
    * 
-   * @param mixed $data ...
+   * @param string $data The string to send
   */
   public function send_string($data) {}
 
@@ -2578,9 +2601,9 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_picture($picture) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with MsgPack.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_msgpack($data) {}
 
@@ -2693,33 +2716,38 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function emit($event, array $arguments = []) {}
 
   /**
-   * ...
+   * Recieve next message.
    * 
+   * @return \ZMsg
   */
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
+   * @return string
   */
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -2731,9 +2759,9 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send($data) {}
 
   /**
-   * ...
+   * Send a one frame only message with a string.
    * 
-   * @param mixed $data ...
+   * @param string $data The string to send
   */
   public function send_string($data) {}
 
@@ -2745,9 +2773,9 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_picture($picture) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with MsgPack.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_msgpack($data) {}
 
@@ -2820,27 +2848,31 @@ class Client implements \IZSocket, \IZDescriptor {
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
+   * @return string
   */
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -2852,9 +2884,9 @@ class Client implements \IZSocket, \IZDescriptor {
   public function send($data) {}
 
   /**
-   * ...
+   * Send a one frame only message with a string.
    * 
-   * @param mixed $data ...
+   * @param string $data The string to send
   */
   public function send_string($data) {}
 
@@ -2866,9 +2898,9 @@ class Client implements \IZSocket, \IZDescriptor {
   public function send_picture($picture) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with MsgPack.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_msgpack($data) {}
 
@@ -2976,33 +3008,38 @@ class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function emit($event, array $arguments = []) {}
 
   /**
-   * ...
+   * Recieve next message.
    * 
+   * @return \ZMsg
   */
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
+   * @return string
   */
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -3014,9 +3051,9 @@ class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send($data) {}
 
   /**
-   * ...
+   * Send a one frame only message with a string.
    * 
-   * @param mixed $data ...
+   * @param string $data The string to send
   */
   public function send_string($data) {}
 
@@ -3028,9 +3065,9 @@ class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_picture($picture) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with MsgPack.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_msgpack($data) {}
 
@@ -3217,33 +3254,38 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function emit($event, array $arguments = []) {}
 
   /**
-   * ...
+   * Recieve next message.
    * 
+   * @return \ZMsg
   */
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
+   * @return string
   */
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -3255,9 +3297,9 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send($data) {}
 
   /**
-   * ...
+   * Send a one frame only message with a string.
    * 
-   * @param mixed $data ...
+   * @param string $data The string to send
   */
   public function send_string($data) {}
 
@@ -3269,9 +3311,9 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_picture($picture) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with MsgPack.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_msgpack($data) {}
 
@@ -3385,33 +3427,38 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function emit($event, array $arguments = []) {}
 
   /**
-   * ...
+   * Recieve next message.
    * 
+   * @return \ZMsg
   */
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
+   * @return string
   */
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -3423,30 +3470,30 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send($data) {}
 
   /**
-   * ...
+   * Send a one frame only message with a string.
    * 
-   * @param mixed $data ...
+   * @param string $data The string to send
   */
   public function send_string($data) {}
 
   /**
-   * ...
+   * Send a message composed by data frames as specified in the picture format.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function send_picture($picture) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with MsgPack.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_msgpack($data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with ZLib.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_zipped($data) {}
 
@@ -3515,29 +3562,31 @@ class Client implements \IZSocket, \IZDescriptor {
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
    * @return string
   */
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param string $picture ...
-   * @return array
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -3592,10 +3641,10 @@ class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send($subject, $data) {}
 
   /**
-   * ...
+   * Send a one frame only message with a string.
    * 
    * @param mixed $subject ...
-   * @param mixed $data ...
+   * @param string $data The string to send
   */
   public function send_string($subject, $data) {}
 
@@ -3609,10 +3658,10 @@ class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_picture($subject, $picture, $data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with MsgPack.
    * 
    * @param mixed $subject ...
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_msgpack($subject, $data) {}
 
@@ -3787,33 +3836,38 @@ class Consumer implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function emit($event, array $arguments = []) {}
 
   /**
-   * ...
+   * Recieve next message.
    * 
+   * @return \ZMsg
   */
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
+   * @return string
   */
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -3967,27 +4021,31 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
+   * @return string
   */
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -3999,9 +4057,9 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send($data) {}
 
   /**
-   * ...
+   * Send a one frame only message with a string.
    * 
-   * @param mixed $data ...
+   * @param string $data The string to send
   */
   public function send_string($data) {}
 
@@ -4013,9 +4071,9 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_picture($picture) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with MsgPack.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_msgpack($data) {}
 
@@ -4138,27 +4196,31 @@ class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
+   * @return string
   */
   public function recv_string() {}
 
   /**
-   * ...
+   * Recieve a message and pop frames as indicated in the picture format specified.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to extract from message.
+   * @return mixed
   */
   public function recv_picture($picture) {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with MsgPack.
    * 
+   * @return mixed
   */
   public function recv_msgpack() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame decoding with ZLib.
    * 
+   * @return mixed
   */
   public function recv_zipped() {}
 
@@ -4170,9 +4232,9 @@ class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send($data) {}
 
   /**
-   * ...
+   * Send a one frame only message with a string.
    * 
-   * @param mixed $data ...
+   * @param string $data The string to send
   */
   public function send_string($data) {}
 
@@ -4184,9 +4246,9 @@ class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_picture($picture) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with MsgPack.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to send.
   */
   public function send_msgpack($data) {}
 

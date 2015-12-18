@@ -3,7 +3,7 @@ Majordomo\Broker
 
 Broker
 
-...
+Majordomo Broker
 
 
 * Class name: Broker
@@ -253,11 +253,11 @@ Methods
 
 ### recv
 
-    mixed Majordomo\Broker::recv()
+    \ZMsg Majordomo\Broker::recv()
+
+Recieve next message.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -266,11 +266,11 @@ Methods
 
 ### recv_string
 
-    mixed Majordomo\Broker::recv_string()
+    string Majordomo\Broker::recv_string()
+
+Recieve a message and pop first frame as string.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -279,17 +279,17 @@ Methods
 
 ### recv_picture
 
-    mixed Majordomo\Broker::recv_picture(mixed $picture)
+    mixed Majordomo\Broker::recv_picture(string $picture)
+
+Recieve a message and pop frames as indicated in the picture format specified.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to extract from message.&lt;/p&gt;
 
 
 
@@ -297,9 +297,9 @@ Methods
 
     mixed Majordomo\Broker::recv_msgpack()
 
+Recieve a message and pop first frame decoding with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
@@ -310,9 +310,9 @@ Methods
 
     mixed Majordomo\Broker::recv_zipped()
 
+Recieve a message and pop first frame decoding with ZLib.
 
 
-...
 
 * Visibility: **public**
 
@@ -337,17 +337,17 @@ Methods
 
 ### send_string
 
-    mixed Majordomo\Broker::send_string(mixed $data)
+    mixed Majordomo\Broker::send_string(string $data)
+
+Send a one frame only message with a string.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;The string to send&lt;/p&gt;
 
 
 
@@ -371,15 +371,15 @@ Methods
 
     mixed Majordomo\Broker::send_msgpack(mixed $data)
 
+Send a one frame only message encoded with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to send.&lt;/p&gt;
 
 
 

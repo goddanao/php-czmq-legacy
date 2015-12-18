@@ -3,7 +3,7 @@ IZDescriptor
 
 IZDescriptor
 
-...
+Basic interface for File Descriptor support.
 
 
 * Interface name: IZDescriptor

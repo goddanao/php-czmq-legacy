@@ -74,18 +74,18 @@ Methods
 
 ### send_string
 
-    mixed Malamute\Producer::send_string(mixed $subject, mixed $data)
+    mixed Malamute\Producer::send_string(mixed $subject, string $data)
+
+Send a one frame only message with a string.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
 * $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;The string to send&lt;/p&gt;
 
 
 
@@ -111,16 +111,16 @@ Methods
 
     mixed Malamute\Producer::send_msgpack(mixed $subject, mixed $data)
 
+Send a one frame only message encoded with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
 * $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to send.&lt;/p&gt;
 
 
 

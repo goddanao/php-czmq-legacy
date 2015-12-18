@@ -3,7 +3,7 @@ ZSys
 
 ZSys
 
-ZMQ System
+ZSys is static class holding zeromq system level methods / consts.
 
 
 * Class name: ZSys
@@ -542,11 +542,11 @@ Return network interfaces
 
 ### get_available_socket_type
 
-    mixed ZSys::get_available_socket_type()
+    array ZSys::get_available_socket_type()
+
+Return an array of supported socket types (depends on zmq version installed).
 
 
-
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -700,11 +700,11 @@ Return Malamute version
 
 ### uuid
 
-    mixed ZSys::uuid()
+    string ZSys::uuid()
+
+Generate an UUID and return as 32 bytes string.
 
 
-
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -782,11 +782,11 @@ Log message as Error
 
 ### get_ipv6
 
-    mixed ZSys::get_ipv6()
+    boolean ZSys::get_ipv6()
+
+Check if IPV6 is active by default on newly created sockets.
 
 
-
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -796,11 +796,11 @@ Log message as Error
 
 ### get_ipv6_address
 
-    mixed ZSys::get_ipv6_address()
+    string ZSys::get_ipv6_address()
+
+Return IPv6 address to use for zbeacon reception, or '' if none was set.
 
 
-
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -810,28 +810,30 @@ Log message as Error
 
 ### set_ipv6_address
 
-    mixed ZSys::set_ipv6_address(mixed $address)
+    mixed ZSys::set_ipv6_address(string $address)
 
+Set IPv6 address to use zbeacon socket, particularly for receiving zbeacon.
 
-
-...
+This needs to be set IPv6 is enabled as IPv6 can have multiple addresses
+on a given interface. If the environment variable ZSYS_IPV6_ADDRESS is set,
+use that as the default IPv6 address.
 
 * Visibility: **public**
 * This method is **static**.
 
 
 #### Arguments
-* $address **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $address **string** - &lt;p&gt;IPV6 address&lt;/p&gt;
 
 
 
 ### get_ipv6_mcast_address
 
-    mixed ZSys::get_ipv6_mcast_address()
+    string ZSys::get_ipv6_mcast_address()
+
+Return IPv6 multicast address to use for sending zbeacon, or '' if none was set
 
 
-
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -841,17 +843,20 @@ Log message as Error
 
 ### set_ipv6_mcast_address
 
-    mixed ZSys::set_ipv6_mcast_address(mixed $address)
+    mixed ZSys::set_ipv6_mcast_address(string $address)
+
+Set IPv6 milticast address to use for sending zbeacon messages. This needs
+to be set if IPv6 is enabled. If the environment variable
+ZSYS_IPV6_MCAST_ADDRESS is set, use that as the default IPv6 multicast
+address.
 
 
-
-...
 
 * Visibility: **public**
 * This method is **static**.
 
 
 #### Arguments
-* $address **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $address **string** - &lt;p&gt;IPv6 milticast address&lt;/p&gt;
 
 

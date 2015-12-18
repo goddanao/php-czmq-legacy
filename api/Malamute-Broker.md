@@ -240,11 +240,11 @@ Methods
 
 ### recv
 
-    mixed Malamute\Broker::recv()
+    \ZMsg Malamute\Broker::recv()
+
+Recieve next message.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -253,11 +253,11 @@ Methods
 
 ### recv_string
 
-    mixed Malamute\Broker::recv_string()
+    string Malamute\Broker::recv_string()
+
+Recieve a message and pop first frame as string.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -266,17 +266,17 @@ Methods
 
 ### recv_picture
 
-    mixed Malamute\Broker::recv_picture(mixed $picture)
+    mixed Malamute\Broker::recv_picture(string $picture)
+
+Recieve a message and pop frames as indicated in the picture format specified.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to extract from message.&lt;/p&gt;
 
 
 
@@ -284,9 +284,9 @@ Methods
 
     mixed Malamute\Broker::recv_msgpack()
 
+Recieve a message and pop first frame decoding with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
@@ -297,9 +297,9 @@ Methods
 
     mixed Malamute\Broker::recv_zipped()
 
+Recieve a message and pop first frame decoding with ZLib.
 
 
-...
 
 * Visibility: **public**
 
@@ -324,17 +324,17 @@ Methods
 
 ### send_string
 
-    mixed Malamute\Broker::send_string(mixed $data)
+    mixed Malamute\Broker::send_string(string $data)
+
+Send a one frame only message with a string.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;The string to send&lt;/p&gt;
 
 
 
@@ -358,15 +358,15 @@ Methods
 
     mixed Malamute\Broker::send_msgpack(mixed $data)
 
+Send a one frame only message encoded with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to send.&lt;/p&gt;
 
 
 

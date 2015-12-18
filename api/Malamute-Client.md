@@ -102,9 +102,9 @@ Recieve a ZMsg.
 
     string Malamute\Client::recv_string()
 
+Recieve a message and pop first frame as string.
 
 
-...
 
 * Visibility: **public**
 
@@ -113,17 +113,17 @@ Recieve a ZMsg.
 
 ### recv_picture
 
-    array Malamute\Client::recv_picture(string $picture)
+    mixed Malamute\Client::recv_picture(string $picture)
+
+Recieve a message and pop frames as indicated in the picture format specified.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **string** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to extract from message.&lt;/p&gt;
 
 
 
@@ -131,9 +131,9 @@ Recieve a ZMsg.
 
     mixed Malamute\Client::recv_msgpack()
 
+Recieve a message and pop first frame decoding with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
@@ -144,9 +144,9 @@ Recieve a ZMsg.
 
     mixed Malamute\Client::recv_zipped()
 
+Recieve a message and pop first frame decoding with ZLib.
 
 
-...
 
 * Visibility: **public**
 

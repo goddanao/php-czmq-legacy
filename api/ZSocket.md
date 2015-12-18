@@ -781,17 +781,17 @@ Methods
 
 ### recv_picture
 
-    array ZSocket::recv_picture(string $picture)
+    mixed ZSocket::recv_picture(string $picture)
+
+Recieve a message and pop frames as indicated in the picture format specified.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **string** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to extract from message.&lt;/p&gt;
 
 
 
@@ -799,9 +799,9 @@ Methods
 
     mixed ZSocket::recv_msgpack()
 
+Recieve a message and pop first frame decoding with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
@@ -812,9 +812,9 @@ Methods
 
     mixed ZSocket::recv_zipped()
 
+Recieve a message and pop first frame decoding with ZLib.
 
 
-...
 
 * Visibility: **public**
 
@@ -841,15 +841,15 @@ Methods
 
     mixed ZSocket::send_string(string $data)
 
+Send a one frame only message with a string.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **string** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;The string to send&lt;/p&gt;
 
 
 
@@ -873,15 +873,15 @@ Methods
 
     mixed ZSocket::send_msgpack(mixed $data)
 
+Send a one frame only message encoded with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to send.&lt;/p&gt;
 
 
 

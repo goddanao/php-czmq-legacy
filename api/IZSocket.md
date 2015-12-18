@@ -3,7 +3,7 @@ IZSocket
 
 IZSocket
 
-...
+Basic interface for ZSocket support.
 
 
 * Interface name: IZSocket

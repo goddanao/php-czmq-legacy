@@ -208,11 +208,11 @@ Methods
 
 ### recv
 
-    mixed Malamute\Consumer::recv()
+    \ZMsg Malamute\Consumer::recv()
+
+Recieve next message.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -221,11 +221,11 @@ Methods
 
 ### recv_string
 
-    mixed Malamute\Consumer::recv_string()
+    string Malamute\Consumer::recv_string()
+
+Recieve a message and pop first frame as string.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -234,17 +234,17 @@ Methods
 
 ### recv_picture
 
-    mixed Malamute\Consumer::recv_picture(mixed $picture)
+    mixed Malamute\Consumer::recv_picture(string $picture)
+
+Recieve a message and pop frames as indicated in the picture format specified.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to extract from message.&lt;/p&gt;
 
 
 
@@ -252,9 +252,9 @@ Methods
 
     mixed Malamute\Consumer::recv_msgpack()
 
+Recieve a message and pop first frame decoding with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
@@ -265,9 +265,9 @@ Methods
 
     mixed Malamute\Consumer::recv_zipped()
 
+Recieve a message and pop first frame decoding with ZLib.
 
 
-...
 
 * Visibility: **public**
 

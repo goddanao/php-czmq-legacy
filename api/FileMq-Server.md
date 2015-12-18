@@ -285,11 +285,11 @@ Recieve a ZMsg.
 
 ### recv_string
 
-    mixed FileMq\Server::recv_string()
+    string FileMq\Server::recv_string()
+
+Recieve a message and pop first frame as string.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -298,17 +298,17 @@ Recieve a ZMsg.
 
 ### recv_picture
 
-    mixed FileMq\Server::recv_picture(mixed $picture)
+    mixed FileMq\Server::recv_picture(string $picture)
+
+Recieve a message and pop frames as indicated in the picture format specified.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to extract from message.&lt;/p&gt;
 
 
 
@@ -316,9 +316,9 @@ Recieve a ZMsg.
 
     mixed FileMq\Server::recv_msgpack()
 
+Recieve a message and pop first frame decoding with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
@@ -329,9 +329,9 @@ Recieve a ZMsg.
 
     mixed FileMq\Server::recv_zipped()
 
+Recieve a message and pop first frame decoding with ZLib.
 
 
-...
 
 * Visibility: **public**
 
@@ -356,17 +356,17 @@ Recieve a ZMsg.
 
 ### send_string
 
-    mixed FileMq\Server::send_string(mixed $data)
+    mixed FileMq\Server::send_string(string $data)
+
+Send a one frame only message with a string.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;The string to send&lt;/p&gt;
 
 
 
@@ -390,15 +390,15 @@ Recieve a ZMsg.
 
     mixed FileMq\Server::send_msgpack(mixed $data)
 
+Send a one frame only message encoded with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to send.&lt;/p&gt;
 
 
 

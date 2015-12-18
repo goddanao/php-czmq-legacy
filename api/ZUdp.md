@@ -65,11 +65,11 @@ Recieve a ZMsg.
 
 ### recv_string
 
-    mixed ZUdp::recv_string()
+    string ZUdp::recv_string()
+
+Recieve a message and pop first frame as string.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -78,17 +78,17 @@ Recieve a ZMsg.
 
 ### recv_picture
 
-    mixed ZUdp::recv_picture(mixed $picture)
+    mixed ZUdp::recv_picture(string $picture)
+
+Recieve a message and pop frames as indicated in the picture format specified.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to extract from message.&lt;/p&gt;
 
 
 
@@ -96,9 +96,9 @@ Recieve a ZMsg.
 
     mixed ZUdp::recv_msgpack()
 
+Recieve a message and pop first frame decoding with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
@@ -109,9 +109,9 @@ Recieve a ZMsg.
 
     mixed ZUdp::recv_zipped()
 
+Recieve a message and pop first frame decoding with ZLib.
 
 
-...
 
 * Visibility: **public**
 
@@ -136,17 +136,17 @@ Send a ZMsg.
 
 ### send_string
 
-    mixed ZUdp::send_string(mixed $data)
+    mixed ZUdp::send_string(string $data)
+
+Send a one frame only message with a string.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;The string to send&lt;/p&gt;
 
 
 
@@ -170,15 +170,15 @@ Send a ZMsg.
 
     mixed ZUdp::send_msgpack(mixed $data)
 
+Send a one frame only message encoded with MsgPack.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to send.&lt;/p&gt;
 
 
 
