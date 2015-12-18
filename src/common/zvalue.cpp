@@ -9,7 +9,6 @@
 #include <ext/standard/php_var.h>
 #include "../czmq/zmsg.h"
 
-
 std::string ZValue::serialize() {
     std::string result = NULL;
     zval *retval_ptr = NULL;
@@ -59,7 +58,7 @@ bool ZValue::isHashMap(void) {
     int count = zend_hash_num_elements(Z_ARRVAL_P(_val));
 
     if (count != (Z_ARRVAL_P(_val))->nNextFreeElement) {
-        return 1;
+        return true;
     } else {
         int i;
         HashPosition pos = {0};
@@ -79,7 +78,6 @@ zmsg_t *ZValue::to_zmsg(void) {
 
     if(isString()) {
         zmsg = zmsg_new ();
-        // zmsg_pushstr (zmsg, stringValue().c_str());
         zmsg_pushmem (zmsg, rawValue(), size());
     }
     else
@@ -102,7 +100,6 @@ zmsg_t *ZValue::to_zmsg(void) {
             Php::Value item = iter.second;
             if(item.isString()) {
                 zmsg_pushmem (zmsg, item.rawValue(), item.size());
-                // zmsg_pushstr (zmsg, item.stringValue().c_str());
             }
             else
             if(item.isObject()) {
