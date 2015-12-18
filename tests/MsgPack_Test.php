@@ -28,15 +28,15 @@ class MsgPack_Test extends \PHPUnit_Framework_TestCase {
                     "two"   => 2342343242343
                 ]
             ];
-        $res = MsgPack::encode($arr);
-        $result = MsgPack::decode($res);
+        $res = \MsgPack\MsgPack::encode($arr);
+        $result = \MsgPack\MsgPack::decode($res);
         $this->assertEquals($arr, $result);
     }
 
     public function test_pack_unpack_object() {
         $object = new Buddy("mario", 40);
-        $res = MsgPack::encode($object);
-        $result = MsgPack::decode($res);
+        $res = \MsgPack\MsgPack::encode($object);
+        $result = \MsgPack\MsgPack::decode($res);
         $this->assertEquals($object, $result);
     }
 
@@ -44,8 +44,8 @@ class MsgPack_Test extends \PHPUnit_Framework_TestCase {
 
         $object = new Buddy("mario", 40);
 
-        $res = MsgPack::encode($object);
-        $result = MsgPack::decode($res, function($cn, $props) {
+        $res = \MsgPack\MsgPack::encode($object);
+        $result = \MsgPack\MsgPack::decode($res, function($cn, $props) {
             return new $cn($props['_name'], $props['_age']);
         });
         $this->assertEquals($object, $result);

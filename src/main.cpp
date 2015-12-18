@@ -9,8 +9,7 @@
 
 extern "C" {
     
-    PHPCPP_EXPORT void *get_module()
-    {
+    PHPCPP_EXPORT void *get_module() {
         static Php::Extension extension("php-czmq", "0.3");
 
         // Initialize zmq global context and defaults
@@ -67,7 +66,10 @@ extern "C" {
         });
 
     // MSGPACK
+
+        Php::Namespace msgpack_ns("MsgPack");
         Php::Class<MsgPack> mmsgpack = MsgPack::php_register();
+        msgpack_ns.add(std::move(mmsgpack));
 
     // CZMQ
 
@@ -248,7 +250,7 @@ extern "C" {
         extension.add(std::move(izemitter));
 
         // msgpack
-        extension.add(std::move(mmsgpack));
+        extension.add(std::move(msgpack_ns));
 
         // czmq
         extension.add(std::move(zsys));
