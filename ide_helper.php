@@ -447,7 +447,7 @@ class ZUdp implements \IZDescriptor {
 /**
  * ZMsg
  *
- * Multipart message handling
+ * ZeroMQ Multipart message handling.
  */
 class ZMsg implements \ArrayAccess, \Countable, \Traversable {
 
@@ -461,16 +461,16 @@ class ZMsg implements \ArrayAccess, \Countable, \Traversable {
   /**
    * Push a frame at the end of the message.
    * 
-   * @param \ZFrame &$frame Frame to append.
+   * @param \ZFrame &$data Frame to append.
   */
-  public function append(\ZFrame &$frame) {}
+  public function append(\ZFrame &$data) {}
 
   /**
    * Add a frame at the top of the message.
    * 
-   * @param \ZFrame &$frame Frame to prepend.
+   * @param \ZFrame &$data Frame to prepend.
   */
-  public function prepend(\ZFrame &$frame) {}
+  public function prepend(\ZFrame &$data) {}
 
   /**
    * Pop next frame in message.
@@ -501,64 +501,66 @@ class ZMsg implements \ArrayAccess, \Countable, \Traversable {
   public function pop_string() {}
 
   /**
-   * ...
+   * Push data frames as specified in the picture format at the end of the message.
    * 
-   * @param string $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function append_picture($picture) {}
 
   /**
-   * ...
+   * Add data frames as specified in the picture format at the top of the message.
    * 
-   * @param string $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function prepend_picture($picture) {}
 
   /**
-   * ...
+   * Pop frames from message as as specified in the picture format.
    * 
-   * @param string $picture ...
-   * @return array
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
+   * @return mixed
   */
   public function pop_picture($picture) {}
 
   /**
-   * ...
+   * Push a ZLib encoded frame at the end of the message.
    * 
-   * @param mixed $zipped ...
+   * @param string $data Data to append.
   */
-  public function append_zipped($zipped) {}
+  public function append_zipped($data) {}
 
   /**
-   * ...
+   * Add a ZLib encoded frame at the top of the message.
    * 
-   * @param mixed $zipped ...
+   * @param string $data Data to prepend.
   */
-  public function prepend_zipped($zipped) {}
+  public function prepend_zipped($data) {}
 
   /**
-   * ...
+   * Pop next ZLib decoded frame in message.
    * 
+   * @return mixed|null
   */
   public function pop_zipped() {}
 
   /**
-   * ...
+   * Push a MsgPack encoded frame at the end of the message.
    * 
-   * @param mixed $msgpack ...
+   * @param string $data Data to append.
   */
-  public function append_msgpack($msgpack) {}
+  public function append_msgpack($data) {}
 
   /**
-   * ...
+   * Add a MsgPack encoded frame at the top of the message.
    * 
-   * @param mixed $msgpack ...
+   * @param string $data Data to prepend.
   */
-  public function prepend_msgpack($msgpack) {}
+  public function prepend_msgpack($data) {}
 
   /**
-   * ...
+   * Pop next MsgPack decoded frame in message.
    * 
+   * @return mixed|null
   */
   public function pop_msgpack() {}
 
@@ -675,12 +677,12 @@ class ZMsg implements \ArrayAccess, \Countable, \Traversable {
 /**
  * ZFrame
  *
- * ...
+ * Single frame in multipart message.
  */
 class ZFrame {
 
   /**
-   * ...
+   *  
    * 
    * @return \ZFrame
   */
@@ -693,16 +695,17 @@ class ZFrame {
   public function dump() {}
 
   /**
-   * ...
+   * Pack binary data into the frame. Same as php pack function.
    * 
-   * @param string $format ...
+   * @param string $format See php pack.
   */
   public function pack($format) {}
 
   /**
-   * ...
+   * Unpack binary data from the frame. Same as php unpack function.
    * 
-   * @param string $format ...
+   * @param string $format See php unpack.
+   * @return mixed
   */
   public function unpack($format) {}
 
@@ -893,7 +896,7 @@ class ZPoll {
 class ZCert {
 
   /**
-   * ...
+   * Create e new Certificate, optionally load it's content from file.
    * 
    * @param string $filename Certificate filename. (optional)
    * @return \ZCert
@@ -915,53 +918,53 @@ class ZCert {
   public function get_secret_key() {}
 
   /**
-   * ...
+   * Return the meta value for the specified key.
    * 
-   * @param string $name ...
+   * @param string $name Meta key.
    * @return string
   */
   public function get_meta($name) {}
 
   /**
-   * ...
+   * Return an array of all available meta keys.
    * 
    * @return array
   */
   public function get_meta_keys() {}
 
   /**
-   * ...
+   * Set the meta value for the specified key.
    * 
-   * @param string $name ...
-   * @param string $value ...
+   * @param string $name Meta key.
+   * @param string $value Meta value.
   */
   public function set_meta($name, $value) {}
 
   /**
-   * ...
+   * Save the certificate to the specified filename.
    * 
-   * @param string $filename ...
+   * @param string $filename Certificate filename.
   */
   public function save($filename) {}
 
   /**
-   * ...
+   * Save the public key to the specified file.
    * 
-   * @param string $filename ...
+   * @param string $filename Public key filename.
   */
   public function save_public($filename) {}
 
   /**
-   * ...
+   * Save the secret key to the specified file.
    * 
-   * @param string $filename ...
+   * @param string $filename Secret key filename.
   */
   public function save_secret($filename) {}
 
   /**
-   * ...
+   * Apply the certificate to the specified socket.
    * 
-   * @param \IZSocket &$socket ...
+   * @param \IZSocket &$socket Socket that will got the certificate applied.
   */
   public function apply(\IZSocket &$socket) {}
 
@@ -1075,7 +1078,7 @@ interface IZEmitter {
 /**
  * ZSocket
  *
- * ...
+ * ZeroMQ Socket
  * @property int $handshake_ivl Get/Set maximum handshake interval. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc15)
  * @property-write string $rid Set the next outbound connection id. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc5) (write only)
  * @property-write bool $conflate Enable/Disable keep only last message. [more..](http://api.zeromq.org/4-1:zmq-setsockopt#toc6) (write only)
@@ -1135,7 +1138,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   /**
    * ...
    * 
-   * @param mixed $type ...
+   * @param mixed $type The socket type to be created.
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
   */
@@ -1148,7 +1151,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function set_verbose() {}
 
   /**
-   * ...
+   * Set socket to use unbounded pipes (HWM=0); use this in cases when you are totally certain the message volume can fit in memory
    * 
   */
   public function set_unbounded() {}
@@ -1184,20 +1187,24 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function disconnect($endpoint) {}
 
   /**
-   * ...
+   *  Send a signal over a socket. A signal is a short message carrying a success/failure code (by convention, 0 means OK).
+   * * Signals are encoded to be distinguishable from 'normal' messages
    * 
    * @param int $byte ...
+   * @return bool
   */
   public function signal($byte) {}
 
   /**
-   * ...
+   * Wait on a signal. Use this to coordinate between threads, over pipe pairs. Blocks until the signal is received.
    * 
+   * @return bool
   */
   public function wait() {}
 
   /**
-   * ...
+   * If there is a partial message still waiting on the socket, remove and discard it. This is useful
+   * * when reading partial messages, to get specific message types.
    * 
   */
   public function flush() {}
@@ -1210,7 +1217,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function recv() {}
 
   /**
-   * ...
+   * Recieve a message and pop first frame as string.
    * 
    * @return string
   */

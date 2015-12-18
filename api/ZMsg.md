@@ -3,7 +3,7 @@ ZMsg
 
 ZMsg
 
-Multipart message handling
+ZeroMQ Multipart message handling.
 
 
 * Class name: ZMsg
@@ -34,7 +34,7 @@ Methods
 
 ### append
 
-    mixed ZMsg::append(\ZFrame $frame)
+    mixed ZMsg::append(\ZFrame $data)
 
 Push a frame at the end of the message.
 
@@ -44,13 +44,13 @@ Push a frame at the end of the message.
 
 
 #### Arguments
-* $frame **[ZFrame](ZFrame.md)**
+* $data **[ZFrame](ZFrame.md)**
 
 
 
 ### prepend
 
-    mixed ZMsg::prepend(\ZFrame $frame)
+    mixed ZMsg::prepend(\ZFrame $data)
 
 Add a frame at the top of the message.
 
@@ -60,7 +60,7 @@ Add a frame at the top of the message.
 
 
 #### Arguments
-* $frame **[ZFrame](ZFrame.md)**
+* $data **[ZFrame](ZFrame.md)**
 
 
 
@@ -126,15 +126,15 @@ Pop next frame in message as string.
 
     mixed ZMsg::append_picture(string $picture)
 
+Push data frames as specified in the picture format at the end of the message.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **string** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to push in message.&lt;/p&gt;
 
 
 
@@ -142,73 +142,73 @@ Pop next frame in message as string.
 
     mixed ZMsg::prepend_picture(string $picture)
 
+Add data frames as specified in the picture format at the top of the message.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **string** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to push in message.&lt;/p&gt;
 
 
 
 ### pop_picture
 
-    array ZMsg::pop_picture(string $picture)
+    mixed ZMsg::pop_picture(string $picture)
+
+Pop frames from message as as specified in the picture format.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **string** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to push in message.&lt;/p&gt;
 
 
 
 ### append_zipped
 
-    mixed ZMsg::append_zipped(mixed $zipped)
+    mixed ZMsg::append_zipped(string $data)
+
+Push a ZLib encoded frame at the end of the message.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $zipped **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;Data to append.&lt;/p&gt;
 
 
 
 ### prepend_zipped
 
-    mixed ZMsg::prepend_zipped(mixed $zipped)
+    mixed ZMsg::prepend_zipped(string $data)
+
+Add a ZLib encoded frame at the top of the message.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $zipped **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;Data to prepend.&lt;/p&gt;
 
 
 
 ### pop_zipped
 
-    mixed ZMsg::pop_zipped()
+    mixed|null ZMsg::pop_zipped()
+
+Pop next ZLib decoded frame in message.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -217,43 +217,43 @@ Pop next frame in message as string.
 
 ### append_msgpack
 
-    mixed ZMsg::append_msgpack(mixed $msgpack)
+    mixed ZMsg::append_msgpack(string $data)
+
+Push a MsgPack encoded frame at the end of the message.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $msgpack **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;Data to append.&lt;/p&gt;
 
 
 
 ### prepend_msgpack
 
-    mixed ZMsg::prepend_msgpack(mixed $msgpack)
+    mixed ZMsg::prepend_msgpack(string $data)
+
+Add a MsgPack encoded frame at the top of the message.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $msgpack **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;Data to prepend.&lt;/p&gt;
 
 
 
 ### pop_msgpack
 
-    mixed ZMsg::pop_msgpack()
+    mixed|null ZMsg::pop_msgpack()
+
+Pop next MsgPack decoded frame in message.
 
 
-
-...
 
 * Visibility: **public**
 

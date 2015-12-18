@@ -584,10 +584,10 @@ public:
         o.method("__construct", &ZMsg::__construct);
 
         o.method("append", &ZMsg::append, {
-            Php::ByRef("frame", "ZFrame", false, true)
+            Php::ByRef("data", "ZFrame", false, true)
         });
         o.method("prepend", &ZMsg::prepend, {
-            Php::ByRef("frame", "ZFrame", false, true)
+            Php::ByRef("data", "ZFrame", false, true)
         });
         o.method("pop", &ZMsg::pop);
 
@@ -610,18 +610,18 @@ public:
         });
         
         o.method("append_zipped", &ZMsg::append_zipped, {
-            Php::ByVal("zipped", Php::Type::String, true)
+            Php::ByVal("data", Php::Type::String, true)
         });
         o.method("prepend_zipped", &ZMsg::prepend_zipped, {
-            Php::ByVal("zipped", Php::Type::String, true)
+            Php::ByVal("data", Php::Type::String, true)
         });
         o.method("pop_zipped", &ZMsg::pop_zipped);
         
         o.method("append_msgpack", &ZMsg::append_msgpack, {
-            Php::ByVal("msgpack", Php::Type::String, true)
+            Php::ByVal("data", Php::Type::String, true)
         });
         o.method("prepend_msgpack", &ZMsg::prepend_msgpack, {
-            Php::ByVal("msgpack", Php::Type::String, true)
+            Php::ByVal("data", Php::Type::String, true)
         });
         o.method("pop_msgpack", &ZMsg::pop_msgpack);
 

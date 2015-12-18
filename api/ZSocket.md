@@ -3,7 +3,7 @@ ZSocket
 
 ZSocket
 
-...
+ZeroMQ Socket
 
 
 * Class name: ZSocket
@@ -616,7 +616,7 @@ Methods
 
 
 #### Arguments
-* $type **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $type **mixed** - &lt;p&gt;The socket type to be created.&lt;/p&gt;
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
 
 
@@ -638,9 +638,9 @@ Enable verbose mode debug outputs are shown.
 
     mixed ZSocket::set_unbounded()
 
+Set socket to use unbounded pipes (HWM=0); use this in cases when you are totally certain the message volume can fit in memory
 
 
-...
 
 * Visibility: **public**
 
@@ -713,11 +713,11 @@ Disconnect from the specified endpoint(s).
 
 ### signal
 
-    mixed ZSocket::signal(integer $byte)
+    boolean ZSocket::signal(integer $byte)
 
+Send a signal over a socket. A signal is a short message carrying a success/failure code (by convention, 0 means OK).
 
-
-...
+* Signals are encoded to be distinguishable from 'normal' messages
 
 * Visibility: **public**
 
@@ -729,11 +729,11 @@ Disconnect from the specified endpoint(s).
 
 ### wait
 
-    mixed ZSocket::wait()
+    boolean ZSocket::wait()
+
+Wait on a signal. Use this to coordinate between threads, over pipe pairs. Blocks until the signal is received.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -744,9 +744,10 @@ Disconnect from the specified endpoint(s).
 
     mixed ZSocket::flush()
 
+If there is a partial message still waiting on the socket, remove and discard it. This is useful
+* when reading partial messages, to get specific message types.
 
 
-...
 
 * Visibility: **public**
 
@@ -770,9 +771,9 @@ Recieve next message from the socket.
 
     string ZSocket::recv_string()
 
+Recieve a message and pop first frame as string.
 
 
-...
 
 * Visibility: **public**
 

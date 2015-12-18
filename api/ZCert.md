@@ -23,9 +23,9 @@ Methods
 
     \ZCert ZCert::__construct(string $filename)
 
+Create e new Certificate, optionally load it's content from file.
 
 
-...
 
 * Visibility: **public**
 
@@ -65,15 +65,15 @@ Return the secret key.
 
     string ZCert::get_meta(string $name)
 
+Return the meta value for the specified key.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $name **string** - &lt;p&gt;...&lt;/p&gt;
+* $name **string** - &lt;p&gt;Meta key.&lt;/p&gt;
 
 
 
@@ -81,9 +81,9 @@ Return the secret key.
 
     array ZCert::get_meta_keys()
 
+Return an array of all available meta keys.
 
 
-...
 
 * Visibility: **public**
 
@@ -94,16 +94,16 @@ Return the secret key.
 
     mixed ZCert::set_meta(string $name, string $value)
 
+Set the meta value for the specified key.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $name **string** - &lt;p&gt;...&lt;/p&gt;
-* $value **string** - &lt;p&gt;...&lt;/p&gt;
+* $name **string** - &lt;p&gt;Meta key.&lt;/p&gt;
+* $value **string** - &lt;p&gt;Meta value.&lt;/p&gt;
 
 
 
@@ -111,15 +111,15 @@ Return the secret key.
 
     mixed ZCert::save(string $filename)
 
+Save the certificate to the specified filename.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $filename **string** - &lt;p&gt;...&lt;/p&gt;
+* $filename **string** - &lt;p&gt;Certificate filename.&lt;/p&gt;
 
 
 
@@ -127,15 +127,15 @@ Return the secret key.
 
     mixed ZCert::save_public(string $filename)
 
+Save the public key to the specified file.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $filename **string** - &lt;p&gt;...&lt;/p&gt;
+* $filename **string** - &lt;p&gt;Public key filename.&lt;/p&gt;
 
 
 
@@ -143,15 +143,15 @@ Return the secret key.
 
     mixed ZCert::save_secret(string $filename)
 
+Save the secret key to the specified file.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $filename **string** - &lt;p&gt;...&lt;/p&gt;
+* $filename **string** - &lt;p&gt;Secret key filename.&lt;/p&gt;
 
 
 
@@ -159,9 +159,9 @@ Return the secret key.
 
     mixed ZCert::apply(\IZSocket $socket)
 
+Apply the certificate to the specified socket.
 
 
-...
 
 * Visibility: **public**
 

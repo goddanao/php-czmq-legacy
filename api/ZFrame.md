@@ -3,7 +3,7 @@ ZFrame
 
 ZFrame
 
-...
+Single frame in multipart message.
 
 
 * Class name: ZFrame
@@ -25,7 +25,7 @@ Methods
 
 
 
-...
+
 
 * Visibility: **public**
 
@@ -49,15 +49,15 @@ Dump the object to console.
 
     mixed ZFrame::pack(string $format)
 
+Pack binary data into the frame. Same as php pack function.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $format **string** - &lt;p&gt;...&lt;/p&gt;
+* $format **string** - &lt;p&gt;See php pack.&lt;/p&gt;
 
 
 
@@ -65,14 +65,14 @@ Dump the object to console.
 
     mixed ZFrame::unpack(string $format)
 
+Unpack binary data from the frame. Same as php unpack function.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $format **string** - &lt;p&gt;...&lt;/p&gt;
+* $format **string** - &lt;p&gt;See php unpack.&lt;/p&gt;
 
 
