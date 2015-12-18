@@ -175,9 +175,9 @@ Return the secret key.
 
     mixed ZCert::dump()
 
+Dump the object to console.
 
 
-...
 
 * Visibility: **public**
 

@@ -36,9 +36,9 @@ Methods
 
     mixed ZMsg::append(\ZFrame $frame)
 
+Push a frame at the end of the message.
 
 
-...
 
 * Visibility: **public**
 
@@ -52,9 +52,9 @@ Methods
 
     mixed ZMsg::prepend(\ZFrame $frame)
 
+Add a frame at the top of the message.
 
 
-...
 
 * Visibility: **public**
 
@@ -66,11 +66,11 @@ Methods
 
 ### pop
 
-    \ZFrame ZMsg::pop()
+    \ZFrame|null ZMsg::pop()
+
+Pop next frame in message.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -81,15 +81,15 @@ Methods
 
     mixed ZMsg::append_string(string $data)
 
+Push a string frame at the end of the message.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **string** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;Data to append.&lt;/p&gt;
 
 
 
@@ -97,25 +97,25 @@ Methods
 
     mixed ZMsg::prepend_string(string $data)
 
+Add a string frame at the top of the message.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **string** - &lt;p&gt;...&lt;/p&gt;
+* $data **string** - &lt;p&gt;Data to prepend.&lt;/p&gt;
 
 
 
 ### pop_string
 
-    string ZMsg::pop_string()
+    string|null ZMsg::pop_string()
+
+Pop next frame in message as string.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -264,7 +264,7 @@ Methods
 
     mixed ZMsg::send(\IZSocket $socket)
 
-Send a ZMsg
+Send message.
 
 
 
@@ -280,9 +280,9 @@ Send a ZMsg
 
     mixed ZMsg::remove(\ZFrame $frame)
 
+Remove the specified frame from the message.
 
 
-...
 
 * Visibility: **public**
 
@@ -294,11 +294,11 @@ Send a ZMsg
 
 ### first
 
-    \ZFrame ZMsg::first()
+    \ZFrame|null ZMsg::first()
+
+Return first frame in message and reset the iterator.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -307,11 +307,11 @@ Send a ZMsg
 
 ### next
 
-    \ZFrame ZMsg::next()
+    \ZFrame|null ZMsg::next()
+
+Return next frame in message and increment the iterator.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -320,11 +320,11 @@ Send a ZMsg
 
 ### last
 
-    \ZFrame ZMsg::last()
+    \ZFrame|null ZMsg::last()
+
+Return last frame in message and put the iterator to the end.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -335,9 +335,9 @@ Send a ZMsg
 
     integer ZMsg::get_size()
 
+Return the number of frames in message.
 
 
-...
 
 * Visibility: **public**
 
@@ -348,9 +348,9 @@ Send a ZMsg
 
     integer ZMsg::get_content_size()
 
+Return the size (in bytes) of the entire message.
 
 
-...
 
 * Visibility: **public**
 
@@ -359,33 +359,33 @@ Send a ZMsg
 
 ### save
 
-    mixed ZMsg::save(mixed $file)
+    mixed ZMsg::save(string $file)
+
+Save the message to a file.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $file **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $file **string** - &lt;p&gt;File name.&lt;/p&gt;
 
 
 
 ### load
 
-    mixed ZMsg::load(mixed $file)
+    mixed ZMsg::load(string $file)
+
+Load message from a file.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $file **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $file **string** - &lt;p&gt;File name.&lt;/p&gt;
 
 
 
@@ -393,9 +393,9 @@ Send a ZMsg
 
     mixed ZMsg::dump()
 
+Dump the object to console.
 
 
-...
 
 * Visibility: **public**
 

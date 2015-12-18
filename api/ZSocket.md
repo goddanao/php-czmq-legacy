@@ -625,9 +625,9 @@ Methods
 
     mixed ZSocket::set_verbose()
 
+Enable verbose mode debug outputs are shown.
 
 
-...
 
 * Visibility: **public**
 
@@ -649,17 +649,17 @@ Methods
 
 ### bind
 
-    mixed ZSocket::bind(string $endpoint)
+    boolean ZSocket::bind(string|array $endpoint)
+
+Bind to the specified endpoint(s).
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string|array** - &lt;p&gt;Endpoint(s) to bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;)&lt;/p&gt;
 
 
 
@@ -681,17 +681,17 @@ Methods
 
 ### connect
 
-    mixed ZSocket::connect(string $endpoint)
+    boolean ZSocket::connect(string|array $endpoint)
+
+Connect to the specified endpoint(s).
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string|array** - &lt;p&gt;Endpoint(s) to connect to. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;)&lt;/p&gt;
 
 
 
@@ -757,9 +757,9 @@ Methods
 
     \ZMsg ZSocket::recv()
 
+Recieve next message from the socket.
 
 
-...
 
 * Visibility: **public**
 
@@ -823,17 +823,17 @@ Recieve a message and pop first frame decoding with ZLib.
 
 ### send
 
-    mixed ZSocket::send(string $data)
+    mixed ZSocket::send(mixed $data)
+
+Send message.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **string** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;Data to send.&lt;/p&gt;
 
 
 
@@ -857,15 +857,15 @@ Send a one frame only message with a string.
 
     mixed ZSocket::send_picture(string $picture)
 
+Send a message composed by data frames as specified in the picture format.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **string** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to push in message.&lt;/p&gt;
 
 
 
@@ -889,15 +889,15 @@ Send a one frame only message encoded with MsgPack.
 
     mixed ZSocket::send_zipped(mixed $data)
 
+Send a one frame only message encoded with ZLib.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to be encoded.&lt;/p&gt;
 
 
 
@@ -1217,32 +1217,32 @@ Get the underlying ZSocket.
 
 ### subscribe
 
-    mixed ZSocket::subscribe(mixed $topic)
+    mixed ZSocket::subscribe(string $topic)
+
+Subscribe a specific topic. (only ZMQ_SUB socket type).
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $topic **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $topic **string** - &lt;p&gt;Topic name.&lt;/p&gt;
 
 
 
 ### unsubscribe
 
-    mixed ZSocket::unsubscribe(mixed $topic)
+    mixed ZSocket::unsubscribe(string $topic)
+
+Unsubscribe a specific topic. (only ZMQ_SUB socket type).
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $topic **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $topic **string** - &lt;p&gt;Topic name.&lt;/p&gt;
 
 

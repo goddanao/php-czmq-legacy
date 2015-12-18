@@ -250,7 +250,7 @@ Methods
 
     \ZMsg ZInotify::recv()
 
-Recieve a ZMsg.
+Recieve next message from the socket.
 
 
 

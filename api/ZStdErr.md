@@ -21,11 +21,11 @@ Methods
 
 ### recv
 
-    string ZStdErr::recv()
+    \ZMsg ZStdErr::recv()
+
+Recieve next message from the socket.
 
 
-
-...
 
 * Visibility: **public**
 
@@ -34,17 +34,17 @@ Methods
 
 ### send
 
-    mixed ZStdErr::send(array|string|\ZFrame|\ZMsg $data)
+    mixed ZStdErr::send(mixed $data)
+
+Send message.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **array|string|[ZFrame](ZFrame.md)|[ZMsg](ZMsg.md)** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;Data to send.&lt;/p&gt;
 
 
 

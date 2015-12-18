@@ -36,9 +36,9 @@ Methods
 
     mixed ZFrame::dump()
 
+Dump the object to console.
 
 
-...
 
 * Visibility: **public**
 

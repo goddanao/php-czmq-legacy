@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Majordomo\Titanic Majordomo\Titanic::__construct(string $endpoint, \FileMq\ITitanicStorage $storage, integer $threads)
+    \Majordomo\Titanic Majordomo\Titanic::__construct(string $endpoint, \MsgPack\ITitanicStorage $storage, integer $threads)
 
 
 
@@ -32,14 +32,14 @@ Methods
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
-* $storage **FileMq\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $storage **MsgPack\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
 * $threads **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### run
 
-    mixed Majordomo\Titanic::run(string $endpoint, \FileMq\ITitanicStorage $storage, integer $threads)
+    mixed Majordomo\Titanic::run(string $endpoint, \MsgPack\ITitanicStorage $storage, integer $threads)
 
 
 
@@ -51,7 +51,7 @@ Methods
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
-* $storage **FileMq\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $storage **MsgPack\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
 * $threads **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
@@ -73,17 +73,17 @@ Methods
 
     mixed IZEmitter::on(string $event, callable $listener)
 
+Register an event listener.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Callback.&lt;/p&gt;
 
 
 
@@ -91,17 +91,17 @@ Methods
 
     mixed IZEmitter::once(string $event, callable $listener)
 
+Register an event listener to be executed once.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Event callback.&lt;/p&gt;
 
 
 
@@ -109,17 +109,17 @@ Methods
 
     mixed IZEmitter::remove_listener(string $event, callable $listener)
 
+Remove a registered listener.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Event callback.&lt;/p&gt;
 
 
 
@@ -127,16 +127,16 @@ Methods
 
     mixed IZEmitter::remove_all_listeners(string $event)
 
+Remove all registered listeners for the event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name. (optional)&lt;/p&gt;
 
 
 
@@ -144,16 +144,16 @@ Methods
 
     array|null IZEmitter::listeners(string $event)
 
+Return the listeners registered for the event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
 
 
 
@@ -161,17 +161,17 @@ Methods
 
     mixed IZEmitter::emit(string $event, array $arguments)
 
+Emit an event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $arguments **array** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $arguments **array** - &lt;p&gt;Event arguments.&lt;/p&gt;
 
 
 
@@ -179,7 +179,7 @@ Methods
 
     \ZMsg Majordomo\Titanic::recv()
 
-Recieve next message.
+Recieve next message from the socket.
 
 
 
@@ -247,15 +247,15 @@ Recieve a message and pop first frame decoding with ZLib.
 
     mixed Majordomo\Titanic::send(mixed $data)
 
+Send message.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;Data to send.&lt;/p&gt;
 
 
 
@@ -277,17 +277,17 @@ Send a one frame only message with a string.
 
 ### send_picture
 
-    mixed Majordomo\Titanic::send_picture(mixed $picture)
+    mixed Majordomo\Titanic::send_picture(string $picture)
+
+Send a message composed by data frames as specified in the picture format.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to push in message.&lt;/p&gt;
 
 
 
@@ -311,15 +311,15 @@ Send a one frame only message encoded with MsgPack.
 
     mixed Majordomo\Titanic::send_zipped(mixed $data)
 
+Send a one frame only message encoded with ZLib.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to be encoded.&lt;/p&gt;
 
 
 

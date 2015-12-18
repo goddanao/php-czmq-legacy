@@ -21,17 +21,17 @@ Methods
 
 ### set_verbose
 
-    mixed ZPoll::set_verbose(boolean $verbose)
+    mixed ZPoll::set_verbose(mixed $verbose)
+
+Enable verbose mode debug outputs are shown.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $verbose **boolean** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 

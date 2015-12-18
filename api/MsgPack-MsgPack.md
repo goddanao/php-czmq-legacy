@@ -1,4 +1,4 @@
-MsgPack
+MsgPack\MsgPack
 ===============
 
 MsgPack
@@ -8,7 +8,7 @@ Supports basic php types and objects (only public properties).
 
 
 * Class name: MsgPack
-* Namespace: 
+* Namespace: MsgPack
 
 
 
@@ -22,7 +22,7 @@ Methods
 
 ### encode
 
-    mixed MsgPack::encode(mixed $data, callable $encoder)
+    mixed MsgPack\MsgPack::encode(mixed $data, callable $encoder)
 
 Encode the specified data.
 
@@ -40,7 +40,7 @@ Encode the specified data.
 
 ### decode
 
-    mixed MsgPack::decode(mixed $data, callable $decoder)
+    mixed MsgPack\MsgPack::decode(mixed $data, callable $decoder)
 
 Decode the specified msgpack data.
 

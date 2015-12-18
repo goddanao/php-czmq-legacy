@@ -36,9 +36,9 @@ Methods
 
     mixed ZLoop::set_verbose()
 
+Enable verbose mode debug outputs are shown.
 
 
-...
 
 * Visibility: **public**
 

@@ -41,7 +41,7 @@ Methods
 
     mixed ZUdp::set_verbose()
 
-Verbose logging
+Enable verbose mode debug outputs are shown.
 
 
 
@@ -54,7 +54,7 @@ Verbose logging
 
     \ZMsg ZUdp::recv()
 
-Recieve a ZMsg.
+Recieve next message from the socket.
 
 
 
@@ -122,7 +122,7 @@ Recieve a message and pop first frame decoding with ZLib.
 
     mixed ZUdp::send(mixed $data)
 
-Send a ZMsg.
+Send message.
 
 
 
@@ -130,7 +130,7 @@ Send a ZMsg.
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;Data to send.&lt;/p&gt;
 
 
 
@@ -152,17 +152,17 @@ Send a one frame only message with a string.
 
 ### send_picture
 
-    mixed ZUdp::send_picture(mixed $picture)
+    mixed ZUdp::send_picture(string $picture)
+
+Send a message composed by data frames as specified in the picture format.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to push in message.&lt;/p&gt;
 
 
 
@@ -186,15 +186,15 @@ Send a one frame only message encoded with MsgPack.
 
     mixed ZUdp::send_zipped(mixed $data)
 
+Send a one frame only message encoded with ZLib.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to be encoded.&lt;/p&gt;
 
 
 

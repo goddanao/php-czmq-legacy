@@ -55,11 +55,11 @@ Creates a new Zyre node. Note that until you start the node it is silent and inv
 
 ### connect
 
-    mixed Zyre\Zyre::connect()
+    boolean Zyre\Zyre::connect()
+
+Connect to the specified endpoint(s).
 
 
-
-...
 
 * Visibility: **public**
 
@@ -83,7 +83,7 @@ Creates a new Zyre node. Note that until you start the node it is silent and inv
 
     \ZMsg Zyre\Zyre::recv()
 
-Receive next message from network. The message may be a control message (ENTER, EXIT, JOIN, LEAVE) or data (WHISPER, SHOUT). Returns ZMsg object, or NULL if interrupted.
+Recieve next message from the socket.
 
 
 
@@ -96,7 +96,7 @@ Receive next message from network. The message may be a control message (ENTER, 
 
     mixed Zyre\Zyre::dump()
 
-Dump the Zyre node configuration.
+Dump the object to console.
 
 
 
@@ -314,7 +314,7 @@ Get Zyre version.
 
     mixed Zyre\Zyre::set_verbose()
 
-Set verbose mode; this tells the node to log all traffic as well as all major events.
+Enable verbose mode debug outputs are shown.
 
 
 
@@ -423,17 +423,17 @@ Start node, after setting header values. When you start a node it begins discove
 
     mixed IZEmitter::on(string $event, callable $listener)
 
+Register an event listener.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Callback.&lt;/p&gt;
 
 
 
@@ -441,17 +441,17 @@ Start node, after setting header values. When you start a node it begins discove
 
     mixed IZEmitter::once(string $event, callable $listener)
 
+Register an event listener to be executed once.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Event callback.&lt;/p&gt;
 
 
 
@@ -459,17 +459,17 @@ Start node, after setting header values. When you start a node it begins discove
 
     mixed IZEmitter::remove_listener(string $event, callable $listener)
 
+Remove a registered listener.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Event callback.&lt;/p&gt;
 
 
 
@@ -477,16 +477,16 @@ Start node, after setting header values. When you start a node it begins discove
 
     mixed IZEmitter::remove_all_listeners(string $event)
 
+Remove all registered listeners for the event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name. (optional)&lt;/p&gt;
 
 
 
@@ -494,16 +494,16 @@ Start node, after setting header values. When you start a node it begins discove
 
     array|null IZEmitter::listeners(string $event)
 
+Return the listeners registered for the event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
 
 
 
@@ -511,17 +511,17 @@ Start node, after setting header values. When you start a node it begins discove
 
     mixed IZEmitter::emit(string $event, array $arguments)
 
+Emit an event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $arguments **array** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $arguments **array** - &lt;p&gt;Event arguments.&lt;/p&gt;
 
 
 

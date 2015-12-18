@@ -39,9 +39,9 @@ Methods
 
     mixed Majordomo\Client::set_verbose()
 
+Enable verbose mode debug outputs are shown.
 
 
-...
 
 * Visibility: **public**
 
@@ -84,9 +84,9 @@ Methods
 
     \ZMsg Majordomo\Client::recv()
 
+Recieve next message from the socket.
 
 
-...
 
 * Visibility: **public**
 
@@ -152,15 +152,15 @@ Recieve a message and pop first frame decoding with ZLib.
 
     mixed Majordomo\Client::send(mixed $data)
 
+Send message.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;Data to send.&lt;/p&gt;
 
 
 
@@ -182,17 +182,17 @@ Send a one frame only message with a string.
 
 ### send_picture
 
-    mixed Majordomo\Client::send_picture(mixed $picture)
+    mixed Majordomo\Client::send_picture(string $picture)
+
+Send a message composed by data frames as specified in the picture format.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to push in message.&lt;/p&gt;
 
 
 
@@ -216,15 +216,15 @@ Send a one frame only message encoded with MsgPack.
 
     mixed Majordomo\Client::send_zipped(mixed $data)
 
+Send a one frame only message encoded with ZLib.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to be encoded.&lt;/p&gt;
 
 
 

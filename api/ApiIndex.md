@@ -26,7 +26,6 @@ API Index
 * [ZStdIn](ZStdIn.md)
 * [ZStdOut](ZStdOut.md)
 * [ZStdErr](ZStdErr.md)
-* [MsgPack](MsgPack.md)
 * Zyre
     * [Zyre](Zyre-Zyre.md)
 * Malamute
@@ -38,4 +37,6 @@ API Index
 * FileMq
     * [Server](FileMq-Server.md)
     * [Client](FileMq-Client.md)
+* MsgPack
+    * [MsgPack](MsgPack-MsgPack.md)
 

@@ -59,16 +59,16 @@ Methods
 
     mixed Malamute\Producer::send(mixed $subject, mixed $data)
 
+Send message.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
 * $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;Data to send.&lt;/p&gt;
 
 
 
@@ -91,18 +91,18 @@ Send a one frame only message with a string.
 
 ### send_picture
 
-    mixed Malamute\Producer::send_picture(mixed $subject, mixed $picture, mixed $data)
+    mixed Malamute\Producer::send_picture(mixed $subject, string $picture, mixed $data)
+
+Send a message composed by data frames as specified in the picture format.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
 * $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to push in message.&lt;/p&gt;
 * $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
@@ -128,16 +128,16 @@ Send a one frame only message encoded with MsgPack.
 
     mixed Malamute\Producer::send_zipped(mixed $subject, mixed $data)
 
+Send a one frame only message encoded with ZLib.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
 * $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to be encoded.&lt;/p&gt;
 
 
 
@@ -158,17 +158,17 @@ Send a one frame only message encoded with MsgPack.
 
     mixed IZEmitter::on(string $event, callable $listener)
 
+Register an event listener.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Callback.&lt;/p&gt;
 
 
 
@@ -176,17 +176,17 @@ Send a one frame only message encoded with MsgPack.
 
     mixed IZEmitter::once(string $event, callable $listener)
 
+Register an event listener to be executed once.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Event callback.&lt;/p&gt;
 
 
 
@@ -194,17 +194,17 @@ Send a one frame only message encoded with MsgPack.
 
     mixed IZEmitter::remove_listener(string $event, callable $listener)
 
+Remove a registered listener.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Event callback.&lt;/p&gt;
 
 
 
@@ -212,16 +212,16 @@ Send a one frame only message encoded with MsgPack.
 
     mixed IZEmitter::remove_all_listeners(string $event)
 
+Remove all registered listeners for the event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name. (optional)&lt;/p&gt;
 
 
 
@@ -229,16 +229,16 @@ Send a one frame only message encoded with MsgPack.
 
     array|null IZEmitter::listeners(string $event)
 
+Return the listeners registered for the event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
 
 
 
@@ -246,17 +246,17 @@ Send a one frame only message encoded with MsgPack.
 
     mixed IZEmitter::emit(string $event, array $arguments)
 
+Emit an event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $arguments **array** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $arguments **array** - &lt;p&gt;Event arguments.&lt;/p&gt;
 
 
 

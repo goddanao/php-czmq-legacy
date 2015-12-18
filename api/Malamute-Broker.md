@@ -38,17 +38,17 @@ Methods
 
 ### bind
 
-    mixed Malamute\Broker::bind(string $endpoint)
+    boolean Malamute\Broker::bind(string|array $endpoint)
+
+Bind to the specified endpoint(s).
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+* $endpoint **string|array** - &lt;p&gt;Endpoint(s) to bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;)&lt;/p&gt;
 
 
 
@@ -74,15 +74,15 @@ Methods
 
     mixed Malamute\Broker::load_config(string $filename)
 
+Load the configuration data from a file.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $filename **string** - &lt;p&gt;...&lt;/p&gt;
+* $filename **string** - &lt;p&gt;File name.&lt;/p&gt;
 
 
 
@@ -90,15 +90,15 @@ Methods
 
     mixed Malamute\Broker::save_config(string $filename)
 
+Save the configuration data to a file.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $filename **string** - &lt;p&gt;...&lt;/p&gt;
+* $filename **string** - &lt;p&gt;File name.&lt;/p&gt;
 
 
 
@@ -106,16 +106,16 @@ Methods
 
     mixed Malamute\Broker::set_config(string $key, string $value)
 
+Set a config key to a specific value.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $key **string** - &lt;p&gt;...&lt;/p&gt;
-* $value **string** - &lt;p&gt;...&lt;/p&gt;
+* $key **string** - &lt;p&gt;Configuration key.&lt;/p&gt;
+* $value **string** - &lt;p&gt;Configuration value.&lt;/p&gt;
 
 
 
@@ -136,17 +136,17 @@ Methods
 
     mixed IZEmitter::on(string $event, callable $listener)
 
+Register an event listener.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Callback.&lt;/p&gt;
 
 
 
@@ -154,17 +154,17 @@ Methods
 
     mixed IZEmitter::once(string $event, callable $listener)
 
+Register an event listener to be executed once.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Event callback.&lt;/p&gt;
 
 
 
@@ -172,17 +172,17 @@ Methods
 
     mixed IZEmitter::remove_listener(string $event, callable $listener)
 
+Remove a registered listener.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $listener **callable** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $listener **callable** - &lt;p&gt;Event callback.&lt;/p&gt;
 
 
 
@@ -190,16 +190,16 @@ Methods
 
     mixed IZEmitter::remove_all_listeners(string $event)
 
+Remove all registered listeners for the event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name. (optional)&lt;/p&gt;
 
 
 
@@ -207,16 +207,16 @@ Methods
 
     array|null IZEmitter::listeners(string $event)
 
+Return the listeners registered for the event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
 
 
 
@@ -224,17 +224,17 @@ Methods
 
     mixed IZEmitter::emit(string $event, array $arguments)
 
+Emit an event.
 
 
-...
 
 * Visibility: **public**
 * This method is defined by [IZEmitter](IZEmitter.md)
 
 
 #### Arguments
-* $event **string** - &lt;p&gt;...&lt;/p&gt;
-* $arguments **array** - &lt;p&gt;...&lt;/p&gt;
+* $event **string** - &lt;p&gt;Event name.&lt;/p&gt;
+* $arguments **array** - &lt;p&gt;Event arguments.&lt;/p&gt;
 
 
 
@@ -242,7 +242,7 @@ Methods
 
     \ZMsg Malamute\Broker::recv()
 
-Recieve next message.
+Recieve next message from the socket.
 
 
 
@@ -310,15 +310,15 @@ Recieve a message and pop first frame decoding with ZLib.
 
     mixed Malamute\Broker::send(mixed $data)
 
+Send message.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;Data to send.&lt;/p&gt;
 
 
 
@@ -340,17 +340,17 @@ Send a one frame only message with a string.
 
 ### send_picture
 
-    mixed Malamute\Broker::send_picture(mixed $picture)
+    mixed Malamute\Broker::send_picture(string $picture)
+
+Send a message composed by data frames as specified in the picture format.
 
 
-
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $picture **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $picture **string** - &lt;p&gt;Positional string indicating the sequence and data type(s) to push in message.&lt;/p&gt;
 
 
 
@@ -374,15 +374,15 @@ Send a one frame only message encoded with MsgPack.
 
     mixed Malamute\Broker::send_zipped(mixed $data)
 
+Send a one frame only message encoded with ZLib.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $data **mixed** - &lt;p&gt;The data to be encoded.&lt;/p&gt;
 
 
 

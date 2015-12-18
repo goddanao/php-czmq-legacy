@@ -89,7 +89,7 @@ Methods
 
     \ZMsg Malamute\Client::recv()
 
-Recieve a ZMsg.
+Recieve next message from the socket.
 
 
 

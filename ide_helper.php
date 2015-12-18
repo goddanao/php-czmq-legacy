@@ -351,13 +351,13 @@ class ZUdp implements \IZDescriptor {
   public function __construct($interface = null, $port = 5670, $routable = false) {}
 
   /**
-   * Verbose logging
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
 
   /**
-   * Recieve a ZMsg.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -393,9 +393,9 @@ class ZUdp implements \IZDescriptor {
   public function recv_zipped() {}
 
   /**
-   * Send a ZMsg.
+   * Send message.
    * 
-   * @param mixed $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -407,9 +407,9 @@ class ZUdp implements \IZDescriptor {
   public function send_string($data) {}
 
   /**
-   * ...
+   * Send a message composed by data frames as specified in the picture format.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function send_picture($picture) {}
 
@@ -421,9 +421,9 @@ class ZUdp implements \IZDescriptor {
   public function send_msgpack($data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with ZLib.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
 
@@ -452,44 +452,44 @@ class ZMsg implements \ArrayAccess, \Countable, \Traversable {
   public function __construct() {}
 
   /**
-   * ...
+   * Push a frame at the end of the message.
    * 
-   * @param \ZFrame &$frame ...
+   * @param \ZFrame &$frame Frame to append.
   */
   public function append(\ZFrame &$frame) {}
 
   /**
-   * ...
+   * Add a frame at the top of the message.
    * 
-   * @param \ZFrame &$frame ...
+   * @param \ZFrame &$frame Frame to prepend.
   */
   public function prepend(\ZFrame &$frame) {}
 
   /**
-   * ...
+   * Pop next frame in message.
    * 
-   * @return \ZFrame
+   * @return \ZFrame|null
   */
   public function pop() {}
 
   /**
-   * ...
+   * Push a string frame at the end of the message.
    * 
-   * @param string $data ...
+   * @param string $data Data to append.
   */
   public function append_string($data) {}
 
   /**
-   * ...
+   * Add a string frame at the top of the message.
    * 
-   * @param string $data ...
+   * @param string $data Data to prepend.
   */
   public function prepend_string($data) {}
 
   /**
-   * ...
+   * Pop next frame in message as string.
    * 
-   * @return string
+   * @return string|null
   */
   public function pop_string() {}
 
@@ -556,70 +556,70 @@ class ZMsg implements \ArrayAccess, \Countable, \Traversable {
   public function pop_msgpack() {}
 
   /**
-   * Send a ZMsg
+   * Send message.
    * 
-   * @param \IZSocket &$socket ...
+   * @param IZSocket &$socket ...
   */
   public function send(\IZSocket &$socket) {}
 
   /**
-   * ...
+   * Remove the specified frame from the message.
    * 
-   * @param \ZFrame &$frame ...
+   * @param \ZFrame &$frame The frame to remove.
   */
   public function remove(\ZFrame &$frame) {}
 
   /**
-   * ...
+   * Return first frame in message and reset the iterator.
    * 
-   * @return \ZFrame
+   * @return \ZFrame|null
   */
   public function first() {}
 
   /**
-   * ...
+   * Return next frame in message and increment the iterator.
    * 
-   * @return \ZFrame
+   * @return \ZFrame|null
   */
   public function next() {}
 
   /**
-   * ...
+   * Return last frame in message and put the iterator to the end.
    * 
-   * @return \ZFrame
+   * @return \ZFrame|null
   */
   public function last() {}
 
   /**
-   * ...
+   * Return the number of frames in message.
    * 
    * @return int
   */
   public function get_size() {}
 
   /**
-   * ...
+   * Return the size (in bytes) of the entire message.
    * 
    * @return int
   */
   public function get_content_size() {}
 
   /**
-   * ...
+   * Save the message to a file.
    * 
-   * @param mixed $file ...
+   * @param string $file File name.
   */
   public function save($file) {}
 
   /**
-   * ...
+   * Load message from a file.
    * 
-   * @param mixed $file ...
+   * @param string $file File name.
   */
   public function load($file) {}
 
   /**
-   * ...
+   * Dump the object to console.
    * 
   */
   public function dump() {}
@@ -680,7 +680,7 @@ class ZFrame {
   public function __construct() {}
 
   /**
-   * ...
+   * Dump the object to console.
    * 
   */
   public function dump() {}
@@ -717,7 +717,7 @@ class ZLoop {
   public function __construct() {}
 
   /**
-   * ...
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -790,9 +790,9 @@ class ZLoop {
 class ZPoll {
 
   /**
-   * ...
+   * Enable verbose mode debug outputs are shown.
    * 
-   * @param bool $verbose ... (optional)
+   * @param mixed $verbose ... (optional)
   */
   public function set_verbose($verbose) {}
 
@@ -959,7 +959,7 @@ class ZCert {
   public function apply(\IZSocket &$socket) {}
 
   /**
-   * ...
+   * Dump the object to console.
    * 
   */
   public function dump() {}
@@ -1016,49 +1016,49 @@ interface IZSocket extends \IZDescriptor {
 interface IZEmitter {
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param string $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) ;
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param string $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) ;
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param string $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) ;
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param string $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) ;
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param string $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) ;
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) ;
 
@@ -1135,7 +1135,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function __construct($type, $endpoint = null) {}
 
   /**
-   * ...
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -1147,9 +1147,10 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function set_unbounded() {}
 
   /**
-   * ...
+   * Bind to the specified endpoint(s).
    * 
-   * @param string $endpoint ...
+   * @param string|array $endpoint Endpoint(s) to bind. (see [Endpoint Format](http://www.google.com))
+   * @return bool
   */
   public function bind($endpoint) {}
 
@@ -1161,9 +1162,10 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function unbind($endpoint) {}
 
   /**
-   * ...
+   * Connect to the specified endpoint(s).
    * 
-   * @param string $endpoint ...
+   * @param string|array $endpoint Endpoint(s) to connect to. (see [Endpoint Format](http://www.google.com))
+   * @return bool
   */
   public function connect($endpoint) {}
 
@@ -1194,7 +1196,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function flush() {}
 
   /**
-   * ...
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -1230,9 +1232,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function recv_zipped() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param string $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -1244,9 +1246,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function send_string($data) {}
 
   /**
-   * ...
+   * Send a message composed by data frames as specified in the picture format.
    * 
-   * @param string $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function send_picture($picture) {}
 
@@ -1258,9 +1260,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function send_msgpack($data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with ZLib.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
 
@@ -1414,16 +1416,16 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function get_socket() {}
 
   /**
-   * ...
+   * Subscribe a specific topic. (only ZMQ_SUB socket type).
    * 
-   * @param mixed $topic ...
+   * @param string $topic Topic name.
   */
   public function subscribe($topic) {}
 
   /**
-   * ...
+   * Unsubscribe a specific topic. (only ZMQ_SUB socket type).
    * 
-   * @param mixed $topic ...
+   * @param string $topic Topic name.
   */
   public function unsubscribe($topic) {}
 
@@ -1446,7 +1448,7 @@ class ZProxy implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($verbose) {}
 
   /**
-   * ...
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -1464,7 +1466,7 @@ class ZProxy implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function resume() {}
 
   /**
-   * Recieve a ZMsg.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -1500,49 +1502,49 @@ class ZProxy implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
@@ -1579,7 +1581,7 @@ class ZBeacon implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($verbose) {}
 
   /**
-   * ...
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -1620,7 +1622,7 @@ class ZBeacon implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function silence() {}
 
   /**
-   * Recieve a ZMsg.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -1633,49 +1635,49 @@ class ZBeacon implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
@@ -1716,14 +1718,13 @@ class ZAuth implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($verbose) {}
 
   /**
-   * Enable verbose logging of commands and activity. Verbose logging can help
-   * debug non-trivial authentication policies
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
 
   /**
-   * Recieve a ZMsg.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -1780,49 +1781,49 @@ class ZAuth implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
@@ -1845,7 +1846,7 @@ class ZGossip implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($verbose) {}
 
   /**
-   * Enable verbose logging of commands and activity.
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -1858,16 +1859,18 @@ class ZGossip implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function configure($filename) {}
 
   /**
-   * ...
+   * Bind to the specified endpoint(s).
    * 
-   * @param string $endpoint ...
+   * @param string|array $endpoint Endpoint(s) to bind. (see [Endpoint Format](http://www.google.com))
+   * @return bool
   */
   public function bind($endpoint) {}
 
   /**
-   * ...
+   * Connect to the specified endpoint(s).
    * 
-   * @param string $endpoint ...
+   * @param string|array $endpoint Endpoint(s) to connect to. (see [Endpoint Format](http://www.google.com))
+   * @return bool
   */
   public function connect($endpoint) {}
 
@@ -1894,7 +1897,7 @@ class ZGossip implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function count() {}
 
   /**
-   * Recieve a ZMsg.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -1907,49 +1910,49 @@ class ZGossip implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
@@ -2019,7 +2022,7 @@ class ZInotify implements \IZDescriptor {
   public function remove($watch_id) {}
 
   /**
-   * Recieve a ZMsg.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -2043,16 +2046,16 @@ class ZInotify implements \IZDescriptor {
 class ZStdIn implements \IZDescriptor {
 
   /**
-   * ...
+   * Recieve next message from the socket.
    * 
-   * @return string
+   * @return \ZMsg
   */
   public function recv() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param array|string|\ZFrame|\ZMsg $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -2074,16 +2077,16 @@ class ZStdIn implements \IZDescriptor {
 class ZStdOut implements \IZDescriptor {
 
   /**
-   * ...
+   * Recieve next message from the socket.
    * 
-   * @return string
+   * @return \ZMsg
   */
   public function recv() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param array|string|\ZFrame|\ZMsg $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -2105,16 +2108,16 @@ class ZStdOut implements \IZDescriptor {
 class ZStdErr implements \IZDescriptor {
 
   /**
-   * ...
+   * Recieve next message from the socket.
    * 
-   * @return string
+   * @return \ZMsg
   */
   public function recv() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param array|string|\ZFrame|\ZMsg $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -2124,35 +2127,6 @@ class ZStdErr implements \IZDescriptor {
    * @return int
   */
   public function get_fd() {}
-
-}
-
-
-/**
- * MsgPack
- *
- * MsgPack is a static class which offers customizable encoding/decoding support for msgpack format.
- * Supports basic php types and objects (only public properties).
- */
-class MsgPack {
-
-  /**
-   * Encode the specified data.
-   * 
-   * @param mixed $data The data to be encoded.
-   * @param callable $encoder An encoder callback used to custom encode objects. (optional)
-   * @return mixed
-  */
-  static public function encode($data, callable $encoder = null) {}
-
-  /**
-   * Decode the specified msgpack data.
-   * 
-   * @param mixed $data The data to be decoded.
-   * @param callable $decoder A decode callback used to custom decode objects. (optional)
-   * @return mixed
-  */
-  static public function decode($data, callable $decoder = null) {}
 
 }
 
@@ -2184,8 +2158,9 @@ class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
   static public function run($name, callable $callback) {}
 
   /**
-   * ...
+   * Connect to the specified endpoint(s).
    * 
+   * @return bool
   */
   public function connect() {}
 
@@ -2196,14 +2171,14 @@ class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function disconnect() {}
 
   /**
-   * Receive next message from network. The message may be a control message (ENTER, EXIT, JOIN, LEAVE) or data (WHISPER, SHOUT). Returns ZMsg object, or NULL if interrupted.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
   public function recv() {}
 
   /**
-   * Dump the Zyre node configuration.
+   * Dump the object to console.
    * 
   */
   public function dump() {}
@@ -2314,7 +2289,7 @@ class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
   static public function get_version() {}
 
   /**
-   * Set verbose mode; this tells the node to log all traffic as well as all major events.
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -2365,49 +2340,49 @@ class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
@@ -2448,7 +2423,7 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($endpoint, $verbose) {}
 
   /**
-   * ...
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -2462,31 +2437,32 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   static public function run($endpoint, $verbose) {}
 
   /**
-   * ...
+   * Bind to the specified endpoint(s).
    * 
-   * @param mixed $endpoint ...
+   * @param string|array $endpoint Endpoint(s) to bind. (see [Endpoint Format](http://www.google.com))
+   * @return bool
   */
   public function bind($endpoint) {}
 
   /**
-   * ...
+   * Load the configuration data from a file.
    * 
-   * @param mixed $filename ...
+   * @param string $filename File name.
   */
   public function load_config($filename) {}
 
   /**
-   * ...
+   * Save the configuration data to a file.
    * 
-   * @param mixed $filename ...
+   * @param string $filename File name.
   */
   public function save_config($filename) {}
 
   /**
-   * ...
+   * Set a config key to a specific value.
    * 
-   * @param mixed $key ...
-   * @param mixed $value ...
+   * @param string $key Configuration key.
+   * @param string $value Configuration value.
   */
   public function set_config($key, $value) {}
 
@@ -2497,54 +2473,54 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
   /**
-   * Recieve next message.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -2580,9 +2556,9 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function recv_zipped() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param mixed $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -2594,9 +2570,9 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_string($data) {}
 
   /**
-   * ...
+   * Send a message composed by data frames as specified in the picture format.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function send_picture($picture) {}
 
@@ -2608,9 +2584,9 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_msgpack($data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with ZLib.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
 
@@ -2648,7 +2624,7 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($name, $broker_endpoint) {}
 
   /**
-   * ...
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -2669,54 +2645,54 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
   /**
-   * Recieve next message.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -2752,9 +2728,9 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function recv_zipped() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param mixed $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -2766,9 +2742,9 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_string($data) {}
 
   /**
-   * ...
+   * Send a message composed by data frames as specified in the picture format.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function send_picture($picture) {}
 
@@ -2780,9 +2756,9 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_msgpack($data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with ZLib.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
 
@@ -2819,7 +2795,7 @@ class Client implements \IZSocket, \IZDescriptor {
   public function __construct($broker_endpoint) {}
 
   /**
-   * ...
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -2841,7 +2817,7 @@ class Client implements \IZSocket, \IZDescriptor {
   public function call_async($service_name) {}
 
   /**
-   * ...
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -2877,9 +2853,9 @@ class Client implements \IZSocket, \IZDescriptor {
   public function recv_zipped() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param mixed $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -2891,9 +2867,9 @@ class Client implements \IZSocket, \IZDescriptor {
   public function send_string($data) {}
 
   /**
-   * ...
+   * Send a message composed by data frames as specified in the picture format.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function send_picture($picture) {}
 
@@ -2905,9 +2881,9 @@ class Client implements \IZSocket, \IZDescriptor {
   public function send_msgpack($data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with ZLib.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
 
@@ -2961,54 +2937,54 @@ class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
   /**
-   * Recieve next message.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -3044,9 +3020,9 @@ class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function recv_zipped() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param mixed $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -3058,9 +3034,9 @@ class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_string($data) {}
 
   /**
-   * ...
+   * Send a message composed by data frames as specified in the picture format.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function send_picture($picture) {}
 
@@ -3072,9 +3048,9 @@ class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_msgpack($data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with ZLib.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
 
@@ -3164,9 +3140,10 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($endpoint, array $options) {}
 
   /**
-   * ...
+   * Bind to the specified endpoint(s).
    * 
-   * @param string $endpoint ...
+   * @param string|array $endpoint Endpoint(s) to bind. (see [Endpoint Format](http://www.google.com))
+   * @return bool
   */
   public function bind($endpoint) {}
 
@@ -3179,24 +3156,24 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   static public function run($endpoint, array $options) {}
 
   /**
-   * ...
+   * Load the configuration data from a file.
    * 
-   * @param string $filename ...
+   * @param string $filename File name.
   */
   public function load_config($filename) {}
 
   /**
-   * ...
+   * Save the configuration data to a file.
    * 
-   * @param string $filename ...
+   * @param string $filename File name.
   */
   public function save_config($filename) {}
 
   /**
-   * ...
+   * Set a config key to a specific value.
    * 
-   * @param string $key ...
-   * @param string $value ...
+   * @param string $key Configuration key.
+   * @param string $value Configuration value.
   */
   public function set_config($key, $value) {}
 
@@ -3207,54 +3184,54 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
   /**
-   * Recieve next message.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -3290,9 +3267,9 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function recv_zipped() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param mixed $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -3304,9 +3281,9 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_string($data) {}
 
   /**
-   * ...
+   * Send a message composed by data frames as specified in the picture format.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function send_picture($picture) {}
 
@@ -3318,9 +3295,9 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_msgpack($data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with ZLib.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
 
@@ -3380,54 +3357,54 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
   /**
-   * Recieve next message.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -3463,9 +3440,9 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function recv_zipped() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param mixed $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -3493,7 +3470,7 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   /**
    * Send a one frame only message encoded with ZLib.
    * 
-   * @param mixed $data The data to send.
+   * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
 
@@ -3555,7 +3532,7 @@ class Client implements \IZSocket, \IZDescriptor {
   public function headers() {}
 
   /**
-   * Recieve a ZMsg.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -3633,10 +3610,10 @@ class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
   static public function run($endpoint, $stream, callable $callback) {}
 
   /**
-   * ...
+   * Send message.
    * 
    * @param mixed $subject ...
-   * @param mixed $data ...
+   * @param mixed $data Data to send.
   */
   public function send($subject, $data) {}
 
@@ -3649,10 +3626,10 @@ class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_string($subject, $data) {}
 
   /**
-   * ...
+   * Send a message composed by data frames as specified in the picture format.
    * 
    * @param mixed $subject ...
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
    * @param mixed $data ...
   */
   public function send_picture($subject, $picture, $data) {}
@@ -3666,10 +3643,10 @@ class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_msgpack($subject, $data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with ZLib.
    * 
    * @param mixed $subject ...
-   * @param mixed $data ...
+   * @param mixed $data The data to be encoded.
   */
   public function send_zipped($subject, $data) {}
 
@@ -3680,49 +3657,49 @@ class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
@@ -3789,54 +3766,54 @@ class Consumer implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
   /**
-   * Recieve next message.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -3918,15 +3895,16 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   static public function run($endpoint, $path, $alias, array $options) {}
 
   /**
-   * ...
+   * Enable verbose mode debug outputs are shown.
    * 
   */
   public function set_verbose() {}
 
   /**
-   * FileMQ Server endpoint to bind.
+   * Bind to the specified endpoint(s).
    * 
-   * @param string $endpoint ...
+   * @param string|array $endpoint Endpoint(s) to bind. (see [Endpoint Format](http://www.google.com))
+   * @return bool
   */
   public function bind($endpoint) {}
 
@@ -3939,24 +3917,24 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function publish($local_path, $alias) {}
 
   /**
-   * ...
+   * Load the configuration data from a file.
    * 
-   * @param string $filename ...
+   * @param string $filename File name.
   */
   public function load_config($filename) {}
 
   /**
-   * ...
+   * Save the configuration data to a file.
    * 
-   * @param string $filename ...
+   * @param string $filename File name.
   */
   public function save_config($filename) {}
 
   /**
-   * ...
+   * Set a config key to a specific value.
    * 
-   * @param string $key ...
-   * @param string $value ...
+   * @param string $key Configuration key.
+   * @param string $value Configuration value.
   */
   public function set_config($key, $value) {}
 
@@ -3967,54 +3945,54 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
   /**
-   * Recieve a ZMsg.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -4050,9 +4028,9 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function recv_zipped() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param mixed $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -4064,9 +4042,9 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_string($data) {}
 
   /**
-   * ...
+   * Send a message composed by data frames as specified in the picture format.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function send_picture($picture) {}
 
@@ -4078,9 +4056,9 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_msgpack($data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with ZLib.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
 
@@ -4142,54 +4120,54 @@ class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
-   * ...
+   * Register an event listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Callback.
   */
   public function on($event, callable $listener) {}
 
   /**
-   * ...
+   * Register an event listener to be executed once.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function once($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove a registered listener.
    * 
-   * @param mixed $event ...
-   * @param callable $listener ...
+   * @param string $event Event name.
+   * @param callable $listener Event callback.
   */
   public function remove_listener($event, callable $listener) {}
 
   /**
-   * ...
+   * Remove all registered listeners for the event.
    * 
-   * @param mixed $event ... (optional)
+   * @param string $event Event name. (optional)
   */
   public function remove_all_listeners($event) {}
 
   /**
-   * ...
+   * Return the listeners registered for the event.
    * 
-   * @param mixed $event ...
+   * @param string $event Event name.
    * @return array|null
   */
   public function listeners($event) {}
 
   /**
-   * ...
+   * Emit an event.
    * 
-   * @param string $event ...
-   * @param array $arguments ...
+   * @param string $event Event name.
+   * @param array $arguments Event arguments.
   */
   public function emit($event, array $arguments = []) {}
 
   /**
-   * Recieve a ZMsg.
+   * Recieve next message from the socket.
    * 
    * @return \ZMsg
   */
@@ -4225,9 +4203,9 @@ class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function recv_zipped() {}
 
   /**
-   * ...
+   * Send message.
    * 
-   * @param mixed $data ...
+   * @param mixed $data Data to send.
   */
   public function send($data) {}
 
@@ -4239,9 +4217,9 @@ class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_string($data) {}
 
   /**
-   * ...
+   * Send a message composed by data frames as specified in the picture format.
    * 
-   * @param mixed $picture ...
+   * @param string $picture Positional string indicating the sequence and data type(s) to push in message.
   */
   public function send_picture($picture) {}
 
@@ -4253,9 +4231,9 @@ class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_msgpack($data) {}
 
   /**
-   * ...
+   * Send a one frame only message encoded with ZLib.
    * 
-   * @param mixed $data ...
+   * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
 
@@ -4272,6 +4250,38 @@ class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
    * @return \ZSocket
   */
   public function get_socket() {}
+
+}
+
+}
+
+namespace MsgPack {
+
+/**
+ * MsgPack
+ *
+ * MsgPack is a static class which offers customizable encoding/decoding support for msgpack format.
+ * Supports basic php types and objects (only public properties).
+ */
+class MsgPack {
+
+  /**
+   * Encode the specified data.
+   * 
+   * @param mixed $data The data to be encoded.
+   * @param callable $encoder An encoder callback used to custom encode objects. (optional)
+   * @return mixed
+  */
+  static public function encode($data, callable $encoder = null) {}
+
+  /**
+   * Decode the specified msgpack data.
+   * 
+   * @param mixed $data The data to be decoded.
+   * @param callable $decoder A decode callback used to custom decode objects. (optional)
+   * @return mixed
+  */
+  static public function decode($data, callable $decoder = null) {}
 
 }
 
