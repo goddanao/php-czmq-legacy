@@ -85,6 +85,10 @@ public:
         return Php::Object("ZMsg", new ZMsg(msg, true));
     }
 
+    static void run(Php::Parameters &param) {
+        _run(param, &ZGossip::new_actor);
+    }
+
     static Php::Class<ZGossip> php_register() {
         Php::Class<ZGossip> o("ZGossip");
         o.method("__construct", &ZGossip::__construct, {
@@ -115,11 +119,10 @@ public:
         o.method("recv", &ZGossip::recv);
 
         // ZEmitter
-        o.method("start", &ZGossip::start);
         ZHandle::register_izemitter((Php::Class<ZGossip> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<ZGossip> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<ZGossip> *) &o);
 
         return o;
     }

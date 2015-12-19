@@ -91,24 +91,23 @@ public:
           Php::ByVal("endpoint", Php::Type::String, true)
         });
 
-        o.method("run", &MalamuteBroker::run, {
-          Php::ByVal("endpoint", Php::Type::String, true),
-          Php::ByVal("options", Php::Type::Array, false)
-        });
-
         // load / save /set config
         ZHandle::register_config((Php::Class<MalamuteBroker> *) &o);
 
         // ZEmitter
-        o.method("start", &MalamuteBroker::start);
         ZHandle::register_izemitter((Php::Class<MalamuteBroker> *) &o);
 
         // Send / Recv
         ZHandle::register_recv((Php::Class<MalamuteBroker> *) &o);
         ZHandle::register_send((Php::Class<MalamuteBroker> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<MalamuteBroker> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<MalamuteBroker> *) &o);
+
+//        o.method("run", &MalamuteBroker::run, {
+//          Php::ByVal("endpoint", Php::Type::String, true),
+//          Php::ByVal("options", Php::Type::Array, false)
+//        });
 
         return o;
     }

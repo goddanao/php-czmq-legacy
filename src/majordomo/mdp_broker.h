@@ -69,10 +69,6 @@ public:
         });
         o.method("set_verbose", &MajordomoBrokerV2::set_verbose);
 
-        o.method("run", &MajordomoBrokerV2::run, {
-           Php::ByVal("endpoint", Php::Type::String, true),
-           Php::ByVal("verbose", Php::Type::Bool, false)
-        });
         o.method("bind", &MajordomoBrokerV2::bind, {
           Php::ByVal("endpoint", Php::Type::String, true)
         });
@@ -81,15 +77,19 @@ public:
         ZHandle::register_config((Php::Class<MajordomoBrokerV2> *) &o);
 
         // ZEmitter
-        o.method("start", &MajordomoBrokerV2::start);
         ZHandle::register_izemitter((Php::Class<MajordomoBrokerV2> *) &o);
 
         // Send / Recv
         ZHandle::register_recv((Php::Class<MajordomoBrokerV2> *) &o);
         ZHandle::register_send((Php::Class<MajordomoBrokerV2> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<MajordomoBrokerV2> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<MajordomoBrokerV2> *) &o);
+
+//        o.method("run", &MajordomoBrokerV2::run, {
+//           Php::ByVal("endpoint", Php::Type::String, true),
+//           Php::ByVal("verbose", Php::Type::Bool, false)
+//        });
 
         return o;
     }

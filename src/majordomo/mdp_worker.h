@@ -74,22 +74,22 @@ public:
             Php::ByVal("broker_endpoint", Php::Type::String, true)
         });
         o.method("set_verbose", &MajordomoWorkerV2::set_verbose);
-        o.method("run", &MajordomoWorkerV2::run, {
-            Php::ByVal("name", Php::Type::String, true),
-            Php::ByVal("broker_endpoint", Php::Type::String, true),
-            Php::ByVal("callback", Php::Type::Callable, true)
-        });
 
         // ZEmitter
-        o.method("start", &MajordomoWorkerV2::start);
         ZHandle::register_izemitter((Php::Class<MajordomoWorkerV2> *) &o);
 
         // Send / Recv
         ZHandle::register_recv((Php::Class<MajordomoWorkerV2> *) &o);
         ZHandle::register_send((Php::Class<MajordomoWorkerV2> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<MajordomoWorkerV2> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<MajordomoWorkerV2> *) &o);
+
+//        o.method("run", &MajordomoWorkerV2::run, {
+//            Php::ByVal("name", Php::Type::String, true),
+//            Php::ByVal("broker_endpoint", Php::Type::String, true),
+//            Php::ByVal("callback", Php::Type::Callable, true)
+//        });
 
         return o;
     }

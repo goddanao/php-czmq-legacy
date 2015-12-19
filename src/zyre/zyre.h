@@ -277,10 +277,6 @@ public:
         o.method("__construct", &Zyre::__construct, {
             Php::ByVal("name", Php::Type::String, false)
         });
-        o.method("run", &Zyre::run, {
-            Php::ByVal("name", Php::Type::String, true),
-            Php::ByVal("callback", Php::Type::Callable, true)
-        });
 
         o.method("connect", &Zyre::connect);
         o.method("disconnect", &Zyre::disconnect);
@@ -338,11 +334,15 @@ public:
         });
 
         // ZEmitter
-        o.method("start", &Zyre::start);
         ZHandle::register_izemitter((Php::Class<Zyre> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<Zyre> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<Zyre> *) &o);
+
+//        o.method("run", &Zyre::run, {
+//            Php::ByVal("name", Php::Type::String, true),
+//            Php::ByVal("callback", Php::Type::Callable, true)
+//        });
 
         return o;
     }

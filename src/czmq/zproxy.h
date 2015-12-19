@@ -62,6 +62,10 @@ public:
         zsock_wait(zproxy_handle());
     }
 
+    static void run(Php::Parameters &param) {
+        _run(param, &ZProxy::new_actor);
+    }
+
     static Php::Class<ZProxy> php_register() {
         Php::Class<ZProxy> o("ZProxy");
 
@@ -86,11 +90,10 @@ public:
         });
 
         // ZEmitter
-        o.method("start", &ZProxy::start);
         ZHandle::register_izemitter((Php::Class<ZProxy> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<ZProxy> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<ZProxy> *) &o);
 
         return o;
     }

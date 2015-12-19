@@ -124,12 +124,6 @@ public:
             Php::ByVal("endpoint", Php::Type::String, true),
             Php::ByVal("options", Php::Type::Array, false)
         });
-        o.method("run", &FileMqServer::run, {
-           Php::ByVal("endpoint", Php::Type::String, true),
-           Php::ByVal("path", Php::Type::String, true),
-           Php::ByVal("alias", Php::Type::String, true),
-           Php::ByVal("options", Php::Type::Array, false)
-        });
         o.method("set_verbose", &FileMqServer::set_verbose);
         o.method("bind", &FileMqServer::bind, {
             Php::ByVal("endpoint", Php::Type::String, true)
@@ -144,15 +138,21 @@ public:
         ZHandle::register_config((Php::Class<FileMqServer> *) &o);
 
         // ZEmitter
-        o.method("start", &FileMqServer::start);
         ZHandle::register_izemitter((Php::Class<FileMqServer> *) &o);
 
         // Send / Recv
         ZHandle::register_recv((Php::Class<FileMqServer> *) &o);
         ZHandle::register_send((Php::Class<FileMqServer> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<FileMqServer> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<FileMqServer> *) &o);
+
+//        o.method("run", &FileMqServer::run, {
+//           Php::ByVal("endpoint", Php::Type::String, true),
+//           Php::ByVal("path", Php::Type::String, true),
+//           Php::ByVal("alias", Php::Type::String, true),
+//           Php::ByVal("options", Php::Type::Array, false)
+//        });
 
         return o;
     }

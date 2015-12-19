@@ -55,6 +55,10 @@ public:
         zstr_sendx (zbeacon_handle(), "SILENCE", NULL);
     }
 
+    static void run(Php::Parameters &param) {
+        _run(param, &ZBeacon::new_actor);
+    }
+
     static Php::Class<ZBeacon> php_register() {
         Php::Class<ZBeacon> o("ZBeacon");
 
@@ -79,11 +83,10 @@ public:
         o.method("recv", &ZBeacon::recv);
 
         // ZEmitter
-        o.method("start", &ZBeacon::start);
         ZHandle::register_izemitter((Php::Class<ZBeacon> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<ZBeacon> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<ZBeacon> *) &o);
 
         return o;
     }

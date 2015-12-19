@@ -68,6 +68,10 @@ public:
         }
     }
 
+    static void run(Php::Parameters &param) {
+        _run(param, &ZAuth::new_actor);
+    }
+
     static Php::Class<ZAuth> php_register() {
         Php::Class<ZAuth> o("ZAuth");
         o.method("__construct", &ZAuth::__construct, {
@@ -86,11 +90,10 @@ public:
             Php::ByVal("path", Php::Type::String, false)
         });
 
-       // IZSocket intf support
-       ZHandle::register_izsocket((Php::Class<ZAuth> *) &o);
+       // IZActor intf support
+       ZHandle::register_izactor((Php::Class<ZAuth> *) &o);
 
         // ZEmitter
-        o.method("start", &ZAuth::start);
         ZHandle::register_izemitter((Php::Class<ZAuth> *) &o);
 
         o.property("AUTH_PLAIN", "PLAIN", Php::Const);

@@ -51,26 +51,26 @@ public:
             Php::ByVal("local_path", Php::Type::String, true),
             Php::ByVal("timeout", Php::Type::Numeric, false)
         });
-        o.method("run", &FileMqClient::run, {
-            Php::ByVal("endpoint", Php::Type::String, true),
-            Php::ByVal("local_path", Php::Type::String, true),
-            Php::ByVal("remote_path", Php::Type::String, true),
-            Php::ByVal("timeout", Php::Type::Numeric, false)
-        });
         o.method("subscribe", &FileMqClient::subscribe, {
             Php::ByVal("remote_path", Php::Type::String, true)
         });
 
         // ZEmitter
-        o.method("start", &FileMqClient::start);
         ZHandle::register_izemitter((Php::Class<FileMqClient> *) &o);
 
         // Send / Recv
         ZHandle::register_recv((Php::Class<FileMqClient> *) &o);
         ZHandle::register_send((Php::Class<FileMqClient> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<FileMqClient> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<FileMqClient> *) &o);
+
+//        o.method("run", &FileMqClient::run, {
+//            Php::ByVal("endpoint", Php::Type::String, true),
+//            Php::ByVal("local_path", Php::Type::String, true),
+//            Php::ByVal("remote_path", Php::Type::String, true),
+//            Php::ByVal("timeout", Php::Type::Numeric, false)
+//        });
 
         return o;
     }

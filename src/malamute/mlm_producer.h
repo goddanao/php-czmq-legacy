@@ -76,11 +76,6 @@ public:
             Php::ByVal("endpoint", Php::Type::String, true),
             Php::ByVal("stream", Php::Type::String, true)
         });
-        o.method("run", &MalamuteProducer::run, {
-            Php::ByVal("endpoint", Php::Type::String, true),
-            Php::ByVal("stream", Php::Type::String, true),
-            Php::ByVal("callback", Php::Type::Callable, true)
-        });
         o.method("send", &MalamuteProducer::send, {
             Php::ByVal("subject", Php::Type::String, true),
             Php::ByVal("data", Php::Type::String, true)
@@ -104,11 +99,16 @@ public:
         });
 
         // ZEmitter
-        o.method("start", &MalamuteProducer::start);
         ZHandle::register_izemitter((Php::Class<MalamuteProducer> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<MalamuteProducer> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<MalamuteProducer> *) &o);
+
+//        o.method("run", &MalamuteProducer::run, {
+//            Php::ByVal("endpoint", Php::Type::String, true),
+//            Php::ByVal("stream", Php::Type::String, true),
+//            Php::ByVal("callback", Php::Type::Callable, true)
+//        });
 
         return o;
     }

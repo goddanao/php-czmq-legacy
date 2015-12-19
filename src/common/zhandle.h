@@ -287,6 +287,14 @@ public:
     }
 
     template<class T>
+    static void register_izactor(Php::Class<T> *o) {
+        o->method("get_fd", &T::get_fd);
+        o->method("get_socket", &T::_get_socket);
+        o->method("start", &T::start);
+        o->method("run", &T::run);
+    }
+
+    template<class T>
     static void register_izemitter(Php::Class<T> *o) {
         o->method("on", &T::on, {
             Php::ByVal("event", Php::Type::String, true),

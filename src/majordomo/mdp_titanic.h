@@ -48,22 +48,22 @@ public:
             Php::ByVal("storage", "Majordomo\\ITitanicStorage", true, false),
             Php::ByVal("threads", Php::Type::Numeric, false)
         });
-        o.method("run", &MajordomoTitanicV2::run, {
-            Php::ByVal("endpoint", Php::Type::String, true),
-            Php::ByVal("storage", "Majordomo\\ITitanicStorage", true, false),
-            Php::ByVal("threads", Php::Type::Numeric, false)
-        });
 
         // ZEmitter
-        o.method("start", &MajordomoTitanicV2::start);
         ZHandle::register_izemitter((Php::Class<MajordomoTitanicV2> *) &o);
 
         // Send / Recv
         ZHandle::register_recv((Php::Class<MajordomoTitanicV2> *) &o);
         ZHandle::register_send((Php::Class<MajordomoTitanicV2> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<MajordomoTitanicV2> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<MajordomoTitanicV2> *) &o);
+
+//        o.method("run", &MajordomoTitanicV2::run, {
+//            Php::ByVal("endpoint", Php::Type::String, true),
+//            Php::ByVal("storage", "Majordomo\\ITitanicStorage", true, false),
+//            Php::ByVal("threads", Php::Type::Numeric, false)
+//        });
 
         return o;
     }

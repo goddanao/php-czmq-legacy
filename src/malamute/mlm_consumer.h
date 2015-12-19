@@ -89,24 +89,24 @@ public:
         o.method("consume", &MalamuteConsumer::consume, {
             Php::ByVal("stream", Php::Type::String, true)
         });
-        o.method("run", &MalamuteConsumer::run, {
-            Php::ByVal("endpoint", Php::Type::String, true),
-            Php::ByVal("stream", Php::Type::String, true),
-            Php::ByVal("callback", Php::Type::Callable, true)
-        });
         o.method("headers", &MalamuteConsumer::headers, {
             Php::ByVal("header", Php::Type::String, false)
         });
 
         // ZEmitter
-        o.method("start", &MalamuteConsumer::start);
         ZHandle::register_izemitter((Php::Class<MalamuteConsumer> *) &o);
 
         // Recv
         ZHandle::register_recv((Php::Class<MalamuteConsumer> *) &o);
 
-        // IZSocket intf support
-        ZHandle::register_izsocket((Php::Class<MalamuteConsumer> *) &o);
+        // IZActor intf support
+        ZHandle::register_izactor((Php::Class<MalamuteConsumer> *) &o);
+
+//        o.method("run", &MalamuteConsumer::run, {
+//            Php::ByVal("endpoint", Php::Type::String, true),
+//            Php::ByVal("stream", Php::Type::String, true),
+//            Php::ByVal("callback", Php::Type::Callable, true)
+//        });
 
         return o;
     }
