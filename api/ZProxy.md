@@ -3,12 +3,12 @@ ZProxy
 
 ZProxy
 
-...
+Run a steerable proxy in background. The proxy switches messages between a frontend socket and a backend socket. Supports pause / resume.
 
 
 * Class name: ZProxy
 * Namespace: 
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
+* This class implements: [IZActor](IZActor.md), [IZDescriptor](IZDescriptor.md), [IZSocket](IZSocket.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -25,7 +25,7 @@ Methods
 
 
 
-...
+
 
 * Visibility: **public**
 
@@ -39,7 +39,7 @@ Methods
 
     mixed ZProxy::set_verbose()
 
-Enable verbose mode debug outputs are shown.
+Enable verbose mode, debug outputs are shown.
 
 
 
@@ -52,9 +52,9 @@ Enable verbose mode debug outputs are shown.
 
     mixed ZProxy::pause()
 
+Put the proxy in pause.
 
 
-...
 
 * Visibility: **public**
 
@@ -65,9 +65,9 @@ Enable verbose mode debug outputs are shown.
 
     mixed ZProxy::resume()
 
+Resume the proxy activity.
 
 
-...
 
 * Visibility: **public**
 
@@ -91,16 +91,16 @@ Recieve next message from the socket.
 
     mixed ZProxy::set_frontend(string $type, string $endpoint)
 
+Set frontend socket type and endpoint.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $type **string** - &lt;p&gt;...&lt;/p&gt;
-* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+* $type **string** - &lt;p&gt;Frontend socket type.&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Frontend endpoint.&lt;/p&gt;
 
 
 
@@ -108,16 +108,16 @@ Recieve next message from the socket.
 
     mixed ZProxy::set_backend(string $type, string $endpoint)
 
+Set backend socket type and endpoint.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $type **string** - &lt;p&gt;...&lt;/p&gt;
-* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
+* $type **string** - &lt;p&gt;Backend socket type.&lt;/p&gt;
+* $endpoint **string** - &lt;p&gt;Backend endpoint.&lt;/p&gt;
 
 
 
@@ -125,28 +125,16 @@ Recieve next message from the socket.
 
     mixed ZProxy::set_capture(string $endpoint)
 
+Capture all proxied messages; these are delivered to the application via an inproc PULL socket
+* that you have already bound to the specified endpoint
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### start
-
-    mixed ZProxy::start()
-
-
-
-...
-
-* Visibility: **public**
-
+* $endpoint **string** - &lt;p&gt;Capture endpoint.&lt;/p&gt;
 
 
 
@@ -280,6 +268,35 @@ Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
+
+
+
+
+### start
+
+    mixed IZActor::start()
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZActor](IZActor.md)
+
+
+
+
+### run
+
+    mixed IZActor::run()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [IZActor](IZActor.md)
 
 
 

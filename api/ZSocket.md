@@ -625,7 +625,7 @@ Methods
 
     mixed ZSocket::set_verbose()
 
-Enable verbose mode debug outputs are shown.
+Enable verbose mode, debug outputs are shown.
 
 
 
@@ -1077,9 +1077,9 @@ Create an XSUB socket. Default action is connect.
 
     \ZSocket ZSocket::xreq(string $endpoint)
 
+Alias for ROUTER socket. Default action is bind.
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -1094,9 +1094,9 @@ Create an XSUB socket. Default action is connect.
 
     \ZSocket ZSocket::xrep(string $endpoint)
 
+Alias for DEALER socket. Default action is connect.
 
 
-...
 
 * Visibility: **public**
 * This method is **static**.
@@ -1177,11 +1177,11 @@ Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
 
 ### get_options
 
-    mixed ZSocket::get_options()
+    array ZSocket::get_options()
+
+Return a map of socket options values.
 
 
-
-...
 
 * Visibility: **public**
 

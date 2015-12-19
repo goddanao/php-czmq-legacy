@@ -8,7 +8,7 @@ Broker
 
 * Class name: Broker
 * Namespace: Malamute
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
+* This class implements: [IZActor](IZActor.md), [IZDescriptor](IZDescriptor.md), [IZSocket](IZSocket.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -49,24 +49,6 @@ Bind to the specified endpoint(s).
 
 #### Arguments
 * $endpoint **string|array** - &lt;p&gt;Endpoint(s) to bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;)&lt;/p&gt;
-
-
-
-### run
-
-    mixed Malamute\Broker::run(mixed $endpoint, array $options)
-
-
-
-...
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -116,19 +98,6 @@ Set a config key to a specific value.
 #### Arguments
 * $key **string** - &lt;p&gt;Configuration key.&lt;/p&gt;
 * $value **string** - &lt;p&gt;Configuration value.&lt;/p&gt;
-
-
-
-### start
-
-    mixed Malamute\Broker::start()
-
-
-
-...
-
-* Visibility: **public**
-
 
 
 
@@ -410,6 +379,35 @@ Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
+
+
+
+
+### start
+
+    mixed IZActor::start()
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZActor](IZActor.md)
+
+
+
+
+### run
+
+    mixed IZActor::run()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [IZActor](IZActor.md)
 
 
 

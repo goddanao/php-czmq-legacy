@@ -8,7 +8,7 @@ FileMQ Client
 
 * Class name: Client
 * Namespace: FileMq
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
+* This class implements: [IZActor](IZActor.md), [IZDescriptor](IZDescriptor.md), [IZSocket](IZSocket.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -37,26 +37,6 @@ Create e new instance.
 
 
 
-### run
-
-    mixed FileMq\Client::run(mixed $endpoint, mixed $local_path, mixed $remote_path, mixed $timeout)
-
-
-
-...
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $local_path **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $remote_path **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $timeout **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
-
-
-
 ### subscribe
 
     mixed FileMq\Client::subscribe(string $remote_path)
@@ -70,19 +50,6 @@ Create e new instance.
 
 #### Arguments
 * $remote_path **string** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### start
-
-    mixed FileMq\Client::start()
-
-
-
-...
-
-* Visibility: **public**
-
 
 
 
@@ -364,6 +331,35 @@ Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
+
+
+
+
+### start
+
+    mixed IZActor::start()
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZActor](IZActor.md)
+
+
+
+
+### run
+
+    mixed IZActor::run()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [IZActor](IZActor.md)
 
 
 

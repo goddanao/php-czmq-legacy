@@ -8,7 +8,7 @@ Authentication for ZeroMQ security mechanisms.
 
 * Class name: ZAuth
 * Namespace: 
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
+* This class implements: [IZActor](IZActor.md), [IZDescriptor](IZDescriptor.md), [IZSocket](IZSocket.md), [IZEmitter](IZEmitter.md)
 
 
 Constants
@@ -65,7 +65,7 @@ Methods
 
     mixed ZAuth::set_verbose()
 
-Enable verbose mode debug outputs are shown.
+Enable verbose mode, debug outputs are shown.
 
 
 
@@ -174,13 +174,29 @@ Get the underlying ZSocket.
 
 ### start
 
-    mixed ZAuth::start()
+    mixed IZActor::start()
 
 
 
 ...
 
 * Visibility: **public**
+* This method is defined by [IZActor](IZActor.md)
+
+
+
+
+### run
+
+    mixed IZActor::run()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [IZActor](IZActor.md)
 
 
 

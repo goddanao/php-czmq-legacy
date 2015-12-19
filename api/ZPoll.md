@@ -3,7 +3,7 @@ ZPoll
 
 ZPoll
 
-...
+ZeroMQ Loop
 
 
 * Class name: ZPoll
@@ -23,7 +23,7 @@ Methods
 
     mixed ZPoll::set_verbose(mixed $verbose)
 
-Enable verbose mode debug outputs are shown.
+Enable verbose mode, debug outputs are shown.
 
 
 

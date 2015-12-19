@@ -8,7 +8,7 @@ Decentralized configuration management.
 
 * Class name: ZGossip
 * Namespace: 
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
+* This class implements: [IZActor](IZActor.md), [IZDescriptor](IZDescriptor.md), [IZSocket](IZSocket.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \ZGossip ZGossip::__construct(mixed $verbose)
+    \ZGossip ZGossip::__construct(boolean $verbose)
 
 
 
@@ -31,7 +31,7 @@ Methods
 
 
 #### Arguments
-* $verbose **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $verbose **boolean** - &lt;p&gt;Enable verbose mode debug outputs are shown. (optional)&lt;/p&gt;
 
 
 
@@ -39,7 +39,7 @@ Methods
 
     mixed ZGossip::set_verbose()
 
-Enable verbose mode debug outputs are shown.
+Enable verbose mode, debug outputs are shown.
 
 
 
@@ -150,19 +150,6 @@ Connect to the specified endpoint(s).
 Recieve next message from the socket.
 
 
-
-* Visibility: **public**
-
-
-
-
-### start
-
-    mixed ZGossip::start()
-
-
-
-...
 
 * Visibility: **public**
 
@@ -299,6 +286,35 @@ Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
+
+
+
+
+### start
+
+    mixed IZActor::start()
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZActor](IZActor.md)
+
+
+
+
+### run
+
+    mixed IZActor::run()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [IZActor](IZActor.md)
 
 
 

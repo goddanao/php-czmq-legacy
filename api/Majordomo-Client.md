@@ -39,7 +39,7 @@ Methods
 
     mixed Majordomo\Client::set_verbose()
 
-Enable verbose mode debug outputs are shown.
+Enable verbose mode, debug outputs are shown.
 
 
 

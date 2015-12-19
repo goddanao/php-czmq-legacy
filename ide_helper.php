@@ -7,7 +7,7 @@ namespace {
  *
  * ZSys is static class holding zeromq system level methods / consts.
  */
-final  class ZSys {
+final class ZSys {
   const SOCKET_PUB = "pub";
   const SOCKET_SUB = "sub";
   const SOCKET_REP = "rep";
@@ -358,7 +358,7 @@ class ZUdp implements \IZDescriptor {
   public function __construct($interface = null, $port = 5670, $routable = false) {}
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -677,7 +677,7 @@ class ZMsg implements \ArrayAccess, \Countable, \Traversable {
 /**
  * ZFrame
  *
- * Single frame in multipart message.
+ * Manage single frame in multipart message.
  */
 class ZFrame {
 
@@ -715,7 +715,7 @@ class ZFrame {
 /**
  * ZLoop
  *
- * ...
+ * ZeroMQ Loop
  */
 class ZLoop {
 
@@ -727,7 +727,7 @@ class ZLoop {
   public function __construct() {}
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -795,12 +795,12 @@ class ZLoop {
 /**
  * ZPoll
  *
- * ...
+ * ZeroMQ Loop
  */
 class ZPoll {
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
    * @param mixed $verbose ... (optional)
   */
@@ -1019,6 +1019,42 @@ interface IZSocket extends \IZDescriptor {
 
 
 /**
+ * IZActor
+ *
+ * ...
+ */
+interface IZActor extends \IZSocket, \IZDescriptor {
+
+  /**
+   * ...
+   * 
+  */
+  public function start() ;
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() ;
+
+  /**
+   * Get the underlying ZSocket.
+   * 
+   * @return \ZSocket
+  */
+  public function get_socket() ;
+
+  /**
+   * Get the underlying File Descriptor.
+   * 
+   * @return int
+  */
+  public function get_fd() ;
+
+}
+
+
+/**
  * IZEmitter
  *
  * ...
@@ -1145,7 +1181,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function __construct($type, $endpoint = null) {}
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -1362,7 +1398,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function xsub($endpoint = null) {}
 
   /**
-   * ...
+   * Alias for ROUTER socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1370,7 +1406,7 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function xreq($endpoint = null) {}
 
   /**
-   * ...
+   * Alias for DEALER socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
    * @return \ZSocket
@@ -1410,8 +1446,9 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   static public function client($endpoint = null) {}
 
   /**
-   * ...
+   * Return a map of socket options values.
    * 
+   * @return array
   */
   public function get_options() {}
 
@@ -1449,12 +1486,12 @@ class ZSocket implements \IZSocket, \IZDescriptor {
 /**
  * ZProxy
  *
- * ...
+ * Run a steerable proxy in background. The proxy switches messages between a frontend socket and a backend socket. Supports pause / resume.
  */
-class ZProxy implements \IZSocket, \IZDescriptor, \IZEmitter {
+class ZProxy implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
-   * ...
+   *  
    * 
    * @param mixed $verbose ... (optional)
    * @return \ZProxy
@@ -1462,19 +1499,19 @@ class ZProxy implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($verbose) {}
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
 
   /**
-   * ...
+   * Put the proxy in pause.
    * 
   */
   public function pause() {}
 
   /**
-   * ...
+   * Resume the proxy activity.
    * 
   */
   public function resume() {}
@@ -1487,33 +1524,28 @@ class ZProxy implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function recv() {}
 
   /**
-   * ...
+   * Set frontend socket type and endpoint.
    * 
-   * @param string $type ...
-   * @param string $endpoint ...
+   * @param string $type Frontend socket type.
+   * @param string $endpoint Frontend endpoint.
   */
   public function set_frontend($type, $endpoint) {}
 
   /**
-   * ...
+   * Set backend socket type and endpoint.
    * 
-   * @param string $type ...
-   * @param string $endpoint ...
+   * @param string $type Backend socket type.
+   * @param string $endpoint Backend endpoint.
   */
   public function set_backend($type, $endpoint) {}
 
   /**
-   * ...
+   * Capture all proxied messages; these are delivered to the application via an inproc PULL socket
+   * * that you have already bound to the specified endpoint
    * 
-   * @param string $endpoint ...
+   * @param string $endpoint Capture endpoint.
   */
   public function set_capture($endpoint) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function start() {}
 
   /**
    * Register an event listener.
@@ -1576,6 +1608,18 @@ class ZProxy implements \IZSocket, \IZDescriptor, \IZEmitter {
   */
   public function get_socket() {}
 
+  /**
+   * Start the proxy in it's own loop.
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
+
 }
 
 
@@ -1584,7 +1628,7 @@ class ZProxy implements \IZSocket, \IZDescriptor, \IZEmitter {
  *
  * ...
  */
-class ZBeacon implements \IZSocket, \IZDescriptor, \IZEmitter {
+class ZBeacon implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    * ...
@@ -1595,7 +1639,7 @@ class ZBeacon implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($verbose) {}
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -1643,12 +1687,6 @@ class ZBeacon implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function recv() {}
 
   /**
-   * ...
-   * 
-  */
-  public function start() {}
-
-  /**
    * Register an event listener.
    * 
    * @param string $event Event name.
@@ -1709,6 +1747,18 @@ class ZBeacon implements \IZSocket, \IZDescriptor, \IZEmitter {
   */
   public function get_socket() {}
 
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
+
 }
 
 
@@ -1717,7 +1767,7 @@ class ZBeacon implements \IZSocket, \IZDescriptor, \IZEmitter {
  *
  * Authentication for ZeroMQ security mechanisms.
  */
-class ZAuth implements \IZSocket, \IZDescriptor, \IZEmitter {
+class ZAuth implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
   const AUTH_PLAIN = "PLAIN";
   const AUTH_CURVE = "CURVE";
   const AUTH_GSSAPI = "GSSAPI";
@@ -1732,7 +1782,7 @@ class ZAuth implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($verbose) {}
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -1795,6 +1845,12 @@ class ZAuth implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function start() {}
 
   /**
+   * ...
+   * 
+  */
+  static public function run() {}
+
+  /**
    * Register an event listener.
    * 
    * @param string $event Event name.
@@ -1849,18 +1905,18 @@ class ZAuth implements \IZSocket, \IZDescriptor, \IZEmitter {
  *
  * Decentralized configuration management.
  */
-class ZGossip implements \IZSocket, \IZDescriptor, \IZEmitter {
+class ZGossip implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    *  
    * 
-   * @param mixed $verbose ... (optional)
+   * @param bool $verbose Enable verbose mode debug outputs are shown. (optional)
    * @return \ZGossip
   */
-  public function __construct($verbose) {}
+  public function __construct($verbose = false) {}
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -1916,12 +1972,6 @@ class ZGossip implements \IZSocket, \IZDescriptor, \IZEmitter {
    * @return \ZMsg
   */
   public function recv() {}
-
-  /**
-   * ...
-   * 
-  */
-  public function start() {}
 
   /**
    * Register an event listener.
@@ -1984,13 +2034,25 @@ class ZGossip implements \IZSocket, \IZDescriptor, \IZEmitter {
   */
   public function get_socket() {}
 
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
+
 }
 
 
 /**
  * ZInotify
  *
- * ...
+ * Inotify watcher.
  */
 class ZInotify implements \IZDescriptor {
   const IN_ACCESS = 0x00000001;
@@ -2020,18 +2082,18 @@ class ZInotify implements \IZDescriptor {
 
 
   /**
-   * ...
+   * Start watching and inode for events. Return a watch_id.
    * 
-   * @param string $file ...
-   * @param int $events ...
+   * @param string $file The inode to watch.
+   * @param int $events Bitwise mask of events to watch.
    * @return int
   */
   public function watch($file, $events) {}
 
   /**
-   * ...
+   * Stop watching watch_id.
    * 
-   * @param int $watch_id ...
+   * @param int $watch_id The watch_id returned from previous 'watch' call.
   */
   public function remove($watch_id) {}
 
@@ -2055,7 +2117,7 @@ class ZInotify implements \IZDescriptor {
 /**
  * ZStdIn
  *
- * ...
+ * Simple wrap for StdIn.
  */
 class ZStdIn implements \IZDescriptor {
 
@@ -2086,7 +2148,7 @@ class ZStdIn implements \IZDescriptor {
 /**
  * ZStdOut
  *
- * ...
+ * Simple wrap for StdOut.
  */
 class ZStdOut implements \IZDescriptor {
 
@@ -2117,7 +2179,7 @@ class ZStdOut implements \IZDescriptor {
 /**
  * ZStdErr
  *
- * ...
+ * Simple wrap for StdErr.
  */
 class ZStdErr implements \IZDescriptor {
 
@@ -2153,7 +2215,7 @@ namespace Zyre {
  *
  * Zyre does local area discovery and clustering. A Zyre node broadcasts UDP beacons, and connects to peers that it finds.
  */
-class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
+class Zyre implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    * Creates a new Zyre node. Note that until you start the node it is silent and invisible to other nodes on the network.
@@ -2162,14 +2224,6 @@ class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
    * @return \Zyre\Zyre
   */
   public function __construct($name = null) {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $name ...
-   * @param callable $callback ...
-  */
-  static public function run($name, callable $callback) {}
 
   /**
    * Connect to the specified endpoint(s).
@@ -2303,7 +2357,7 @@ class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
   static public function get_version() {}
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -2347,13 +2401,6 @@ class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_group($group, $data) {}
 
   /**
-   * Start node, after setting header values. When you start a node it begins discovery and connection.
-   * 
-   * @return bool
-  */
-  public function start() {}
-
-  /**
    * Register an event listener.
    * 
    * @param string $event Event name.
@@ -2414,6 +2461,19 @@ class Zyre implements \IZSocket, \IZDescriptor, \IZEmitter {
   */
   public function get_socket() {}
 
+  /**
+   * Start node, after setting header values. When you start a node it begins discovery and connection.
+   * 
+   * @return bool
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
+
 }
 
 }
@@ -2425,7 +2485,7 @@ namespace Majordomo {
  *
  * Majordomo Broker
  */
-class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
+class Broker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    * ...
@@ -2437,18 +2497,10 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($endpoint, $verbose) {}
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $endpoint ...
-   * @param mixed $verbose ... (optional)
-  */
-  static public function run($endpoint, $verbose) {}
 
   /**
    * Bind to the specified endpoint(s).
@@ -2481,12 +2533,6 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function set_config($key, $value) {}
 
   /**
-   * ...
-   * 
-  */
-  public function start() {}
-
-  /**
    * Register an event listener.
    * 
    * @param string $event Event name.
@@ -2618,6 +2664,18 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   */
   public function get_socket() {}
 
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
+
 }
 
 
@@ -2626,7 +2684,7 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
  *
  * ...
  */
-class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
+class Worker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    * ...
@@ -2638,25 +2696,10 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($name, $broker_endpoint) {}
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $name ...
-   * @param mixed $broker_endpoint ...
-   * @param callable $callback ...
-  */
-  static public function run($name, $broker_endpoint, callable $callback) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function start() {}
 
   /**
    * Register an event listener.
@@ -2789,6 +2832,18 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
    * @return \ZSocket
   */
   public function get_socket() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
 
 }
 
@@ -2809,7 +2864,7 @@ class Client implements \IZSocket, \IZDescriptor {
   public function __construct($broker_endpoint) {}
 
   /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -2923,7 +2978,7 @@ class Client implements \IZSocket, \IZDescriptor {
  *
  * ...
  */
-class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
+class Titanic implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    * ...
@@ -2934,21 +2989,6 @@ class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
    * @return \Majordomo\Titanic
   */
   public function __construct($endpoint, ITitanicStorage $storage = null, $threads) {}
-
-  /**
-   * ...
-   * 
-   * @param string $endpoint ...
-   * @param ITitanicStorage $storage ... (optional)
-   * @param int $threads ... (optional)
-  */
-  static public function run($endpoint, ITitanicStorage $storage = null, $threads) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function start() {}
 
   /**
    * Register an event listener.
@@ -3081,6 +3121,18 @@ class Titanic implements \IZSocket, \IZDescriptor, \IZEmitter {
    * @return \ZSocket
   */
   public function get_socket() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
 
 }
 
@@ -3142,7 +3194,7 @@ namespace Malamute {
  *
  * ...
  */
-class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
+class Broker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    * ...
@@ -3160,14 +3212,6 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
    * @return bool
   */
   public function bind($endpoint) {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $endpoint ...
-   * @param array $options ... (optional)
-  */
-  static public function run($endpoint, array $options) {}
 
   /**
    * Load the configuration data from a file.
@@ -3192,12 +3236,6 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function set_config($key, $value) {}
 
   /**
-   * ...
-   * 
-  */
-  public function start() {}
-
-  /**
    * Register an event listener.
    * 
    * @param string $event Event name.
@@ -3329,6 +3367,18 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
   */
   public function get_socket() {}
 
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
+
 }
 
 
@@ -3337,7 +3387,7 @@ class Broker implements \IZSocket, \IZDescriptor, \IZEmitter {
  *
  * ...
  */
-class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
+class Worker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    * ...
@@ -3351,24 +3401,9 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
-   * @param mixed $name ...
-   * @param callable $callback ...
-  */
-  static public function run($endpoint, $name, callable $callback) {}
-
-  /**
-   * ...
-   * 
    * @param mixed $header ... (optional)
   */
   public function headers($header) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function start() {}
 
   /**
    * Register an event listener.
@@ -3501,6 +3536,18 @@ class Worker implements \IZSocket, \IZDescriptor, \IZEmitter {
    * @return \ZSocket
   */
   public function get_socket() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
 
 }
 
@@ -3603,7 +3650,7 @@ class Client implements \IZSocket, \IZDescriptor {
  *
  * ...
  */
-class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
+class Producer implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    * ...
@@ -3613,15 +3660,6 @@ class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
    * @return \Malamute\Producer
   */
   public function __construct($endpoint, $stream) {}
-
-  /**
-   * ...
-   * 
-   * @param mixed $endpoint ...
-   * @param mixed $stream ...
-   * @param callable $callback ...
-  */
-  static public function run($endpoint, $stream, callable $callback) {}
 
   /**
    * Send message.
@@ -3665,12 +3703,6 @@ class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function send_zipped($subject, $data) {}
 
   /**
-   * ...
-   * 
-  */
-  public function start() {}
-
-  /**
    * Register an event listener.
    * 
    * @param string $event Event name.
@@ -3731,6 +3763,18 @@ class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
   */
   public function get_socket() {}
 
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
+
 }
 
 
@@ -3739,7 +3783,7 @@ class Producer implements \IZSocket, \IZDescriptor, \IZEmitter {
  *
  * ...
  */
-class Consumer implements \IZSocket, \IZDescriptor, \IZEmitter {
+class Consumer implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    * ...
@@ -3760,24 +3804,9 @@ class Consumer implements \IZSocket, \IZDescriptor, \IZEmitter {
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
-   * @param mixed $stream ...
-   * @param callable $callback ...
-  */
-  static public function run($endpoint, $stream, callable $callback) {}
-
-  /**
-   * ...
-   * 
    * @param mixed $header ... (optional)
   */
   public function headers($header) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function start() {}
 
   /**
    * Register an event listener.
@@ -3876,6 +3905,18 @@ class Consumer implements \IZSocket, \IZDescriptor, \IZEmitter {
   */
   public function get_socket() {}
 
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
+
 }
 
 }
@@ -3887,7 +3928,7 @@ namespace FileMq {
  *
  * ...
  */
-class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
+class Server implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    * ...
@@ -3899,17 +3940,7 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function __construct($endpoint, array $options) {}
 
   /**
-   * ...
-   * 
-   * @param mixed $endpoint ...
-   * @param mixed $path ...
-   * @param mixed $alias ...
-   * @param array $options ... (optional)
-  */
-  static public function run($endpoint, $path, $alias, array $options) {}
-
-  /**
-   * Enable verbose mode debug outputs are shown.
+   * Enable verbose mode, debug outputs are shown.
    * 
   */
   public function set_verbose() {}
@@ -3953,12 +3984,6 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   public function set_config($key, $value) {}
 
   /**
-   * ...
-   * 
-  */
-  public function start() {}
-
-  /**
    * Register an event listener.
    * 
    * @param string $event Event name.
@@ -4090,6 +4115,18 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
   */
   public function get_socket() {}
 
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
+
 }
 
 
@@ -4098,7 +4135,7 @@ class Server implements \IZSocket, \IZDescriptor, \IZEmitter {
  *
  * FileMQ Client
  */
-class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
+class Client implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
 
   /**
    * Create e new instance.
@@ -4113,25 +4150,9 @@ class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
   /**
    * ...
    * 
-   * @param mixed $endpoint ...
-   * @param mixed $local_path ...
-   * @param mixed $remote_path ...
-   * @param mixed $timeout ... (optional)
-  */
-  static public function run($endpoint, $local_path, $remote_path, $timeout) {}
-
-  /**
-   * ...
-   * 
    * @param string $remote_path ...
   */
   public function subscribe($remote_path) {}
-
-  /**
-   * ...
-   * 
-  */
-  public function start() {}
 
   /**
    * Register an event listener.
@@ -4264,6 +4285,18 @@ class Client implements \IZSocket, \IZDescriptor, \IZEmitter {
    * @return \ZSocket
   */
   public function get_socket() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function start() {}
+
+  /**
+   * ...
+   * 
+  */
+  static public function run() {}
 
 }
 

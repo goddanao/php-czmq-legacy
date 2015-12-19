@@ -3,7 +3,7 @@ ZStdErr
 
 ZStdErr
 
-...
+Simple wrap for StdErr.
 
 
 * Class name: ZStdErr

@@ -8,7 +8,7 @@ ZBeacon
 
 * Class name: ZBeacon
 * Namespace: 
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
+* This class implements: [IZActor](IZActor.md), [IZDescriptor](IZDescriptor.md), [IZSocket](IZSocket.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -39,7 +39,7 @@ Methods
 
     mixed ZBeacon::set_verbose()
 
-Enable verbose mode debug outputs are shown.
+Enable verbose mode, debug outputs are shown.
 
 
 
@@ -130,19 +130,6 @@ Configure Udp port number. Return hostname or false if cannot bind.
 Recieve next message from the socket.
 
 
-
-* Visibility: **public**
-
-
-
-
-### start
-
-    mixed ZBeacon::start()
-
-
-
-...
 
 * Visibility: **public**
 
@@ -279,6 +266,35 @@ Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
+
+
+
+
+### start
+
+    mixed IZActor::start()
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZActor](IZActor.md)
+
+
+
+
+### run
+
+    mixed IZActor::run()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [IZActor](IZActor.md)
 
 
 

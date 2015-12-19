@@ -8,7 +8,7 @@ Titanic
 
 * Class name: Titanic
 * Namespace: Majordomo
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
+* This class implements: [IZActor](IZActor.md), [IZDescriptor](IZDescriptor.md), [IZSocket](IZSocket.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -34,38 +34,6 @@ Methods
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 * $storage **MsgPack\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
 * $threads **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
-
-
-
-### run
-
-    mixed Majordomo\Titanic::run(string $endpoint, \MsgPack\ITitanicStorage $storage, integer $threads)
-
-
-
-...
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
-* $storage **MsgPack\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
-* $threads **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
-
-
-
-### start
-
-    mixed Majordomo\Titanic::start()
-
-
-
-...
-
-* Visibility: **public**
-
 
 
 
@@ -347,6 +315,35 @@ Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
+
+
+
+
+### start
+
+    mixed IZActor::start()
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZActor](IZActor.md)
+
+
+
+
+### run
+
+    mixed IZActor::run()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [IZActor](IZActor.md)
 
 
 

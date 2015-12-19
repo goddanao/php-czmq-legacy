@@ -3,7 +3,7 @@ ZStdIn
 
 ZStdIn
 
-...
+Simple wrap for StdIn.
 
 
 * Class name: ZStdIn

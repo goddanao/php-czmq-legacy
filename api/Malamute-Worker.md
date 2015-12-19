@@ -8,7 +8,7 @@ Worker
 
 * Class name: Worker
 * Namespace: Malamute
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
+* This class implements: [IZActor](IZActor.md), [IZDescriptor](IZDescriptor.md), [IZSocket](IZSocket.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -36,25 +36,6 @@ Methods
 
 
 
-### run
-
-    mixed Malamute\Worker::run(mixed $endpoint, mixed $name, callable $callback)
-
-
-
-...
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
-
-
-
 ### headers
 
     mixed Malamute\Worker::headers(mixed $header)
@@ -68,19 +49,6 @@ Methods
 
 #### Arguments
 * $header **mixed** - &lt;p&gt;... (optional)&lt;/p&gt;
-
-
-
-### start
-
-    mixed Malamute\Worker::start()
-
-
-
-...
-
-* Visibility: **public**
-
 
 
 
@@ -362,6 +330,35 @@ Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
+
+
+
+
+### start
+
+    mixed IZActor::start()
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZActor](IZActor.md)
+
+
+
+
+### run
+
+    mixed IZActor::run()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [IZActor](IZActor.md)
 
 
 

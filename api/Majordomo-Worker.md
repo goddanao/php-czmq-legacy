@@ -8,7 +8,7 @@ Worker
 
 * Class name: Worker
 * Namespace: Majordomo
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
+* This class implements: [IZActor](IZActor.md), [IZDescriptor](IZDescriptor.md), [IZSocket](IZSocket.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -40,41 +40,9 @@ Methods
 
     mixed Majordomo\Worker::set_verbose()
 
-Enable verbose mode debug outputs are shown.
+Enable verbose mode, debug outputs are shown.
 
 
-
-* Visibility: **public**
-
-
-
-
-### run
-
-    mixed Majordomo\Worker::run(mixed $name, mixed $broker_endpoint, callable $callback)
-
-
-
-...
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $name **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $broker_endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### start
-
-    mixed Majordomo\Worker::start()
-
-
-
-...
 
 * Visibility: **public**
 
@@ -359,6 +327,35 @@ Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
+
+
+
+
+### start
+
+    mixed IZActor::start()
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZActor](IZActor.md)
+
+
+
+
+### run
+
+    mixed IZActor::run()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [IZActor](IZActor.md)
 
 
 

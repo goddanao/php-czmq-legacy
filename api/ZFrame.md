@@ -3,7 +3,7 @@ ZFrame
 
 ZFrame
 
-Single frame in multipart message.
+Manage single frame in multipart message.
 
 
 * Class name: ZFrame

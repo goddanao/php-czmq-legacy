@@ -8,7 +8,7 @@ Server
 
 * Class name: Server
 * Namespace: FileMq
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
+* This class implements: [IZActor](IZActor.md), [IZDescriptor](IZDescriptor.md), [IZSocket](IZSocket.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -36,31 +36,11 @@ Methods
 
 
 
-### run
-
-    mixed FileMq\Server::run(mixed $endpoint, mixed $path, mixed $alias, array $options)
-
-
-
-...
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $path **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $alias **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
-
-
-
 ### set_verbose
 
     mixed FileMq\Server::set_verbose()
 
-Enable verbose mode debug outputs are shown.
+Enable verbose mode, debug outputs are shown.
 
 
 
@@ -148,19 +128,6 @@ Set a config key to a specific value.
 #### Arguments
 * $key **string** - &lt;p&gt;Configuration key.&lt;/p&gt;
 * $value **string** - &lt;p&gt;Configuration value.&lt;/p&gt;
-
-
-
-### start
-
-    mixed FileMq\Server::start()
-
-
-
-...
-
-* Visibility: **public**
-
 
 
 
@@ -442,6 +409,35 @@ Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
+
+
+
+
+### start
+
+    mixed IZActor::start()
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZActor](IZActor.md)
+
+
+
+
+### run
+
+    mixed IZActor::run()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [IZActor](IZActor.md)
 
 
 

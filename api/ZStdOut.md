@@ -3,7 +3,7 @@ ZStdOut
 
 ZStdOut
 
-...
+Simple wrap for StdOut.
 
 
 * Class name: ZStdOut

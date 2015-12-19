@@ -3,6 +3,7 @@ API Index
 
 * [IZDescriptor](IZDescriptor.md)
 * [IZSocket](IZSocket.md)
+* [IZActor](IZActor.md)
 * [IZEmitter](IZEmitter.md)
 * Majordomo
     * [ITitanicStorage](Majordomo-ITitanicStorage.md)

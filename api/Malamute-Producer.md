@@ -8,7 +8,7 @@ Producer
 
 * Class name: Producer
 * Namespace: Malamute
-* This class implements: [IZSocket](IZSocket.md), [IZDescriptor](IZDescriptor.md), [IZEmitter](IZEmitter.md)
+* This class implements: [IZActor](IZActor.md), [IZDescriptor](IZDescriptor.md), [IZSocket](IZSocket.md), [IZEmitter](IZEmitter.md)
 
 
 
@@ -33,25 +33,6 @@ Methods
 #### Arguments
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
 * $stream **string** - &lt;p&gt;...&lt;/p&gt;
-
-
-
-### run
-
-    mixed Malamute\Producer::run(mixed $endpoint, mixed $stream, callable $callback)
-
-
-
-...
-
-* Visibility: **public**
-* This method is **static**.
-
-
-#### Arguments
-* $endpoint **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $stream **mixed** - &lt;p&gt;...&lt;/p&gt;
-* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -138,19 +119,6 @@ Send a one frame only message encoded with ZLib.
 #### Arguments
 * $subject **mixed** - &lt;p&gt;...&lt;/p&gt;
 * $data **mixed** - &lt;p&gt;The data to be encoded.&lt;/p&gt;
-
-
-
-### start
-
-    mixed Malamute\Producer::start()
-
-
-
-...
-
-* Visibility: **public**
-
 
 
 
@@ -284,6 +252,35 @@ Get the underlying ZSocket.
 
 * Visibility: **public**
 * This method is defined by [IZSocket](IZSocket.md)
+
+
+
+
+### start
+
+    mixed IZActor::start()
+
+
+
+...
+
+* Visibility: **public**
+* This method is defined by [IZActor](IZActor.md)
+
+
+
+
+### run
+
+    mixed IZActor::run()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+* This method is defined by [IZActor](IZActor.md)
 
 
 

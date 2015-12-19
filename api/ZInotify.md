@@ -3,7 +3,7 @@ ZInotify
 
 ZInotify
 
-...
+Inotify watcher.
 
 
 * Class name: ZInotify
@@ -217,16 +217,16 @@ Methods
 
     integer ZInotify::watch(string $file, integer $events)
 
+Start watching and inode for events. Return a watch_id.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $file **string** - &lt;p&gt;...&lt;/p&gt;
-* $events **integer** - &lt;p&gt;...&lt;/p&gt;
+* $file **string** - &lt;p&gt;The inode to watch.&lt;/p&gt;
+* $events **integer** - &lt;p&gt;Bitwise mask of events to watch.&lt;/p&gt;
 
 
 
@@ -234,15 +234,15 @@ Methods
 
     mixed ZInotify::remove(integer $watch_id)
 
+Stop watching watch_id.
 
 
-...
 
 * Visibility: **public**
 
 
 #### Arguments
-* $watch_id **integer** - &lt;p&gt;...&lt;/p&gt;
+* $watch_id **integer** - &lt;p&gt;The watch_id returned from previous &#039;watch&#039; call.&lt;/p&gt;
 
 
 
