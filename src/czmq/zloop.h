@@ -2,7 +2,7 @@
 
 #include "zsocket.h"
 
-class ZLoop : public ZHandle, public Php::Base  {
+class ZLoop : public ZHandle, public ZEmitter, public Php::Base  {
 private:
     zlistx_t *_callbacks = nullptr;
 
@@ -44,8 +44,8 @@ private:
 
 public:
 
-    ZLoop() : ZHandle(), Php::Base() { _callbacks = zlistx_new(); }
-    ZLoop(zloop_t *handle, bool owned) : ZHandle(handle, owned, "zloop"), Php::Base() { _callbacks = zlistx_new(); }
+    ZLoop() : ZHandle(), ZEmitter(), Php::Base() { _callbacks = zlistx_new(); }
+    ZLoop(zloop_t *handle, bool owned) : ZHandle(handle, owned, "zloop"), ZEmitter(), Php::Base() { _callbacks = zlistx_new(); }
     zloop_t *zloop_handle() const { return (zloop_t *) get_handle(); }
 
     void __construct(Php::Parameters &param) {
@@ -120,7 +120,7 @@ public:
         zmq_pollitem_t item = ZUtils::phpvalue_to_pollitem(param[0]);
         if(item.socket == nullptr && item.fd == INVALID_SOCKET)
             throw Php::Exception("Cannot remove PollItem.");
-        zloop_poller_end( zloop_handle(), &item);
+        zloop_poller_end(zloop_handle(), &item);
     }
 
     static Php::Class<ZLoop> php_register() {
@@ -135,6 +135,7 @@ public:
         o.method("stop", &ZLoop::stop);
         o.method("add", &ZLoop::add, {
             Php::ByVal("pollitem", Php::Type::String, true),
+            Php::ByVal("callback", Php::Type::Callable, true),
             Php::ByVal("mode", Php::Type::Numeric, false)
         });
         o.method("remove", &ZLoop::remove, {

@@ -25,10 +25,6 @@ void ZActor::start(Php::Parameters &param) {
     zpoller_add(poller, get_socket());
     while (!zsys_interrupted) {
         void *socket = zpoller_wait(poller, 1);
-        if(zpoller_terminated(poller)) {
-            break;
-        }
-        else
         if(socket) {
             zsys_info("got socket data");
             zmsg_t *msg = zmsg_recv(socket);
@@ -37,6 +33,10 @@ void ZActor::start(Php::Parameters &param) {
                 zmsg_destroy(&msg);
             } else
                 break;
+        }
+        else
+        if(zpoller_terminated(poller)) {
+            break;
         }
         else
         if(zpoller_expired(poller)) {

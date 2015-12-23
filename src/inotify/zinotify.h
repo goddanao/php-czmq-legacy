@@ -1,11 +1,11 @@
 #pragma once
 
 #include "../common.h"
+#include <sys/inotify.h>
 
 class ZInotify : public ZHandle, public Php::Base {
 private:
     std::map<int,std::string> _map;
-
 public:
 
     ZInotify() : ZHandle(inotify_init(), true, "fd"), Php::Base() { }

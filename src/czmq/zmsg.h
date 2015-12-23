@@ -441,7 +441,6 @@ public:
         }
     }
 
-
     Php::Value __toString() {
         if(zmsg_size(zmsg_handle()) == 0)
             return "";

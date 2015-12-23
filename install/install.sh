@@ -247,6 +247,30 @@ install_msgpack() {
   popd # pushd /tmp
 }
 
+install_bson() {
+
+  pushd /tmp
+
+  git clone https://github.com/mongodb/libbson.git
+  cd libbson
+
+  if [ $BSON_VERSION != "master" ]; then
+      if [ ${#BSON_VERSION} == 40 ]; then
+        git reset --hard $BSON_VERSION
+      else
+        git checkout "tags/${BSON_VERSION}"
+      fi
+  fi
+
+  ./autogen.sh
+  make -j 8
+  sudo make install
+  sudo ldconfig
+  cd ..
+
+  popd # pushd /tmp
+}
+
 install_libsodium
 install_zeromq
 install_czmq
@@ -256,14 +280,15 @@ install_majordomo
 # Malamute works with libzmq v4.2.0+ wich is current dev/master
 if [ $ZEROMQ_VERSION == "master" ] || [ ${#ZEROMQ_VERSION} == 40 ]; then
     install_malamute
-    export LINKER_DEPENDENCIES="-lphpcpp -lzmq -lczmq -lzyre -lmajordomo -lfilemq -lmlm"
+    export LINKER_DEPENDENCIES="-lphpcpp -lzmq -lczmq -lzyre -lmajordomo -lfilemq -lbson-1.0 -lmlm"
 else
-    export LINKER_DEPENDENCIES="-lphpcpp -lzmq -lczmq -lzyre -lmajordomo -lfilemq"
+    export LINKER_DEPENDENCIES="-lphpcpp -lzmq -lczmq -lzyre -lmajordomo -lfilemq -lbson-1.0"
 fi
 
 install_filemq
 install_phpcpp
 install_msgpack
+install_bson
 
 # Build and install PHP-CZMQ
 (make -j8 VERBOSE=1 && sudo make install && sudo ldconfig) || exit 1

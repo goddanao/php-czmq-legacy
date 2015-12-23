@@ -128,6 +128,9 @@ class ZAuthTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     *
+     */
     private function reset_sockets() {
         $this->server = new ZSocket(ZSys::SOCKET_PUSH);
         $this->client = new ZSocket(ZSys::SOCKET_PULL);

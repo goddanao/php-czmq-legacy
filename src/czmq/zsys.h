@@ -1,5 +1,7 @@
 #pragma once
 
+#include <net/if.h>
+
 class ZSys : public Php::Base {
 public:
 

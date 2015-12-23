@@ -7,8 +7,6 @@
 #include <locale>
 #include <iostream>
 #include <sstream>
-#include <net/if.h>
-#include <sys/inotify.h>
 #include <unistd.h>
 #include <algorithm>
 
@@ -17,7 +15,11 @@
 #include "common/zemitter.h"
 #include "common/zactor.h"
 #include "common/zparameters.h"
-#include "common/zinotify.h"
-#include "common/zstdio.h"
+#include "inotify/zinotify.h"
+#include "stdio/zstdio.h"
+#include "encoder/zencoder.h"
+#include "encoder/zencoder_msgpack.h"
+#include "encoder/zencoder_bson.h"
 
 #include "msgpack/msgpack.h"
+#include "bson/bson.h"

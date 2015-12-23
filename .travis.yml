@@ -6,7 +6,7 @@ php:
   - 5.6
 
 os:
-- linux
+  - linux
 
 env:
   - LIBSODIUM_VERSION=master ZEROMQ_VERSION=master CZMQ_VERSION=master ZYRE_VERSION=master MAJORDOMO_VERSION=master FILEMQ_VERSION=master MALAMUTE_VERSION=master PHPCPP_VERSION=master

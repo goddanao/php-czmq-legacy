@@ -18,10 +18,6 @@ extern "C" {
             zsys_set_pipehwm (0);
             zsys_set_sndhwm (0);
             zsys_set_rcvhwm (0);
-
-            // mlm_client_verbose = true;
-            // fmq_client_verbose = true;
-
         });
 
         // Shutdown zmq global context
@@ -76,6 +72,12 @@ extern "C" {
         Php::Namespace msgpack_ns("MsgPack");
         Php::Class<MsgPack> mmsgpack = MsgPack::php_register();
         msgpack_ns.add(std::move(mmsgpack));
+
+    // MSGPACK
+
+        Php::Namespace bson_ns("Bson");
+        Php::Class<Bson> zbson = Bson::php_register();
+        bson_ns.add(std::move(zbson));
 
     // CZMQ
 
@@ -258,6 +260,9 @@ extern "C" {
 
         // msgpack
         extension.add(std::move(msgpack_ns));
+
+        // bson
+        extension.add(std::move(bson_ns));
 
         // czmq
         extension.add(std::move(zsys));

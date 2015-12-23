@@ -6,7 +6,7 @@ EXTENSION 			=	${NAME}.so
 INI 				=	${NAME}.ini
 COMPILER			=	g++
 LINKER				=	g++
-COMPILER_FLAGS		=	`php-config --includes` -w -c -O2 -g -std=c++11 -fpic -o
+COMPILER_FLAGS		=	`php-config --includes` `pkg-config --cflags libbson-1.0` -w -c -O2 -g -std=c++11 -fpic -o
 LINKER_FLAGS		=	-shared
 
 RM					=	rm -f
