@@ -642,10 +642,10 @@ public:
         o.method("__construct", &ZMsg::__construct);
 
         o.method("append", &ZMsg::append, {
-            Php::ByRef("data", "ZFrame", false, true)
+            Php::ByVal("data", "ZFrame", false, true)
         });
         o.method("prepend", &ZMsg::prepend, {
-            Php::ByRef("data", "ZFrame", false, true)
+            Php::ByVal("data", "ZFrame", false, true)
         });
         o.method("pop", &ZMsg::pop);
 
@@ -692,11 +692,11 @@ public:
         o.method("pop_bson", &ZMsg::pop_bson);
 
         o.method("send", &ZMsg::send, {
-            Php::ByRef("socket", "IZSocket", false, true)
+            Php::ByVal("socket", "IZSocket", false, true)
         });
 
         o.method("remove", &ZMsg::remove, {
-            Php::ByRef("frame", "ZFrame", false, true)
+            Php::ByVal("frame", "ZFrame", false, true)
         });
 
         o.method("first", &ZMsg::first);

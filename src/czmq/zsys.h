@@ -271,7 +271,6 @@ public:
 
    #endif
 
-
         // Const - Event Type
         o.constant("EVENT_CLOSED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_CLOSED));
         o.constant("EVENT_CONNECTED", ZUtils::sprintf("0x%08x", ZMQ_EVENT_CONNECTED));
