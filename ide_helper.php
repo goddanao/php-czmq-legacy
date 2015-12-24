@@ -7,7 +7,7 @@ namespace {
  *
  * ZSys is static class holding zeromq system level methods / consts.
  */
-final class ZSys {
+final  class ZSys {
   const SOCKET_PUB = "pub";
   const SOCKET_SUB = "sub";
   const SOCKET_REP = "rep";
@@ -400,6 +400,12 @@ class ZUdp implements \IZDescriptor {
   public function recv_zipped() {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
+
+  /**
    * Send message.
    * 
    * @param mixed $data Data to send.
@@ -433,6 +439,13 @@ class ZUdp implements \IZDescriptor {
    * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_bson($data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -563,6 +576,26 @@ class ZMsg implements \ArrayAccess, \Countable, \Traversable {
    * @return mixed|null
   */
   public function pop_msgpack() {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function append_bson($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function prepend_bson($data) {}
+
+  /**
+   * ...
+   * 
+  */
+  public function pop_bson() {}
 
   /**
    * Send message.
@@ -755,9 +788,10 @@ class ZLoop {
    * ...
    * 
    * @param int|resource|\IZDescriptor|\IZSocket $pollitem ...
+   * @param callable $callback ...
    * @param int $mode ... (optional)
   */
-  public function add($pollitem, $mode = \ZSys::POLL_IN) {}
+  public function add($pollitem, callable $callback, $mode = \ZSys::POLL_IN) {}
 
   /**
    * ...
@@ -1282,6 +1316,12 @@ class ZSocket implements \IZSocket, \IZDescriptor {
   public function recv_zipped() {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
+
+  /**
    * Send message.
    * 
    * @param mixed $data Data to send.
@@ -1315,6 +1355,13 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_bson($data) {}
 
   /**
    * Create a PUB socket. Default action is bind.
@@ -2616,6 +2663,12 @@ class Broker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
   public function recv_zipped() {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
+
+  /**
    * Send message.
    * 
    * @param mixed $data Data to send.
@@ -2649,6 +2702,13 @@ class Broker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
    * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_bson($data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2785,6 +2845,12 @@ class Worker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
   public function recv_zipped() {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
+
+  /**
    * Send message.
    * 
    * @param mixed $data Data to send.
@@ -2818,6 +2884,13 @@ class Worker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
    * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_bson($data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -2922,6 +2995,12 @@ class Client implements \IZSocket, \IZDescriptor {
   public function recv_zipped() {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
+
+  /**
    * Send message.
    * 
    * @param mixed $data Data to send.
@@ -2955,6 +3034,13 @@ class Client implements \IZSocket, \IZDescriptor {
    * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_bson($data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -3074,6 +3160,12 @@ class Titanic implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
   public function recv_zipped() {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
+
+  /**
    * Send message.
    * 
    * @param mixed $data Data to send.
@@ -3107,6 +3199,13 @@ class Titanic implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
    * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_bson($data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -3319,6 +3418,12 @@ class Broker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
   public function recv_zipped() {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
+
+  /**
    * Send message.
    * 
    * @param mixed $data Data to send.
@@ -3352,6 +3457,13 @@ class Broker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
    * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_bson($data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -3489,6 +3601,12 @@ class Worker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
   public function recv_zipped() {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
+
+  /**
    * Send message.
    * 
    * @param mixed $data Data to send.
@@ -3522,6 +3640,13 @@ class Worker implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
    * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_bson($data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -3627,6 +3752,12 @@ class Client implements \IZSocket, \IZDescriptor {
    * @return mixed
   */
   public function recv_zipped() {}
+
+  /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
 
   /**
    * Get the underlying File Descriptor.
@@ -3892,6 +4023,12 @@ class Consumer implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
   public function recv_zipped() {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
+
+  /**
    * Get the underlying File Descriptor.
    * 
    * @return int
@@ -4067,6 +4204,12 @@ class Server implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
   public function recv_zipped() {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
+
+  /**
    * Send message.
    * 
    * @param mixed $data Data to send.
@@ -4100,6 +4243,13 @@ class Server implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
    * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_bson($data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -4238,6 +4388,12 @@ class Client implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
   public function recv_zipped() {}
 
   /**
+   * ...
+   * 
+  */
+  public function recv_bson() {}
+
+  /**
    * Send message.
    * 
    * @param mixed $data Data to send.
@@ -4271,6 +4427,13 @@ class Client implements \IZActor, \IZDescriptor, \IZSocket, \IZEmitter {
    * @param mixed $data The data to be encoded.
   */
   public function send_zipped($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+  */
+  public function send_bson($data) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -4329,6 +4492,51 @@ class MsgPack {
    * @return mixed
   */
   static public function decode($data, callable $decoder = null) {}
+
+}
+
+}
+
+namespace Bson {
+
+/**
+ * Bson
+ *
+ * ...
+ */
+class Bson {
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+   * @return mixed
+  */
+  static public function encode($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+   * @return mixed
+  */
+  static public function decode($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+   * @return mixed
+  */
+  static public function json_to_bson($data) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $data ...
+   * @return mixed
+  */
+  static public function bson_to_json($data) {}
 
 }
 

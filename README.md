@@ -1,6 +1,6 @@
 PHP-CZMQ [![Build Status](https://travis-ci.org/goddanao/php-czmq.svg)](https://travis-ci.org/goddanao/php-czmq)
 ================
-Php 5.4+ binding for ZeroMQ and derived projects / patterns. Includes MsgPack binary serialization support.
+Php 5.4+ binding for ZeroMQ and derived projects / patterns. Includes BSON and MsgPack binary serialization support.
 
 Library | Description | Classes
 --- | --- | ---
@@ -10,6 +10,7 @@ Library | Description | Classes
 [majordomo](https://github.com/zeromq/majordomo) | Reliable service-oriented request-reply dialog between a set of client applications, a broker and a set of worker applications. [(majordomo v2)](http://rfc.zeromq.org/spec:18) [(mmi)](http://rfc.zeromq.org/spec:8) [(titanic)](http://rfc.zeromq.org/spec:9) | [Majordomo\Broker](https://github.com/goddanao/php-czmq/blob/master/api/Majordomo-Broker.md), [Majordomo\Worker](https://github.com/goddanao/php-czmq/blob/master/api/Majordomo-Worker.md), [Majordomo\Client](https://github.com/goddanao/php-czmq/blob/master/api/Majordomo-Client.md), [Majordomo\Titanic](https://github.com/goddanao/php-czmq/blob/master/api/Majordomo-Titanic.md)
 [malamute](https://github.com/zeromq/malamute) | All the enterprise messaging patterns in one box. Requires libzmq 4.2.0+ [(docs)](https://github.com/zeromq/malamute/blob/master/MALAMUTE.md) | [Malamute\Broker](https://github.com/goddanao/php-czmq/blob/master/api/Malamute-Broker.md), [Malamute\Worker](https://github.com/goddanao/php-czmq/blob/master/api/Malamute-Worker.md), [Malamute\Client](https://github.com/goddanao/php-czmq/blob/master/api/Malamute-Client.md), [Malamute\Producer](https://github.com/goddanao/php-czmq/blob/master/api/Malamute-Producer.md), [Malamute\Consumer](https://github.com/goddanao/php-czmq/blob/master/api/Malamute-Consumer.md)
 [msgpack](https://github.com/msgpack/msgpack-c) | Efficient binary serialization format | [MsgPack\MsgPack](https://github.com/goddanao/php-czmq/blob/master/api/MsgPack-MsgPack.md)
+[bson](https://github.com/mongodb/libbson) | BSON serialization format | [Bson\Bson](https://github.com/goddanao/php-czmq/blob/master/api/Bson-Bson.md)
 
 ##Motivation
 The official ZeroMq php binding doesn't cover Zyre, Majordomo, Malamute and other interesting projects/patterns from the ZeroMq community and i wish to implement my first php extension using [PHP-CPP](http://www.php-cpp.com/).

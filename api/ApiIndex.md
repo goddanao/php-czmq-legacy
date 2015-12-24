@@ -40,4 +40,6 @@ API Index
     * [Client](FileMq-Client.md)
 * MsgPack
     * [MsgPack](MsgPack-MsgPack.md)
+* Bson
+    * [Bson](Bson-Bson.md)
 

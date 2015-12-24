@@ -242,6 +242,19 @@ Recieve a message and pop first frame decoding with ZLib.
 
 
 
+### recv_bson
+
+    mixed Malamute\Consumer::recv_bson()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### get_fd
 
     integer IZDescriptor::get_fd()

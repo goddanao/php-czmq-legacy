@@ -305,6 +305,19 @@ Recieve a message and pop first frame decoding with ZLib.
 
 
 
+### recv_bson
+
+    mixed FileMq\Server::recv_bson()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### send
 
     mixed FileMq\Server::send(mixed $data)
@@ -382,6 +395,22 @@ Send a one frame only message encoded with ZLib.
 
 #### Arguments
 * $data **mixed** - &lt;p&gt;The data to be encoded.&lt;/p&gt;
+
+
+
+### send_bson
+
+    mixed FileMq\Server::send_bson(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

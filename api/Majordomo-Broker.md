@@ -288,6 +288,19 @@ Recieve a message and pop first frame decoding with ZLib.
 
 
 
+### recv_bson
+
+    mixed Majordomo\Broker::recv_bson()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### send
 
     mixed Majordomo\Broker::send(mixed $data)
@@ -365,6 +378,22 @@ Send a one frame only message encoded with ZLib.
 
 #### Arguments
 * $data **mixed** - &lt;p&gt;The data to be encoded.&lt;/p&gt;
+
+
+
+### send_bson
+
+    mixed Majordomo\Broker::send_bson(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

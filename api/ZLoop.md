@@ -89,7 +89,7 @@ Enable verbose mode, debug outputs are shown.
 
 ### add
 
-    mixed ZLoop::add(integer|resource|\IZDescriptor|\IZSocket $pollitem, integer $mode)
+    mixed ZLoop::add(integer|resource|\IZDescriptor|\IZSocket $pollitem, callable $callback, integer $mode)
 
 
 
@@ -100,6 +100,7 @@ Enable verbose mode, debug outputs are shown.
 
 #### Arguments
 * $pollitem **integer|resource|[IZDescriptor](IZDescriptor.md)|[IZSocket](IZSocket.md)** - &lt;p&gt;...&lt;/p&gt;
+* $callback **callable** - &lt;p&gt;...&lt;/p&gt;
 * $mode **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 

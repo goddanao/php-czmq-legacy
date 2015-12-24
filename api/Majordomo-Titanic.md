@@ -21,7 +21,7 @@ Methods
 
 ### __construct
 
-    \Majordomo\Titanic Majordomo\Titanic::__construct(string $endpoint, \MsgPack\ITitanicStorage $storage, integer $threads)
+    \Majordomo\Titanic Majordomo\Titanic::__construct(string $endpoint, \Bson\ITitanicStorage $storage, integer $threads)
 
 
 
@@ -32,7 +32,7 @@ Methods
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;...&lt;/p&gt;
-* $storage **MsgPack\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
+* $storage **Bson\ITitanicStorage** - &lt;p&gt;... (optional)&lt;/p&gt;
 * $threads **integer** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
@@ -211,6 +211,19 @@ Recieve a message and pop first frame decoding with ZLib.
 
 
 
+### recv_bson
+
+    mixed Majordomo\Titanic::recv_bson()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### send
 
     mixed Majordomo\Titanic::send(mixed $data)
@@ -288,6 +301,22 @@ Send a one frame only message encoded with ZLib.
 
 #### Arguments
 * $data **mixed** - &lt;p&gt;The data to be encoded.&lt;/p&gt;
+
+
+
+### send_bson
+
+    mixed Majordomo\Titanic::send_bson(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
 
 
 

@@ -260,6 +260,51 @@ Pop next MsgPack decoded frame in message.
 
 
 
+### append_bson
+
+    mixed ZMsg::append_bson(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### prepend_bson
+
+    mixed ZMsg::prepend_bson(mixed $data)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $data **mixed** - &lt;p&gt;...&lt;/p&gt;
+
+
+
+### pop_bson
+
+    mixed ZMsg::pop_bson()
+
+
+
+...
+
+* Visibility: **public**
+
+
+
+
 ### send
 
     mixed ZMsg::send(\IZSocket $socket)
