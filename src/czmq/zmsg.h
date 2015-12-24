@@ -129,6 +129,16 @@ public:
                 }
             }
             else
+            if (*picture == 'B') {
+                Php::Value v = Bson::encode(param[picture_idx++]);
+                zmsg_t *mmsg = ZUtils::phpvalue_to_zmsg(v);
+                if(msg) {
+                    for (zframe_t *frame = zmsg_first (mmsg); frame; frame = zmsg_next (mmsg))
+                        zmsg_addmem (msg, zframe_data(frame), zframe_size(frame));
+                    zmsg_destroy(&mmsg);
+                }
+            }
+            else
             if (*picture == 'z') {
                 zmsg_addmem (msg, NULL, 0);
                 picture_idx++;
@@ -201,6 +211,16 @@ public:
             else
             if (*picture == 'M') {
                 Php::Value v = MsgPack::encode(param[picture_idx--]);
+                zmsg_t *mmsg = ZUtils::phpvalue_to_zmsg(v);
+                if(msg) {
+                    for (zframe_t *frame = zmsg_first (mmsg); frame; frame = zmsg_next (mmsg))
+                        zmsg_pushmem (msg, zframe_data(frame), zframe_size(frame));
+                    zmsg_destroy(&mmsg);
+                }
+            }
+            else
+            if (*picture == 'B') {
+                Php::Value v = Bson::encode(param[picture_idx--]);
                 zmsg_t *mmsg = ZUtils::phpvalue_to_zmsg(v);
                 if(msg) {
                     for (zframe_t *frame = zmsg_first (mmsg); frame; frame = zmsg_next (mmsg))
@@ -308,6 +328,15 @@ public:
                     rc = -1;
             }
             else
+            if (*picture == 'B') {
+                zframe_t *frame = zmsg_pop (msg);
+                if(frame) {
+                    result[idx++] = Bson::decode(zframe_data(frame), zframe_size(frame));
+                    zframe_destroy (&frame);
+                } else
+                    rc = -1;
+            }
+            else
             if (*picture == 'z') {
                 zframe_t *frame = zmsg_pop (msg);
                 if (frame) {
@@ -402,6 +431,36 @@ public:
         zframe_t *frame = zmsg_pop (zmsg_handle());
         if(frame) {
             Php::Value result = MsgPack::decode(zframe_data(frame), zframe_size(frame));
+            zframe_destroy (&frame);
+            return result;
+        }
+        return nullptr;
+    }
+
+    void append_bson(Php::Parameters &param) {
+        Php::Value v = Bson::encode(param[0]);
+        zmsg_t *msg = ZUtils::phpvalue_to_zmsg(v);
+        if(msg) {
+            for (zframe_t *frame = zmsg_first (msg); frame; frame = zmsg_next (msg))
+                zmsg_addmem (zmsg_handle(), zframe_data(frame), zframe_size(frame));
+            zmsg_destroy(&msg);
+        }
+    }
+
+    void prepend_bson(Php::Parameters &param) {
+        Php::Value v = Bson::encode(param[0]);
+        zmsg_t *msg = ZUtils::phpvalue_to_zmsg(v);
+        if(msg) {
+            for (zframe_t *frame = zmsg_first (msg); frame; frame = zmsg_next (msg))
+                zmsg_pushmem (zmsg_handle(), zframe_data(frame), zframe_size(frame));
+            zmsg_destroy(&msg);
+        }
+    }
+
+    Php::Value pop_bson() {
+        zframe_t *frame = zmsg_pop (zmsg_handle());
+        if(frame) {
+            Php::Value result = Bson::decode(zframe_data(frame), zframe_size(frame));
             zframe_destroy (&frame);
             return result;
         }
@@ -623,6 +682,14 @@ public:
             Php::ByVal("data", Php::Type::String, true)
         });
         o.method("pop_msgpack", &ZMsg::pop_msgpack);
+
+        o.method("append_bson", &ZMsg::append_bson, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o.method("prepend_bson", &ZMsg::prepend_bson, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
+        o.method("pop_bson", &ZMsg::pop_bson);
 
         o.method("send", &ZMsg::send, {
             Php::ByRef("socket", "IZSocket", false, true)

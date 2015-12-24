@@ -57,16 +57,33 @@ Php::Value ZHandle::recv_msgpack(Php::Parameters &param) {
         return nullptr;
     zframe_t *frame = zmsg_pop (msg);
     if(frame) {
-        Php::Value buffer;
-        int _buffer_size = zframe_size(frame);
-        buffer.reserve(_buffer_size);
-        const char *_buffer_to = buffer.rawValue();
-        byte *_buffer_from = zframe_data(frame);
-        memcpy((void *) _buffer_to, _buffer_from, _buffer_size);
+        Php::Value result = MsgPack::decode(zframe_data(frame), zframe_size(frame));
         zframe_destroy (&frame);
         zmsg_destroy(&msg);
-        Php::Value callback;
-        return MsgPack::decode(buffer, callback);
+        return result;
+    }
+    zmsg_destroy(&msg);
+    return nullptr;
+}
+
+
+Php::Value ZHandle::send_bson(Php::Parameters &param) {
+    Php::Value callback;
+    Php::Value v = Bson::encode(param[0], callback);
+    zmsg_t *msg = ZUtils::phpvalue_to_zmsg(v);
+    return _send(msg);
+}
+
+Php::Value ZHandle::recv_bson(Php::Parameters &param) {
+    zmsg_t *msg = _recv ();
+    if(!msg)
+        return nullptr;
+    zframe_t *frame = zmsg_pop (msg);
+    if(frame) {
+       Php::Value result = Bson::decode(zframe_data(frame), zframe_size(frame));
+       zframe_destroy (&frame);
+       zmsg_destroy(&msg);
+       return result;
     }
     zmsg_destroy(&msg);
     return nullptr;
@@ -85,15 +102,10 @@ Php::Value ZHandle::recv_zipped(Php::Parameters &param) {
 
     zframe_t *frame = zmsg_pop (msg);
     if(frame) {
-        Php::Value buffer;
-        int _buffer_size = zframe_size(frame);
-        buffer.reserve(_buffer_size);
-        const char *_buffer_to = buffer.rawValue();
-        byte *_buffer_from = zframe_data(frame);
-        memcpy((void *) _buffer_to, _buffer_from, _buffer_size);
+        Php::Value result = ZUtils::decompress_string(zframe_data(frame), zframe_size(frame));
         zframe_destroy (&frame);
         zmsg_destroy(&msg);
-        return ZUtils::decompress_string(buffer);
+        return result;
     }
     zmsg_destroy(&msg);
     return nullptr;

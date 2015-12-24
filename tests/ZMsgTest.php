@@ -100,6 +100,22 @@ class ZMsgTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($msg->pop_zipped());
     }
 
+    public function test_append_prepend_bson() {
+
+        $msg = new ZMsg();
+
+        $msg->append_bson(["frame" => "Frame2"]);
+        $msg->append_bson(["frame" => "Frame3"]);
+        $msg->prepend_bson(["frame" => "Frame1"]);
+        $msg->prepend_bson(["frame" => "Frame0"]);
+
+        $this->assertEquals($msg->pop_bson(), ["frame" => "Frame0"]);
+        $this->assertEquals($msg->pop_bson(), ["frame" => "Frame1"]);
+        $this->assertEquals($msg->pop_bson(), ["frame" => "Frame2"]);
+        $this->assertEquals($msg->pop_bson(), ["frame" => "Frame3"]);
+        $this->assertNull($msg->pop_bson());
+    }
+
     public function test_append_prepend_msgpack() {
 
         $msg = new ZMsg();

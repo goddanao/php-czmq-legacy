@@ -195,6 +195,10 @@ public:
         return zmsg_recv (get_socket());
     }
 
+    virtual Php::Value recv_bson(Php::Parameters &param);
+
+    virtual Php::Value send_bson(Php::Parameters &param);
+
     virtual Php::Value recv_zipped(Php::Parameters &param);
 
     virtual Php::Value send_zipped(Php::Parameters &param);
@@ -248,6 +252,9 @@ public:
         o->method("send_zipped", &T::send_zipped, {
             Php::ByVal("data", Php::Type::String, true)
         });
+        o->method("send_bson", &T::send_bson, {
+            Php::ByVal("data", Php::Type::String, true)
+        });
     }
 
     template<class T>
@@ -259,6 +266,7 @@ public:
         });
         o->method("recv_msgpack", &T::recv_msgpack);
         o->method("recv_zipped", &T::recv_zipped);
+        o->method("recv_bson", &T::recv_bson);
     }
 
     template<class T>

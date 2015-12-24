@@ -38,16 +38,4 @@ class Bson_Test extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($result, $object_json);
     }
 
-//
-//    public function test_pack_unpack_object_custom() {
-//
-//        $object = new Buddy("mario", 40);
-//
-//        $res = \MsgPack\MsgPack::encode($object);
-//        $result = \MsgPack\MsgPack::decode($res, function($cn, $props) {
-//            return new $cn($props['_name'], $props['_age']);
-//        });
-//        $this->assertEquals($object, $result);
-//    }
-
 }

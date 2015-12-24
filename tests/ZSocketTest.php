@@ -146,6 +146,24 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($result, $arr);
     }
 
+    public function test_send_recv_bson() {
+        $arr = [
+            "bool"    => true,
+            "integer" => 1,
+            "float"   => 1.544,
+            "string"  => "mystring",
+            "array"   => [ "one", "two", "three"],
+            "map"     => [
+                "one"   => "other",
+                "two"   => PHP_INT_MAX
+            ]
+        ];
+
+        $this->req->send_bson($arr);
+        $result = $this->rep->recv_bson();
+        $this->assertEquals($result, $arr);
+    }
+
     public function test_send_recv_msg() {
         $send = new ZMsg();
         $send->append_string("hello");
@@ -176,6 +194,9 @@ class ZSocketTest extends \PHPUnit_Framework_TestCase
             'S' => str_repeat('-', 256),                  // S = long string (> 255 chars),
             'b' => pack("nvc*", 0x1234, 0x5678, 65, 66),    // b = byte buffer
             'z' => null,                                    // z = NULL
+            'Z' => str_repeat('-', 4096),                   // Z = zipped frame,
+            'M' => [ 'hello' => 'world' ],                  // M = MessagePack frame
+            'B' => [ 'hello' => 'world' ],                  // B = BSON frame
             'm' => $msg,                                    // ZMsg (collect frames not in picture, till the end of recieved message)
         ];
 

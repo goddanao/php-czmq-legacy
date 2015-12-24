@@ -17,9 +17,6 @@
 #include "common/zparameters.h"
 #include "inotify/zinotify.h"
 #include "stdio/zstdio.h"
-#include "encoder/zencoder.h"
-#include "encoder/zencoder_msgpack.h"
-#include "encoder/zencoder_bson.h"
 
-#include "msgpack/msgpack.h"
-#include "bson/bson.h"
+#include "encoders/bson.h"
+#include "encoders/msgpack.h"
