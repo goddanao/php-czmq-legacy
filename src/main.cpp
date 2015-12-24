@@ -277,6 +277,8 @@ extern "C" {
         extension.add(std::move(zbeacon));
         extension.add(std::move(zauth));
         extension.add(std::move(zgossip));
+
+        // utility
         extension.add(std::move(zinotify));
         extension.add(std::move(_stdin));
         extension.add(std::move(_stdout));

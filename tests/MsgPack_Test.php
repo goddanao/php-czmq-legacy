@@ -45,8 +45,11 @@ class MsgPack_Test extends \PHPUnit_Framework_TestCase {
         $object = new Buddy("mario", 40);
 
         $res = \MsgPack\MsgPack::encode($object);
-        $result = \MsgPack\MsgPack::decode($res, function($cn, $props) {
-            return new $cn($props['_name'], $props['_age']);
+
+        $result = \MsgPack\MsgPack::decode($res, function($type, $value, $args) {
+            if($type == \MsgPack\MsgPack::MSGPACK_OBJECT_MAP && count($args) == 1) {
+                return new $args[0]($value['_name'], $value['_age']);
+            }
         });
         $this->assertEquals($object, $result);
     }
