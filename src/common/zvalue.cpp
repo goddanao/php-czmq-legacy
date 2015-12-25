@@ -4,39 +4,11 @@
 #include <zend_exceptions.h>
 #include <zend_interfaces.h>
 #include <zend_ini.h>
+#include <zend_string.h>
+#include <ext/standard/php_var.h>
 #include <ext/standard/php_smart_str.h>
 #include <ext/standard/php_incomplete_class.h>
-#include <ext/standard/php_var.h>
 #include "../czmq/zmsg.h"
-
-std::string ZValue::serialize() {
-    std::string result = NULL;
-    zval *retval_ptr = NULL;
-    zval fname;
-    int res;
-    zend_class_entry *ce = NULL;
-
-    HashTable* var_hash; // ??
-
-    TSRMLS_FETCH();
-
-    if (Z_OBJ_HT_P(_val)->get_class_entry)
-        ce = Z_OBJCE_P(_val);
-
-    // Object has a custom serializer? Use it ..
-    #if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 0)
-        if (ce && ce->serialize != NULL) {
-            unsigned char *serialized_data = NULL;
-            zend_uint serialized_length;
-            if (ce->serialize(_val, &serialized_data, &serialized_length, (zend_serialize_data *) var_hash TSRMLS_CC) == SUCCESS && !EG(exception))
-                result = std::string((const char *) serialized_data, serialized_length);
-            if (serialized_data)
-                efree(serialized_data);
-        }
-    #endif
-
-    return result;
-}
 
 std::string ZValue::get_class_name(void) {
     std::string result;
@@ -76,9 +48,10 @@ bool ZValue::isHashMap(void) {
 zmsg_t *ZValue::to_zmsg(void) {
     zmsg_t *zmsg = nullptr;
 
-    if(isString()) {
+    if(isScalar()) {
+        std::string res = stringValue();
         zmsg = zmsg_new ();
-        zmsg_pushmem (zmsg, rawValue(), size());
+        zmsg_pushmem (zmsg, res.c_str(), res.size());
     }
     else
     if(isObject()) {
@@ -90,24 +63,17 @@ zmsg_t *ZValue::to_zmsg(void) {
             if(frame) {
                 zmsg = zmsg_new ();
                 zmsg_pushmem (zmsg, zframe_data(frame->zframe_handle()), zframe_size(frame->zframe_handle()));
+            } else {
+                Php::Value res = Php::call("serialize", Php::Value(_val));
+                zmsg = zmsg_new ();
+                zmsg_pushmem (zmsg, res.rawValue(), res.size());
             }
         }
     }
-    else
-    if(isArray()) {
+    else {
+        Php::Value res = Php::call("serialize", Php::Value(_val));
         zmsg = zmsg_new ();
-        for (auto &iter : Php::Array(this)) {
-            Php::Value item = iter.second;
-            if(item.isString()) {
-                zmsg_pushmem (zmsg, item.rawValue(), item.size());
-            }
-            else
-            if(item.isObject()) {
-//                    zmsg_t *zmsg_dup = msg_from_object(&item);
-//                    if(zmsg_dup)
-//                        zmsg_addmsg(zmsg, &zmsg_dup);
-            }
-        }
+        zmsg_pushmem (zmsg, res.rawValue(), res.size());
     }
 
     return zmsg;
