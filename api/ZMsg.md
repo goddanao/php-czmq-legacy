@@ -44,7 +44,7 @@ Push a frame at the end of the message.
 
 
 #### Arguments
-* $data **[ZFrame](ZFrame.md)**
+* $data **[ZFrame](ZFrame.md)** - &lt;p&gt;Frame to append.&lt;/p&gt;
 
 
 
@@ -60,7 +60,7 @@ Add a frame at the top of the message.
 
 
 #### Arguments
-* $data **[ZFrame](ZFrame.md)**
+* $data **[ZFrame](ZFrame.md)** - &lt;p&gt;Frame to prepend.&lt;/p&gt;
 
 
 
@@ -307,7 +307,7 @@ Pop next MsgPack decoded frame in message.
 
 ### send
 
-    mixed ZMsg::send(\IZSocket $socket)
+    mixed ZMsg::send(\Bson\IZSocket $socket)
 
 Send message.
 
@@ -317,7 +317,7 @@ Send message.
 
 
 #### Arguments
-* $socket **[IZSocket](IZSocket.md)**
+* $socket **Bson\IZSocket** - &lt;p&gt;...&lt;/p&gt;
 
 
 
@@ -333,7 +333,7 @@ Remove the specified frame from the message.
 
 
 #### Arguments
-* $frame **[ZFrame](ZFrame.md)**
+* $frame **[ZFrame](ZFrame.md)** - &lt;p&gt;The frame to remove.&lt;/p&gt;
 
 
 

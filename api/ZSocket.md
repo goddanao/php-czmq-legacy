@@ -606,7 +606,7 @@ Methods
 
 ### __construct
 
-    \ZSocket ZSocket::__construct(mixed $type, string $endpoint)
+    \ZSocket ZSocket::__construct(mixed $type, string $endpoint, array $options)
 
 
 
@@ -618,19 +618,7 @@ Methods
 #### Arguments
 * $type **mixed** - &lt;p&gt;The socket type to be created.&lt;/p&gt;
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
-
-
-
-### set_verbose
-
-    mixed ZSocket::set_verbose()
-
-Enable verbose mode, debug outputs are shown.
-
-
-
-* Visibility: **public**
-
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -933,7 +921,7 @@ Send a one frame only message encoded with ZLib.
 
 ### pub
 
-    \ZSocket ZSocket::pub(string $endpoint)
+    \ZSocket ZSocket::pub(string $endpoint, array $options)
 
 Create a PUB socket. Default action is bind.
 
@@ -945,12 +933,13 @@ Create a PUB socket. Default action is bind.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### sub
 
-    \ZSocket ZSocket::sub(string $endpoint, string $topic)
+    \ZSocket ZSocket::sub(string $endpoint, array $options)
 
 Create a SUB socket, and optionally subscribe to some prefix string. Default action is connect.
 
@@ -962,13 +951,13 @@ Create a SUB socket, and optionally subscribe to some prefix string. Default act
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
-* $topic **string** - &lt;p&gt;Topic to subscribe. (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### rep
 
-    \ZSocket ZSocket::rep(string $endpoint)
+    \ZSocket ZSocket::rep(string $endpoint, array $options)
 
 Create a REP socket. Default action is bind.
 
@@ -980,12 +969,13 @@ Create a REP socket. Default action is bind.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### req
 
-    \ZSocket ZSocket::req(string $endpoint)
+    \ZSocket ZSocket::req(string $endpoint, array $options)
 
 Create a REQ socket. Default action is connect.
 
@@ -997,12 +987,13 @@ Create a REQ socket. Default action is connect.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### dealer
 
-    \ZSocket ZSocket::dealer(string $endpoint)
+    \ZSocket ZSocket::dealer(string $endpoint, array $options)
 
 Create a DEALER socket. Default action is connect.
 
@@ -1014,12 +1005,13 @@ Create a DEALER socket. Default action is connect.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### router
 
-    \ZSocket ZSocket::router(string $endpoint)
+    \ZSocket ZSocket::router(string $endpoint, array $options)
 
 Create a ROUTER socket. Default action is bind.
 
@@ -1031,12 +1023,13 @@ Create a ROUTER socket. Default action is bind.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### push
 
-    \ZSocket ZSocket::push(string $endpoint)
+    \ZSocket ZSocket::push(string $endpoint, array $options)
 
 Create a PUSH socket. Default action is connect.
 
@@ -1048,12 +1041,13 @@ Create a PUSH socket. Default action is connect.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### pull
 
-    \ZSocket ZSocket::pull(string $endpoint)
+    \ZSocket ZSocket::pull(string $endpoint, array $options)
 
 Create a PULL socket. Default action is bind.
 
@@ -1065,12 +1059,13 @@ Create a PULL socket. Default action is bind.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### xpub
 
-    \ZSocket ZSocket::xpub(string $endpoint)
+    \ZSocket ZSocket::xpub(string $endpoint, array $options)
 
 Create an XPUB socket. Default action is bind.
 
@@ -1082,12 +1077,13 @@ Create an XPUB socket. Default action is bind.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### xsub
 
-    \ZSocket ZSocket::xsub(string $endpoint)
+    \ZSocket ZSocket::xsub(string $endpoint, array $options)
 
 Create an XSUB socket. Default action is connect.
 
@@ -1099,12 +1095,13 @@ Create an XSUB socket. Default action is connect.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### xreq
 
-    \ZSocket ZSocket::xreq(string $endpoint)
+    \ZSocket ZSocket::xreq(string $endpoint, array $options)
 
 Alias for ROUTER socket. Default action is bind.
 
@@ -1116,12 +1113,13 @@ Alias for ROUTER socket. Default action is bind.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### xrep
 
-    \ZSocket ZSocket::xrep(string $endpoint)
+    \ZSocket ZSocket::xrep(string $endpoint, array $options)
 
 Alias for DEALER socket. Default action is connect.
 
@@ -1133,12 +1131,13 @@ Alias for DEALER socket. Default action is connect.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### pair
 
-    \ZSocket ZSocket::pair(string $endpoint)
+    \ZSocket ZSocket::pair(string $endpoint, array $options)
 
 Create a PAIR socket. Default action is connect.
 
@@ -1150,12 +1149,13 @@ Create a PAIR socket. Default action is connect.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### stream
 
-    \ZSocket ZSocket::stream(string $endpoint)
+    \ZSocket ZSocket::stream(string $endpoint, array $options)
 
 Create a STREAM socket. Default action is connect.
 
@@ -1167,12 +1167,13 @@ Create a STREAM socket. Default action is connect.
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### server
 
-    \ZSocket ZSocket::server(string $endpoint)
+    \ZSocket ZSocket::server(string $endpoint, array $options)
 
 Create a SERVER socket. Default action is bind. (Requires ZMQ > 4.2.0)
 
@@ -1184,12 +1185,13 @@ Create a SERVER socket. Default action is bind. (Requires ZMQ > 4.2.0)
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
 ### client
 
-    \ZSocket ZSocket::client(string $endpoint)
+    \ZSocket ZSocket::client(string $endpoint, array $options)
 
 Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
 
@@ -1201,6 +1203,7 @@ Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
 
 #### Arguments
 * $endpoint **string** - &lt;p&gt;Endpoint to connect or bind. (see &lt;a href=&quot;http://www.google.com&quot;&gt;Endpoint Format&lt;/a&gt;) (optional)&lt;/p&gt;
+* $options **array** - &lt;p&gt;... (optional)&lt;/p&gt;
 
 
 
@@ -1214,6 +1217,22 @@ Return a map of socket options values.
 
 * Visibility: **public**
 
+
+
+
+### set_options
+
+    mixed ZSocket::set_options(array $options)
+
+
+
+...
+
+* Visibility: **public**
+
+
+#### Arguments
+* $options **array** - &lt;p&gt;...&lt;/p&gt;
 
 
 

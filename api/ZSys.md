@@ -698,6 +698,20 @@ Return MsgPack version
 
 
 
+### libbson_version
+
+    mixed ZSys::libbson_version()
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+
+
 ### libmlm_version
 
     string ZSys::libmlm_version()

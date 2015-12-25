@@ -207,7 +207,6 @@ public:
     }
 
     static Php::Value decode(Php::Value &v, Php::Value &callback) {
-
         return decode_from_buffer(v.rawValue(), v.size(), callback);
     }
 

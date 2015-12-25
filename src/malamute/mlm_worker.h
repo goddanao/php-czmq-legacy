@@ -23,8 +23,6 @@ private:
 
             int _timeout = 0;
 
-            zsys_info("Creating Service '%s' with pattern '%s'", _name.c_str(), _pattern.c_str());
-
             int rc = mlm_client_connect(client, _endpoint.c_str(), _timeout, (_pattern != "") ? "" : _name.c_str());
             if(rc != -1 && (_pattern != ""))
                 rc = mlm_client_set_worker(client, _name.c_str(), _pattern.c_str());

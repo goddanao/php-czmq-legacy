@@ -255,6 +255,12 @@ final  class ZSys {
   static public function libmsgpack_version() {}
 
   /**
+   * ...
+   * 
+  */
+  static public function libbson_version() {}
+
+  /**
    * Return Malamute version
    * 
    * @return string
@@ -474,16 +480,16 @@ class ZMsg implements \ArrayAccess, \Countable, \Traversable {
   /**
    * Push a frame at the end of the message.
    * 
-   * @param \ZFrame &$data Frame to append.
+   * @param \ZFrame $data Frame to append.
   */
-  public function append(\ZFrame &$data) {}
+  public function append(\ZFrame $data) {}
 
   /**
    * Add a frame at the top of the message.
    * 
-   * @param \ZFrame &$data Frame to prepend.
+   * @param \ZFrame $data Frame to prepend.
   */
-  public function prepend(\ZFrame &$data) {}
+  public function prepend(\ZFrame $data) {}
 
   /**
    * Pop next frame in message.
@@ -600,16 +606,16 @@ class ZMsg implements \ArrayAccess, \Countable, \Traversable {
   /**
    * Send message.
    * 
-   * @param IZSocket &$socket ...
+   * @param IZSocket $socket ...
   */
-  public function send(\IZSocket &$socket) {}
+  public function send(\IZSocket $socket) {}
 
   /**
    * Remove the specified frame from the message.
    * 
-   * @param \ZFrame &$frame The frame to remove.
+   * @param \ZFrame $frame The frame to remove.
   */
-  public function remove(\ZFrame &$frame) {}
+  public function remove(\ZFrame $frame) {}
 
   /**
    * Return first frame in message and reset the iterator.
@@ -1210,15 +1216,10 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * 
    * @param mixed $type The socket type to be created.
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  public function __construct($type, $endpoint = null) {}
-
-  /**
-   * Enable verbose mode, debug outputs are shown.
-   * 
-  */
-  public function set_verbose() {}
+  public function __construct($type, $endpoint = null, array $options) {}
 
   /**
    * Set socket to use unbounded pipes (HWM=0); use this in cases when you are totally certain the message volume can fit in memory
@@ -1367,130 +1368,145 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * Create a PUB socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function pub($endpoint = null) {}
+  static public function pub($endpoint = null, array $options) {}
 
   /**
    * Create a SUB socket, and optionally subscribe to some prefix string. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
-   * @param string $topic Topic to subscribe. (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function sub($endpoint = null, $topic = null) {}
+  static public function sub($endpoint = null, array $options) {}
 
   /**
    * Create a REP socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function rep($endpoint = null) {}
+  static public function rep($endpoint = null, array $options) {}
 
   /**
    * Create a REQ socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function req($endpoint = null) {}
+  static public function req($endpoint = null, array $options) {}
 
   /**
    * Create a DEALER socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function dealer($endpoint = null) {}
+  static public function dealer($endpoint = null, array $options) {}
 
   /**
    * Create a ROUTER socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function router($endpoint = null) {}
+  static public function router($endpoint = null, array $options) {}
 
   /**
    * Create a PUSH socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function push($endpoint = null) {}
+  static public function push($endpoint = null, array $options) {}
 
   /**
    * Create a PULL socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function pull($endpoint = null) {}
+  static public function pull($endpoint = null, array $options) {}
 
   /**
    * Create an XPUB socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function xpub($endpoint = null) {}
+  static public function xpub($endpoint = null, array $options) {}
 
   /**
    * Create an XSUB socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function xsub($endpoint = null) {}
+  static public function xsub($endpoint = null, array $options) {}
 
   /**
    * Alias for ROUTER socket. Default action is bind.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function xreq($endpoint = null) {}
+  static public function xreq($endpoint = null, array $options) {}
 
   /**
    * Alias for DEALER socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function xrep($endpoint = null) {}
+  static public function xrep($endpoint = null, array $options) {}
 
   /**
    * Create a PAIR socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function pair($endpoint = null) {}
+  static public function pair($endpoint = null, array $options) {}
 
   /**
    * Create a STREAM socket. Default action is connect.
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function stream($endpoint = null) {}
+  static public function stream($endpoint = null, array $options) {}
 
   /**
    * Create a SERVER socket. Default action is bind. (Requires ZMQ > 4.2.0)
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function server($endpoint = null) {}
+  static public function server($endpoint = null, array $options) {}
 
   /**
    * Create a CLIENT socket. Default action is connect. (Requires ZMQ > 4.2.0)
    * 
    * @param string $endpoint Endpoint to connect or bind. (see [Endpoint Format](http://www.google.com)) (optional)
+   * @param array $options ... (optional)
    * @return \ZSocket
   */
-  static public function client($endpoint = null) {}
+  static public function client($endpoint = null, array $options) {}
 
   /**
    * Return a map of socket options values.
@@ -1498,6 +1514,13 @@ class ZSocket implements \IZSocket, \IZDescriptor {
    * @return array
   */
   public function get_options() {}
+
+  /**
+   * ...
+   * 
+   * @param array $options ...
+  */
+  public function set_options(array $options) {}
 
   /**
    * Get the underlying File Descriptor.
@@ -4474,6 +4497,17 @@ namespace MsgPack {
  * Supports basic php types and objects (only public properties).
  */
 class MsgPack {
+  const MSGPACK_OBJECT_NIL = 0x00000000;
+  const MSGPACK_OBJECT_BOOLEAN = 0x00000001;
+  const MSGPACK_OBJECT_POSITIVE_INTEGER = 0x00000002;
+  const MSGPACK_OBJECT_NEGATIVE_INTEGER = 0x00000003;
+  const MSGPACK_OBJECT_FLOAT = 0x00000004;
+  const MSGPACK_OBJECT_STR = 0x00000005;
+  const MSGPACK_OBJECT_ARRAY = 0x00000006;
+  const MSGPACK_OBJECT_MAP = 0x00000007;
+  const MSGPACK_OBJECT_BIN = 0x00000008;
+  const MSGPACK_OBJECT_EXT = 0x00000009;
+
 
   /**
    * Encode the specified data.
@@ -4505,6 +4539,35 @@ namespace Bson {
  * ...
  */
 class Bson {
+  const BSON_TYPE_UNDEFINED = 0x00000006;
+  const BSON_TYPE_NULL = 0x0000000a;
+  const BSON_TYPE_BOOL = 0x00000008;
+  const BSON_TYPE_INT32 = 0x00000010;
+  const BSON_TYPE_INT64 = 0x00000012;
+  const BSON_TYPE_DOUBLE = 0x00000001;
+  const BSON_TYPE_CODE = 0x0000000d;
+  const BSON_TYPE_CODEWSCOPE = 0x0000000f;
+  const BSON_TYPE_UTF8 = 0x00000002;
+  const BSON_TYPE_TIMESTAMP = 0x00000011;
+  const BSON_TYPE_DATE_TIME = 0x00000009;
+  const BSON_TYPE_REGEX = 0x0000000b;
+  const BSON_TYPE_BINARY = 0x00000005;
+  const BSON_TYPE_SYMBOL = 0x0000000e;
+  const BSON_TYPE_OID = 0x00000007;
+  const BSON_TYPE_ARRAY = 0x00000004;
+  const BSON_TYPE_DOCUMENT = 0x00000003;
+  const BSON_TYPE_EOD = 0x00000000;
+  const BSON_TYPE_DBPOINTER = 0x0000000c;
+  const BSON_TYPE_MAXKEY = 0x0000007f;
+  const BSON_TYPE_MINKEY = 0x000000ff;
+  const BSON_SUBTYPE_BINARY = 0x00000000;
+  const BSON_SUBTYPE_FUNCTION = 0x00000001;
+  const BSON_SUBTYPE_BINARY_DEPRECATED = 0x00000002;
+  const BSON_SUBTYPE_UUID_DEPRECATED = 0x00000003;
+  const BSON_SUBTYPE_UUID = 0x00000004;
+  const BSON_SUBTYPE_MD5 = 0x00000005;
+  const BSON_SUBTYPE_USER = 0x00000080;
+
 
   /**
    * ...

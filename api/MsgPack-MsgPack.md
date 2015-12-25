@@ -12,6 +12,88 @@ Supports basic php types and objects (only public properties).
 
 
 
+Constants
+----------
+
+
+### MSGPACK_OBJECT_NIL
+
+    const MSGPACK_OBJECT_NIL = 0
+
+
+
+
+
+### MSGPACK_OBJECT_BOOLEAN
+
+    const MSGPACK_OBJECT_BOOLEAN = 1
+
+
+
+
+
+### MSGPACK_OBJECT_POSITIVE_INTEGER
+
+    const MSGPACK_OBJECT_POSITIVE_INTEGER = 2
+
+
+
+
+
+### MSGPACK_OBJECT_NEGATIVE_INTEGER
+
+    const MSGPACK_OBJECT_NEGATIVE_INTEGER = 3
+
+
+
+
+
+### MSGPACK_OBJECT_FLOAT
+
+    const MSGPACK_OBJECT_FLOAT = 4
+
+
+
+
+
+### MSGPACK_OBJECT_STR
+
+    const MSGPACK_OBJECT_STR = 5
+
+
+
+
+
+### MSGPACK_OBJECT_ARRAY
+
+    const MSGPACK_OBJECT_ARRAY = 6
+
+
+
+
+
+### MSGPACK_OBJECT_MAP
+
+    const MSGPACK_OBJECT_MAP = 7
+
+
+
+
+
+### MSGPACK_OBJECT_BIN
+
+    const MSGPACK_OBJECT_BIN = 8
+
+
+
+
+
+### MSGPACK_OBJECT_EXT
+
+    const MSGPACK_OBJECT_EXT = 9
+
+
+
 
 
 
