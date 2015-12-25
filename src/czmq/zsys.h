@@ -47,6 +47,11 @@ public:
         return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
     }
 
+    static Php::Value libbson_version() {
+        int major = BSON_MAJOR_VERSION, minor = BSON_MINOR_VERSION, patch = BSON_MICRO_VERSION;
+        return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
+    }
+
     static Php::Value hostname() {
         Php::Value result;
         char *hostname = zsys_hostname();
@@ -230,6 +235,8 @@ public:
         o.method("libmdp_version", &ZSys::libmdp_version);
         o.method("libfmq_version", &ZSys::libfmq_version);
         o.method("libmsgpack_version", &ZSys::libmsgpack_version);
+        o.method("libbson_version", &ZSys::libbson_version);
+
 
 
         #ifdef MALAMUTE_VERSION_MAJOR
