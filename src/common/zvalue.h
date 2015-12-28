@@ -24,6 +24,7 @@ public:
     zmq_pollitem_t to_pollitem(short event = 0);
 
     zmsg_t *to_zmsg(void);
+    zframe_t *to_zframe(void);
 
     std::string serialize(void);
 };

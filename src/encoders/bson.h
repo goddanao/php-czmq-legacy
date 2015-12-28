@@ -17,7 +17,7 @@ private:
             return v;
         };
 
-        if(val->isObject()) {
+        if(val->isObject() && !val->isCallable()) {
             bson_t *doc = first ? curdoc : bson_new();
             std::string classname(val->get_class_name());
             Php::Value vv = custom_encoder("object", v, { classname });

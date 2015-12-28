@@ -52,15 +52,21 @@ public:
     }
 
     Php::Value append(Php::Parameters &param) {
-        ZFrame *zframe  = dynamic_cast<ZFrame *>(param[0].implementation());
-        zframe_t *frame = zframe_dup(zframe->zframe_handle());
-        zmsg_append(zmsg_handle(), &frame);
+        zmsg_t *msg = ZUtils::params_to_zmsg(param);
+        if(msg) {
+            for (zframe_t *frame = zmsg_first (msg); frame; frame = zmsg_next (msg))
+                zmsg_addmem (zmsg_handle(), zframe_data(frame), zframe_size(frame));
+            zmsg_destroy(&msg);
+        }
     }
 
     Php::Value prepend(Php::Parameters &param) {
-        ZFrame *zframe  = dynamic_cast<ZFrame *>(param[0].implementation());
-        zframe_t *frame = zframe_dup(zframe->zframe_handle());
-        zmsg_prepend(zmsg_handle(), &frame);
+        zmsg_t *msg = ZUtils::params_to_zmsg(param);
+        if(msg) {
+            for (zframe_t *frame = zmsg_first (msg); frame; frame = zmsg_next (msg))
+                zmsg_pushmem (zmsg_handle(), zframe_data(frame), zframe_size(frame));
+            zmsg_destroy(&msg);
+        }
     }
 
     Php::Value pop() {
@@ -642,10 +648,10 @@ public:
         o.method("__construct", &ZMsg::__construct);
 
         o.method("append", &ZMsg::append, {
-            Php::ByVal("data", "ZFrame", false, true)
+            Php::ByVal("data", Php::Type::String, true)
         });
         o.method("prepend", &ZMsg::prepend, {
-            Php::ByVal("data", "ZFrame", false, true)
+            Php::ByVal("data", Php::Type::String, true)
         });
         o.method("pop", &ZMsg::pop);
 

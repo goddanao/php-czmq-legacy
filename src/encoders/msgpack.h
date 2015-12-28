@@ -35,7 +35,7 @@ private:
             }
         }
         else
-        if(val->isObject()) {
+        if(val->isObject() && !val->isCallable()) {
             ZValue *zv = (ZValue *) &v;
             std::string classname(zv->get_class_name());
             Php::Value vv = custom_encoder("object", v, { classname });
@@ -86,7 +86,7 @@ private:
         }
         else
         if(val->isCallable()) {
-            Php::Value vv = custom_encoder("callable", v(), { });
+            Php::Value vv = custom_encoder("callable", v, { });
             if(vv.isNull() || !vv.isString() || vv.size() == 0)
                 pk->pack_nil();
             else {
@@ -159,7 +159,6 @@ private:
 
            default:
             return custom_decoder(unpacked->type, nullptr, {});
-
        }
    }
 

@@ -12,7 +12,7 @@
 
 std::string ZValue::get_class_name(void) {
     std::string result;
-    if(isObject()) {
+    if(isObject() && !isCallable()) {
         TSRMLS_FETCH();
         PHP_CLASS_ATTRIBUTES;
         PHP_SET_CLASS_ATTRIBUTES(_val);
@@ -46,37 +46,48 @@ bool ZValue::isHashMap(void) {
 }
 
 zmsg_t *ZValue::to_zmsg(void) {
-    zmsg_t *zmsg = nullptr;
+
+    ZMsg *zzmsg = nullptr;
+    if((zzmsg = dynamic_cast<ZMsg *>(implementation())) != nullptr)
+        return zmsg_dup(zzmsg->zmsg_handle());
+
+    zframe_t *frame = to_zframe();
+    if(frame) {
+        zmsg_t *msg = zmsg_new();
+        zmsg_push(msg, frame);
+        return msg;
+    }
+
+    return nullptr;
+}
+
+zframe_t *ZValue::to_zframe(void) {
+    zframe_t *frame = nullptr;
+    ZFrame *zzframe = nullptr;
 
     if(isScalar()) {
         std::string res = stringValue();
-        zmsg = zmsg_new ();
-        zmsg_pushmem (zmsg, res.c_str(), res.size());
+        frame = zframe_new (res.c_str(), res.size());
     }
     else
-    if(isObject()) {
-        ZMsg *zzmsg = dynamic_cast<ZMsg *>(implementation());
-        if(zzmsg) {
-            zmsg = zmsg_dup(zzmsg->zmsg_handle());
+    if((zzframe = dynamic_cast<ZFrame *>(implementation())) != nullptr) {
+        frame = zframe_dup(zzframe->zframe_handle());
+    }
+    else
+    if(isCallable()) {
+        zsys_info("Trying to serialize a closure ...");
+        if(Php::class_exists("SuperClosure\\Serializer")) {
+            zsys_info("SuperClosure\\Serializer FOUND!!");
+            // Php::Value res = Php::eval("SuperClosure\\Serializer::serialize", Php::Value(_val));
         } else {
-            ZFrame *frame = dynamic_cast<ZFrame *>(implementation());
-            if(frame) {
-                zmsg = zmsg_new ();
-                zmsg_pushmem (zmsg, zframe_data(frame->zframe_handle()), zframe_size(frame->zframe_handle()));
-            } else {
-                Php::Value res = Php::call("serialize", Php::Value(_val));
-                zmsg = zmsg_new ();
-                zmsg_pushmem (zmsg, res.rawValue(), res.size());
-            }
+            zsys_info("SuperClosure\\Serializer NOT FOUND!!");
         }
     }
     else {
         Php::Value res = Php::call("serialize", Php::Value(_val));
-        zmsg = zmsg_new ();
-        zmsg_pushmem (zmsg, res.rawValue(), res.size());
+        frame = zframe_new(res.rawValue(), res.size());
     }
-
-    return zmsg;
+    return frame;
 }
 
 zmq_pollitem_t ZValue::to_pollitem(short event) {
