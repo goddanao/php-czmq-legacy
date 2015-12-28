@@ -197,9 +197,33 @@ public:
         static  Php::Value get_ipv6_mcast_address(Php::Parameters &param) { return zsys_ipv6_mcast_address(); }
     #endif
 
+
+    static void set_default_encoder(Php::Parameters &param) {
+        Php::GLOBALS["zsys_default_encoder"]            = param[0];
+        Php::GLOBALS["zsys_default_encoder_callback"]   = param.size() > 1 ? param[1] : nullptr;
+    }
+
+    static void set_default_decoder(Php::Parameters &param) {
+        Php::GLOBALS["zsys_default_decoder"]            = param[0];
+        Php::GLOBALS["zsys_default_decoder_callback"]   = param.size() > 1 ? param[1] : nullptr;
+    }
+
     static Php::Class<ZSys> php_register() {
 
         Php::Class<ZSys> o("ZSys", Php::Public | Php::Final);
+
+        o.method("set_default_encoder", &ZSys::set_default_encoder, {
+            Php::ByVal("type", Php::Type::String, true),
+            Php::ByVal("callback", Php::Type::Callable, false)
+        });
+        o.method("set_default_decoder", &ZSys::set_default_decoder, {
+            Php::ByVal("type", Php::Type::String, true),
+            Php::ByVal("callback", Php::Type::Callable, false)
+        });
+        o.constant("ENCODER_MSGPACK", "msgpack");
+        o.constant("ENCODER_BSON", "bson");
+        o.constant("ENCODER_ZMQ", "zmq");
+        o.constant("ENCODER_DEFAULT", "zmq");
 
         o.method("set_io_threads", &ZSys::set_io_threads, {
             Php::ByVal("threads", Php::Type::Numeric, true)
