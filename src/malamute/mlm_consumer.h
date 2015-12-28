@@ -10,9 +10,6 @@ private:
 
         if(client) {
 
-            if(poller)
-                zpoller_add(poller, mlm_client_msgpipe(client));
-
             std::string _endpoint = (param.size() > 0) ? param[0].stringValue() : "";
             std::string _stream   = "";
             std::string _subject  = "";
@@ -34,6 +31,8 @@ private:
                 throw Php::Exception("Internal Error: Can't create Malamute Consumer.");
             }
 
+            if(poller)
+                zpoller_add(poller, mlm_client_msgpipe(client));
 
         }
         return client;
