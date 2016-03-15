@@ -8,6 +8,10 @@ namespace {
  * ZSys is static class holding zeromq system level methods / consts.
  */
 final  class ZSys {
+  const ENCODER_MSGPACK = "msgpack";
+  const ENCODER_BSON = "bson";
+  const ENCODER_ZMQ = "zmq";
+  const ENCODER_DEFAULT = "zmq";
   const SOCKET_PUB = "pub";
   const SOCKET_SUB = "sub";
   const SOCKET_REP = "rep";
@@ -43,6 +47,22 @@ final  class ZSys {
   const POLL_ERR = 4;
   const POLL_PRI = 8;
 
+
+  /**
+   * ...
+   * 
+   * @param mixed $type ...
+   * @param callable $callback ... (optional)
+  */
+  static public function set_default_encoder($type, callable $callback) {}
+
+  /**
+   * ...
+   * 
+   * @param mixed $type ...
+   * @param callable $callback ... (optional)
+  */
+  static public function set_default_decoder($type, callable $callback) {}
 
   /**
    * Configure the number of I/O threads that ZeroMQ will use. A good
@@ -482,14 +502,14 @@ class ZMsg implements \ArrayAccess, \Countable, \Traversable {
    * 
    * @param \ZFrame $data Frame to append.
   */
-  public function append(\ZFrame $data) {}
+  public function append($data) {}
 
   /**
    * Add a frame at the top of the message.
    * 
    * @param \ZFrame $data Frame to prepend.
   */
-  public function prepend(\ZFrame $data) {}
+  public function prepend($data) {}
 
   /**
    * Pop next frame in message.
@@ -4507,6 +4527,10 @@ class MsgPack {
   const MSGPACK_OBJECT_MAP = 0x00000007;
   const MSGPACK_OBJECT_BIN = 0x00000008;
   const MSGPACK_OBJECT_EXT = 0x00000009;
+  const MSGPACK_OBJECT_EXT_TYPE_OBJECT = 0x00000001;
+  const MSGPACK_OBJECT_EXT_TYPE_CLOSURE = 0x00000002;
+  const MSGPACK_OBJECT_EXT_TYPE_RESOURCE = 0x00000003;
+  const MSGPACK_OBJECT_EXT_TYPE_UNKNOWN = 0x00000004;
 
 
   /**

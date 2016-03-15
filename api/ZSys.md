@@ -15,6 +15,38 @@ Constants
 ----------
 
 
+### ENCODER_MSGPACK
+
+    const ENCODER_MSGPACK = "msgpack"
+
+
+
+
+
+### ENCODER_BSON
+
+    const ENCODER_BSON = "bson"
+
+
+
+
+
+### ENCODER_ZMQ
+
+    const ENCODER_ZMQ = "zmq"
+
+
+
+
+
+### ENCODER_DEFAULT
+
+    const ENCODER_DEFAULT = "zmq"
+
+
+
+
+
 ### SOCKET_PUB
 
     const SOCKET_PUB = "pub"
@@ -291,6 +323,42 @@ Constants
 
 Methods
 -------
+
+
+### set_default_encoder
+
+    mixed ZSys::set_default_encoder(mixed $type, callable $callback)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $type **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $callback **callable** - &lt;p&gt;... (optional)&lt;/p&gt;
+
+
+
+### set_default_decoder
+
+    mixed ZSys::set_default_decoder(mixed $type, callable $callback)
+
+
+
+...
+
+* Visibility: **public**
+* This method is **static**.
+
+
+#### Arguments
+* $type **mixed** - &lt;p&gt;...&lt;/p&gt;
+* $callback **callable** - &lt;p&gt;... (optional)&lt;/p&gt;
+
 
 
 ### set_io_threads

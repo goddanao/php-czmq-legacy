@@ -10,6 +10,14 @@
 #include <ext/standard/php_incomplete_class.h>
 #include "../czmq/zmsg.h"
 
+// Php Globals Utils
+void ZValue::ensure_global(void) {
+    TSRMLS_FETCH();
+    if(!EG(active_symbol_table)) {
+        zend_rebuild_symbol_table(TSRMLS_C);
+    }
+}
+
 std::string ZValue::get_class_name(void) {
     std::string result;
     if(isObject() && !isCallable()) {

@@ -234,4 +234,34 @@ public:
         return outstring;
     }
 
+    static Php::Value default_encoder(Php::Value &type, Php::Value &v, Php::Value &a) {
+        zsys_info("Checking for default encoder ...");
+        if(Php::GLOBALS["zsys_default_encoder_callback"]) {
+            zsys_info("Checking for default encoder ... FOUND!");
+
+            // @TODO Aggiungere il tipo di encoder (in questo caso msgpack) agli arguments
+            //       che devono diventare map
+
+            Php::Value result = Php::GLOBALS["zsys_default_encoder_callback"](type, v, a);
+            return result.isNull() ? v : result;
+        } else {
+            zsys_info("Checking for default encoder ... NOT FOUND! %s", type.stringValue().c_str());
+            return v; // Php::call("serialize", v);
+        }
+    }
+
+    static Php::Value default_decoder(int type, Php::Value &v, Php::Value &a) {
+          zsys_info("Checking for default decoder ...");
+          if(Php::GLOBALS["zsys_default_decoder_callback"]) {
+              zsys_info("Checking for default decoder ... FOUND!");
+
+              Php::Value result = Php::GLOBALS["zsys_default_decoder_callback"](type, v, a);
+              return result.isNull() ? v : result;
+          } else {
+              // if(type == MSGPACK_OBJECT_EXT)
+              zsys_info("Checking for default decoder ... NOT FOUND!");
+              return v;
+          }
+    }
+
 };

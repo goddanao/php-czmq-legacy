@@ -2,6 +2,11 @@
 
 #include <msgpack.hpp>
 
+#define MSGPACK_OBJECT_EXT_TYPE_OBJECT      1
+#define MSGPACK_OBJECT_EXT_TYPE_CLOSURE     2
+#define MSGPACK_OBJECT_EXT_TYPE_RESOURCE    3
+#define MSGPACK_OBJECT_EXT_TYPE_UNKNOWN     4
+
 class MsgPack : public Php::Base  {
 private:
 
@@ -13,8 +18,11 @@ private:
             if(got_custom_encoder) {
                 Php::Value result = c(type, v, a);
                 return result.isNull() ? v : result;
+            } else {
+                if(type == 'object')
+                    return Php::call("serialize", v);
+                return ZUtils::default_encoder(type, v, a);
             }
-            return v;
         };
 
         if(val->isArray() && val->isHashMap()) {
@@ -36,22 +44,12 @@ private:
         }
         else
         if(val->isObject() && !val->isCallable()) {
-            ZValue *zv = (ZValue *) &v;
-            std::string classname(zv->get_class_name());
-            Php::Value vv = custom_encoder("object", v, { classname });
-
-            int size = 0;
-            for (auto &iter : vv) size++;
-
-            pk->pack_map(size+1);
-            pk->pack_nil();
-            pk->pack(classname);
-
-            for (auto &iter : vv) {
-                Php::Value key = iter.first;
-                Php::Value val = iter.second;
-                encode_phpvalue(pk, key, c);
-                encode_phpvalue(pk, val, c);
+            Php::Value vv = custom_encoder("object", v, { });
+            if(vv.isNull() || !vv.isString() || vv.size() == 0)
+                pk->pack_nil();
+            else {
+                pk->pack_ext(vv.size(), MSGPACK_OBJECT_EXT_TYPE_OBJECT);
+                pk->pack_ext_body(vv.rawValue(), vv.size());
             }
         }
         else
@@ -80,8 +78,8 @@ private:
             if(vv.isNull() || !vv.isString() || vv.size() == 0)
                 pk->pack_nil();
             else {
-                pk->pack_bin(vv.size());
-                pk->pack_bin_body(vv.rawValue(), vv.size());
+                pk->pack_ext(vv.size(), MSGPACK_OBJECT_EXT_TYPE_RESOURCE);
+                pk->pack_ext_body(vv.rawValue(), vv.size());
             }
         }
         else
@@ -90,8 +88,8 @@ private:
             if(vv.isNull() || !vv.isString() || vv.size() == 0)
                 pk->pack_nil();
             else {
-                pk->pack_bin(vv.size());
-                pk->pack_bin_body(vv.rawValue(), vv.size());
+                pk->pack_ext(vv.size(), MSGPACK_OBJECT_EXT_TYPE_CLOSURE);
+                pk->pack_ext_body(vv.rawValue(), vv.size());
             }
         }
         else {
@@ -99,8 +97,8 @@ private:
             if(vv.isNull() || !vv.isString() || vv.size() == 0)
                 pk->pack_nil();
             else {
-                pk->pack_bin(vv.size());
-                pk->pack_bin_body(vv.rawValue(), vv.size());
+                pk->pack_ext(vv.size(), MSGPACK_OBJECT_EXT_TYPE_UNKNOWN);
+                pk->pack_ext_body(vv.rawValue(), vv.size());
             }
         }
     }
@@ -113,10 +111,12 @@ private:
        std::string classname;
 
        std::function<Php::Value(int type, Php::Value v, Php::Value a)> custom_decoder = [&c, got_custom_decoder](int type, Php::Value v, Php::Value a){
-        if(!got_custom_decoder)
-            return v;
-        Php::Value res = c(type, v, a);
-        return res.isNull() ? v : res;
+            if(got_custom_decoder) {
+                Php::Value res = c(type, v, a);
+                return res.isNull() ? v : res;
+            } else {
+                return ZUtils::default_decoder(type, v, a);
+            }
        };
 
        switch(unpacked->type) {
@@ -235,6 +235,10 @@ public:
         o.constant("MSGPACK_OBJECT_MAP", ZUtils::sprintf("0x%08x", MSGPACK_OBJECT_MAP));
         o.constant("MSGPACK_OBJECT_BIN", ZUtils::sprintf("0x%08x", MSGPACK_OBJECT_BIN));
         o.constant("MSGPACK_OBJECT_EXT", ZUtils::sprintf("0x%08x", MSGPACK_OBJECT_EXT));
+        o.constant("MSGPACK_OBJECT_EXT_TYPE_OBJECT", ZUtils::sprintf("0x%08x", MSGPACK_OBJECT_EXT_TYPE_OBJECT));
+        o.constant("MSGPACK_OBJECT_EXT_TYPE_CLOSURE", ZUtils::sprintf("0x%08x", MSGPACK_OBJECT_EXT_TYPE_CLOSURE));
+        o.constant("MSGPACK_OBJECT_EXT_TYPE_RESOURCE", ZUtils::sprintf("0x%08x", MSGPACK_OBJECT_EXT_TYPE_RESOURCE));
+        o.constant("MSGPACK_OBJECT_EXT_TYPE_UNKNOWN", ZUtils::sprintf("0x%08x", MSGPACK_OBJECT_EXT_TYPE_UNKNOWN));
 
         return o;
     }

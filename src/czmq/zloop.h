@@ -75,9 +75,12 @@ public:
         zloop_timer (zloop_handle(), 1, 1, cb_loop_stop, nullptr);
     }
 
-    void ignore_interrupts() {
-        zloop_ignore_interrupts(zloop_handle());
-    }
+    #if (CZMQ_VERSION <= CZMQ_MAKE_VERSION(3,0,2))
+        void ignore_interrupts() {
+            zloop_ignore_interrupts(zloop_handle());
+        }
+    #endif
+
 
     Php::Value add_timer(Php::Parameters &param) {
         bool valid = (param.size() >= 2 && param[0].isNumeric() && param[1].isCallable());
@@ -149,7 +152,10 @@ public:
         o.method("remove_timer", &ZLoop::remove_timer, {
             Php::ByVal("timer_id", Php::Type::Numeric, true)
         });
-        o.method("ignore_interrupts", &ZLoop::ignore_interrupts);
+
+        #if (CZMQ_VERSION <= CZMQ_MAKE_VERSION(3,0,2))
+            o.method("ignore_interrupts", &ZLoop::ignore_interrupts);
+        #endif
 
         return o;
     }

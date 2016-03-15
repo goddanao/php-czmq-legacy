@@ -26,5 +26,7 @@ public:
     zmsg_t *to_zmsg(void);
     zframe_t *to_zframe(void);
 
-    std::string serialize(void);
+    // std::string serialize(void);
+
+    static void ensure_global(void);
 };

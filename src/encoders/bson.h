@@ -13,8 +13,9 @@ private:
             if(got_custom_encoder) {
                 Php::Value result = c(type, v, a);
                 return result.isNull() ? v : result;
+            } else {
+                return ZUtils::default_encoder(type, v, a);
             }
-            return v;
         };
 
         if(val->isObject() && !val->isCallable()) {
@@ -115,13 +116,14 @@ private:
         int idx = 0;
         bson_iter_t child_iter;
 
-        std::function<Php::Value(const int type, Php::Value v, Php::Value a)> custom_decoder = [got_custom_decoder, &c](const int type, Php::Value v, Php::Value a) {
+        std::function<Php::Value(int type, Php::Value v, Php::Value a)> custom_decoder = [&c, got_custom_decoder](int type, Php::Value v, Php::Value a){
             if(got_custom_decoder) {
-                Php::Value result = c(type, v, a);
-                return result.isNull() ? v : result;
+                Php::Value res = c(type, v, a);
+                return res.isNull() ? v : res;
+            } else {
+                return ZUtils::default_decoder(type, v, a);
             }
-            return v;
-        };
+       };
 
         switch(_value->value_type) {
             case BSON_TYPE_NULL       : return custom_decoder(_value->value_type, nullptr, { });

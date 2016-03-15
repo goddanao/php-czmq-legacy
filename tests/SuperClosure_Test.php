@@ -5,13 +5,14 @@ use Spork\ProcessManager;
 
 class SuperClosure_Test extends \PHPUnit_Framework_TestCase {
 
-    public function test_encode_decode_json() {
+    public function test_serialize_closure() {
         $msg = new ZMsg();
-        $closure = function ($a, $b) {
-            echo "hello this is my closure! ($a, $b)\n";
-        };
-        $msg->append($closure);
         $msg->dump();
+//        $closure = function ($a, $b) {
+//            echo "hello this is my closure! ($a, $b)\n";
+//        };
+//        $msg->append($closure);
+//        $msg->dump();
     }
 
 
